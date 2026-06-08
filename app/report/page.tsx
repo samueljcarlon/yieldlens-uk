@@ -9,6 +9,7 @@ import type {
   Submission,
 } from '@/types/property';
 import { getLatestSubmission } from '@/lib/storage';
+import ScenarioPanel from '@/components/ScenarioPanel';
 
 function formatCurrency(value?: number): string {
   if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
@@ -324,6 +325,10 @@ export default function ReportPage() {
           ) : (
             <CommercialReportMetrics result={result as CommercialResult} />
           )}
+        </section>
+
+        <section className="mb-8">
+          <ScenarioPanel submission={submission} />
         </section>
 
         <section className="mb-8">

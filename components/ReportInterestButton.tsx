@@ -50,7 +50,7 @@ export default function ReportInterestButton({
         disabled={status === 'loading'}
         className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800 disabled:opacity-60 disabled:cursor-not-allowed text-center"
       >
-        {status === 'loading' ? 'Saving request...' : 'Request full report access'}
+        {status === 'loading' ? 'Saving request...' : 'Request full viability file'}
       </button>
 
       {message && (

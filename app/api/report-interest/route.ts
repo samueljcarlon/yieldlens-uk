@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     const requestedReportType =
       typeof body.requestedReportType === 'string'
         ? body.requestedReportType
-        : 'standard_pdf';
+        : 'standard_viability_file';
 
     if (!submission || !submission.mode || !submission.result || !submission.verdict) {
       return NextResponse.json(

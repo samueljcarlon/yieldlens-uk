@@ -9,7 +9,7 @@ export default function ThankYouPage() {
         </p>
 
         <h1 className="text-3xl font-bold text-stone-900 mb-4">
-          Your full report request has been saved.
+          Your viability file request has been saved.
         </h1>
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">

@@ -13,6 +13,7 @@ import RiskFlags from '@/components/RiskFlags';
 import AssumptionsPanel from '@/components/AssumptionsPanel';
 import ScoreCard from '@/components/ScoreCard';
 import ReportInterestButton from '@/components/ReportInterestButton';
+import ScenarioPanel from '@/components/ScenarioPanel';
 
 function formatCurrency(value?: number): string {
   if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
@@ -147,6 +148,10 @@ export default function ResultsPage() {
         <CommercialMetrics result={result as CommercialResult} />
       )}
 
+      <div className="mt-8">
+        <ScenarioPanel submission={submission} />
+      </div>
+
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <RiskFlags flags={result.riskFlags} />
         <AssumptionsPanel assumptions={result.assumptions} />
@@ -176,15 +181,15 @@ export default function ResultsPage() {
 
       <div className="mt-8 bg-teal-50 border border-teal-200 rounded-xl p-6">
         <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
-          Full report coming soon
+          Full viability file coming soon
         </p>
 
         <h2 className="text-xl font-bold text-stone-900 mb-2">
-          Want a deeper PDF report for this property?
+          Want the full viability file for this property?
         </h2>
 
         <p className="text-sm text-stone-700 leading-6 max-w-3xl">
-          Your check has been saved. The next product step is a fuller report with
+          Your check has been saved. The next product step is a fuller viability file with
           a cleaner property snapshot, downside cases, assumptions, and a more detailed
           verdict. Launch users will get early access before paid reports go live.
         </p>
