@@ -17,6 +17,10 @@ function requireNum(val: string): number {
   return Number.isNaN(n) ? 0 : n;
 }
 
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
 export default function CommercialForm({ onSubmit }: Props) {
   const [form, setForm] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -50,6 +54,10 @@ export default function CommercialForm({ onSubmit }: Props) {
       nextErrors.openingDaysPerMonth = 'Opening days per month is required.';
     }
 
+    if (!form.email || !isValidEmail(form.email)) {
+      nextErrors.email = 'Enter a valid email to save your check.';
+    }
+
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -72,7 +80,7 @@ export default function CommercialForm({ onSubmit }: Props) {
       monthlyUtilitiesAndOtherCosts: parseNum(form.monthlyUtilitiesAndOtherCosts ?? ''),
       monthlyBusinessRates: parseNum(form.monthlyBusinessRates ?? ''),
       fitOutBudget: parseNum(form.fitOutBudget ?? ''),
-      email: form.email || undefined,
+      email: form.email,
     };
 
     onSubmit(input);
@@ -130,13 +138,7 @@ export default function CommercialForm({ onSubmit }: Props) {
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Annual rent (£) <span className="text-red-500">*</span>
           </label>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={errors.annualRent ? errorInputClass : inputClass}
-            placeholder="e.g. 60000"
-            {...field('annualRent')}
-          />
+          <input type="text" inputMode="numeric" className={errors.annualRent ? errorInputClass : inputClass} placeholder="e.g. 60000" {...field('annualRent')} />
           {errors.annualRent && <p className="text-red-600 text-xs mt-1">{errors.annualRent}</p>}
         </div>
 
@@ -144,49 +146,25 @@ export default function CommercialForm({ onSubmit }: Props) {
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Average spend per customer (£) <span className="text-red-500">*</span>
           </label>
-          <p className="text-xs text-stone-400 mb-1">Typical transaction value</p>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={errors.averageSpendPerCustomer ? errorInputClass : inputClass}
-            placeholder="e.g. 12"
-            {...field('averageSpendPerCustomer')}
-          />
-          {errors.averageSpendPerCustomer && (
-            <p className="text-red-600 text-xs mt-1">{errors.averageSpendPerCustomer}</p>
-          )}
+          <p className="text-xs text-stone-400 mb-1">Typical transaction value.</p>
+          <input type="text" inputMode="numeric" className={errors.averageSpendPerCustomer ? errorInputClass : inputClass} placeholder="e.g. 12" {...field('averageSpendPerCustomer')} />
+          {errors.averageSpendPerCustomer && <p className="text-red-600 text-xs mt-1">{errors.averageSpendPerCustomer}</p>}
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Expected customers per day <span className="text-red-500">*</span>
           </label>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={errors.expectedCustomersPerDay ? errorInputClass : inputClass}
-            placeholder="e.g. 80"
-            {...field('expectedCustomersPerDay')}
-          />
-          {errors.expectedCustomersPerDay && (
-            <p className="text-red-600 text-xs mt-1">{errors.expectedCustomersPerDay}</p>
-          )}
+          <input type="text" inputMode="numeric" className={errors.expectedCustomersPerDay ? errorInputClass : inputClass} placeholder="e.g. 80" {...field('expectedCustomersPerDay')} />
+          {errors.expectedCustomersPerDay && <p className="text-red-600 text-xs mt-1">{errors.expectedCustomersPerDay}</p>}
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Opening days per month <span className="text-red-500">*</span>
           </label>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={errors.openingDaysPerMonth ? errorInputClass : inputClass}
-            placeholder="e.g. 26"
-            {...field('openingDaysPerMonth')}
-          />
-          {errors.openingDaysPerMonth && (
-            <p className="text-red-600 text-xs mt-1">{errors.openingDaysPerMonth}</p>
-          )}
+          <input type="text" inputMode="numeric" className={errors.openingDaysPerMonth ? errorInputClass : inputClass} placeholder="e.g. 26" {...field('openingDaysPerMonth')} />
+          {errors.openingDaysPerMonth && <p className="text-red-600 text-xs mt-1">{errors.openingDaysPerMonth}</p>}
         </div>
 
         <div>
@@ -220,10 +198,11 @@ export default function CommercialForm({ onSubmit }: Props) {
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
-            Email <span className="text-stone-400">(optional)</span>
+            Email <span className="text-red-500">*</span>
           </label>
-          <p className="text-xs text-stone-400 mb-1">To receive your report later.</p>
-          <input type="email" className={inputClass} placeholder="you@example.com" {...field('email')} />
+          <p className="text-xs text-stone-400 mb-1">Required so your check can be saved and followed up.</p>
+          <input type="email" className={errors.email ? errorInputClass : inputClass} placeholder="you@example.com" {...field('email')} />
+          {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
         </div>
       </div>
 

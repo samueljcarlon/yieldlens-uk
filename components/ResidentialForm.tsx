@@ -12,8 +12,13 @@ function parseNum(value: string): number | undefined {
   return Number.isNaN(parsed) ? undefined : parsed;
 }
 
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
 export default function ResidentialForm({ onSubmit }: Props) {
   const [form, setForm] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const set = (key: string, value: string) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -25,8 +30,21 @@ export default function ResidentialForm({ onSubmit }: Props) {
       set(key, event.target.value),
   });
 
+  const validate = (): boolean => {
+    const nextErrors: Record<string, string> = {};
+
+    if (!form.email || !isValidEmail(form.email)) {
+      nextErrors.email = 'Enter a valid email to save your check.';
+    }
+
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (!validate()) return;
 
     const input: ResidentialInput = {
       address: form.address || undefined,
@@ -42,7 +60,7 @@ export default function ResidentialForm({ onSubmit }: Props) {
       groundRentAnnual: parseNum(form.groundRentAnnual ?? ''),
       mortgageMonthlyCost: parseNum(form.mortgageMonthlyCost ?? ''),
       otherMonthlyCosts: parseNum(form.otherMonthlyCosts ?? ''),
-      email: form.email || undefined,
+      email: form.email,
     };
 
     onSubmit(input);
@@ -51,6 +69,9 @@ export default function ResidentialForm({ onSubmit }: Props) {
   const inputClass =
     'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
 
+  const errorInputClass =
+    'w-full border border-red-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -58,36 +79,21 @@ export default function ResidentialForm({ onSubmit }: Props) {
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Address <span className="text-stone-400">(optional)</span>
           </label>
-          <input
-            type="text"
-            className={inputClass}
-            placeholder="e.g. 14 Acacia Road"
-            {...field('address')}
-          />
+          <input type="text" className={inputClass} placeholder="e.g. 14 Acacia Road" {...field('address')} />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Postcode <span className="text-stone-400">(optional)</span>
           </label>
-          <input
-            type="text"
-            className={inputClass}
-            placeholder="e.g. SE1 7PB"
-            {...field('postcode')}
-          />
+          <input type="text" className={inputClass} placeholder="e.g. SE1 7PB" {...field('postcode')} />
         </div>
 
         <div className="sm:col-span-2">
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Listing URL <span className="text-stone-400">(optional)</span>
           </label>
-          <input
-            type="url"
-            className={inputClass}
-            placeholder="https://rightmove.co.uk/..."
-            {...field('listingUrl')}
-          />
+          <input type="url" className={inputClass} placeholder="https://rightmove.co.uk/..." {...field('listingUrl')} />
         </div>
 
         <div>
@@ -110,13 +116,7 @@ export default function ResidentialForm({ onSubmit }: Props) {
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Bedrooms <span className="text-stone-400">(optional)</span>
           </label>
-          <input
-            type="number"
-            min="0"
-            className={inputClass}
-            placeholder="e.g. 2"
-            {...field('bedrooms')}
-          />
+          <input type="number" min="0" className={inputClass} placeholder="e.g. 2" {...field('bedrooms')} />
         </div>
 
         <div>
@@ -138,115 +138,68 @@ export default function ResidentialForm({ onSubmit }: Props) {
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Purchase price (£) <span className="text-stone-400">(optional)</span>
           </label>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={inputClass}
-            placeholder="e.g. 500000"
-            {...field('purchasePrice')}
-          />
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 500000" {...field('purchasePrice')} />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Expected monthly rent (£) <span className="text-stone-400">(optional)</span>
           </label>
-          <p className="text-xs text-stone-400 mb-1">
-            What you expect to charge or pay.
-          </p>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={inputClass}
-            placeholder="e.g. 2200"
-            {...field('expectedMonthlyRent')}
-          />
+          <p className="text-xs text-stone-400 mb-1">What you expect to charge or pay.</p>
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 2200" {...field('expectedMonthlyRent')} />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Current monthly rent (£) <span className="text-stone-400">(optional)</span>
           </label>
-          <p className="text-xs text-stone-400 mb-1">
-            Use this if the property is already let.
-          </p>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={inputClass}
-            placeholder="e.g. 2150"
-            {...field('monthlyRent')}
-          />
+          <p className="text-xs text-stone-400 mb-1">Use this if the property is already let.</p>
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 2150" {...field('monthlyRent')} />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Service charge, annual (£) <span className="text-stone-400">(optional)</span>
           </label>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={inputClass}
-            placeholder="e.g. 2400"
-            {...field('serviceChargeAnnual')}
-          />
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 2400" {...field('serviceChargeAnnual')} />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Ground rent, annual (£) <span className="text-stone-400">(optional)</span>
           </label>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={inputClass}
-            placeholder="e.g. 250"
-            {...field('groundRentAnnual')}
-          />
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 250" {...field('groundRentAnnual')} />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Mortgage monthly cost (£) <span className="text-stone-400">(optional)</span>
           </label>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={inputClass}
-            placeholder="e.g. 1800"
-            {...field('mortgageMonthlyCost')}
-          />
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 1800" {...field('mortgageMonthlyCost')} />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Other monthly costs (£) <span className="text-stone-400">(optional)</span>
           </label>
-          <p className="text-xs text-stone-400 mb-1">
-            Insurance, management, maintenance, and similar costs.
-          </p>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={inputClass}
-            placeholder="e.g. 150"
-            {...field('otherMonthlyCosts')}
-          />
+          <p className="text-xs text-stone-400 mb-1">Insurance, management, maintenance, and similar costs.</p>
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 150" {...field('otherMonthlyCosts')} />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-stone-700 mb-1">
-            Email <span className="text-stone-400">(optional)</span>
+            Email <span className="text-red-500">*</span>
           </label>
           <p className="text-xs text-stone-400 mb-1">
-            To receive your report later.
+            Required so your check can be saved and followed up.
           </p>
           <input
             type="email"
-            className={inputClass}
+            className={errors.email ? errorInputClass : inputClass}
             placeholder="you@example.com"
             {...field('email')}
           />
+          {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
         </div>
       </div>
 

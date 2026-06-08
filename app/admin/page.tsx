@@ -41,6 +41,7 @@ export default function AdminPage() {
   const [status, setStatus] = useState<'local' | 'remote'>('local');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
 
   useEffect(() => {
     setSubmissions(getSubmissions());
@@ -218,17 +219,88 @@ export default function AdminPage() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <p className="text-2xl font-bold text-stone-900">
-                    {submission.score}
-                    <span className="text-sm text-stone-400">/100</span>
-                  </p>
+                <div className="flex flex-col sm:items-end gap-3">
+                  <div className="flex items-center gap-3">
+                    <p className="text-2xl font-bold text-stone-900">
+                      {submission.score}
+                      <span className="text-sm text-stone-400">/100</span>
+                    </p>
 
-                  <VerdictBadge verdict={submission.verdict} />
+                    <VerdictBadge verdict={submission.verdict} />
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSubmission(submission)}
+                    className="text-sm text-teal-700 font-medium hover:underline"
+                  >
+                    View details
+                  </button>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {selectedSubmission && (
+        <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+                Submission detail
+              </p>
+
+              <h2 className="text-xl font-bold text-stone-900">
+                {getLocationLabel(selectedSubmission)}
+              </h2>
+
+              <p className="text-sm text-stone-500 mt-1">
+                {getEmailLabel(selectedSubmission)}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setSelectedSubmission(null)}
+              className="text-sm text-stone-500 hover:text-stone-700"
+            >
+              Close
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+              <p className="text-xs uppercase tracking-wide text-stone-400">Mode</p>
+              <p className="font-semibold text-stone-900 capitalize">{selectedSubmission.mode}</p>
+            </div>
+
+            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+              <p className="text-xs uppercase tracking-wide text-stone-400">Score</p>
+              <p className="font-semibold text-stone-900">{selectedSubmission.score}/100</p>
+            </div>
+
+            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+              <p className="text-xs uppercase tracking-wide text-stone-400">Verdict</p>
+              <p className="font-semibold text-stone-900">{selectedSubmission.verdict.label}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <p className="font-semibold text-stone-900 mb-2">Input data</p>
+              <pre className="bg-stone-950 text-stone-100 rounded-lg p-4 text-xs overflow-auto max-h-80">
+                {JSON.stringify(selectedSubmission.input, null, 2)}
+              </pre>
+            </div>
+
+            <div>
+              <p className="font-semibold text-stone-900 mb-2">Result data</p>
+              <pre className="bg-stone-950 text-stone-100 rounded-lg p-4 text-xs overflow-auto max-h-80">
+                {JSON.stringify(selectedSubmission.result, null, 2)}
+              </pre>
+            </div>
+          </div>
         </div>
       )}
 
