@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import type { Submission } from '@/types/property';
 
 export default function ReportInterestButton({
@@ -8,7 +9,8 @@ export default function ReportInterestButton({
 }: {
   submission: Submission;
 }) {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const router = useRouter();
+  const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
   const [message, setMessage] = useState('');
 
   const handleClick = async () => {
@@ -30,8 +32,7 @@ export default function ReportInterestButton({
         throw new Error(body || 'Failed to request report.');
       }
 
-      setStatus('success');
-      setMessage('Report interest saved. We will use your email for launch access.');
+      router.push('/thank-you');
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Failed to request report.';
@@ -46,22 +47,14 @@ export default function ReportInterestButton({
       <button
         type="button"
         onClick={handleClick}
-        disabled={status === 'loading' || status === 'success'}
+        disabled={status === 'loading'}
         className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800 disabled:opacity-60 disabled:cursor-not-allowed text-center"
       >
-        {status === 'loading'
-          ? 'Saving request...'
-          : status === 'success'
-            ? 'Report request saved'
-            : 'Request full report access'}
+        {status === 'loading' ? 'Saving request...' : 'Request full report access'}
       </button>
 
       {message && (
-        <p
-          className={`text-xs mt-2 ${
-            status === 'error' ? 'text-red-600' : 'text-teal-700'
-          }`}
-        >
+        <p className="text-xs mt-2 text-red-600">
           {message}
         </p>
       )}
