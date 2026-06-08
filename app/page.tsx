@@ -4,26 +4,26 @@ import VerdictBadge from '@/components/VerdictBadge';
 
 const exampleVerdict = {
   label: 'Worth investigating' as const,
-  score: 72,
+  score: 67,
   colour: 'teal' as const,
 };
 
 const valueCards = [
   {
     title: 'Yield estimate',
-    desc: 'Indicative gross yield calculated from your purchase price and expected rent.',
+    desc: 'See the indicative gross yield from the purchase price and expected rent.',
   },
   {
-    title: 'Cash flow snapshot',
-    desc: 'Estimated monthly and annual cash flow against known ownership costs.',
+    title: 'Cash flow check',
+    desc: 'Check whether the deal still works after mortgage costs, service charge, and known ownership costs.',
+  },
+  {
+    title: 'Commercial break-even',
+    desc: 'Estimate the customers per day needed to cover rent, staff, rates, and other costs.',
   },
   {
     title: 'Risk flags',
-    desc: 'Automatic flags for weak yields, negative cash flow, and missing data.',
-  },
-  {
-    title: 'Clear verdict',
-    desc: 'A decision-support score and plain-English verdict from Avoid to Strong candidate.',
+    desc: 'Spot thin cash flow, high rent burden, missing data, and fragile assumptions before you commit.',
   },
 ];
 
@@ -31,19 +31,19 @@ export default function HomePage() {
   return (
     <div>
       <section className="bg-white border-b border-stone-200">
-        <div className="max-w-4xl mx-auto px-4 py-20 text-center">
+        <div className="max-w-5xl mx-auto px-4 py-20 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-4">
-            UK property return screening
+            London-first UK property return checks
           </p>
 
-          <h1 className="text-4xl sm:text-5xl font-bold text-stone-900 leading-tight mb-6">
-            Check whether a UK property actually makes financial sense.
+          <h1 className="text-4xl sm:text-6xl font-bold text-stone-900 leading-tight mb-6">
+            Check whether a property actually makes financial sense.
           </h1>
 
-          <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-8">
-            Paste a listing or enter a postcode to get an indicative yield estimate,
-            risk score, cash flow snapshot, and clear verdict before you view, buy,
-            rent, invest, or sign.
+          <p className="text-lg text-stone-600 max-w-3xl mx-auto mb-8 leading-8">
+            YieldLens UK helps buyers, renters, landlords, and small business owners
+            screen residential and commercial property decisions before they view,
+            buy, rent, invest, or sign a lease.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -61,13 +61,22 @@ export default function HomePage() {
               See example report
             </Link>
           </div>
+
+          <p className="text-xs text-stone-400 mt-5">
+            Indicative decision-support only. Not a formal valuation or financial advice.
+          </p>
         </div>
       </section>
 
       <section className="max-w-5xl mx-auto px-4 py-16">
-        <h2 className="text-2xl font-bold text-stone-900 text-center mb-10">
-          What you get
+        <h2 className="text-2xl font-bold text-stone-900 text-center mb-3">
+          A faster way to sanity-check the numbers
         </h2>
+
+        <p className="text-stone-500 text-center text-sm max-w-2xl mx-auto mb-10">
+          Start with the core question: does the property look worth investigating,
+          or are the numbers already too fragile?
+        </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {valueCards.map((card) => (
@@ -76,7 +85,7 @@ export default function HomePage() {
               className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm"
             >
               <p className="font-semibold text-stone-900 mb-2">{card.title}</p>
-              <p className="text-sm text-stone-600">{card.desc}</p>
+              <p className="text-sm text-stone-600 leading-6">{card.desc}</p>
             </div>
           ))}
         </div>
@@ -85,22 +94,23 @@ export default function HomePage() {
       <section className="bg-white border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <h2 className="text-2xl font-bold text-stone-900 text-center mb-2">
-            Residential or commercial?
+            Two checks, one clear verdict
           </h2>
 
           <p className="text-stone-500 text-center text-sm mb-10">
-            YieldLens UK covers both buy-to-let and commercial site checks.
+            Residential for yields and cash flow. Commercial for rent burden and break-even risk.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            <div className="border border-stone-200 rounded-xl p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div className="border border-stone-200 rounded-xl p-6 shadow-sm">
               <p className="font-semibold text-stone-900 mb-1">
                 Residential return check
               </p>
 
-              <p className="text-sm text-stone-600 mb-4">
-                Buy-to-let investors, first-time landlords, overseas buyers, and
-                renters checking rent reasonableness.
+              <p className="text-sm text-stone-600 mb-4 leading-6">
+                For buy-to-let investors, first-time landlords, renters, buyers,
+                overseas buyers, and students checking whether the rent or purchase
+                price makes sense.
               </p>
 
               <Link
@@ -111,14 +121,14 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="border border-stone-200 rounded-xl p-6">
+            <div className="border border-stone-200 rounded-xl p-6 shadow-sm">
               <p className="font-semibold text-stone-900 mb-1">
                 Commercial site check
               </p>
 
-              <p className="text-sm text-stone-600 mb-4">
-                Cafes, bars, restaurants, salons, gyms, retail units, and offices
-                checking site viability before signing a lease.
+              <p className="text-sm text-stone-600 mb-4 leading-6">
+                For cafes, bars, restaurants, salons, gyms, retail units, offices,
+                and small businesses checking if a site can carry the rent.
               </p>
 
               <Link
@@ -140,14 +150,13 @@ export default function HomePage() {
             </p>
 
             <h2 className="text-2xl font-bold text-stone-900 mb-4">
-              Numbers first. Waffle later.
+              A score is useful only if the risk is obvious.
             </h2>
 
             <p className="text-stone-600 text-sm leading-6">
-              YieldLens UK is built around practical decision support. The
-              first screen should tell the user whether the property is worth
-              investigating, what the key return estimate looks like, and what
-              could break the deal.
+              YieldLens UK highlights the number that matters, then explains what
+              could break the deal. A property with thin cash flow may still be
+              worth investigating, but it should not be mistaken for a clean win.
             </p>
           </div>
 
@@ -158,7 +167,7 @@ export default function HomePage() {
                   Indicative score
                 </p>
                 <p className="text-4xl font-bold text-stone-900">
-                  72<span className="text-xl text-stone-400">/100</span>
+                  67<span className="text-xl text-stone-400">/100</span>
                 </p>
               </div>
 
@@ -170,34 +179,32 @@ export default function HomePage() {
                 <p className="text-xs text-stone-400 uppercase tracking-wide">
                   Gross yield
                 </p>
-                <p className="text-xl font-semibold text-stone-900">5.2%</p>
+                <p className="text-xl font-semibold text-stone-900">5.3%</p>
               </div>
 
               <div className="bg-stone-50 border border-stone-200 rounded-lg p-3">
                 <p className="text-xs text-stone-400 uppercase tracking-wide">
-                  Verdict
+                  Cash flow
                 </p>
-                <p className="text-xl font-semibold text-stone-900">
-                  Investigate
-                </p>
+                <p className="text-xl font-semibold text-stone-900">£29/mo</p>
               </div>
             </div>
 
-            <div className="space-y-3 text-sm">
+            <div className="space-y-3 text-sm text-stone-700">
               <p>
-                <span className="font-semibold text-stone-900">Main upside:</span>{' '}
-                Return profile looks plausible on the current assumptions.
+                <span className="font-semibold text-stone-900">Verdict:</span>{' '}
+                Worth investigating, but the margin is thin.
               </p>
 
               <p>
                 <span className="font-semibold text-stone-900">Main risk:</span>{' '}
-                Net yield depends heavily on service charge, mortgage cost, and
-                achievable rent.
+                Small changes in rates, service charge, voids, or maintenance could
+                wipe out the return.
               </p>
 
               <p>
                 <span className="font-semibold text-stone-900">Next step:</span>{' '}
-                Confirm comparable rents and full running costs.
+                Confirm comparable rents and stress-test the full cost base.
               </p>
             </div>
           </div>
@@ -211,7 +218,8 @@ export default function HomePage() {
           </h2>
 
           <p className="text-stone-500 text-center text-sm mb-10">
-            Start with the free check. Paid reports come later once the workflow is proven.
+            The basic check is free. Detailed PDF reports and human-reviewed reports
+            will come later once the workflow is proven.
           </p>
 
           <PricingCards />
