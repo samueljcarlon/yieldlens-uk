@@ -300,6 +300,12 @@ export default function AdminPage() {
             View report requests →
           </Link>
         </div>
+
+        <div className="mt-2">
+          <Link href="/admin/events" className="text-sm text-teal-700 font-medium hover:underline">
+            View tool events →
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
