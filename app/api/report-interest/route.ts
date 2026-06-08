@@ -125,3 +125,45 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const adminPin = process.env.ADMIN_PIN;
+    const providedPin = request.headers.get('x-admin-pin');
+
+    if (!adminPin || providedPin !== adminPin) {
+      return NextResponse.json({ error: 'Unauthorised.' }, { status: 401 });
+    }
+
+    const body = await request.json();
+
+    const id = typeof body.id === 'string' ? body.id : '';
+    const status = typeof body.status === 'string' ? body.status : '';
+
+    const allowedStatuses = ['requested', 'contacted', 'quoted', 'converted', 'lost'];
+
+    if (!id || !allowedStatuses.includes(status)) {
+      return NextResponse.json(
+        { error: 'Invalid report request update.' },
+        { status: 400 }
+      );
+    }
+
+    const supabase = getSupabaseAdmin();
+
+    const { error } = await supabase
+      .from('report_requests')
+      .update({ status })
+      .eq('id', id);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}

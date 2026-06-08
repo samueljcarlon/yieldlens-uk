@@ -31,3 +31,27 @@ export async function getRemoteReportRequests(adminPin: string): Promise<ReportR
 
   return data.reportRequests as ReportRequest[];
 }
+
+export async function updateReportRequestStatus({
+  id,
+  status,
+  adminPin,
+}: {
+  id: string;
+  status: string;
+  adminPin: string;
+}): Promise<void> {
+  const response = await fetch('/api/report-interest', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-admin-pin': adminPin,
+    },
+    body: JSON.stringify({ id, status }),
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(body || 'Failed to update report request status.');
+  }
+}

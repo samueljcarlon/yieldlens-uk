@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
   getRemoteReportRequests,
+  updateReportRequestStatus,
   type ReportRequest,
 } from '@/lib/reportRequests';
 
@@ -70,6 +71,8 @@ function exportReportRequestsToCsv(requests: ReportRequest[]) {
 function getLocation(request: ReportRequest): string {
   return request.postcode || request.address || 'No location provided';
 }
+
+const reportStatuses = ['requested', 'contacted', 'quoted', 'converted', 'lost'];
 
 function getPriorityLabel(request: ReportRequest): {
   label: string;
@@ -143,6 +146,36 @@ export default function ReportRequestsAdminPage() {
       warmOrBetter: requests.filter((request) => request.score >= 65).length,
     };
   }, [requests]);
+
+  const handleStatusChange = async (requestId: string, nextStatus: string) => {
+    setError('');
+
+    try {
+      await updateReportRequestStatus({
+        id: requestId,
+        status: nextStatus,
+        adminPin,
+      });
+
+      setRequests((current) =>
+        current.map((request) =>
+          request.id === requestId
+            ? { ...request, status: nextStatus }
+            : request
+        )
+      );
+
+      setSelectedRequest((current) =>
+        current && current.id === requestId
+          ? { ...current, status: nextStatus }
+          : current
+      );
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : 'Failed to update status.';
+      setError(message);
+    }
+  };
 
   const handleLoad = async () => {
     setError('');
@@ -389,6 +422,19 @@ export default function ReportRequestsAdminPage() {
                       </p>
                     </div>
 
+                    <select
+                      value={request.status}
+                      onChange={(event) => handleStatusChange(request.id, event.target.value)}
+                      disabled={!adminPin}
+                      className="border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50"
+                    >
+                      {reportStatuses.map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+
                     <button
                       type="button"
                       onClick={() => setSelectedRequest(request)}
@@ -448,7 +494,18 @@ export default function ReportRequestsAdminPage() {
 
             <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
               <p className="text-xs uppercase tracking-wide text-stone-400">Status</p>
-              <p className="font-semibold text-stone-900">{selectedRequest.status}</p>
+              <select
+                value={selectedRequest.status}
+                onChange={(event) => handleStatusChange(selectedRequest.id, event.target.value)}
+                disabled={!adminPin}
+                className="border border-stone-300 rounded px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50"
+              >
+                {reportStatuses.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
