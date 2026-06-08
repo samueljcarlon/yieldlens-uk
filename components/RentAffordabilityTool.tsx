@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { logToolEvent } from '@/lib/logToolEvent';
 
 type VerdictTone = 'positive' | 'warning' | 'danger' | 'neutral';
 
@@ -164,6 +165,8 @@ export default function RentAffordabilityTool() {
     otherCosts: '',
   });
 
+  const [eventLogged, setEventLogged] = useState(false);
+
   const updateField = (key: keyof FormState, value: string) => {
     setForm((current) => ({
       ...current,
@@ -220,6 +223,48 @@ export default function RentAffordabilityTool() {
       hasRequiredInputs,
     };
   }, [form]);
+
+  function handleCheckAffordability() {
+    if (!result.hasRequiredInputs) return;
+
+    const rentShareBand =
+      result.rentShare < 30 ? 'under_30'
+      : result.rentShare < 35 ? '30_to_35'
+      : result.rentShare < 40 ? '35_to_40'
+      : 'over_40';
+
+    const housingShareBand =
+      result.housingShare < 40 ? 'under_40'
+      : result.housingShare < 50 ? '40_to_50'
+      : 'over_50';
+
+    const disposableBand =
+      result.disposableIncome < 0 ? 'negative'
+      : result.disposableIncome < 100 ? 'under_100'
+      : result.disposableIncome < 500 ? '100_to_500'
+      : 'over_500';
+
+    const resultBand = result.verdict.label.toLowerCase().replace(/\s+/g, '_');
+
+    logToolEvent({
+      event_name: 'rent_affordability_calculated',
+      page_path: '/rent-affordability-check',
+      tool_name: 'rent_affordability',
+      result_label: result.verdict.label,
+      result_band: resultBand,
+      metadata: {
+        rentShareBand,
+        housingShareBand,
+        disposableBand,
+        hasBillsEntered: parseMoney(form.bills) > 0,
+        hasDebtEntered: parseMoney(form.debtPayments) > 0,
+        hasTransportEntered: parseMoney(form.transport) > 0,
+      },
+    });
+
+    setEventLogged(true);
+    setTimeout(() => setEventLogged(false), 3000);
+  }
 
   const inputClass =
     'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
@@ -368,6 +413,23 @@ export default function RentAffordabilityTool() {
           <p className="text-sm leading-6">
             {result.verdict.summary}
           </p>
+
+          <div className="mt-5 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleCheckAffordability}
+              disabled={!result.hasRequiredInputs}
+              className="bg-teal-700 text-white text-sm font-medium px-4 py-2 rounded hover:bg-teal-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Check affordability
+            </button>
+
+            {eventLogged && (
+              <span className="text-xs text-teal-700 font-medium">
+                Check calculated
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

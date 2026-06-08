@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { logToolEvent } from '@/lib/logToolEvent';
 
 type VerdictTone = 'positive' | 'warning' | 'danger' | 'neutral';
 
@@ -143,6 +144,8 @@ export default function PropertyCashFlowTool() {
     voidMonthsPerYear: '1',
   });
 
+  const [eventLogged, setEventLogged] = useState(false);
+
   const updateField = (key: keyof FormState, value: string) => {
     setForm((current) => ({
       ...current,
@@ -282,6 +285,50 @@ export default function PropertyCashFlowTool() {
       hasRequiredInputs,
     };
   }, [form]);
+
+  function handleCalculateCashFlow() {
+    if (!result.hasRequiredInputs) return;
+
+    const cashFlowBand =
+      result.monthlyCashFlow < 0 ? 'negative'
+      : result.monthlyCashFlow < 100 ? '0_to_100'
+      : result.monthlyCashFlow < 300 ? '100_to_300'
+      : 'over_300';
+
+    const yieldBand =
+      result.purchasePrice <= 0 ? 'missing'
+      : result.grossYield < 4 ? 'under_4'
+      : result.grossYield < 6 ? '4_to_6'
+      : result.grossYield < 8 ? '6_to_8'
+      : 'over_8';
+
+    const costToRentBand =
+      result.costToRentRatio < 75 ? 'under_75'
+      : result.costToRentRatio < 90 ? '75_to_90'
+      : result.costToRentRatio < 100 ? '90_to_100'
+      : 'over_100';
+
+    const resultBand = result.verdict.label.toLowerCase().replace(/\s+/g, '_');
+
+    logToolEvent({
+      event_name: 'property_cash_flow_calculated',
+      page_path: '/property-cash-flow-calculator',
+      tool_name: 'property_cash_flow',
+      result_label: result.verdict.label,
+      result_band: resultBand,
+      metadata: {
+        cashFlowBand,
+        yieldBand,
+        costToRentBand,
+        hasMortgage: parseMoney(form.mortgageMonthlyCost) > 0,
+        hasVoidAllowance: parseMoney(form.voidMonthsPerYear) > 0,
+        hasServiceCharge: parseMoney(form.serviceChargeAnnual) > 0,
+      },
+    });
+
+    setEventLogged(true);
+    setTimeout(() => setEventLogged(false), 3000);
+  }
 
   const inputClass =
     'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
@@ -482,6 +529,23 @@ export default function PropertyCashFlowTool() {
           <p className="text-sm leading-6">
             {result.verdict.summary}
           </p>
+
+          <div className="mt-5 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleCalculateCashFlow}
+              disabled={!result.hasRequiredInputs}
+              className="bg-teal-700 text-white text-sm font-medium px-4 py-2 rounded hover:bg-teal-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Calculate cash flow
+            </button>
+
+            {eventLogged && (
+              <span className="text-xs text-teal-700 font-medium">
+                Calculation logged
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

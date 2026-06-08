@@ -124,14 +124,24 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="text-lg font-bold text-stone-900 mb-2">
-            7. Cookies and browser storage
+            7. Analytics, cookies, and browser storage
           </h2>
 
           <p>
-            YieldLens UK does not currently use advertising cookies or analytics
-            cookies. The app uses browser storage to remember your latest check
-            and show your results, report preview, and local admin data on your
-            own device.
+            YieldLens UK uses Vercel Web Analytics to understand basic website
+            usage, such as page views, referrers, devices, browsers, and general
+            location information. Vercel Web Analytics is designed to work without
+            third-party cookies and uses anonymised data.
+          </p>
+
+          <p className="mt-3">
+            The app also uses browser storage to remember your latest check and
+            show your results, report preview, and local admin data on your own
+            device.
+          </p>
+
+          <p className="mt-3">
+            YieldLens UK does not currently use advertising cookies.
           </p>
         </section>
 
