@@ -6,7 +6,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     '',
     '/check',
-    '/report',
     '/privacy',
     '/terms',
     '/commercial-lease-viability-check',
@@ -17,6 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${path}`,
     lastModified: new Date(),
     changeFrequency: path === '' ? 'weekly' : 'monthly',
-    priority: path === '' ? 1 : 0.7,
+    priority: path === '' ? 1 : path === '/check' ? 0.8 : 0.7,
   }));
 }

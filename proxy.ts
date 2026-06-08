@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 export function proxy(request: NextRequest) {
   const response = NextResponse.next();
 
-  if (request.nextUrl.pathname.startsWith('/admin')) {
+  const noIndexPaths = ['/admin', '/results', '/report', '/thank-you'];
+
+  if (noIndexPaths.some((path) => request.nextUrl.pathname.startsWith(path))) {
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
 
@@ -11,5 +13,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin/:path*', '/results', '/report', '/thank-you'],
 };
