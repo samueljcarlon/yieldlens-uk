@@ -35,7 +35,7 @@ export default function Footer() {
               </Link>
 
               <Link href="/rent-affordability-check" className="block text-stone-500 hover:text-stone-900">
-                Rent and property decision check
+                Rent affordability calculator
               </Link>
             </div>
           </div>

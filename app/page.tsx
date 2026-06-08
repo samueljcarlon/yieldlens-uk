@@ -159,7 +159,7 @@ export default function HomePage() {
               className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm hover:border-teal-300 transition-colors"
             >
               <p className="font-semibold text-stone-900 mb-2">
-                Rent and property decision check
+                Rent affordability calculator
               </p>
 
               <p className="text-sm text-stone-600 leading-6 mb-4">
@@ -168,7 +168,7 @@ export default function HomePage() {
               </p>
 
               <span className="text-sm text-teal-700 font-medium">
-                Explore rent checks →
+                Explore rent affordability →
               </span>
             </Link>
           </div>
