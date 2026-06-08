@@ -68,6 +68,97 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="bg-stone-50 border-y border-stone-200">
+        <div className="max-w-5xl mx-auto px-4 py-16">
+          <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3 text-center">
+            Tools
+          </p>
+
+          <h2 className="text-2xl font-bold text-stone-900 text-center mb-3">
+            Start with the check that matches your decision.
+          </h2>
+
+          <p className="text-stone-500 text-center text-sm max-w-2xl mx-auto mb-10">
+            YieldLens UK is built around specific property decisions, not generic
+            property content. Pick the route closest to what you are trying to work out.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <Link
+              href="/commercial-lease-viability-check"
+              className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm hover:border-teal-300 transition-colors"
+            >
+              <p className="font-semibold text-stone-900 mb-2">
+                Commercial lease viability check
+              </p>
+
+              <p className="text-sm text-stone-600 leading-6 mb-4">
+                Check whether a cafe, salon, gym, shop, restaurant, or office site
+                can realistically carry the rent before you sign a lease.
+              </p>
+
+              <span className="text-sm text-teal-700 font-medium">
+                Explore commercial lease checks →
+              </span>
+            </Link>
+
+            <Link
+              href="/buy-to-let-yield-calculator"
+              className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm hover:border-teal-300 transition-colors"
+            >
+              <p className="font-semibold text-stone-900 mb-2">
+                Buy-to-let yield calculator
+              </p>
+
+              <p className="text-sm text-stone-600 leading-6 mb-4">
+                Estimate gross yield, ownership costs, monthly cash flow, and
+                downside risk before spending serious time on a rental property.
+              </p>
+
+              <span className="text-sm text-teal-700 font-medium">
+                Explore buy-to-let checks →
+              </span>
+            </Link>
+
+            <Link
+              href="/property-cash-flow-calculator"
+              className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm hover:border-teal-300 transition-colors"
+            >
+              <p className="font-semibold text-stone-900 mb-2">
+                Property cash flow calculator
+              </p>
+
+              <p className="text-sm text-stone-600 leading-6 mb-4">
+                Check whether the property produces real monthly surplus after
+                mortgage costs, service charge, ground rent, and other costs.
+              </p>
+
+              <span className="text-sm text-teal-700 font-medium">
+                Explore cash flow checks →
+              </span>
+            </Link>
+
+            <Link
+              href="/rent-affordability-check"
+              className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm hover:border-teal-300 transition-colors"
+            >
+              <p className="font-semibold text-stone-900 mb-2">
+                Rent and property decision check
+              </p>
+
+              <p className="text-sm text-stone-600 leading-6 mb-4">
+                Sanity-check rent, area assumptions, and property numbers before
+                committing to a residential decision.
+              </p>
+
+              <span className="text-sm text-teal-700 font-medium">
+                Explore rent checks →
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="max-w-5xl mx-auto px-4 py-16">
         <h2 className="text-2xl font-bold text-stone-900 text-center mb-3">
           A faster way to sanity-check the numbers

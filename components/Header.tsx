@@ -3,25 +3,49 @@ import Link from 'next/link';
 export default function Header() {
   return (
     <header className="border-b border-stone-200 bg-white">
-      <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+      <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
           <span className="text-lg font-semibold text-stone-900 tracking-tight">
             YieldLens <span className="text-teal-700">UK</span>
           </span>
         </Link>
 
-        <nav className="flex items-center gap-6 text-sm text-stone-600">
-          <Link href="/check" className="hover:text-stone-900 transition-colors">
-            Property check
+        <nav className="hidden md:flex items-center gap-5 text-sm text-stone-600">
+          <Link
+            href="/commercial-lease-viability-check"
+            className="hover:text-stone-900 transition-colors"
+          >
+            Commercial
+          </Link>
+
+          <Link
+            href="/buy-to-let-yield-calculator"
+            className="hover:text-stone-900 transition-colors"
+          >
+            Buy-to-let
+          </Link>
+
+          <Link
+            href="/property-cash-flow-calculator"
+            className="hover:text-stone-900 transition-colors"
+          >
+            Cash flow
           </Link>
 
           <Link
             href="/check"
-            className="bg-teal-700 text-white px-4 py-2 rounded text-sm font-medium hover:bg-teal-800 transition-colors"
+            className="hover:text-stone-900 transition-colors"
           >
-            Start free check
+            Property check
           </Link>
         </nav>
+
+        <Link
+          href="/check"
+          className="bg-teal-700 text-white px-4 py-2 rounded text-sm font-medium hover:bg-teal-800 transition-colors shrink-0"
+        >
+          Start free check
+        </Link>
       </div>
     </header>
   );
