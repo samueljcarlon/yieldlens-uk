@@ -1,21 +1,40 @@
 import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'YieldLens UK | Check the return before you commit',
+  metadataBase: new URL('https://yieldlens.co.uk'),
+  title: {
+    default: 'YieldLens UK | Property Return and Viability Checks',
+    template: '%s | YieldLens UK',
+  },
   description:
-    'Get an indicative yield estimate, risk score, cash flow snapshot, and clear verdict before you view, buy, rent, invest, or sign.',
+    'YieldLens UK helps users pressure-test UK residential and commercial property decisions with yield, cash flow, break-even, risk flags, and scenario checks.',
+  openGraph: {
+    title: 'YieldLens UK',
+    description:
+      'Pressure-test UK residential and commercial property decisions before you commit.',
+    url: 'https://yieldlens.co.uk',
+    siteName: 'YieldLens UK',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
+      <body className="bg-stone-50 text-stone-900 antialiased">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

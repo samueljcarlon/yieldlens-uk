@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const baseUrl = 'https://yieldlens-uk.vercel.app';
+const baseUrl = 'https://yieldlens.co.uk';
 
 export default function robots(): MetadataRoute.Robots {
   return {
