@@ -95,6 +95,11 @@ function CheckPageContent() {
         ) : (
           <CommercialForm onSubmit={handleCommercialSubmit} />
         )}
+
+        <p className="text-xs text-stone-400 mt-6 leading-5">
+          By submitting this check, you agree to the Privacy Notice and Terms.
+          We use your email to save the check and follow up about this submission or report access.
+        </p>
       </div>
 
       <div className="mt-8 bg-stone-100 border border-stone-200 rounded-xl p-5 text-sm text-stone-600">
