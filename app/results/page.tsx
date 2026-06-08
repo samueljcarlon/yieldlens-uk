@@ -12,6 +12,7 @@ import MetricCard from '@/components/MetricCard';
 import RiskFlags from '@/components/RiskFlags';
 import AssumptionsPanel from '@/components/AssumptionsPanel';
 import ScoreCard from '@/components/ScoreCard';
+import ReportInterestButton from '@/components/ReportInterestButton';
 
 function formatCurrency(value?: number): string {
   if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
@@ -189,9 +190,11 @@ export default function ResultsPage() {
         </p>
 
         <div className="mt-5 flex flex-col sm:flex-row gap-3">
+          <ReportInterestButton submission={submission} />
+
           <Link
             href="/report"
-            className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800 text-center"
+            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
           >
             View printable preview →
           </Link>
