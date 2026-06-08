@@ -294,6 +294,12 @@ export default function AdminPage() {
           View saved property checks, load remote Supabase submissions, search leads,
           filter by verdict, and export visible rows as CSV.
         </p>
+
+        <div className="mt-4">
+          <Link href="/admin/reports" className="text-sm text-teal-700 font-medium hover:underline">
+            View report requests →
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

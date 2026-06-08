@@ -82,3 +82,46 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+
+export async function GET(request: NextRequest) {
+  try {
+    const adminPin = process.env.ADMIN_PIN;
+    const providedPin = request.headers.get('x-admin-pin');
+
+    if (!adminPin || providedPin !== adminPin) {
+      return NextResponse.json({ error: 'Unauthorised.' }, { status: 401 });
+    }
+
+    const supabase = getSupabaseAdmin();
+
+    const { data, error } = await supabase
+      .from('report_requests')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const reportRequests = (data ?? []).map((row) => ({
+      id: row.id,
+      createdAt: row.created_at,
+      submissionId: row.submission_id,
+      mode: row.mode,
+      address: row.address,
+      postcode: row.postcode,
+      email: row.email,
+      score: row.score,
+      verdictLabel: row.verdict_label,
+      requestedReportType: row.requested_report_type,
+      status: row.status,
+      input: row.input_json,
+      result: row.result_json,
+    }));
+
+    return NextResponse.json({ reportRequests });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}

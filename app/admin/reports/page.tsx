@@ -1,0 +1,474 @@
+'use client';
+
+import { useMemo, useState } from 'react';
+import Link from 'next/link';
+import {
+  getRemoteReportRequests,
+  type ReportRequest,
+} from '@/lib/reportRequests';
+
+function formatDate(value: string): string {
+  return new Date(value).toLocaleString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+function csvEscape(value: unknown): string {
+  if (value === undefined || value === null) return '';
+
+  const text = typeof value === 'object' ? JSON.stringify(value) : String(value);
+
+  return `"${text.replace(/"/g, '""')}"`;
+}
+
+function exportReportRequestsToCsv(requests: ReportRequest[]) {
+  const headers = [
+    'createdAt',
+    'email',
+    'mode',
+    'address',
+    'postcode',
+    'score',
+    'verdict',
+    'reportType',
+    'status',
+  ];
+
+  const rows = requests.map((request) => [
+    request.createdAt,
+    request.email,
+    request.mode,
+    request.address ?? '',
+    request.postcode ?? '',
+    request.score,
+    request.verdictLabel,
+    request.requestedReportType,
+    request.status,
+  ]);
+
+  const csv = [
+    headers.map(csvEscape).join(','),
+    ...rows.map((row) => row.map(csvEscape).join(',')),
+  ].join('\n');
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+
+  link.href = url;
+  link.download = `yieldlens-report-requests-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+function getLocation(request: ReportRequest): string {
+  return request.postcode || request.address || 'No location provided';
+}
+
+function getPriorityLabel(request: ReportRequest): {
+  label: string;
+  className: string;
+} {
+  if (request.score >= 80) {
+    return {
+      label: 'High priority',
+      className: 'bg-green-50 text-green-800 border-green-200',
+    };
+  }
+
+  if (request.score >= 65) {
+    return {
+      label: 'Warm lead',
+      className: 'bg-teal-50 text-teal-800 border-teal-200',
+    };
+  }
+
+  if (request.score >= 50) {
+    return {
+      label: 'Needs review',
+      className: 'bg-orange-50 text-orange-800 border-orange-200',
+    };
+  }
+
+  return {
+    label: 'Low fit',
+    className: 'bg-stone-50 text-stone-700 border-stone-200',
+  };
+}
+
+export default function ReportRequestsAdminPage() {
+  const [adminPin, setAdminPin] = useState('');
+  const [requests, setRequests] = useState<ReportRequest[]>([]);
+  const [selectedRequest, setSelectedRequest] = useState<ReportRequest | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [modeFilter, setModeFilter] = useState<'all' | 'residential' | 'commercial'>('all');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const filteredRequests = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+
+    return requests.filter((request) => {
+      const matchesMode = modeFilter === 'all' || request.mode === modeFilter;
+
+      const searchable = [
+        request.email,
+        request.mode,
+        request.address ?? '',
+        request.postcode ?? '',
+        request.verdictLabel,
+        String(request.score),
+        request.status,
+      ]
+        .join(' ')
+        .toLowerCase();
+
+      const matchesSearch = !query || searchable.includes(query);
+
+      return matchesMode && matchesSearch;
+    });
+  }, [requests, searchTerm, modeFilter]);
+
+  const stats = useMemo(() => {
+    return {
+      total: requests.length,
+      residential: requests.filter((request) => request.mode === 'residential').length,
+      commercial: requests.filter((request) => request.mode === 'commercial').length,
+      warmOrBetter: requests.filter((request) => request.score >= 65).length,
+    };
+  }, [requests]);
+
+  const handleLoad = async () => {
+    setError('');
+    setLoading(true);
+    setSelectedRequest(null);
+
+    try {
+      const remoteRequests = await getRemoteReportRequests(adminPin);
+      setRequests(remoteRequests);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : 'Failed to load report requests.';
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filterButtonClass = (active: boolean) =>
+    `px-4 py-2 rounded text-sm border ${
+      active
+        ? 'bg-teal-700 text-white border-teal-700'
+        : 'bg-white text-stone-700 border-stone-300 hover:border-teal-500'
+    }`;
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="mb-8">
+        <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+          Internal admin
+        </p>
+
+        <h1 className="text-3xl font-bold text-stone-900 mb-3">
+          Report requests
+        </h1>
+
+        <p className="text-sm text-stone-500 max-w-2xl">
+          These are users who ran a check and actively requested access to a fuller
+          report. This is your strongest monetisation signal so far.
+        </p>
+
+        <div className="mt-4 flex gap-4 text-sm">
+          <Link href="/admin" className="text-teal-700 font-medium hover:underline">
+            Back to lead dashboard →
+          </Link>
+
+          <Link href="/" className="text-stone-500 hover:text-stone-700">
+            Homepage
+          </Link>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="bg-white border border-stone-200 rounded-xl p-4 shadow-sm">
+          <p className="text-xs uppercase tracking-wide text-stone-400">Total</p>
+          <p className="text-2xl font-bold text-stone-900">{stats.total}</p>
+        </div>
+
+        <div className="bg-white border border-stone-200 rounded-xl p-4 shadow-sm">
+          <p className="text-xs uppercase tracking-wide text-stone-400">Residential</p>
+          <p className="text-2xl font-bold text-stone-900">{stats.residential}</p>
+        </div>
+
+        <div className="bg-white border border-stone-200 rounded-xl p-4 shadow-sm">
+          <p className="text-xs uppercase tracking-wide text-stone-400">Commercial</p>
+          <p className="text-2xl font-bold text-stone-900">{stats.commercial}</p>
+        </div>
+
+        <div className="bg-white border border-stone-200 rounded-xl p-4 shadow-sm">
+          <p className="text-xs uppercase tracking-wide text-stone-400">Warm+</p>
+          <p className="text-2xl font-bold text-stone-900">{stats.warmOrBetter}</p>
+        </div>
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm mb-8">
+        <p className="font-semibold text-stone-900 mb-2">
+          Load report requests
+        </p>
+
+        <p className="text-sm text-stone-500 mb-4">
+          Enter the admin PIN to load report requests from Supabase.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="password"
+            value={adminPin}
+            onChange={(event) => setAdminPin(event.target.value)}
+            placeholder="Admin PIN"
+            className="border border-stone-300 rounded px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          />
+
+          <button
+            type="button"
+            onClick={handleLoad}
+            disabled={loading || !adminPin}
+            className="bg-teal-700 text-white px-5 py-2 rounded text-sm font-medium hover:bg-teal-800 disabled:opacity-50"
+          >
+            {loading ? 'Loading...' : 'Load requests'}
+          </button>
+        </div>
+
+        {error && <p className="text-sm text-red-600 mt-3">{error}</p>}
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-5">
+          <div className="lg:col-span-2">
+            <label className="block text-xs uppercase tracking-wide text-stone-400 font-medium mb-1">
+              Search
+            </label>
+
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Search email, postcode, address, verdict, or score"
+              className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs uppercase tracking-wide text-stone-400 font-medium mb-1">
+              Export
+            </label>
+
+            <button
+              type="button"
+              onClick={() => exportReportRequestsToCsv(filteredRequests)}
+              disabled={filteredRequests.length === 0}
+              className="w-full bg-stone-900 text-white px-4 py-2 rounded text-sm font-medium hover:bg-stone-800 disabled:opacity-50"
+            >
+              Export visible CSV
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setModeFilter('all')}
+            className={filterButtonClass(modeFilter === 'all')}
+          >
+            All
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setModeFilter('residential')}
+            className={filterButtonClass(modeFilter === 'residential')}
+          >
+            Residential
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setModeFilter('commercial')}
+            className={filterButtonClass(modeFilter === 'commercial')}
+          >
+            Commercial
+          </button>
+        </div>
+
+        <p className="text-xs text-stone-400 mt-4">
+          Showing {filteredRequests.length} of {requests.length} requests.
+        </p>
+      </div>
+
+      {filteredRequests.length === 0 ? (
+        <div className="bg-white border border-stone-200 rounded-xl p-8 text-center">
+          <h2 className="text-lg font-semibold text-stone-900 mb-2">
+            No report requests found
+          </h2>
+
+          <p className="text-sm text-stone-500 mb-5">
+            Load requests, run a check, request a report, or adjust your filters.
+          </p>
+
+          <Link
+            href="/check"
+            className="inline-block bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
+          >
+            Run a property check
+          </Link>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {filteredRequests.map((request) => {
+            const priority = getPriorityLabel(request);
+
+            return (
+              <div
+                key={request.id}
+                className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm"
+              >
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-stone-400 font-medium mb-1">
+                      {request.mode === 'residential'
+                        ? 'Residential report request'
+                        : 'Commercial report request'}
+                    </p>
+
+                    <h2 className="text-lg font-semibold text-stone-900">
+                      {getLocation(request)}
+                    </h2>
+
+                    <p className="text-sm text-stone-500 mt-1">
+                      {request.address || 'No address provided'}
+                    </p>
+
+                    <p className="text-sm text-stone-500 mt-1">
+                      {request.email}
+                    </p>
+
+                    <p className="text-sm text-stone-500 mt-1">
+                      Requested {formatDate(request.createdAt)}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      <span className={`border rounded-full px-3 py-1 text-xs font-medium ${priority.className}`}>
+                        {priority.label}
+                      </span>
+
+                      <span className="border rounded-full px-3 py-1 text-xs font-medium bg-stone-50 text-stone-700 border-stone-200">
+                        {request.status}
+                      </span>
+
+                      <span className="border rounded-full px-3 py-1 text-xs font-medium bg-stone-50 text-stone-700 border-stone-200">
+                        {request.requestedReportType}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col lg:items-end gap-3">
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-stone-900">
+                        {request.score}
+                        <span className="text-sm text-stone-400">/100</span>
+                      </p>
+
+                      <p className="text-sm font-medium text-teal-700">
+                        {request.verdictLabel}
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setSelectedRequest(request)}
+                      className="text-sm text-teal-700 font-medium hover:underline"
+                    >
+                      View details
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {selectedRequest && (
+        <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+                Report request detail
+              </p>
+
+              <h2 className="text-xl font-bold text-stone-900">
+                {getLocation(selectedRequest)}
+              </h2>
+
+              <p className="text-sm text-stone-500 mt-1">
+                {selectedRequest.email}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setSelectedRequest(null)}
+              className="text-sm text-stone-500 hover:text-stone-700"
+            >
+              Close
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+              <p className="text-xs uppercase tracking-wide text-stone-400">Mode</p>
+              <p className="font-semibold text-stone-900 capitalize">{selectedRequest.mode}</p>
+            </div>
+
+            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+              <p className="text-xs uppercase tracking-wide text-stone-400">Score</p>
+              <p className="font-semibold text-stone-900">{selectedRequest.score}/100</p>
+            </div>
+
+            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+              <p className="text-xs uppercase tracking-wide text-stone-400">Verdict</p>
+              <p className="font-semibold text-stone-900">{selectedRequest.verdictLabel}</p>
+            </div>
+
+            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+              <p className="text-xs uppercase tracking-wide text-stone-400">Status</p>
+              <p className="font-semibold text-stone-900">{selectedRequest.status}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <p className="font-semibold text-stone-900 mb-2">Input data</p>
+              <pre className="bg-stone-950 text-stone-100 rounded-lg p-4 text-xs overflow-auto max-h-80">
+                {JSON.stringify(selectedRequest.input, null, 2)}
+              </pre>
+            </div>
+
+            <div>
+              <p className="font-semibold text-stone-900 mb-2">Result data</p>
+              <pre className="bg-stone-950 text-stone-100 rounded-lg p-4 text-xs overflow-auto max-h-80">
+                {JSON.stringify(selectedRequest.result, null, 2)}
+              </pre>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
