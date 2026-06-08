@@ -117,6 +117,7 @@ function getLeadTags(submission: Submission): LeadTag[] {
 
     if (
       typeof result.breakEvenCustomersPerDay === 'number' &&
+      typeof result.expectedCustomersPerDay === 'number' &&
       result.breakEvenCustomersPerDay > result.expectedCustomersPerDay
     ) {
       tags.push({

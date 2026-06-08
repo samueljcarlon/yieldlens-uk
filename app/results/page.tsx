@@ -137,7 +137,7 @@ export default function ResultsPage() {
       </div>
 
       <div className="mb-8">
-        <ScoreCard score={submission.score} verdict={submission.verdict} />
+        <ScoreCard verdict={submission.verdict} />
       </div>
 
       {isResidential ? (
