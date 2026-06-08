@@ -28,6 +28,13 @@ export function generateResidentialRiskFlags(
     });
   }
 
+  if (monthlyCashFlow !== undefined && monthlyCashFlow < 100 && monthlyCashFlow >= 0) {
+    flags.push({
+      severity: 'medium',
+      message: 'Monthly cash flow is very thin. Small changes in rates, service charge, void periods, or maintenance could wipe out the return.',
+    });
+  }
+
   if (monthlyCashFlow !== undefined && monthlyCashFlow < 0) {
     flags.push({
       severity: 'high',

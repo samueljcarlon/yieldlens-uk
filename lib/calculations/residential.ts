@@ -82,9 +82,10 @@ export function calculateResidentialScore(
 
   if (monthlyCashFlow === undefined) score += 10;
   else if (monthlyCashFlow > 300) score += 20;
-  else if (monthlyCashFlow >= 0) score += 14;
-  else if (monthlyCashFlow >= -250) score += 8;
-  else score += 3;
+  else if (monthlyCashFlow >= 100) score += 14;
+  else if (monthlyCashFlow >= 0) score += 9;
+  else if (monthlyCashFlow >= -250) score += 5;
+  else score += 2;
 
   score += 9;
   score += 10;
@@ -93,6 +94,7 @@ export function calculateResidentialScore(
   let riskScore = 10;
   if (input && !input.serviceChargeAnnual) riskScore -= 2;
   if (input && !input.mortgageMonthlyCost) riskScore -= 2;
+  if (monthlyCashFlow !== undefined && monthlyCashFlow < 100) riskScore -= 2;
   if (monthlyCashFlow !== undefined && monthlyCashFlow < 0) riskScore -= 3;
   if (grossYield !== undefined && grossYield < 4 && input?.userObjective === 'Buy-to-let') riskScore -= 3;
 
