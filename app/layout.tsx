@@ -2,6 +2,33 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import JsonLd from '@/components/JsonLd';
+
+const siteStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'YieldLens UK',
+    url: 'https://yieldlens.co.uk',
+    description:
+      'YieldLens UK helps users pressure-test UK residential and commercial property decisions before committing.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'YieldLens UK',
+    url: 'https://yieldlens.co.uk',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    description:
+      'A UK property viability tool for checking yield, cash flow, break-even risk, downside scenarios, and property decision risk.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'GBP',
+    },
+  },
+];
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://yieldlens.co.uk'),
@@ -33,6 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-stone-50 text-stone-900 antialiased">
+        <JsonLd data={siteStructuredData} />
         <Header />
         <main>{children}</main>
         <Footer />

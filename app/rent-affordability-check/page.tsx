@@ -5,6 +5,12 @@ export const metadata: Metadata = {
   title: 'Rent Check and Property Decision Tool | YieldLens UK',
   description:
     'Check whether rent or property costs look reasonable before committing. Use YieldLens UK for indicative residential rent and return screening.',
+  alternates: {
+    canonical: '/rent-affordability-check',
+  },
+  openGraph: {
+    url: 'https://yieldlens.co.uk/rent-affordability-check',
+  },
 };
 
 export default function RentAffordabilityCheckPage() {

@@ -5,6 +5,12 @@ export const metadata: Metadata = {
   title: 'Buy-to-Let Yield Calculator | YieldLens UK',
   description:
     'Estimate buy-to-let gross yield, cash flow, ownership costs, and downside risk before committing to a UK residential property.',
+  alternates: {
+    canonical: '/buy-to-let-yield-calculator',
+  },
+  openGraph: {
+    url: 'https://yieldlens.co.uk/buy-to-let-yield-calculator',
+  },
 };
 
 export default function BuyToLetYieldCalculatorPage() {

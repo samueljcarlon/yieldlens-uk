@@ -5,6 +5,12 @@ export const metadata: Metadata = {
   title: 'Property Cash Flow Calculator | YieldLens UK',
   description:
     'Estimate property cash flow after rent, mortgage costs, service charge, ground rent, and other ownership costs.',
+  alternates: {
+    canonical: '/property-cash-flow-calculator',
+  },
+  openGraph: {
+    url: 'https://yieldlens.co.uk/property-cash-flow-calculator',
+  },
 };
 
 export default function PropertyCashFlowCalculatorPage() {

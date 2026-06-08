@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 interface SeoLandingPageProps {
   eyebrow: string;
@@ -33,8 +34,22 @@ export default function SeoLandingPage({
   risks,
   faqs,
 }: SeoLandingPageProps) {
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <div>
+      <JsonLd data={faqStructuredData} />
       <section className="bg-white border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-4">

@@ -1,6 +1,22 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import PricingCards from '@/components/PricingCards';
 import VerdictBadge from '@/components/VerdictBadge';
+
+export const metadata: Metadata = {
+  title: 'YieldLens UK | Property Return and Viability Checks',
+  description:
+    'Pressure-test UK residential and commercial property decisions with yield, cash flow, break-even risk, scenario checks, and property viability flags.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'YieldLens UK | Property Return and Viability Checks',
+    description:
+      'Pressure-test UK residential and commercial property decisions before you commit.',
+    url: 'https://yieldlens.co.uk',
+  },
+};
 
 const exampleVerdict = {
   label: 'Worth investigating' as const,
