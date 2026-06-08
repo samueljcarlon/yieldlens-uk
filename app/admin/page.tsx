@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { PropertyMode, Submission } from '@/types/property';
 import { clearSubmissions, getSubmissions } from '@/lib/storage';
+import { getRemoteSubmissions } from '@/lib/remoteSubmissions';
 import VerdictBadge from '@/components/VerdictBadge';
 
 function formatDate(value: string): string {
@@ -25,9 +26,21 @@ function getLocationLabel(submission: Submission): string {
   return 'No location provided';
 }
 
+function getEmailLabel(submission: Submission): string {
+  const input = submission.input;
+
+  if ('email' in input && input.email) return input.email;
+
+  return 'No email provided';
+}
+
 export default function AdminPage() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [filter, setFilter] = useState<'all' | PropertyMode>('all');
+  const [adminPin, setAdminPin] = useState('');
+  const [status, setStatus] = useState<'local' | 'remote'>('local');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setSubmissions(getSubmissions());
@@ -38,16 +51,33 @@ export default function AdminPage() {
       ? submissions
       : submissions.filter((submission) => submission.mode === filter);
 
-  const handleClear = () => {
+  const handleClearLocal = () => {
     clearSubmissions();
     setSubmissions([]);
+    setStatus('local');
+  };
+
+  const handleLoadRemote = async () => {
+    setError('');
+    setLoading(true);
+
+    try {
+      const remoteSubmissions = await getRemoteSubmissions(adminPin);
+      setSubmissions(remoteSubmissions);
+      setStatus('remote');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to load submissions.';
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-8">
         <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
-          Internal MVP admin
+          Internal admin
         </p>
 
         <h1 className="text-3xl font-bold text-stone-900 mb-3">
@@ -55,13 +85,42 @@ export default function AdminPage() {
         </h1>
 
         <p className="text-sm text-stone-500 max-w-2xl">
-          This page reads saved checks from localStorage only. Authentication and
-          persistent database storage must be added before production.
+          Local checks are stored in this browser. Remote checks are stored in Supabase
+          and require the admin PIN.
         </p>
       </div>
 
-      <div className="bg-orange-50 border border-orange-200 text-orange-800 rounded-xl p-4 text-sm mb-8">
-        MVP admin view. Authentication and persistent database storage must be added before production.
+      <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm mb-8">
+        <p className="font-semibold text-stone-900 mb-2">Load remote submissions</p>
+
+        <p className="text-sm text-stone-500 mb-4">
+          Enter the admin PIN to view all submissions saved in the Supabase database.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="password"
+            value={adminPin}
+            onChange={(event) => setAdminPin(event.target.value)}
+            placeholder="Admin PIN"
+            className="border border-stone-300 rounded px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          />
+
+          <button
+            type="button"
+            onClick={handleLoadRemote}
+            disabled={loading || !adminPin}
+            className="bg-teal-700 text-white px-5 py-2 rounded text-sm font-medium hover:bg-teal-800 disabled:opacity-50"
+          >
+            {loading ? 'Loading...' : 'Load remote'}
+          </button>
+        </div>
+
+        {error && <p className="text-sm text-red-600 mt-3">{error}</p>}
+
+        <p className="text-xs text-stone-400 mt-3">
+          Current view: {status === 'remote' ? 'Supabase remote submissions' : 'local browser submissions'}
+        </p>
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
@@ -103,13 +162,13 @@ export default function AdminPage() {
           </button>
         </div>
 
-        {submissions.length > 0 && (
+        {status === 'local' && submissions.length > 0 && (
           <button
             type="button"
-            onClick={handleClear}
+            onClick={handleClearLocal}
             className="text-sm text-red-600 hover:text-red-700"
           >
-            Clear saved checks
+            Clear local checks
           </button>
         )}
       </div>
@@ -117,11 +176,11 @@ export default function AdminPage() {
       {filteredSubmissions.length === 0 ? (
         <div className="bg-white border border-stone-200 rounded-xl p-8 text-center">
           <h2 className="text-lg font-semibold text-stone-900 mb-2">
-            No saved checks yet
+            No saved checks found
           </h2>
 
           <p className="text-sm text-stone-500 mb-5">
-            Run a residential or commercial check first, then it will appear here.
+            Run a property check first, or load remote submissions using the admin PIN.
           </p>
 
           <Link
@@ -149,6 +208,10 @@ export default function AdminPage() {
                   <h2 className="text-lg font-semibold text-stone-900">
                     {getLocationLabel(submission)}
                   </h2>
+
+                  <p className="text-sm text-stone-500 mt-1">
+                    {getEmailLabel(submission)}
+                  </p>
 
                   <p className="text-sm text-stone-500 mt-1">
                     Created {formatDate(submission.createdAt)}

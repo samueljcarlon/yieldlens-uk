@@ -8,6 +8,7 @@ import CommercialForm from '@/components/CommercialForm';
 import { calculateResidentialResult } from '@/lib/calculations/residential';
 import { calculateCommercialResult } from '@/lib/calculations/commercial';
 import { saveSubmission } from '@/lib/storage';
+import { saveRemoteSubmission } from '@/lib/remoteSubmissions';
 import type {
   CommercialInput,
   PropertyMode,
@@ -32,7 +33,7 @@ function CheckPageContent() {
 
   const [mode, setMode] = useState<PropertyMode>(initialMode);
 
-  const handleResidentialSubmit = (input: ResidentialInput) => {
+  const handleResidentialSubmit = async (input: ResidentialInput) => {
     const result = calculateResidentialResult(input);
 
     const submission: Submission = {
@@ -46,10 +47,11 @@ function CheckPageContent() {
     };
 
     saveSubmission(submission);
+    await saveRemoteSubmission(submission);
     router.push('/results');
   };
 
-  const handleCommercialSubmit = (input: CommercialInput) => {
+  const handleCommercialSubmit = async (input: CommercialInput) => {
     const result = calculateCommercialResult(input);
 
     const submission: Submission = {
@@ -63,6 +65,7 @@ function CheckPageContent() {
     };
 
     saveSubmission(submission);
+    await saveRemoteSubmission(submission);
     router.push('/results');
   };
 
