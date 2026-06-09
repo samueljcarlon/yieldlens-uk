@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/buy-to-let-yield-calculator',
     '/property-cash-flow-calculator',
     '/rent-affordability-check',
+    '/viability-file',
   ].map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: new Date(),
