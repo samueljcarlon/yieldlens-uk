@@ -14,6 +14,7 @@ import AssumptionsPanel from '@/components/AssumptionsPanel';
 import ScoreCard from '@/components/ScoreCard';
 import ReportInterestButton from '@/components/ReportInterestButton';
 import ScenarioPanel from '@/components/ScenarioPanel';
+import ResultsConversionPanel from '@/components/ResultsConversionPanel';
 
 function formatCurrency(value?: number): string {
   if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
@@ -210,6 +211,14 @@ export default function ResultsPage() {
           >
             Run another check
           </Link>
+        </div>
+
+        <div className="mt-8">
+          <ResultsConversionPanel
+            mode={submission.mode}
+            score={submission.score}
+            verdictLabel={submission.verdict.label}
+          />
         </div>
       </div>
 
