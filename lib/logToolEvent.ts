@@ -13,6 +13,7 @@ export async function logToolEvent(payload: ToolEventPayload): Promise<void> {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
+      keepalive: true,
     });
   } catch {
     // Fail silently. The UI must never crash due to analytics.

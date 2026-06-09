@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import RentAffordabilityTool from '@/components/RentAffordabilityTool';
+import ToolConversionPanel from '@/components/ToolConversionPanel';
 
 export const metadata: Metadata = {
   title: 'Rent Affordability Calculator UK | YieldLens UK',
@@ -162,6 +163,18 @@ export default function RentAffordabilityCheckPage() {
 
       <section id="calculator" className="max-w-6xl mx-auto px-4 py-16">
         <RentAffordabilityTool />
+
+        <div className="mt-8">
+          <ToolConversionPanel
+            sourceTool="rent_affordability"
+            title="Want to check the property itself, not just the rent?"
+            description="The rent affordability calculator checks your monthly pressure. The full residential check looks at the property numbers, rent assumptions, ownership costs, yield, cash flow, and downside risk."
+            primaryLabel="Run full residential check"
+            primaryHref="/check?mode=residential"
+            secondaryLabel="Compare property cash flow"
+            secondaryHref="/property-cash-flow-calculator"
+          />
+        </div>
       </section>
 
       <section className="bg-white border-y border-stone-200">

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import PropertyCashFlowTool from '@/components/PropertyCashFlowTool';
+import ToolConversionPanel from '@/components/ToolConversionPanel';
 
 export const metadata: Metadata = {
   title: 'Property Cash Flow Calculator UK | YieldLens UK',
@@ -155,6 +156,18 @@ export default function PropertyCashFlowCalculatorPage() {
 
       <section id="calculator" className="max-w-6xl mx-auto px-4 py-16">
         <PropertyCashFlowTool />
+
+        <div className="mt-8">
+          <ToolConversionPanel
+            sourceTool="property_cash_flow"
+            title="Want a fuller property return check?"
+            description="The cash flow calculator checks whether rent survives regular costs. The full residential check saves a property-specific result with yield, risk flags, assumptions, downside pressure, and a viability file request option."
+            primaryLabel="Run full residential check"
+            primaryHref="/check?mode=residential"
+            secondaryLabel="Compare buy-to-let yield"
+            secondaryHref="/buy-to-let-yield-calculator"
+          />
+        </div>
       </section>
 
       <section className="bg-white border-y border-stone-200">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import ToolConversionPanel from '@/components/ToolConversionPanel';
 
 export const metadata: Metadata = {
   title: 'Commercial Lease Viability Check | YieldLens UK',
@@ -412,27 +413,16 @@ export default function CommercialLeaseViabilityPage() {
       </section>
 
       <section className="bg-teal-50 border-y border-teal-200">
-        <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
-            Start with the numbers
-          </p>
-
-          <h2 className="text-3xl font-bold text-stone-900 mb-4">
-            Run the free commercial check before you sign the lease.
-          </h2>
-
-          <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
-            Enter the rent, trading assumptions, and known costs. YieldLens UK will
-            return the headline viability score, rent burden, break-even customers,
-            risk flags, and downside scenario.
-          </p>
-
-          <Link
-            href="/check?mode=commercial"
-            className="inline-block bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
-          >
-            Run free commercial check
-          </Link>
+        <div className="max-w-4xl mx-auto px-4 py-16">
+          <ToolConversionPanel
+            sourceTool="commercial_lease_page"
+            title="Run the free commercial check before you sign the lease."
+            description="Enter the rent, trading assumptions, and known costs. YieldLens UK will return the headline viability score, rent burden, break-even customers, risk flags, and downside scenario."
+            primaryLabel="Run free commercial check"
+            primaryHref="/check?mode=commercial"
+            secondaryLabel="Compare property cash flow"
+            secondaryHref="/property-cash-flow-calculator"
+          />
         </div>
       </section>
     </div>
