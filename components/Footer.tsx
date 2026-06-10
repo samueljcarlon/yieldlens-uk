@@ -11,7 +11,7 @@ export default function Footer() {
             </p>
 
             <p className="text-sm text-stone-500 mt-2 leading-6">
-              Independent UK property return checks for residential and commercial
+              Independent UK property pressure-tests for residential and commercial
               decisions. Indicative decision-support only.
             </p>
           </div>
@@ -63,14 +63,14 @@ export default function Footer() {
 
         <div className="mt-8 pt-6 border-t border-stone-100 text-xs text-stone-400 leading-6">
           <p>
-            YieldLens UK provides indicative property return checks and
+            YieldLens UK provides indicative property pressure-tests and
             decision-support analysis only. It is not a formal valuation, financial
             advice, mortgage advice, legal advice, tax advice, or a substitute for
             professional due diligence.
           </p>
 
           <p className="mt-2">
-            © 2026 YieldLens UK. Independent UK property analysis tool.
+            © 2026 YieldLens UK. Independent UK property decision-support tool.
           </p>
         </div>
       </div>

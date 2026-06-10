@@ -138,7 +138,9 @@ function RiskBadge({ flag }: { flag: RiskFlag }) {
   return (
     <div className={`border rounded-lg p-3 ${classes[flag.severity]}`}>
       <p className="text-xs uppercase tracking-wide font-semibold mb-1">
-        {flag.severity === 'info' ? 'Note' : flag.severity}
+        {flag.severity === 'info'
+          ? 'Note'
+          : flag.severity.charAt(0).toUpperCase() + flag.severity.slice(1)}
       </p>
       <p className="text-sm leading-6">{flag.message}</p>
     </div>
@@ -244,10 +246,10 @@ export default function ReportPage() {
       <div className="print-hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
           <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-1">
-            Printable report preview
+            Viability file preview
           </p>
           <h1 className="text-2xl font-bold text-stone-900">
-            YieldLens UK report
+            YieldLens UK viability file
           </h1>
         </div>
 
@@ -278,7 +280,7 @@ export default function ReportPage() {
               </p>
 
               <h2 className="text-3xl font-bold text-stone-900 mb-3">
-                {isResidential ? 'Residential return report' : 'Commercial site report'}
+                {isResidential ? 'Residential viability file' : 'Commercial site viability file'}
               </h2>
 
               <p className="text-sm text-stone-500">
@@ -415,13 +417,13 @@ export default function ReportPage() {
 
         <footer className="border-t border-stone-200 pt-5 text-xs text-stone-500 leading-6">
           <p>
-            YieldLens UK provides indicative property return checks and decision-support
+            YieldLens UK provides indicative property pressure-tests and decision-support
             analysis only. It is not a formal valuation, financial advice, mortgage
             advice, legal advice, tax advice, or a substitute for professional due diligence.
           </p>
 
           <p className="mt-2">
-            YieldLens UK is an independent UK property analysis tool. Figures are based
+            YieldLens UK is an independent UK property decision-support tool. Figures are based
             on user-provided inputs and MVP placeholder assumptions where live data is not yet connected.
           </p>
         </footer>

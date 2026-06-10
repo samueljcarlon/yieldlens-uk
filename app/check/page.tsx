@@ -77,7 +77,7 @@ function CheckPageContent() {
         </p>
 
         <h1 className="text-3xl font-bold text-stone-900 mb-3">
-          Run an indicative property return check
+          Run an indicative property pressure-test
         </h1>
 
         <p className="text-sm text-stone-600 max-w-2xl">
@@ -106,7 +106,7 @@ function CheckPageContent() {
         <p className="font-semibold text-stone-800 mb-2">Important disclaimer</p>
 
         <p>
-          YieldLens UK provides indicative property return checks and
+          YieldLens UK provides indicative property pressure-tests and
           decision-support analysis only. It is not a formal valuation, financial
           advice, mortgage advice, legal advice, tax advice, or a substitute for
           professional due diligence.
