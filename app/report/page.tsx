@@ -31,6 +31,11 @@ function formatNumber(value?: number): string {
   return value.toFixed(1);
 }
 
+function formatMonths(value?: number): string {
+  if (value === undefined || value === null || Number.isNaN(value)) return 'No monthly burn';
+  return `${value.toFixed(1)} months`;
+}
+
 function formatDate(value: string): string {
   return new Date(value).toLocaleString('en-GB', {
     day: 'numeric',
@@ -103,19 +108,23 @@ function getExecutiveSummary(submission: Submission): string {
 
   const result = submission.result as CommercialResult;
 
+  const survivalText = result.survivesSixBadMonths
+    ? 'The six-month survival test passes on the current downside assumptions.'
+    : 'The six-month survival test does not pass on the current downside assumptions.';
+
   if (score >= 80) {
-    return `This commercial site screens as a strong candidate on the current assumptions. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day against an assumed ${result.expectedCustomersPerDay} customers per day.`;
+    return `This commercial site screens as a strong candidate on the current assumptions. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day against an assumed ${result.expectedCustomersPerDay} customers per day. ${survivalText}`;
   }
 
   if (score >= 65) {
-    return `This commercial site appears worth investigating. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day, but the rent burden and operating cost assumptions still need careful checking.`;
+    return `This commercial site appears worth investigating. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day, but the rent burden, upfront cash requirement, and survival runway still need careful checking. ${survivalText}`;
   }
 
   if (score >= 50) {
-    return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+    return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, upfront cash requirement, and downside trading case need stress-testing before any lease commitment. ${survivalText}`;
   }
 
-  return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, or a different business model to become viable.`;
+  return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, more starting cash, or a different business model to become viable. ${survivalText}`;
 }
 
 function RiskBadge({ flag }: { flag: RiskFlag }) {
@@ -170,12 +179,29 @@ function ResidentialReportMetrics({ result }: { result: ResidentialResult }) {
 
 function CommercialReportMetrics({ result }: { result: CommercialResult }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-      <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
-      <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
-      <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
-      <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
-      <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+    <div className="space-y-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
+        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+      </div>
+
+      <div>
+        <h4 className="text-base font-bold text-stone-900 mb-3">
+          Commercial survival model
+        </h4>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <ReportMetric label="Upfront cash needed" value={formatCurrency(result.upfrontCashNeeded)} helper="Fit-out, deposit, fees, opening stock, and setup costs" />
+          <ReportMetric label="Cash after opening" value={formatCurrency(result.availableCashAfterOpening)} helper="Starting cash minus upfront cash needed" />
+          <ReportMetric label="Downside revenue" value={formatCurrency(result.downsideMonthlyRevenue)} helper={`${formatPercent(result.downsideRevenuePercentage)} of expected monthly revenue`} />
+          <ReportMetric label="Downside burn" value={formatCurrency(result.monthlyBurnInDownside)} helper="Monthly cash burn in the downside case" />
+          <ReportMetric label="Survival runway" value={formatMonths(result.survivalMonths)} helper="How long cash covers downside burn" />
+          <ReportMetric label="Six-month test" value={result.survivesSixBadMonths ? 'Pass' : 'Fail'} helper="Whether the site survives six weak trading months" />
+        </div>
+      </div>
     </div>
   );
 }

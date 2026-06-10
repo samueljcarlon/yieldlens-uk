@@ -1,0 +1,1349 @@
+COMMERCIAL DISPLAY DIAGNOSTICS
+
+
+=== app/results/page.tsx (308 lines) ===
+
+--- Imports ---
+   3  import { useEffect, useState } from 'react';
+   4  import Link from 'next/link';
+   5  import type {
+  10  import { getLatestSubmission } from '@/lib/storage';
+  11  import MetricCard from '@/components/MetricCard';
+  12  import RiskFlags from '@/components/RiskFlags';
+  13  import AssumptionsPanel from '@/components/AssumptionsPanel';
+  14  import ScoreCard from '@/components/ScoreCard';
+  15  import ReportInterestButton from '@/components/ReportInterestButton';
+  16  import ScenarioPanel from '@/components/ScenarioPanel';
+  17  import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+
+--- Commercial metrics / scenario / render sections ---
+
+--- Around line 6 ---
+   3  import { useEffect, useState } from 'react';
+   4  import Link from 'next/link';
+   5  import type {
+   6    CommercialResult,
+   7    ResidentialResult,
+   8    Submission,
+   9  } from '@/types/property';
+  10  import { getLatestSubmission } from '@/lib/storage';
+  11  import MetricCard from '@/components/MetricCard';
+  12  import RiskFlags from '@/components/RiskFlags';
+  13  import AssumptionsPanel from '@/components/AssumptionsPanel';
+  14  import ScoreCard from '@/components/ScoreCard';
+  15  import ReportInterestButton from '@/components/ReportInterestButton';
+  16  import ScenarioPanel from '@/components/ScenarioPanel';
+  17  import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+  18  
+  19  function formatCurrency(value?: number): string {
+  20    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+
+--- Around line 12 ---
+   9  } from '@/types/property';
+  10  import { getLatestSubmission } from '@/lib/storage';
+  11  import MetricCard from '@/components/MetricCard';
+  12  import RiskFlags from '@/components/RiskFlags';
+  13  import AssumptionsPanel from '@/components/AssumptionsPanel';
+  14  import ScoreCard from '@/components/ScoreCard';
+  15  import ReportInterestButton from '@/components/ReportInterestButton';
+  16  import ScenarioPanel from '@/components/ScenarioPanel';
+  17  import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+  18  
+  19  function formatCurrency(value?: number): string {
+  20    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+  21  
+  22    return new Intl.NumberFormat('en-GB', {
+  23      style: 'currency',
+  24      currency: 'GBP',
+  25      maximumFractionDigits: 0,
+  26    }).format(value);
+
+--- Around line 16 ---
+  13  import AssumptionsPanel from '@/components/AssumptionsPanel';
+  14  import ScoreCard from '@/components/ScoreCard';
+  15  import ReportInterestButton from '@/components/ReportInterestButton';
+  16  import ScenarioPanel from '@/components/ScenarioPanel';
+  17  import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+  18  
+  19  function formatCurrency(value?: number): string {
+  20    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+  21  
+  22    return new Intl.NumberFormat('en-GB', {
+  23      style: 'currency',
+  24      currency: 'GBP',
+  25      maximumFractionDigits: 0,
+  26    }).format(value);
+  27  }
+  28  
+  29  function formatPercent(value?: number): string {
+  30    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+
+--- Around line 82 ---
+  79    }, []);
+  80  
+  81    if (!submission) {
+  82      return (
+  83        <div className="max-w-3xl mx-auto px-4 py-16 text-center">
+  84          <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
+  85            <h1 className="text-2xl font-bold text-stone-900 mb-3">
+  86              No property check found
+  87            </h1>
+  88  
+  89            <p className="text-sm text-stone-500 mb-6">
+  90              Run a residential or commercial check first, then your results will appear here.
+  91            </p>
+  92  
+  93            <Link
+  94              href="/check"
+  95              className="inline-block bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
+  96            >
+
+--- Around line 108 ---
+ 105    const result = submission.result;
+ 106    const email = getEmail(submission);
+ 107  
+ 108    return (
+ 109      <div className="max-w-5xl mx-auto px-4 py-12">
+ 110        <div className="mb-8">
+ 111          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+ 112            {isResidential ? 'Residential return check' : 'Commercial site check'}
+ 113          </p>
+ 114  
+ 115          <h1 className="text-3xl font-bold text-stone-900 mb-3">
+ 116            Your indicative results
+ 117          </h1>
+ 118  
+ 119          <p className="text-sm text-stone-500">
+ 120            {formatDate(submission.createdAt)}
+ 121          </p>
+ 122  
+
+--- Around line 149 ---
+ 146        {isResidential ? (
+ 147          <ResidentialMetrics result={result as ResidentialResult} />
+ 148        ) : (
+ 149          <CommercialMetrics result={result as CommercialResult} />
+ 150        )}
+ 151  
+ 152        <div className="mt-8">
+ 153          <ScenarioPanel submission={submission} />
+ 154        </div>
+ 155  
+ 156        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+ 157          <RiskFlags flags={result.riskFlags} />
+ 158          <AssumptionsPanel assumptions={result.assumptions} />
+ 159        </div>
+ 160  
+ 161        {result.missingDataWarnings.length > 0 && (
+ 162          <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-xl p-5">
+ 163            <p className="font-semibold text-yellow-900 mb-3">Missing data warnings</p>
+
+--- Around line 153 ---
+ 150        )}
+ 151  
+ 152        <div className="mt-8">
+ 153          <ScenarioPanel submission={submission} />
+ 154        </div>
+ 155  
+ 156        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+ 157          <RiskFlags flags={result.riskFlags} />
+ 158          <AssumptionsPanel assumptions={result.assumptions} />
+ 159        </div>
+ 160  
+ 161        {result.missingDataWarnings.length > 0 && (
+ 162          <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-xl p-5">
+ 163            <p className="font-semibold text-yellow-900 mb-3">Missing data warnings</p>
+ 164  
+ 165            <ul className="space-y-2 text-sm text-yellow-800">
+ 166              {result.missingDataWarnings.map((warning) => (
+ 167                <li key={warning}>• {warning}</li>
+
+--- Around line 157 ---
+ 154        </div>
+ 155  
+ 156        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+ 157          <RiskFlags flags={result.riskFlags} />
+ 158          <AssumptionsPanel assumptions={result.assumptions} />
+ 159        </div>
+ 160  
+ 161        {result.missingDataWarnings.length > 0 && (
+ 162          <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-xl p-5">
+ 163            <p className="font-semibold text-yellow-900 mb-3">Missing data warnings</p>
+ 164  
+ 165            <ul className="space-y-2 text-sm text-yellow-800">
+ 166              {result.missingDataWarnings.map((warning) => (
+ 167                <li key={warning}>• {warning}</li>
+ 168              ))}
+ 169            </ul>
+ 170          </div>
+ 171        )}
+
+--- Around line 158 ---
+ 155  
+ 156        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+ 157          <RiskFlags flags={result.riskFlags} />
+ 158          <AssumptionsPanel assumptions={result.assumptions} />
+ 159        </div>
+ 160  
+ 161        {result.missingDataWarnings.length > 0 && (
+ 162          <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-xl p-5">
+ 163            <p className="font-semibold text-yellow-900 mb-3">Missing data warnings</p>
+ 164  
+ 165            <ul className="space-y-2 text-sm text-yellow-800">
+ 166              {result.missingDataWarnings.map((warning) => (
+ 167                <li key={warning}>• {warning}</li>
+ 168              ))}
+ 169            </ul>
+ 170          </div>
+ 171        )}
+ 172  
+
+--- Around line 161 ---
+ 158          <AssumptionsPanel assumptions={result.assumptions} />
+ 159        </div>
+ 160  
+ 161        {result.missingDataWarnings.length > 0 && (
+ 162          <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-xl p-5">
+ 163            <p className="font-semibold text-yellow-900 mb-3">Missing data warnings</p>
+ 164  
+ 165            <ul className="space-y-2 text-sm text-yellow-800">
+ 166              {result.missingDataWarnings.map((warning) => (
+ 167                <li key={warning}>• {warning}</li>
+ 168              ))}
+ 169            </ul>
+ 170          </div>
+ 171        )}
+ 172  
+ 173        <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+ 174          <p className="font-semibold text-stone-900 mb-3">Next steps</p>
+ 175  
+
+--- Around line 166 ---
+ 163            <p className="font-semibold text-yellow-900 mb-3">Missing data warnings</p>
+ 164  
+ 165            <ul className="space-y-2 text-sm text-yellow-800">
+ 166              {result.missingDataWarnings.map((warning) => (
+ 167                <li key={warning}>• {warning}</li>
+ 168              ))}
+ 169            </ul>
+ 170          </div>
+ 171        )}
+ 172  
+ 173        <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+ 174          <p className="font-semibold text-stone-900 mb-3">Next steps</p>
+ 175  
+ 176          <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
+ 177            {result.nextSteps.map((step) => (
+ 178              <li key={step}>{step}</li>
+ 179            ))}
+ 180          </ol>
+
+--- Around line 177 ---
+ 174          <p className="font-semibold text-stone-900 mb-3">Next steps</p>
+ 175  
+ 176          <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
+ 177            {result.nextSteps.map((step) => (
+ 178              <li key={step}>{step}</li>
+ 179            ))}
+ 180          </ol>
+ 181        </div>
+ 182  
+ 183        <div className="mt-8 bg-teal-50 border border-teal-200 rounded-xl p-6">
+ 184          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+ 185            Full viability file coming soon
+ 186          </p>
+ 187  
+ 188          <h2 className="text-xl font-bold text-stone-900 mb-2">
+ 189            Want the full viability file for this property?
+ 190          </h2>
+ 191  
+
+--- Around line 194 ---
+ 191  
+ 192          <p className="text-sm text-stone-700 leading-6 max-w-3xl">
+ 193            Your check has been saved. The next product step is a fuller viability file with
+ 194            a cleaner property snapshot, downside cases, assumptions, and a more detailed
+ 195            verdict. Launch users will get early access before paid reports go live.
+ 196          </p>
+ 197  
+ 198          <div className="mt-5 flex flex-col sm:flex-row gap-3">
+ 199            <ReportInterestButton submission={submission} />
+ 200  
+ 201            <Link
+ 202              href="/report"
+ 203              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
+ 204            >
+ 205              View printable preview →
+ 206            </Link>
+ 207  
+ 208            <Link
+
+--- Around line 239 ---
+ 236  }
+ 237  
+ 238  function ResidentialMetrics({ result }: { result: ResidentialResult }) {
+ 239    return (
+ 240      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 241        <MetricCard
+ 242          label="Gross yield"
+ 243          value={formatPercent(result.grossYield)}
+ 244          helper="Purchase price and expected rent"
+ 245        />
+ 246  
+ 247        <MetricCard
+ 248          label="Annual rent"
+ 249          value={formatCurrency(result.annualRentalIncome)}
+ 250          helper="Expected monthly rent × 12"
+ 251        />
+ 252  
+ 253        <MetricCard
+
+--- Around line 274 ---
+ 271    );
+ 272  }
+ 273  
+ 274  function CommercialMetrics({ result }: { result: CommercialResult }) {
+ 275    return (
+ 276      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 277        <MetricCard
+ 278          label="Monthly revenue"
+ 279          value={formatCurrency(result.estimatedMonthlyRevenue)}
+ 280          helper="Spend × customers × opening days"
+ 281        />
+ 282  
+ 283        <MetricCard
+ 284          label="Monthly rent"
+ 285          value={formatCurrency(result.monthlyRent)}
+ 286          helper="Annual rent ÷ 12"
+ 287        />
+ 288  
+
+--- Around line 275 ---
+ 272  }
+ 273  
+ 274  function CommercialMetrics({ result }: { result: CommercialResult }) {
+ 275    return (
+ 276      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 277        <MetricCard
+ 278          label="Monthly revenue"
+ 279          value={formatCurrency(result.estimatedMonthlyRevenue)}
+ 280          helper="Spend × customers × opening days"
+ 281        />
+ 282  
+ 283        <MetricCard
+ 284          label="Monthly rent"
+ 285          value={formatCurrency(result.monthlyRent)}
+ 286          helper="Annual rent ÷ 12"
+ 287        />
+ 288  
+ 289        <MetricCard
+
+--- Around line 279 ---
+ 276      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 277        <MetricCard
+ 278          label="Monthly revenue"
+ 279          value={formatCurrency(result.estimatedMonthlyRevenue)}
+ 280          helper="Spend × customers × opening days"
+ 281        />
+ 282  
+ 283        <MetricCard
+ 284          label="Monthly rent"
+ 285          value={formatCurrency(result.monthlyRent)}
+ 286          helper="Annual rent ÷ 12"
+ 287        />
+ 288  
+ 289        <MetricCard
+ 290          label="Rent burden"
+ 291          value={formatPercent(result.rentBurdenPercentage)}
+ 292          helper="Rent as % of estimated revenue"
+ 293        />
+
+--- Around line 285 ---
+ 282  
+ 283        <MetricCard
+ 284          label="Monthly rent"
+ 285          value={formatCurrency(result.monthlyRent)}
+ 286          helper="Annual rent ÷ 12"
+ 287        />
+ 288  
+ 289        <MetricCard
+ 290          label="Rent burden"
+ 291          value={formatPercent(result.rentBurdenPercentage)}
+ 292          helper="Rent as % of estimated revenue"
+ 293        />
+ 294  
+ 295        <MetricCard
+ 296          label="Cost base"
+ 297          value={formatCurrency(result.estimatedMonthlyCostBase)}
+ 298          helper="Rent + staff + utilities + rates"
+ 299        />
+
+--- Around line 291 ---
+ 288  
+ 289        <MetricCard
+ 290          label="Rent burden"
+ 291          value={formatPercent(result.rentBurdenPercentage)}
+ 292          helper="Rent as % of estimated revenue"
+ 293        />
+ 294  
+ 295        <MetricCard
+ 296          label="Cost base"
+ 297          value={formatCurrency(result.estimatedMonthlyCostBase)}
+ 298          helper="Rent + staff + utilities + rates"
+ 299        />
+ 300  
+ 301        <MetricCard
+ 302          label="Break-even/day"
+ 303          value={formatNumber(result.breakEvenCustomersPerDay)}
+ 304          helper={`Assumed ${result.expectedCustomersPerDay} per day`}
+ 305        />
+
+--- Around line 297 ---
+ 294  
+ 295        <MetricCard
+ 296          label="Cost base"
+ 297          value={formatCurrency(result.estimatedMonthlyCostBase)}
+ 298          helper="Rent + staff + utilities + rates"
+ 299        />
+ 300  
+ 301        <MetricCard
+ 302          label="Break-even/day"
+ 303          value={formatNumber(result.breakEvenCustomersPerDay)}
+ 304          helper={`Assumed ${result.expectedCustomersPerDay} per day`}
+ 305        />
+ 306      </div>
+ 307    );
+ 308  }
+
+--- Around line 303 ---
+ 300  
+ 301        <MetricCard
+ 302          label="Break-even/day"
+ 303          value={formatNumber(result.breakEvenCustomersPerDay)}
+ 304          helper={`Assumed ${result.expectedCustomersPerDay} per day`}
+ 305        />
+ 306      </div>
+ 307    );
+ 308  }
+
+
+=== app/report/page.tsx (405 lines) ===
+
+--- Imports ---
+   3  import { useEffect, useState } from 'react';
+   4  import Link from 'next/link';
+   5  import type {
+  11  import { getLatestSubmission } from '@/lib/storage';
+  12  import ScenarioPanel from '@/components/ScenarioPanel';
+
+--- Commercial metrics / scenario / render sections ---
+
+--- Around line 6 ---
+   3  import { useEffect, useState } from 'react';
+   4  import Link from 'next/link';
+   5  import type {
+   6    CommercialResult,
+   7    ResidentialResult,
+   8    RiskFlag,
+   9    Submission,
+  10  } from '@/types/property';
+  11  import { getLatestSubmission } from '@/lib/storage';
+  12  import ScenarioPanel from '@/components/ScenarioPanel';
+  13  
+  14  function formatCurrency(value?: number): string {
+  15    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+  16  
+  17    return new Intl.NumberFormat('en-GB', {
+  18      style: 'currency',
+  19      currency: 'GBP',
+  20      maximumFractionDigits: 0,
+
+--- Around line 12 ---
+   9    Submission,
+  10  } from '@/types/property';
+  11  import { getLatestSubmission } from '@/lib/storage';
+  12  import ScenarioPanel from '@/components/ScenarioPanel';
+  13  
+  14  function formatCurrency(value?: number): string {
+  15    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+  16  
+  17    return new Intl.NumberFormat('en-GB', {
+  18      style: 'currency',
+  19      currency: 'GBP',
+  20      maximumFractionDigits: 0,
+  21    }).format(value);
+  22  }
+  23  
+  24  function formatPercent(value?: number): string {
+  25    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+  26    return `${value.toFixed(1)}%`;
+
+--- Around line 90 ---
+  87      const result = submission.result as ResidentialResult;
+  88  
+  89      if (score >= 80) {
+  90        return `This residential property screens as a strong candidate on the current assumptions. The indicated gross yield is ${formatPercent(result.grossYield)}, but the result should still be checked against comparable rents, full ownership costs, and financing risk.`;
+  91      }
+  92  
+  93      if (score >= 65) {
+  94        return `This residential property appears worth investigating, but the result is not risk-free. The indicated gross yield is ${formatPercent(result.grossYield)} and estimated monthly cash flow is ${formatCurrency(result.monthlyCashFlow)}, so the deal depends heavily on the accuracy of rent and cost assumptions.`;
+  95      }
+  96  
+  97      if (score >= 50) {
+  98        return `This residential property screens as marginal. The numbers may still work in a specific strategy, but the current return profile leaves limited room for higher costs, void periods, or weaker rent.`;
+  99      }
+ 100  
+ 101      return `This residential property screens as weak on the current assumptions. The return profile should be treated cautiously unless new evidence materially improves the rent, cost, or purchase price assumptions.`;
+ 102    }
+ 103  
+ 104    const result = submission.result as CommercialResult;
+
+--- Around line 94 ---
+  91      }
+  92  
+  93      if (score >= 65) {
+  94        return `This residential property appears worth investigating, but the result is not risk-free. The indicated gross yield is ${formatPercent(result.grossYield)} and estimated monthly cash flow is ${formatCurrency(result.monthlyCashFlow)}, so the deal depends heavily on the accuracy of rent and cost assumptions.`;
+  95      }
+  96  
+  97      if (score >= 50) {
+  98        return `This residential property screens as marginal. The numbers may still work in a specific strategy, but the current return profile leaves limited room for higher costs, void periods, or weaker rent.`;
+  99      }
+ 100  
+ 101      return `This residential property screens as weak on the current assumptions. The return profile should be treated cautiously unless new evidence materially improves the rent, cost, or purchase price assumptions.`;
+ 102    }
+ 103  
+ 104    const result = submission.result as CommercialResult;
+ 105  
+ 106    if (score >= 80) {
+ 107      return `This commercial site screens as a strong candidate on the current assumptions. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day against an assumed ${result.expectedCustomersPerDay} customers per day.`;
+ 108    }
+
+--- Around line 101 ---
+  98        return `This residential property screens as marginal. The numbers may still work in a specific strategy, but the current return profile leaves limited room for higher costs, void periods, or weaker rent.`;
+  99      }
+ 100  
+ 101      return `This residential property screens as weak on the current assumptions. The return profile should be treated cautiously unless new evidence materially improves the rent, cost, or purchase price assumptions.`;
+ 102    }
+ 103  
+ 104    const result = submission.result as CommercialResult;
+ 105  
+ 106    if (score >= 80) {
+ 107      return `This commercial site screens as a strong candidate on the current assumptions. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day against an assumed ${result.expectedCustomersPerDay} customers per day.`;
+ 108    }
+ 109  
+ 110    if (score >= 65) {
+ 111      return `This commercial site appears worth investigating. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day, but the rent burden and operating cost assumptions still need careful checking.`;
+ 112    }
+ 113  
+ 114    if (score >= 50) {
+ 115      return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+
+--- Around line 104 ---
+ 101      return `This residential property screens as weak on the current assumptions. The return profile should be treated cautiously unless new evidence materially improves the rent, cost, or purchase price assumptions.`;
+ 102    }
+ 103  
+ 104    const result = submission.result as CommercialResult;
+ 105  
+ 106    if (score >= 80) {
+ 107      return `This commercial site screens as a strong candidate on the current assumptions. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day against an assumed ${result.expectedCustomersPerDay} customers per day.`;
+ 108    }
+ 109  
+ 110    if (score >= 65) {
+ 111      return `This commercial site appears worth investigating. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day, but the rent burden and operating cost assumptions still need careful checking.`;
+ 112    }
+ 113  
+ 114    if (score >= 50) {
+ 115      return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+ 116    }
+ 117  
+ 118    return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, or a different business model to become viable.`;
+
+--- Around line 107 ---
+ 104    const result = submission.result as CommercialResult;
+ 105  
+ 106    if (score >= 80) {
+ 107      return `This commercial site screens as a strong candidate on the current assumptions. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day against an assumed ${result.expectedCustomersPerDay} customers per day.`;
+ 108    }
+ 109  
+ 110    if (score >= 65) {
+ 111      return `This commercial site appears worth investigating. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day, but the rent burden and operating cost assumptions still need careful checking.`;
+ 112    }
+ 113  
+ 114    if (score >= 50) {
+ 115      return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+ 116    }
+ 117  
+ 118    return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, or a different business model to become viable.`;
+ 119  }
+ 120  
+ 121  function RiskBadge({ flag }: { flag: RiskFlag }) {
+
+--- Around line 111 ---
+ 108    }
+ 109  
+ 110    if (score >= 65) {
+ 111      return `This commercial site appears worth investigating. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day, but the rent burden and operating cost assumptions still need careful checking.`;
+ 112    }
+ 113  
+ 114    if (score >= 50) {
+ 115      return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+ 116    }
+ 117  
+ 118    return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, or a different business model to become viable.`;
+ 119  }
+ 120  
+ 121  function RiskBadge({ flag }: { flag: RiskFlag }) {
+ 122    const classes: Record<RiskFlag['severity'], string> = {
+ 123      high: 'bg-red-50 text-red-800 border-red-200',
+ 124      medium: 'bg-orange-50 text-orange-800 border-orange-200',
+ 125      low: 'bg-yellow-50 text-yellow-800 border-yellow-200',
+
+--- Around line 115 ---
+ 112    }
+ 113  
+ 114    if (score >= 50) {
+ 115      return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+ 116    }
+ 117  
+ 118    return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, or a different business model to become viable.`;
+ 119  }
+ 120  
+ 121  function RiskBadge({ flag }: { flag: RiskFlag }) {
+ 122    const classes: Record<RiskFlag['severity'], string> = {
+ 123      high: 'bg-red-50 text-red-800 border-red-200',
+ 124      medium: 'bg-orange-50 text-orange-800 border-orange-200',
+ 125      low: 'bg-yellow-50 text-yellow-800 border-yellow-200',
+ 126      info: 'bg-stone-50 text-stone-700 border-stone-200',
+ 127    };
+ 128  
+ 129    return (
+
+--- Around line 118 ---
+ 115      return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+ 116    }
+ 117  
+ 118    return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, or a different business model to become viable.`;
+ 119  }
+ 120  
+ 121  function RiskBadge({ flag }: { flag: RiskFlag }) {
+ 122    const classes: Record<RiskFlag['severity'], string> = {
+ 123      high: 'bg-red-50 text-red-800 border-red-200',
+ 124      medium: 'bg-orange-50 text-orange-800 border-orange-200',
+ 125      low: 'bg-yellow-50 text-yellow-800 border-yellow-200',
+ 126      info: 'bg-stone-50 text-stone-700 border-stone-200',
+ 127    };
+ 128  
+ 129    return (
+ 130      <div className={`border rounded-lg p-3 ${classes[flag.severity]}`}>
+ 131        <p className="text-xs uppercase tracking-wide font-semibold mb-1">
+ 132          {flag.severity === 'info' ? 'Note' : flag.severity}
+
+--- Around line 129 ---
+ 126      info: 'bg-stone-50 text-stone-700 border-stone-200',
+ 127    };
+ 128  
+ 129    return (
+ 130      <div className={`border rounded-lg p-3 ${classes[flag.severity]}`}>
+ 131        <p className="text-xs uppercase tracking-wide font-semibold mb-1">
+ 132          {flag.severity === 'info' ? 'Note' : flag.severity}
+ 133        </p>
+ 134        <p className="text-sm leading-6">{flag.message}</p>
+ 135      </div>
+ 136    );
+ 137  }
+ 138  
+ 139  function ReportMetric({
+ 140    label,
+ 141    value,
+ 142    helper,
+ 143  }: {
+
+--- Around line 148 ---
+ 145    value: string;
+ 146    helper: string;
+ 147  }) {
+ 148    return (
+ 149      <div className="border border-stone-200 rounded-lg p-4 bg-white">
+ 150        <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-1">
+ 151          {label}
+ 152        </p>
+ 153        <p className="text-xl font-bold text-stone-900">{value}</p>
+ 154        <p className="text-xs text-stone-500 mt-1">{helper}</p>
+ 155      </div>
+ 156    );
+ 157  }
+ 158  
+ 159  function ResidentialReportMetrics({ result }: { result: ResidentialResult }) {
+ 160    return (
+ 161      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 162        <ReportMetric label="Gross yield" value={formatPercent(result.grossYield)} helper="Indicative yield" />
+
+--- Around line 160 ---
+ 157  }
+ 158  
+ 159  function ResidentialReportMetrics({ result }: { result: ResidentialResult }) {
+ 160    return (
+ 161      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 162        <ReportMetric label="Gross yield" value={formatPercent(result.grossYield)} helper="Indicative yield" />
+ 163        <ReportMetric label="Annual rent" value={formatCurrency(result.annualRentalIncome)} helper="Expected monthly rent × 12" />
+ 164        <ReportMetric label="Monthly cash flow" value={formatCurrency(result.monthlyCashFlow)} helper="After known monthly costs" />
+ 165        <ReportMetric label="Annual cash flow" value={formatCurrency(result.annualCashFlow)} helper="Monthly cash flow × 12" />
+ 166        <ReportMetric label="Ownership costs" value={formatCurrency(result.annualOwnershipCosts)} helper="Known costs annualised" />
+ 167      </div>
+ 168    );
+ 169  }
+ 170  
+ 171  function CommercialReportMetrics({ result }: { result: CommercialResult }) {
+ 172    return (
+ 173      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 174        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
+
+--- Around line 171 ---
+ 168    );
+ 169  }
+ 170  
+ 171  function CommercialReportMetrics({ result }: { result: CommercialResult }) {
+ 172    return (
+ 173      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 174        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
+ 175        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+ 176        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+ 180    );
+ 181  }
+ 182  
+ 183  export default function ReportPage() {
+ 184    const [submission, setSubmission] = useState<Submission | null>(null);
+ 185  
+
+--- Around line 172 ---
+ 169  }
+ 170  
+ 171  function CommercialReportMetrics({ result }: { result: CommercialResult }) {
+ 172    return (
+ 173      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 174        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
+ 175        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+ 176        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+ 180    );
+ 181  }
+ 182  
+ 183  export default function ReportPage() {
+ 184    const [submission, setSubmission] = useState<Submission | null>(null);
+ 185  
+ 186    useEffect(() => {
+
+--- Around line 174 ---
+ 171  function CommercialReportMetrics({ result }: { result: CommercialResult }) {
+ 172    return (
+ 173      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 174        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
+ 175        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+ 176        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+ 180    );
+ 181  }
+ 182  
+ 183  export default function ReportPage() {
+ 184    const [submission, setSubmission] = useState<Submission | null>(null);
+ 185  
+ 186    useEffect(() => {
+ 187      setSubmission(getLatestSubmission());
+ 188    }, []);
+
+--- Around line 175 ---
+ 172    return (
+ 173      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 174        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
+ 175        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+ 176        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+ 180    );
+ 181  }
+ 182  
+ 183  export default function ReportPage() {
+ 184    const [submission, setSubmission] = useState<Submission | null>(null);
+ 185  
+ 186    useEffect(() => {
+ 187      setSubmission(getLatestSubmission());
+ 188    }, []);
+ 189  
+
+--- Around line 176 ---
+ 173      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 174        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
+ 175        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+ 176        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+ 180    );
+ 181  }
+ 182  
+ 183  export default function ReportPage() {
+ 184    const [submission, setSubmission] = useState<Submission | null>(null);
+ 185  
+ 186    useEffect(() => {
+ 187      setSubmission(getLatestSubmission());
+ 188    }, []);
+ 189  
+ 190    if (!submission) {
+
+--- Around line 177 ---
+ 174        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
+ 175        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+ 176        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+ 180    );
+ 181  }
+ 182  
+ 183  export default function ReportPage() {
+ 184    const [submission, setSubmission] = useState<Submission | null>(null);
+ 185  
+ 186    useEffect(() => {
+ 187      setSubmission(getLatestSubmission());
+ 188    }, []);
+ 189  
+ 190    if (!submission) {
+ 191      return (
+
+--- Around line 178 ---
+ 175        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+ 176        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+ 180    );
+ 181  }
+ 182  
+ 183  export default function ReportPage() {
+ 184    const [submission, setSubmission] = useState<Submission | null>(null);
+ 185  
+ 186    useEffect(() => {
+ 187      setSubmission(getLatestSubmission());
+ 188    }, []);
+ 189  
+ 190    if (!submission) {
+ 191      return (
+ 192        <div className="max-w-3xl mx-auto px-4 py-16 text-center">
+
+--- Around line 191 ---
+ 188    }, []);
+ 189  
+ 190    if (!submission) {
+ 191      return (
+ 192        <div className="max-w-3xl mx-auto px-4 py-16 text-center">
+ 193          <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
+ 194            <h1 className="text-2xl font-bold text-stone-900 mb-3">
+ 195              No report available
+ 196            </h1>
+ 197  
+ 198            <p className="text-sm text-stone-500 mb-6">
+ 199              Run a property check first, then the printable report preview will appear here.
+ 200            </p>
+ 201  
+ 202            <Link
+ 203              href="/check"
+ 204              className="inline-block bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
+ 205            >
+
+--- Around line 216 ---
+ 213    const isResidential = submission.mode === 'residential';
+ 214    const result = submission.result;
+ 215  
+ 216    return (
+ 217      <div className="max-w-6xl mx-auto px-4 py-10">
+ 218        <div className="print-hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+ 219          <div>
+ 220            <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-1">
+ 221              Printable report preview
+ 222            </p>
+ 223            <h1 className="text-2xl font-bold text-stone-900">
+ 224              YieldLens UK report
+ 225            </h1>
+ 226          </div>
+ 227  
+ 228          <div className="flex gap-3">
+ 229            <button
+ 230              type="button"
+
+--- Around line 326 ---
+ 323            {isResidential ? (
+ 324              <ResidentialReportMetrics result={result as ResidentialResult} />
+ 325            ) : (
+ 326              <CommercialReportMetrics result={result as CommercialResult} />
+ 327            )}
+ 328          </section>
+ 329  
+ 330          <section className="mb-8">
+ 331            <ScenarioPanel submission={submission} />
+ 332          </section>
+ 333  
+ 334          <section className="mb-8">
+ 335            <h3 className="text-lg font-bold text-stone-900 mb-4">
+ 336              Risk flags
+ 337            </h3>
+ 338  
+ 339            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+ 340              {result.riskFlags.map((flag) => (
+
+--- Around line 331 ---
+ 328          </section>
+ 329  
+ 330          <section className="mb-8">
+ 331            <ScenarioPanel submission={submission} />
+ 332          </section>
+ 333  
+ 334          <section className="mb-8">
+ 335            <h3 className="text-lg font-bold text-stone-900 mb-4">
+ 336              Risk flags
+ 337            </h3>
+ 338  
+ 339            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+ 340              {result.riskFlags.map((flag) => (
+ 341                <RiskBadge key={`${flag.severity}-${flag.message}`} flag={flag} />
+ 342              ))}
+ 343            </div>
+ 344          </section>
+ 345  
+
+--- Around line 340 ---
+ 337            </h3>
+ 338  
+ 339            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+ 340              {result.riskFlags.map((flag) => (
+ 341                <RiskBadge key={`${flag.severity}-${flag.message}`} flag={flag} />
+ 342              ))}
+ 343            </div>
+ 344          </section>
+ 345  
+ 346          <section className="mb-8">
+ 347            <h3 className="text-lg font-bold text-stone-900 mb-4">
+ 348              Assumptions used
+ 349            </h3>
+ 350  
+ 351            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 text-sm text-stone-700">
+ 352              {result.assumptions.map((assumption) => (
+ 353                <li key={assumption} className="bg-stone-50 border border-stone-200 rounded-lg p-3">
+ 354                  {assumption}
+
+--- Around line 352 ---
+ 349            </h3>
+ 350  
+ 351            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 text-sm text-stone-700">
+ 352              {result.assumptions.map((assumption) => (
+ 353                <li key={assumption} className="bg-stone-50 border border-stone-200 rounded-lg p-3">
+ 354                  {assumption}
+ 355                </li>
+ 356              ))}
+ 357            </ul>
+ 358          </section>
+ 359  
+ 360          {result.missingDataWarnings.length > 0 && (
+ 361            <section className="mb-8">
+ 362              <h3 className="text-lg font-bold text-stone-900 mb-4">
+ 363                Missing data warnings
+ 364              </h3>
+ 365  
+ 366              <ul className="space-y-2 text-sm text-yellow-800">
+
+--- Around line 360 ---
+ 357            </ul>
+ 358          </section>
+ 359  
+ 360          {result.missingDataWarnings.length > 0 && (
+ 361            <section className="mb-8">
+ 362              <h3 className="text-lg font-bold text-stone-900 mb-4">
+ 363                Missing data warnings
+ 364              </h3>
+ 365  
+ 366              <ul className="space-y-2 text-sm text-yellow-800">
+ 367                {result.missingDataWarnings.map((warning) => (
+ 368                  <li key={warning} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+ 369                    {warning}
+ 370                  </li>
+ 371                ))}
+ 372              </ul>
+ 373            </section>
+ 374          )}
+
+--- Around line 367 ---
+ 364              </h3>
+ 365  
+ 366              <ul className="space-y-2 text-sm text-yellow-800">
+ 367                {result.missingDataWarnings.map((warning) => (
+ 368                  <li key={warning} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+ 369                    {warning}
+ 370                  </li>
+ 371                ))}
+ 372              </ul>
+ 373            </section>
+ 374          )}
+ 375  
+ 376          <section className="mb-8">
+ 377            <h3 className="text-lg font-bold text-stone-900 mb-4">
+ 378              Recommended next steps
+ 379            </h3>
+ 380  
+ 381            <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
+
+--- Around line 382 ---
+ 379            </h3>
+ 380  
+ 381            <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
+ 382              {result.nextSteps.map((step) => (
+ 383                <li key={step} className="bg-white border border-stone-200 rounded-lg p-3">
+ 384                  {step}
+ 385                </li>
+ 386              ))}
+ 387            </ol>
+ 388          </section>
+ 389  
+ 390          <footer className="border-t border-stone-200 pt-5 text-xs text-stone-500 leading-6">
+ 391            <p>
+ 392              YieldLens UK provides indicative property return checks and decision-support
+ 393              analysis only. It is not a formal valuation, financial advice, mortgage
+ 394              advice, legal advice, tax advice, or a substitute for professional due diligence.
+ 395            </p>
+ 396  
+
+--- Around line 399 ---
+ 396  
+ 397            <p className="mt-2">
+ 398              YieldLens UK is an independent UK property analysis tool. Figures are based
+ 399              on user-provided inputs and MVP placeholder assumptions where live data is not yet connected.
+ 400            </p>
+ 401          </footer>
+ 402        </article>
+ 403      </div>
+ 404    );
+ 405  }
+
+
+=== components/ScenarioPanel.tsx (308 lines) ===
+
+--- Imports ---
+   1  import type {
+
+--- Commercial metrics / scenario / render sections ---
+
+--- Around line 2 ---
+   1  import type {
+   2    CommercialResult,
+   3    ResidentialResult,
+   4    Submission,
+   5  } from '@/types/property';
+   6  
+   7  function formatCurrency(value?: number): string {
+   8    if (value === undefined || value === null || Number.isNaN(value)) {
+   9      return 'Not available';
+  10    }
+  11  
+  12    return new Intl.NumberFormat('en-GB', {
+  13      style: 'currency',
+  14      currency: 'GBP',
+  15      maximumFractionDigits: 0,
+  16    }).format(value);
+
+--- Around line 63 ---
+  60      positive: 'bg-green-50 border-green-200',
+  61    }[tone];
+  62  
+  63    return (
+  64      <div className={`border rounded-xl p-4 ${toneClass}`}>
+  65        <p className="text-xs uppercase tracking-wide text-stone-500 font-medium mb-1">
+  66          {title}
+  67        </p>
+  68  
+  69        <p className="text-xl font-bold text-stone-900">
+  70          {value}
+  71        </p>
+  72  
+  73        <p className="text-xs text-stone-600 mt-2 leading-5">
+  74          {helper}
+  75        </p>
+  76      </div>
+  77    );
+
+--- Around line 99 ---
+  96    const input = submission.input;
+  97  
+  98    const expectedMonthlyRent =
+  99      getNumber(input, 'expectedMonthlyRent') ?? getNumber(input, 'monthlyRent');
+ 100  
+ 101    const baseCashFlow = result.monthlyCashFlow;
+ 102  
+ 103    const monthlyCosts =
+ 104      typeof result.annualOwnershipCosts === 'number'
+ 105        ? result.annualOwnershipCosts / 12
+ 106        : expectedMonthlyRent !== undefined && baseCashFlow !== undefined
+ 107          ? expectedMonthlyRent - baseCashFlow
+ 108          : undefined;
+ 109  
+ 110    const downsideCashFlow =
+ 111      expectedMonthlyRent !== undefined && monthlyCosts !== undefined
+ 112        ? expectedMonthlyRent * 0.95 - monthlyCosts * 1.1 - expectedMonthlyRent / 12
+ 113        : undefined;
+
+--- Around line 128 ---
+ 125      'Does the deal still work if rent is slightly lower than expected?',
+ 126    ];
+ 127  
+ 128    return (
+ 129      <ScenarioLayout
+ 130        intro="This stress test checks whether the residential return survives more realistic downside assumptions."
+ 131        cards={
+ 132          <>
+ 133            <ScenarioCard
+ 134              title="Base case"
+ 135              value={formatCurrency(baseCashFlow)}
+ 136              helper="Estimated monthly cash flow from the submitted assumptions."
+ 137              tone={getCashFlowTone(baseCashFlow)}
+ 138            />
+ 139  
+ 140            <ScenarioCard
+ 141              title="Downside case"
+ 142              value={formatCurrency(downsideCashFlow)}
+
+--- Around line 130 ---
+ 127  
+ 128    return (
+ 129      <ScenarioLayout
+ 130        intro="This stress test checks whether the residential return survives more realistic downside assumptions."
+ 131        cards={
+ 132          <>
+ 133            <ScenarioCard
+ 134              title="Base case"
+ 135              value={formatCurrency(baseCashFlow)}
+ 136              helper="Estimated monthly cash flow from the submitted assumptions."
+ 137              tone={getCashFlowTone(baseCashFlow)}
+ 138            />
+ 139  
+ 140            <ScenarioCard
+ 141              title="Downside case"
+ 142              value={formatCurrency(downsideCashFlow)}
+ 143              helper="Rent 5% lower, known costs 10% higher, and one month annual void allowance."
+ 144              tone={getCashFlowTone(downsideCashFlow)}
+
+--- Around line 136 ---
+ 133            <ScenarioCard
+ 134              title="Base case"
+ 135              value={formatCurrency(baseCashFlow)}
+ 136              helper="Estimated monthly cash flow from the submitted assumptions."
+ 137              tone={getCashFlowTone(baseCashFlow)}
+ 138            />
+ 139  
+ 140            <ScenarioCard
+ 141              title="Downside case"
+ 142              value={formatCurrency(downsideCashFlow)}
+ 143              helper="Rent 5% lower, known costs 10% higher, and one month annual void allowance."
+ 144              tone={getCashFlowTone(downsideCashFlow)}
+ 145            />
+ 146  
+ 147            <ScenarioCard
+ 148              title="Stress case"
+ 149              value={formatCurrency(stressCashFlow)}
+ 150              helper="Rent 10% lower, known costs 20% higher, and two months annual void allowance."
+
+--- Around line 161 ---
+ 158  }
+ 159  
+ 160  function CommercialScenarios({ submission }: { submission: Submission }) {
+ 161    const result = submission.result as CommercialResult;
+ 162    const input = submission.input;
+ 163  
+ 164    const averageSpend = getNumber(input, 'averageSpendPerCustomer');
+ 165    const openingDays = getNumber(input, 'openingDaysPerMonth');
+ 166  
+ 167    const baseRevenue = result.estimatedMonthlyRevenue;
+ 168    const baseCosts = result.estimatedMonthlyCostBase;
+ 169    const baseMargin =
+ 170      typeof baseRevenue === 'number' && typeof baseCosts === 'number'
+ 171        ? baseRevenue - baseCosts
+ 172        : undefined;
+ 173  
+ 174    const downsideRevenue =
+ 175      typeof baseRevenue === 'number' ? baseRevenue * 0.72 : undefined;
+
+--- Around line 167 ---
+ 164    const averageSpend = getNumber(input, 'averageSpendPerCustomer');
+ 165    const openingDays = getNumber(input, 'openingDaysPerMonth');
+ 166  
+ 167    const baseRevenue = result.estimatedMonthlyRevenue;
+ 168    const baseCosts = result.estimatedMonthlyCostBase;
+ 169    const baseMargin =
+ 170      typeof baseRevenue === 'number' && typeof baseCosts === 'number'
+ 171        ? baseRevenue - baseCosts
+ 172        : undefined;
+ 173  
+ 174    const downsideRevenue =
+ 175      typeof baseRevenue === 'number' ? baseRevenue * 0.72 : undefined;
+ 176  
+ 177    const downsideCosts =
+ 178      typeof baseCosts === 'number' ? baseCosts * 1.1 : undefined;
+ 179  
+ 180    const downsideMargin =
+ 181      downsideRevenue !== undefined && downsideCosts !== undefined
+
+--- Around line 168 ---
+ 165    const openingDays = getNumber(input, 'openingDaysPerMonth');
+ 166  
+ 167    const baseRevenue = result.estimatedMonthlyRevenue;
+ 168    const baseCosts = result.estimatedMonthlyCostBase;
+ 169    const baseMargin =
+ 170      typeof baseRevenue === 'number' && typeof baseCosts === 'number'
+ 171        ? baseRevenue - baseCosts
+ 172        : undefined;
+ 173  
+ 174    const downsideRevenue =
+ 175      typeof baseRevenue === 'number' ? baseRevenue * 0.72 : undefined;
+ 176  
+ 177    const downsideCosts =
+ 178      typeof baseCosts === 'number' ? baseCosts * 1.1 : undefined;
+ 179  
+ 180    const downsideMargin =
+ 181      downsideRevenue !== undefined && downsideCosts !== undefined
+ 182        ? downsideRevenue - downsideCosts
+
+--- Around line 197 ---
+ 194        : undefined;
+ 195  
+ 196    const downsideRentBurden =
+ 197      typeof result.monthlyRent === 'number' &&
+ 198      typeof downsideRevenue === 'number' &&
+ 199      downsideRevenue > 0
+ 200        ? (result.monthlyRent / downsideRevenue) * 100
+ 201        : undefined;
+ 202  
+ 203    const stressedBreakEvenCustomers =
+ 204      typeof stressCosts === 'number' &&
+ 205      typeof averageSpend === 'number' &&
+ 206      typeof openingDays === 'number' &&
+ 207      averageSpend > 0 &&
+ 208      openingDays > 0
+ 209        ? stressCosts / averageSpend / openingDays
+ 210        : undefined;
+ 211  
+
+--- Around line 200 ---
+ 197      typeof result.monthlyRent === 'number' &&
+ 198      typeof downsideRevenue === 'number' &&
+ 199      downsideRevenue > 0
+ 200        ? (result.monthlyRent / downsideRevenue) * 100
+ 201        : undefined;
+ 202  
+ 203    const stressedBreakEvenCustomers =
+ 204      typeof stressCosts === 'number' &&
+ 205      typeof averageSpend === 'number' &&
+ 206      typeof openingDays === 'number' &&
+ 207      averageSpend > 0 &&
+ 208      openingDays > 0
+ 209        ? stressCosts / averageSpend / openingDays
+ 210        : undefined;
+ 211  
+ 212    const questions = [
+ 213      'What evidence supports the expected customers per day?',
+ 214      'What happens if average spend is lower than expected?',
+
+--- Around line 220 ---
+ 217      'What lease terms, break clauses, rent reviews, and permitted use restrictions apply?',
+ 218    ];
+ 219  
+ 220    return (
+ 221      <ScenarioLayout
+ 222        intro="This stress test checks whether the site can still carry the rent if trading assumptions disappoint."
+ 223        cards={
+ 224          <>
+ 225            <ScenarioCard
+ 226              title="Base margin"
+ 227              value={formatCurrency(baseMargin)}
+ 228              helper="Estimated monthly revenue minus rent and known monthly costs."
+ 229              tone={getMarginTone(baseMargin)}
+ 230            />
+ 231  
+ 232            <ScenarioCard
+ 233              title="Downside margin"
+ 234              value={formatCurrency(downsideMargin)}
+
+--- Around line 222 ---
+ 219  
+ 220    return (
+ 221      <ScenarioLayout
+ 222        intro="This stress test checks whether the site can still carry the rent if trading assumptions disappoint."
+ 223        cards={
+ 224          <>
+ 225            <ScenarioCard
+ 226              title="Base margin"
+ 227              value={formatCurrency(baseMargin)}
+ 228              helper="Estimated monthly revenue minus rent and known monthly costs."
+ 229              tone={getMarginTone(baseMargin)}
+ 230            />
+ 231  
+ 232            <ScenarioCard
+ 233              title="Downside margin"
+ 234              value={formatCurrency(downsideMargin)}
+ 235              helper="Customers 20% lower, average spend 10% lower, and costs 10% higher."
+ 236              tone={getMarginTone(downsideMargin)}
+
+--- Around line 267 ---
+ 264    cards: React.ReactNode;
+ 265    questions: string[];
+ 266  }) {
+ 267    return (
+ 268      <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+ 269        <div className="mb-5">
+ 270          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+ 271            Scenario pressure test
+ 272          </p>
+ 273  
+ 274          <h2 className="text-xl font-bold text-stone-900 mb-2">
+ 275            Does the deal still work if assumptions get worse?
+ 276          </h2>
+ 277  
+ 278          <p className="text-sm text-stone-600 leading-6">
+ 279            {intro}
+ 280          </p>
+ 281        </div>
+
+--- Around line 275 ---
+ 272          </p>
+ 273  
+ 274          <h2 className="text-xl font-bold text-stone-900 mb-2">
+ 275            Does the deal still work if assumptions get worse?
+ 276          </h2>
+ 277  
+ 278          <p className="text-sm text-stone-600 leading-6">
+ 279            {intro}
+ 280          </p>
+ 281        </div>
+ 282  
+ 283        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+ 284          {cards}
+ 285        </div>
+ 286  
+ 287        <div className="bg-stone-50 border border-stone-200 rounded-xl p-5">
+ 288          <p className="font-semibold text-stone-900 mb-3">
+ 289            Questions to verify before committing
+
+--- Around line 302 ---
+ 299    );
+ 300  }
+ 301  
+ 302  export default function ScenarioPanel({ submission }: { submission: Submission }) {
+ 303    if (submission.mode === 'residential') {
+ 304      return <ResidentialScenarios submission={submission} />;
+ 305    }
+ 306  
+ 307    return <CommercialScenarios submission={submission} />;
+ 308  }

@@ -122,7 +122,7 @@ export function generateCommercialRiskFlags(
   if (input.fitOutBudget && input.fitOutBudget > 0) {
     flags.push({
       severity: 'info',
-      message: 'Fit-out budget is noted but not included in monthly break-even. Factor it into total investment.',
+      message: 'Fit-out is included in upfront cash needed, but not in monthly operating break-even.',
     });
   }
 

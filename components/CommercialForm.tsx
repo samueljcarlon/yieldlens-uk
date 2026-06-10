@@ -80,6 +80,12 @@ export default function CommercialForm({ onSubmit }: Props) {
       monthlyUtilitiesAndOtherCosts: parseNum(form.monthlyUtilitiesAndOtherCosts ?? ''),
       monthlyBusinessRates: parseNum(form.monthlyBusinessRates ?? ''),
       fitOutBudget: parseNum(form.fitOutBudget ?? ''),
+      rentDeposit: parseNum(form.rentDeposit ?? ''),
+      legalFees: parseNum(form.legalFees ?? ''),
+      openingStock: parseNum(form.openingStock ?? ''),
+      otherSetupCosts: parseNum(form.otherSetupCosts ?? ''),
+      startingCash: parseNum(form.startingCash ?? ''),
+      downsideRevenuePercentage: parseNum(form.downsideRevenuePercentage ?? ''),
       email: form.email,
     };
 
@@ -192,8 +198,61 @@ export default function CommercialForm({ onSubmit }: Props) {
           <label className="block text-sm font-medium text-stone-700 mb-1">
             Fit-out budget (£) <span className="text-stone-400">(optional)</span>
           </label>
-          <p className="text-xs text-stone-400 mb-1">One-off cost, not included in monthly break-even.</p>
+          <p className="text-xs text-stone-400 mb-1">One-off cost before opening.</p>
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 50000" {...field('fitOutBudget')} />
+        </div>
+
+        <div className="sm:col-span-2 border border-stone-200 rounded-xl p-4 bg-stone-50">
+          <p className="text-sm font-semibold text-stone-900 mb-1">
+            Upfront cash and downside case
+          </p>
+          <p className="text-xs text-stone-500 leading-5">
+            Optional, but this makes the commercial check much more useful. It estimates how much cash is needed before opening and whether the site can survive weak early trading.
+          </p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-stone-700 mb-1">
+            Rent deposit (£) <span className="text-stone-400">(optional)</span>
+          </label>
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 15000" {...field('rentDeposit')} />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-stone-700 mb-1">
+            Legal and professional fees (£) <span className="text-stone-400">(optional)</span>
+          </label>
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 3000" {...field('legalFees')} />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-stone-700 mb-1">
+            Opening stock or setup (£) <span className="text-stone-400">(optional)</span>
+          </label>
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 8000" {...field('openingStock')} />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-stone-700 mb-1">
+            Other setup costs (£) <span className="text-stone-400">(optional)</span>
+          </label>
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 5000" {...field('otherSetupCosts')} />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-stone-700 mb-1">
+            Available starting cash (£) <span className="text-stone-400">(optional)</span>
+          </label>
+          <p className="text-xs text-stone-400 mb-1">Cash available before paying fit-out, deposit, fees, and setup costs.</p>
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 90000" {...field('startingCash')} />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-stone-700 mb-1">
+            Downside revenue case (%) <span className="text-stone-400">(optional)</span>
+          </label>
+          <p className="text-xs text-stone-400 mb-1">Use 60 for a weak trading case at 60% of expected revenue.</p>
+          <input type="text" inputMode="numeric" className={inputClass} placeholder="60" {...field('downsideRevenuePercentage')} />
         </div>
 
         <div>

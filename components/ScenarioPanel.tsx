@@ -32,6 +32,14 @@ function formatNumber(value?: number): string {
   return value.toFixed(1);
 }
 
+function formatMonths(value?: number): string {
+  if (value === undefined || value === null || Number.isNaN(value)) {
+    return 'No monthly burn';
+  }
+
+  return `${value.toFixed(1)} months`;
+}
+
 function getNumber(input: unknown, key: string): number | undefined {
   if (!input || typeof input !== 'object') return undefined;
 
@@ -171,55 +179,34 @@ function CommercialScenarios({ submission }: { submission: Submission }) {
       ? baseRevenue - baseCosts
       : undefined;
 
-  const downsideRevenue =
-    typeof baseRevenue === 'number' ? baseRevenue * 0.72 : undefined;
-
-  const downsideCosts =
-    typeof baseCosts === 'number' ? baseCosts * 1.1 : undefined;
-
-  const downsideMargin =
-    downsideRevenue !== undefined && downsideCosts !== undefined
-      ? downsideRevenue - downsideCosts
-      : undefined;
-
-  const stressRevenue =
-    typeof baseRevenue === 'number' ? baseRevenue * 0.5525 : undefined;
-
-  const stressCosts =
-    typeof baseCosts === 'number' ? baseCosts * 1.2 : undefined;
-
-  const stressMargin =
-    stressRevenue !== undefined && stressCosts !== undefined
-      ? stressRevenue - stressCosts
-      : undefined;
-
-  const downsideRentBurden =
-    typeof result.monthlyRent === 'number' &&
-    typeof downsideRevenue === 'number' &&
-    downsideRevenue > 0
-      ? (result.monthlyRent / downsideRevenue) * 100
-      : undefined;
+  const stressedCosts =
+    typeof baseCosts === 'number' ? baseCosts * 1.15 : undefined;
 
   const stressedBreakEvenCustomers =
-    typeof stressCosts === 'number' &&
+    typeof stressedCosts === 'number' &&
     typeof averageSpend === 'number' &&
     typeof openingDays === 'number' &&
     averageSpend > 0 &&
     openingDays > 0
-      ? stressCosts / averageSpend / openingDays
+      ? stressedCosts / averageSpend / openingDays
       : undefined;
+
+  const survivalIntro = result.survivesSixBadMonths
+    ? 'This site passes the six-month survival test on the current downside assumptions, but the inputs still need evidence before any lease commitment.'
+    : 'This site does not pass the six-month survival test on the current downside assumptions. The upfront cash requirement, downside burn, or rent terms need careful review.';
 
   const questions = [
     'What evidence supports the expected customers per day?',
     'What happens if average spend is lower than expected?',
-    'Are business rates, utilities, licensing, insurance, and staffing fully costed?',
-    'Can the business survive the rent during quiet months?',
-    'What lease terms, break clauses, rent reviews, and permitted use restrictions apply?',
+    'Can the business fund fit-out, deposit, fees, opening stock, and still keep enough cash buffer?',
+    'How would the site cope with six weak trading months after opening?',
+    'Are staff costs, business rates, utilities, insurance, and service charge fully included?',
+    'What lease terms, break clauses, rent reviews, repairing obligations, and permitted use restrictions apply?',
   ];
 
   return (
     <ScenarioLayout
-      intro="This stress test checks whether the site can still carry the rent if trading assumptions disappoint."
+      intro={survivalIntro}
       cards={
         <>
           <ScenarioCard
@@ -230,22 +217,47 @@ function CommercialScenarios({ submission }: { submission: Submission }) {
           />
 
           <ScenarioCard
-            title="Downside margin"
-            value={formatCurrency(downsideMargin)}
-            helper="Customers 20% lower, average spend 10% lower, and costs 10% higher."
-            tone={getMarginTone(downsideMargin)}
+            title="Downside burn"
+            value={formatCurrency(result.monthlyBurnInDownside)}
+            helper={`${formatPercent(result.downsideRevenuePercentage)} revenue case minus known monthly cost base.`}
+            tone={result.monthlyBurnInDownside && result.monthlyBurnInDownside > 0 ? 'danger' : 'positive'}
           />
 
           <ScenarioCard
-            title="Stress break-even"
-            value={formatNumber(stressedBreakEvenCustomers)}
-            helper={`Customers/day needed under stress. Downside rent burden: ${formatPercent(downsideRentBurden)}.`}
+            title="Survival runway"
+            value={formatMonths(result.survivalMonths)}
+            helper="Cash left after opening divided by downside monthly burn."
+            tone={result.survivesSixBadMonths ? 'positive' : 'danger'}
+          />
+
+          <ScenarioCard
+            title="Cash after opening"
+            value={formatCurrency(result.availableCashAfterOpening)}
+            helper="Starting cash minus fit-out, deposit, fees, opening stock, and setup costs."
             tone={
-              typeof stressedBreakEvenCustomers === 'number' &&
-              typeof result.expectedCustomersPerDay === 'number' &&
-              stressedBreakEvenCustomers > result.expectedCustomersPerDay
-                ? 'danger'
-                : 'warning'
+              result.availableCashAfterOpening !== undefined && result.availableCashAfterOpening >= 0
+                ? 'positive'
+                : 'danger'
+            }
+          />
+
+          <ScenarioCard
+            title="Upfront cash needed"
+            value={formatCurrency(result.upfrontCashNeeded)}
+            helper="Estimated cash needed before opening."
+            tone="neutral"
+          />
+
+          <ScenarioCard
+            title="Stressed break-even/day"
+            value={formatNumber(stressedBreakEvenCustomers)}
+            helper="Known monthly costs increased by 15%, divided by spend and opening days."
+            tone={
+              stressedBreakEvenCustomers !== undefined &&
+              result.expectedCustomersPerDay !== undefined &&
+              stressedBreakEvenCustomers <= result.expectedCustomersPerDay
+                ? 'positive'
+                : 'danger'
             }
           />
         </>
@@ -254,6 +266,7 @@ function CommercialScenarios({ submission }: { submission: Submission }) {
     />
   );
 }
+
 
 function ScenarioLayout({
   intro,

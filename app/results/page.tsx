@@ -36,6 +36,11 @@ function formatNumber(value?: number): string {
   return value.toFixed(1);
 }
 
+function formatMonths(value?: number): string {
+  if (value === undefined || value === null || Number.isNaN(value)) return 'No monthly burn';
+  return `${value.toFixed(1)} months`;
+}
+
 function getLocation(submission: Submission): string {
   const input = submission.input;
 
@@ -273,36 +278,90 @@ function ResidentialMetrics({ result }: { result: ResidentialResult }) {
 
 function CommercialMetrics({ result }: { result: CommercialResult }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-      <MetricCard
-        label="Monthly revenue"
-        value={formatCurrency(result.estimatedMonthlyRevenue)}
-        helper="Spend × customers × opening days"
-      />
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <MetricCard
+          label="Monthly revenue"
+          value={formatCurrency(result.estimatedMonthlyRevenue)}
+          helper="Spend × customers × opening days"
+        />
 
-      <MetricCard
-        label="Monthly rent"
-        value={formatCurrency(result.monthlyRent)}
-        helper="Annual rent ÷ 12"
-      />
+        <MetricCard
+          label="Monthly rent"
+          value={formatCurrency(result.monthlyRent)}
+          helper="Annual rent ÷ 12"
+        />
 
-      <MetricCard
-        label="Rent burden"
-        value={formatPercent(result.rentBurdenPercentage)}
-        helper="Rent as % of estimated revenue"
-      />
+        <MetricCard
+          label="Rent burden"
+          value={formatPercent(result.rentBurdenPercentage)}
+          helper="Rent as % of estimated revenue"
+        />
 
-      <MetricCard
-        label="Cost base"
-        value={formatCurrency(result.estimatedMonthlyCostBase)}
-        helper="Rent + staff + utilities + rates"
-      />
+        <MetricCard
+          label="Cost base"
+          value={formatCurrency(result.estimatedMonthlyCostBase)}
+          helper="Rent + staff + utilities + rates"
+        />
 
-      <MetricCard
-        label="Break-even/day"
-        value={formatNumber(result.breakEvenCustomersPerDay)}
-        helper={`Assumed ${result.expectedCustomersPerDay} per day`}
-      />
+        <MetricCard
+          label="Break-even/day"
+          value={formatNumber(result.breakEvenCustomersPerDay)}
+          helper={`Assumed ${result.expectedCustomersPerDay} per day`}
+        />
+      </div>
+
+      <div className="bg-stone-950 text-white rounded-xl p-6">
+        <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-2">
+          Commercial survival model
+        </p>
+
+        <h2 className="text-xl font-bold mb-2">
+          Can this site survive weak early trading?
+        </h2>
+
+        <p className="text-sm text-stone-300 leading-6 mb-5">
+          This checks the upfront cash requirement and the downside monthly position using the submitted weak trading case.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-stone-900">
+          <MetricCard
+            label="Upfront cash needed"
+            value={formatCurrency(result.upfrontCashNeeded)}
+            helper="Fit-out, deposit, fees, opening stock, and setup costs"
+          />
+
+          <MetricCard
+            label="Cash after opening"
+            value={formatCurrency(result.availableCashAfterOpening)}
+            helper="Starting cash minus upfront cash needed"
+          />
+
+          <MetricCard
+            label="Downside revenue"
+            value={formatCurrency(result.downsideMonthlyRevenue)}
+            helper={`${formatPercent(result.downsideRevenuePercentage)} of expected monthly revenue`}
+          />
+
+          <MetricCard
+            label="Downside burn"
+            value={formatCurrency(result.monthlyBurnInDownside)}
+            helper="Monthly cash burn in the downside case"
+          />
+
+          <MetricCard
+            label="Survival runway"
+            value={formatMonths(result.survivalMonths)}
+            helper="How long cash covers downside burn"
+          />
+
+          <MetricCard
+            label="Six-month test"
+            value={result.survivesSixBadMonths ? 'Pass' : 'Fail'}
+            helper="Whether the site survives six weak trading months"
+          />
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,1211 @@
+COMMERCIAL CORE DIAGNOSTICS
+
+
+=== types/property.ts (94 lines) ===
+
+
+--- Around line 1: export type PropertyMode = 'residential' | 'commercial'; ---
+   1  export type PropertyMode = 'residential' | 'commercial';
+   2  
+   3  export type VerdictLabel =
+   4    | 'Strong candidate'
+   5    | 'Worth investigating'
+   6    | 'Marginal'
+   7    | 'Weak'
+   8    | 'Avoid';
+   9  
+  10  export interface Verdict {
+  11    label: VerdictLabel;
+  12    score: number;
+  13    colour: 'green' | 'teal' | 'yellow' | 'orange' | 'red';
+  14  }
+  15  
+  16  export interface RiskFlag {
+  17    severity: 'high' | 'medium' | 'low' | 'info';
+  18    message: string;
+  19  }
+  20  
+  21  export interface ResidentialInput {
+  22    address?: string;
+  23    postcode?: string;
+  24    listingUrl?: string;
+  25    propertyType?: string;
+  26    bedrooms?: number;
+  27    userObjective?: string;
+  28    purchasePrice?: number;
+  29    monthlyRent?: number;
+  30    expectedMonthlyRent?: number;
+  31    serviceChargeAnnual?: number;
+  32    groundRentAnnual?: number;
+  33    mortgageMonthlyCost?: number;
+  34    otherMonthlyCosts?: number;
+  35    email?: string;
+  36  }
+
+--- Around line 3: export type VerdictLabel = ---
+   1  export type PropertyMode = 'residential' | 'commercial';
+   2  
+   3  export type VerdictLabel =
+   4    | 'Strong candidate'
+   5    | 'Worth investigating'
+   6    | 'Marginal'
+   7    | 'Weak'
+   8    | 'Avoid';
+   9  
+  10  export interface Verdict {
+  11    label: VerdictLabel;
+  12    score: number;
+  13    colour: 'green' | 'teal' | 'yellow' | 'orange' | 'red';
+  14  }
+  15  
+  16  export interface RiskFlag {
+  17    severity: 'high' | 'medium' | 'low' | 'info';
+  18    message: string;
+  19  }
+  20  
+  21  export interface ResidentialInput {
+  22    address?: string;
+  23    postcode?: string;
+  24    listingUrl?: string;
+  25    propertyType?: string;
+  26    bedrooms?: number;
+  27    userObjective?: string;
+  28    purchasePrice?: number;
+  29    monthlyRent?: number;
+  30    expectedMonthlyRent?: number;
+  31    serviceChargeAnnual?: number;
+  32    groundRentAnnual?: number;
+  33    mortgageMonthlyCost?: number;
+  34    otherMonthlyCosts?: number;
+  35    email?: string;
+  36  }
+  37  
+  38  export interface CommercialInput {
+
+--- Around line 10: export interface Verdict { ---
+   6    | 'Marginal'
+   7    | 'Weak'
+   8    | 'Avoid';
+   9  
+  10  export interface Verdict {
+  11    label: VerdictLabel;
+  12    score: number;
+  13    colour: 'green' | 'teal' | 'yellow' | 'orange' | 'red';
+  14  }
+  15  
+  16  export interface RiskFlag {
+  17    severity: 'high' | 'medium' | 'low' | 'info';
+  18    message: string;
+  19  }
+  20  
+  21  export interface ResidentialInput {
+  22    address?: string;
+  23    postcode?: string;
+  24    listingUrl?: string;
+  25    propertyType?: string;
+  26    bedrooms?: number;
+  27    userObjective?: string;
+  28    purchasePrice?: number;
+  29    monthlyRent?: number;
+  30    expectedMonthlyRent?: number;
+  31    serviceChargeAnnual?: number;
+  32    groundRentAnnual?: number;
+  33    mortgageMonthlyCost?: number;
+  34    otherMonthlyCosts?: number;
+  35    email?: string;
+  36  }
+  37  
+  38  export interface CommercialInput {
+  39    address?: string;
+  40    postcode?: string;
+  41    listingUrl?: string;
+  42    businessType?: string;
+  43    annualRent: number;
+  44    averageSpendPerCustomer: number;
+  45    expectedCustomersPerDay: number;
+
+--- Around line 11: label: VerdictLabel; ---
+   7    | 'Weak'
+   8    | 'Avoid';
+   9  
+  10  export interface Verdict {
+  11    label: VerdictLabel;
+  12    score: number;
+  13    colour: 'green' | 'teal' | 'yellow' | 'orange' | 'red';
+  14  }
+  15  
+  16  export interface RiskFlag {
+  17    severity: 'high' | 'medium' | 'low' | 'info';
+  18    message: string;
+  19  }
+  20  
+  21  export interface ResidentialInput {
+  22    address?: string;
+  23    postcode?: string;
+  24    listingUrl?: string;
+  25    propertyType?: string;
+  26    bedrooms?: number;
+  27    userObjective?: string;
+  28    purchasePrice?: number;
+  29    monthlyRent?: number;
+  30    expectedMonthlyRent?: number;
+  31    serviceChargeAnnual?: number;
+  32    groundRentAnnual?: number;
+  33    mortgageMonthlyCost?: number;
+  34    otherMonthlyCosts?: number;
+  35    email?: string;
+  36  }
+  37  
+  38  export interface CommercialInput {
+  39    address?: string;
+  40    postcode?: string;
+  41    listingUrl?: string;
+  42    businessType?: string;
+  43    annualRent: number;
+  44    averageSpendPerCustomer: number;
+  45    expectedCustomersPerDay: number;
+  46    openingDaysPerMonth: number;
+
+--- Around line 16: export interface RiskFlag { ---
+  12    score: number;
+  13    colour: 'green' | 'teal' | 'yellow' | 'orange' | 'red';
+  14  }
+  15  
+  16  export interface RiskFlag {
+  17    severity: 'high' | 'medium' | 'low' | 'info';
+  18    message: string;
+  19  }
+  20  
+  21  export interface ResidentialInput {
+  22    address?: string;
+  23    postcode?: string;
+  24    listingUrl?: string;
+  25    propertyType?: string;
+  26    bedrooms?: number;
+  27    userObjective?: string;
+  28    purchasePrice?: number;
+  29    monthlyRent?: number;
+  30    expectedMonthlyRent?: number;
+  31    serviceChargeAnnual?: number;
+  32    groundRentAnnual?: number;
+  33    mortgageMonthlyCost?: number;
+  34    otherMonthlyCosts?: number;
+  35    email?: string;
+  36  }
+  37  
+  38  export interface CommercialInput {
+  39    address?: string;
+  40    postcode?: string;
+  41    listingUrl?: string;
+  42    businessType?: string;
+  43    annualRent: number;
+  44    averageSpendPerCustomer: number;
+  45    expectedCustomersPerDay: number;
+  46    openingDaysPerMonth: number;
+  47    monthlyStaffCosts?: number;
+  48    monthlyUtilitiesAndOtherCosts?: number;
+  49    monthlyBusinessRates?: number;
+  50    fitOutBudget?: number;
+  51    email?: string;
+
+--- Around line 38: export interface CommercialInput { ---
+  34    otherMonthlyCosts?: number;
+  35    email?: string;
+  36  }
+  37  
+  38  export interface CommercialInput {
+  39    address?: string;
+  40    postcode?: string;
+  41    listingUrl?: string;
+  42    businessType?: string;
+  43    annualRent: number;
+  44    averageSpendPerCustomer: number;
+  45    expectedCustomersPerDay: number;
+  46    openingDaysPerMonth: number;
+  47    monthlyStaffCosts?: number;
+  48    monthlyUtilitiesAndOtherCosts?: number;
+  49    monthlyBusinessRates?: number;
+  50    fitOutBudget?: number;
+  51    email?: string;
+  52  }
+  53  
+  54  export interface ResidentialResult {
+  55    score: number;
+  56    verdict: Verdict;
+  57    grossYield?: number;
+  58    annualRentalIncome?: number;
+  59    monthlyCashFlow?: number;
+  60    annualCashFlow?: number;
+  61    annualOwnershipCosts?: number;
+  62    riskFlags: RiskFlag[];
+  63    assumptions: string[];
+  64    missingDataWarnings: string[];
+  65    nextSteps: string[];
+  66  }
+  67  
+  68  export interface CommercialResult {
+  69    score: number;
+  70    verdict: Verdict;
+  71    estimatedMonthlyRevenue?: number;
+  72    monthlyRent?: number;
+  73    estimatedMonthlyCostBase?: number;
+
+--- Around line 56: verdict: Verdict; ---
+  52  }
+  53  
+  54  export interface ResidentialResult {
+  55    score: number;
+  56    verdict: Verdict;
+  57    grossYield?: number;
+  58    annualRentalIncome?: number;
+  59    monthlyCashFlow?: number;
+  60    annualCashFlow?: number;
+  61    annualOwnershipCosts?: number;
+  62    riskFlags: RiskFlag[];
+  63    assumptions: string[];
+  64    missingDataWarnings: string[];
+  65    nextSteps: string[];
+  66  }
+  67  
+  68  export interface CommercialResult {
+  69    score: number;
+  70    verdict: Verdict;
+  71    estimatedMonthlyRevenue?: number;
+  72    monthlyRent?: number;
+  73    estimatedMonthlyCostBase?: number;
+  74    rentBurdenPercentage?: number;
+  75    breakEvenCustomersPerDay?: number;
+  76    expectedCustomersPerDay?: number;
+  77    riskFlags: RiskFlag[];
+  78    assumptions: string[];
+  79    missingDataWarnings: string[];
+  80    nextSteps: string[];
+  81  }
+  82  
+  83  export type AnyInput = ResidentialInput | CommercialInput;
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+
+--- Around line 62: riskFlags: RiskFlag[]; ---
+  58    annualRentalIncome?: number;
+  59    monthlyCashFlow?: number;
+  60    annualCashFlow?: number;
+  61    annualOwnershipCosts?: number;
+  62    riskFlags: RiskFlag[];
+  63    assumptions: string[];
+  64    missingDataWarnings: string[];
+  65    nextSteps: string[];
+  66  }
+  67  
+  68  export interface CommercialResult {
+  69    score: number;
+  70    verdict: Verdict;
+  71    estimatedMonthlyRevenue?: number;
+  72    monthlyRent?: number;
+  73    estimatedMonthlyCostBase?: number;
+  74    rentBurdenPercentage?: number;
+  75    breakEvenCustomersPerDay?: number;
+  76    expectedCustomersPerDay?: number;
+  77    riskFlags: RiskFlag[];
+  78    assumptions: string[];
+  79    missingDataWarnings: string[];
+  80    nextSteps: string[];
+  81  }
+  82  
+  83  export type AnyInput = ResidentialInput | CommercialInput;
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+--- Around line 68: export interface CommercialResult { ---
+  64    missingDataWarnings: string[];
+  65    nextSteps: string[];
+  66  }
+  67  
+  68  export interface CommercialResult {
+  69    score: number;
+  70    verdict: Verdict;
+  71    estimatedMonthlyRevenue?: number;
+  72    monthlyRent?: number;
+  73    estimatedMonthlyCostBase?: number;
+  74    rentBurdenPercentage?: number;
+  75    breakEvenCustomersPerDay?: number;
+  76    expectedCustomersPerDay?: number;
+  77    riskFlags: RiskFlag[];
+  78    assumptions: string[];
+  79    missingDataWarnings: string[];
+  80    nextSteps: string[];
+  81  }
+  82  
+  83  export type AnyInput = ResidentialInput | CommercialInput;
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+--- Around line 70: verdict: Verdict; ---
+  66  }
+  67  
+  68  export interface CommercialResult {
+  69    score: number;
+  70    verdict: Verdict;
+  71    estimatedMonthlyRevenue?: number;
+  72    monthlyRent?: number;
+  73    estimatedMonthlyCostBase?: number;
+  74    rentBurdenPercentage?: number;
+  75    breakEvenCustomersPerDay?: number;
+  76    expectedCustomersPerDay?: number;
+  77    riskFlags: RiskFlag[];
+  78    assumptions: string[];
+  79    missingDataWarnings: string[];
+  80    nextSteps: string[];
+  81  }
+  82  
+  83  export type AnyInput = ResidentialInput | CommercialInput;
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+--- Around line 77: riskFlags: RiskFlag[]; ---
+  73    estimatedMonthlyCostBase?: number;
+  74    rentBurdenPercentage?: number;
+  75    breakEvenCustomersPerDay?: number;
+  76    expectedCustomersPerDay?: number;
+  77    riskFlags: RiskFlag[];
+  78    assumptions: string[];
+  79    missingDataWarnings: string[];
+  80    nextSteps: string[];
+  81  }
+  82  
+  83  export type AnyInput = ResidentialInput | CommercialInput;
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+--- Around line 83: export type AnyInput = ResidentialInput | CommercialInput; ---
+  79    missingDataWarnings: string[];
+  80    nextSteps: string[];
+  81  }
+  82  
+  83  export type AnyInput = ResidentialInput | CommercialInput;
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+--- Around line 84: export type AnyResult = ResidentialResult | CommercialResult; ---
+  80    nextSteps: string[];
+  81  }
+  82  
+  83  export type AnyInput = ResidentialInput | CommercialInput;
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+--- Around line 86: export interface Submission { ---
+  82  
+  83  export type AnyInput = ResidentialInput | CommercialInput;
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+--- Around line 88: mode: PropertyMode; ---
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+--- Around line 93: verdict: Verdict; ---
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+
+=== components/CommercialForm.tsx (217 lines) ===
+
+--- Imports ---
+   3  import { useState } from 'react';
+   4  import type { CommercialInput } from '@/types/property';
+
+--- useState / initial form state ---
+
+--- Around line 3 ---
+   1  'use client';
+   2  
+   3  import { useState } from 'react';
+   4  import type { CommercialInput } from '@/types/property';
+   5  
+   6  interface Props {
+   7    onSubmit: (input: CommercialInput) => void;
+   8  }
+   9  
+  10  function parseNum(val: string): number | undefined {
+  11    const n = parseFloat((val || '').replace(/,/g, ''));
+  12    return Number.isNaN(n) ? undefined : n;
+  13  }
+  14  
+  15  function requireNum(val: string): number {
+  16    const n = parseFloat((val || '').replace(/,/g, ''));
+  17    return Number.isNaN(n) ? 0 : n;
+  18  }
+  19  
+  20  function isValidEmail(value: string): boolean {
+  21    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  22  }
+  23  
+  24  export default function CommercialForm({ onSubmit }: Props) {
+  25    const [form, setForm] = useState<Record<string, string>>({});
+  26    const [errors, setErrors] = useState<Record<string, string>>({});
+  27  
+  28    const set = (key: string, value: string) => {
+  29      setForm((current) => ({ ...current, [key]: value }));
+  30    };
+  31  
+  32    const field = (key: string) => ({
+  33      value: form[key] ?? '',
+  34      onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+  35        set(key, event.target.value),
+  36    });
+  37  
+  38    const validate = (): boolean => {
+
+--- Around line 25 ---
+  21    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  22  }
+  23  
+  24  export default function CommercialForm({ onSubmit }: Props) {
+  25    const [form, setForm] = useState<Record<string, string>>({});
+  26    const [errors, setErrors] = useState<Record<string, string>>({});
+  27  
+  28    const set = (key: string, value: string) => {
+  29      setForm((current) => ({ ...current, [key]: value }));
+  30    };
+  31  
+  32    const field = (key: string) => ({
+  33      value: form[key] ?? '',
+  34      onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+  35        set(key, event.target.value),
+  36    });
+  37  
+  38    const validate = (): boolean => {
+  39      const nextErrors: Record<string, string> = {};
+  40  
+  41      if (!form.annualRent || Number.isNaN(parseFloat(form.annualRent))) {
+  42        nextErrors.annualRent = 'Annual rent is required.';
+  43      }
+  44  
+  45      if (!form.averageSpendPerCustomer || Number.isNaN(parseFloat(form.averageSpendPerCustomer))) {
+  46        nextErrors.averageSpendPerCustomer = 'Average spend per customer is required.';
+  47      }
+  48  
+  49      if (!form.expectedCustomersPerDay || Number.isNaN(parseFloat(form.expectedCustomersPerDay))) {
+  50        nextErrors.expectedCustomersPerDay = 'Expected customers per day is required.';
+  51      }
+  52  
+  53      if (!form.openingDaysPerMonth || Number.isNaN(parseFloat(form.openingDaysPerMonth))) {
+  54        nextErrors.openingDaysPerMonth = 'Opening days per month is required.';
+  55      }
+  56  
+  57      if (!form.email || !isValidEmail(form.email)) {
+  58        nextErrors.email = 'Enter a valid email to save your check.';
+  59      }
+  60  
+
+--- Around line 26 ---
+  22  }
+  23  
+  24  export default function CommercialForm({ onSubmit }: Props) {
+  25    const [form, setForm] = useState<Record<string, string>>({});
+  26    const [errors, setErrors] = useState<Record<string, string>>({});
+  27  
+  28    const set = (key: string, value: string) => {
+  29      setForm((current) => ({ ...current, [key]: value }));
+  30    };
+  31  
+  32    const field = (key: string) => ({
+  33      value: form[key] ?? '',
+  34      onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+  35        set(key, event.target.value),
+  36    });
+  37  
+  38    const validate = (): boolean => {
+  39      const nextErrors: Record<string, string> = {};
+  40  
+  41      if (!form.annualRent || Number.isNaN(parseFloat(form.annualRent))) {
+  42        nextErrors.annualRent = 'Annual rent is required.';
+  43      }
+  44  
+  45      if (!form.averageSpendPerCustomer || Number.isNaN(parseFloat(form.averageSpendPerCustomer))) {
+  46        nextErrors.averageSpendPerCustomer = 'Average spend per customer is required.';
+  47      }
+  48  
+  49      if (!form.expectedCustomersPerDay || Number.isNaN(parseFloat(form.expectedCustomersPerDay))) {
+  50        nextErrors.expectedCustomersPerDay = 'Expected customers per day is required.';
+  51      }
+  52  
+  53      if (!form.openingDaysPerMonth || Number.isNaN(parseFloat(form.openingDaysPerMonth))) {
+  54        nextErrors.openingDaysPerMonth = 'Opening days per month is required.';
+  55      }
+  56  
+  57      if (!form.email || !isValidEmail(form.email)) {
+  58        nextErrors.email = 'Enter a valid email to save your check.';
+  59      }
+  60  
+  61      setErrors(nextErrors);
+
+--- updateField / handleSubmit ---
+
+--- Around line 7 ---
+   3  import { useState } from 'react';
+   4  import type { CommercialInput } from '@/types/property';
+   5  
+   6  interface Props {
+   7    onSubmit: (input: CommercialInput) => void;
+   8  }
+   9  
+  10  function parseNum(val: string): number | undefined {
+  11    const n = parseFloat((val || '').replace(/,/g, ''));
+  12    return Number.isNaN(n) ? undefined : n;
+  13  }
+  14  
+  15  function requireNum(val: string): number {
+  16    const n = parseFloat((val || '').replace(/,/g, ''));
+  17    return Number.isNaN(n) ? 0 : n;
+  18  }
+  19  
+  20  function isValidEmail(value: string): boolean {
+  21    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  22  }
+  23  
+  24  export default function CommercialForm({ onSubmit }: Props) {
+  25    const [form, setForm] = useState<Record<string, string>>({});
+  26    const [errors, setErrors] = useState<Record<string, string>>({});
+  27  
+  28    const set = (key: string, value: string) => {
+  29      setForm((current) => ({ ...current, [key]: value }));
+  30    };
+  31  
+  32    const field = (key: string) => ({
+  33      value: form[key] ?? '',
+  34      onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+  35        set(key, event.target.value),
+  36    });
+  37  
+  38    const validate = (): boolean => {
+  39      const nextErrors: Record<string, string> = {};
+  40  
+  41      if (!form.annualRent || Number.isNaN(parseFloat(form.annualRent))) {
+  42        nextErrors.annualRent = 'Annual rent is required.';
+
+--- Around line 24 ---
+  20  function isValidEmail(value: string): boolean {
+  21    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  22  }
+  23  
+  24  export default function CommercialForm({ onSubmit }: Props) {
+  25    const [form, setForm] = useState<Record<string, string>>({});
+  26    const [errors, setErrors] = useState<Record<string, string>>({});
+  27  
+  28    const set = (key: string, value: string) => {
+  29      setForm((current) => ({ ...current, [key]: value }));
+  30    };
+  31  
+  32    const field = (key: string) => ({
+  33      value: form[key] ?? '',
+  34      onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+  35        set(key, event.target.value),
+  36    });
+  37  
+  38    const validate = (): boolean => {
+  39      const nextErrors: Record<string, string> = {};
+  40  
+  41      if (!form.annualRent || Number.isNaN(parseFloat(form.annualRent))) {
+  42        nextErrors.annualRent = 'Annual rent is required.';
+  43      }
+  44  
+  45      if (!form.averageSpendPerCustomer || Number.isNaN(parseFloat(form.averageSpendPerCustomer))) {
+  46        nextErrors.averageSpendPerCustomer = 'Average spend per customer is required.';
+  47      }
+  48  
+  49      if (!form.expectedCustomersPerDay || Number.isNaN(parseFloat(form.expectedCustomersPerDay))) {
+  50        nextErrors.expectedCustomersPerDay = 'Expected customers per day is required.';
+  51      }
+  52  
+  53      if (!form.openingDaysPerMonth || Number.isNaN(parseFloat(form.openingDaysPerMonth))) {
+  54        nextErrors.openingDaysPerMonth = 'Opening days per month is required.';
+  55      }
+  56  
+  57      if (!form.email || !isValidEmail(form.email)) {
+  58        nextErrors.email = 'Enter a valid email to save your check.';
+  59      }
+
+--- Around line 65 ---
+  61      setErrors(nextErrors);
+  62      return Object.keys(nextErrors).length === 0;
+  63    };
+  64  
+  65    const handleSubmit = (event: React.FormEvent) => {
+  66      event.preventDefault();
+  67  
+  68      if (!validate()) return;
+  69  
+  70      const input: CommercialInput = {
+  71        address: form.address || undefined,
+  72        postcode: form.postcode || undefined,
+  73        listingUrl: form.listingUrl || undefined,
+  74        businessType: form.businessType || undefined,
+  75        annualRent: requireNum(form.annualRent ?? ''),
+  76        averageSpendPerCustomer: requireNum(form.averageSpendPerCustomer ?? ''),
+  77        expectedCustomersPerDay: requireNum(form.expectedCustomersPerDay ?? ''),
+  78        openingDaysPerMonth: requireNum(form.openingDaysPerMonth ?? ''),
+  79        monthlyStaffCosts: parseNum(form.monthlyStaffCosts ?? ''),
+  80        monthlyUtilitiesAndOtherCosts: parseNum(form.monthlyUtilitiesAndOtherCosts ?? ''),
+  81        monthlyBusinessRates: parseNum(form.monthlyBusinessRates ?? ''),
+  82        fitOutBudget: parseNum(form.fitOutBudget ?? ''),
+  83        email: form.email,
+  84      };
+  85  
+  86      onSubmit(input);
+  87    };
+  88  
+  89    const inputClass =
+  90      'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+  91  
+  92    const errorInputClass =
+  93      'w-full border border-red-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+  94  
+  95    return (
+  96      <form onSubmit={handleSubmit} className="space-y-6">
+  97        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  98          <div>
+  99            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 100              Address <span className="text-stone-400">(optional)</span>
+
+--- Around line 66 ---
+  62      return Object.keys(nextErrors).length === 0;
+  63    };
+  64  
+  65    const handleSubmit = (event: React.FormEvent) => {
+  66      event.preventDefault();
+  67  
+  68      if (!validate()) return;
+  69  
+  70      const input: CommercialInput = {
+  71        address: form.address || undefined,
+  72        postcode: form.postcode || undefined,
+  73        listingUrl: form.listingUrl || undefined,
+  74        businessType: form.businessType || undefined,
+  75        annualRent: requireNum(form.annualRent ?? ''),
+  76        averageSpendPerCustomer: requireNum(form.averageSpendPerCustomer ?? ''),
+  77        expectedCustomersPerDay: requireNum(form.expectedCustomersPerDay ?? ''),
+  78        openingDaysPerMonth: requireNum(form.openingDaysPerMonth ?? ''),
+  79        monthlyStaffCosts: parseNum(form.monthlyStaffCosts ?? ''),
+  80        monthlyUtilitiesAndOtherCosts: parseNum(form.monthlyUtilitiesAndOtherCosts ?? ''),
+  81        monthlyBusinessRates: parseNum(form.monthlyBusinessRates ?? ''),
+  82        fitOutBudget: parseNum(form.fitOutBudget ?? ''),
+  83        email: form.email,
+  84      };
+  85  
+  86      onSubmit(input);
+  87    };
+  88  
+  89    const inputClass =
+  90      'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+  91  
+  92    const errorInputClass =
+  93      'w-full border border-red-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+  94  
+  95    return (
+  96      <form onSubmit={handleSubmit} className="space-y-6">
+  97        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  98          <div>
+  99            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 100              Address <span className="text-stone-400">(optional)</span>
+ 101            </label>
+
+--- Around line 86 ---
+  82        fitOutBudget: parseNum(form.fitOutBudget ?? ''),
+  83        email: form.email,
+  84      };
+  85  
+  86      onSubmit(input);
+  87    };
+  88  
+  89    const inputClass =
+  90      'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+  91  
+  92    const errorInputClass =
+  93      'w-full border border-red-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+  94  
+  95    return (
+  96      <form onSubmit={handleSubmit} className="space-y-6">
+  97        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  98          <div>
+  99            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 100              Address <span className="text-stone-400">(optional)</span>
+ 101            </label>
+ 102            <input type="text" className={inputClass} placeholder="e.g. 22 High Street" {...field('address')} />
+ 103          </div>
+ 104  
+ 105          <div>
+ 106            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 107              Postcode <span className="text-stone-400">(optional)</span>
+ 108            </label>
+ 109            <input type="text" className={inputClass} placeholder="e.g. EC1A 1BB" {...field('postcode')} />
+ 110          </div>
+ 111  
+ 112          <div className="sm:col-span-2">
+ 113            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 114              Listing URL <span className="text-stone-400">(optional)</span>
+ 115            </label>
+ 116            <input type="url" className={inputClass} placeholder="https://rightmove.co.uk/..." {...field('listingUrl')} />
+ 117          </div>
+ 118  
+ 119          <div>
+ 120            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 121              Business type
+
+--- Around line 96 ---
+  92    const errorInputClass =
+  93      'w-full border border-red-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+  94  
+  95    return (
+  96      <form onSubmit={handleSubmit} className="space-y-6">
+  97        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  98          <div>
+  99            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 100              Address <span className="text-stone-400">(optional)</span>
+ 101            </label>
+ 102            <input type="text" className={inputClass} placeholder="e.g. 22 High Street" {...field('address')} />
+ 103          </div>
+ 104  
+ 105          <div>
+ 106            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 107              Postcode <span className="text-stone-400">(optional)</span>
+ 108            </label>
+ 109            <input type="text" className={inputClass} placeholder="e.g. EC1A 1BB" {...field('postcode')} />
+ 110          </div>
+ 111  
+ 112          <div className="sm:col-span-2">
+ 113            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 114              Listing URL <span className="text-stone-400">(optional)</span>
+ 115            </label>
+ 116            <input type="url" className={inputClass} placeholder="https://rightmove.co.uk/..." {...field('listingUrl')} />
+ 117          </div>
+ 118  
+ 119          <div>
+ 120            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 121              Business type
+ 122            </label>
+ 123            <select className={inputClass} {...field('businessType')}>
+ 124              <option value="">Select type</option>
+ 125              <option>Cafe</option>
+ 126              <option>Bar</option>
+ 127              <option>Restaurant</option>
+ 128              <option>Salon</option>
+ 129              <option>Gym</option>
+ 130              <option>Takeaway</option>
+ 131              <option>Retail</option>
+
+--- labels and inputs ---
+
+--- Around line 99 ---
+  97        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  98          <div>
+  99            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 100              Address <span className="text-stone-400">(optional)</span>
+ 101            </label>
+ 102            <input type="text" className={inputClass} placeholder="e.g. 22 High Street" {...field('address')} />
+ 103          </div>
+ 104  
+ 105          <div>
+ 106            <label className="block text-sm font-medium text-stone-700 mb-1">
+
+--- Around line 106 ---
+ 104  
+ 105          <div>
+ 106            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 107              Postcode <span className="text-stone-400">(optional)</span>
+ 108            </label>
+ 109            <input type="text" className={inputClass} placeholder="e.g. EC1A 1BB" {...field('postcode')} />
+ 110          </div>
+ 111  
+ 112          <div className="sm:col-span-2">
+ 113            <label className="block text-sm font-medium text-stone-700 mb-1">
+
+--- Around line 113 ---
+ 111  
+ 112          <div className="sm:col-span-2">
+ 113            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 114              Listing URL <span className="text-stone-400">(optional)</span>
+ 115            </label>
+ 116            <input type="url" className={inputClass} placeholder="https://rightmove.co.uk/..." {...field('listingUrl')} />
+ 117          </div>
+ 118  
+ 119          <div>
+ 120            <label className="block text-sm font-medium text-stone-700 mb-1">
+
+--- Around line 120 ---
+ 118  
+ 119          <div>
+ 120            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 121              Business type
+ 122            </label>
+ 123            <select className={inputClass} {...field('businessType')}>
+ 124              <option value="">Select type</option>
+ 125              <option>Cafe</option>
+ 126              <option>Bar</option>
+ 127              <option>Restaurant</option>
+
+--- Around line 138 ---
+ 136  
+ 137          <div>
+ 138            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 139              Annual rent (£) <span className="text-red-500">*</span>
+ 140            </label>
+ 141            <input type="text" inputMode="numeric" className={errors.annualRent ? errorInputClass : inputClass} placeholder="e.g. 60000" {...field('annualRent')} />
+ 142            {errors.annualRent && <p className="text-red-600 text-xs mt-1">{errors.annualRent}</p>}
+ 143          </div>
+ 144  
+ 145          <div>
+
+--- Around line 146 ---
+ 144  
+ 145          <div>
+ 146            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 147              Average spend per customer (£) <span className="text-red-500">*</span>
+ 148            </label>
+ 149            <p className="text-xs text-stone-400 mb-1">Typical transaction value.</p>
+ 150            <input type="text" inputMode="numeric" className={errors.averageSpendPerCustomer ? errorInputClass : inputClass} placeholder="e.g. 12" {...field('averageSpendPerCustomer')} />
+ 151            {errors.averageSpendPerCustomer && <p className="text-red-600 text-xs mt-1">{errors.averageSpendPerCustomer}</p>}
+ 152          </div>
+ 153  
+
+--- Around line 155 ---
+ 153  
+ 154          <div>
+ 155            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 156              Expected customers per day <span className="text-red-500">*</span>
+ 157            </label>
+ 158            <input type="text" inputMode="numeric" className={errors.expectedCustomersPerDay ? errorInputClass : inputClass} placeholder="e.g. 80" {...field('expectedCustomersPerDay')} />
+ 159            {errors.expectedCustomersPerDay && <p className="text-red-600 text-xs mt-1">{errors.expectedCustomersPerDay}</p>}
+ 160          </div>
+ 161  
+ 162          <div>
+
+--- Around line 163 ---
+ 161  
+ 162          <div>
+ 163            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 164              Opening days per month <span className="text-red-500">*</span>
+ 165            </label>
+ 166            <input type="text" inputMode="numeric" className={errors.openingDaysPerMonth ? errorInputClass : inputClass} placeholder="e.g. 26" {...field('openingDaysPerMonth')} />
+ 167            {errors.openingDaysPerMonth && <p className="text-red-600 text-xs mt-1">{errors.openingDaysPerMonth}</p>}
+ 168          </div>
+ 169  
+ 170          <div>
+
+--- Around line 171 ---
+ 169  
+ 170          <div>
+ 171            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 172              Monthly staff costs (£) <span className="text-stone-400">(optional)</span>
+ 173            </label>
+ 174            <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 7000" {...field('monthlyStaffCosts')} />
+ 175          </div>
+ 176  
+ 177          <div>
+ 178            <label className="block text-sm font-medium text-stone-700 mb-1">
+
+--- Around line 178 ---
+ 176  
+ 177          <div>
+ 178            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 179              Monthly utilities and other costs (£) <span className="text-stone-400">(optional)</span>
+ 180            </label>
+ 181            <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 1200" {...field('monthlyUtilitiesAndOtherCosts')} />
+ 182          </div>
+ 183  
+ 184          <div>
+ 185            <label className="block text-sm font-medium text-stone-700 mb-1">
+
+--- Around line 185 ---
+ 183  
+ 184          <div>
+ 185            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 186              Monthly business rates (£) <span className="text-stone-400">(optional)</span>
+ 187            </label>
+ 188            <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 900" {...field('monthlyBusinessRates')} />
+ 189          </div>
+ 190  
+ 191          <div>
+ 192            <label className="block text-sm font-medium text-stone-700 mb-1">
+
+--- Around line 192 ---
+ 190  
+ 191          <div>
+ 192            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 193              Fit-out budget (£) <span className="text-stone-400">(optional)</span>
+ 194            </label>
+ 195            <p className="text-xs text-stone-400 mb-1">One-off cost, not included in monthly break-even.</p>
+ 196            <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 50000" {...field('fitOutBudget')} />
+ 197          </div>
+ 198  
+ 199          <div>
+
+--- Around line 200 ---
+ 198  
+ 199          <div>
+ 200            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 201              Email <span className="text-red-500">*</span>
+ 202            </label>
+ 203            <p className="text-xs text-stone-400 mb-1">Required so your check can be saved and followed up.</p>
+ 204            <input type="email" className={errors.email ? errorInputClass : inputClass} placeholder="you@example.com" {...field('email')} />
+ 205            {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+ 206          </div>
+ 207        </div>
+
+
+=== lib/calculations/commercial.ts (165 lines) ===
+
+--- Imports ---
+   1  import type { CommercialInput, CommercialResult } from '@/types/property';
+   2  import { getVerdictFromScore } from './verdict';
+   3  import { generateCommercialRiskFlags } from './riskFlags';
+
+--- Full file if under 260 lines, otherwise key sections ---
+   1  import type { CommercialInput, CommercialResult } from '@/types/property';
+   2  import { getVerdictFromScore } from './verdict';
+   3  import { generateCommercialRiskFlags } from './riskFlags';
+   4  
+   5  function safe(value: number | undefined): number {
+   6    if (value === undefined || value === null || Number.isNaN(value)) return 0;
+   7    return value;
+   8  }
+   9  
+  10  export function calculateCommercialRevenue(input: CommercialInput): number {
+  11    return safe(input.averageSpendPerCustomer) * safe(input.expectedCustomersPerDay) * safe(input.openingDaysPerMonth);
+  12  }
+  13  
+  14  export function calculateMonthlyRent(annualRent: number): number {
+  15    if (!annualRent || annualRent <= 0) return 0;
+  16    return annualRent / 12;
+  17  }
+  18  
+  19  export function calculateCommercialCostBase(input: CommercialInput): number {
+  20    return (
+  21      calculateMonthlyRent(input.annualRent) +
+  22      safe(input.monthlyStaffCosts) +
+  23      safe(input.monthlyUtilitiesAndOtherCosts) +
+  24      safe(input.monthlyBusinessRates)
+  25    );
+  26  }
+  27  
+  28  export function calculateBreakEvenCustomersPerDay(
+  29    costBase: number,
+  30    averageSpend: number,
+  31    openingDays: number
+  32  ): number | undefined {
+  33    if (!costBase || !averageSpend || !openingDays) return undefined;
+  34    return costBase / averageSpend / openingDays;
+  35  }
+  36  
+  37  export function calculateRentBurden(
+  38    monthlyRent: number,
+  39    monthlyRevenue: number
+  40  ): number | undefined {
+  41    if (!monthlyRent || !monthlyRevenue) return undefined;
+  42    return (monthlyRent / monthlyRevenue) * 100;
+  43  }
+  44  
+  45  export function calculateCommercialScore(
+  46    rentBurden?: number,
+  47    breakEven?: number,
+  48    expectedCustomers?: number,
+  49    input?: CommercialInput
+  50  ): number {
+  51    let score = 0;
+  52  
+  53    if (rentBurden === undefined) score += 10;
+  54    else if (rentBurden < 8) score += 25;
+  55    else if (rentBurden < 12) score += 20;
+  56    else if (rentBurden < 18) score += 14;
+  57    else if (rentBurden < 25) score += 8;
+  58    else score += 3;
+  59  
+  60    if (breakEven === undefined || expectedCustomers === undefined || expectedCustomers <= 0) {
+  61      score += 12;
+  62    } else {
+  63      const ratio = breakEven / expectedCustomers;
+  64      if (ratio < 0.5) score += 25;
+  65      else if (ratio < 0.75) score += 19;
+  66      else if (ratio <= 1) score += 13;
+  67      else if (ratio <= 1.3) score += 7;
+  68      else score += 2;
+  69    }
+  70  
+  71    if (breakEven !== undefined && expectedCustomers !== undefined && expectedCustomers > 0) {
+  72      const margin = expectedCustomers - breakEven;
+  73      if (margin > expectedCustomers * 0.5) score += 15;
+  74      else if (margin > 0) score += 9;
+  75      else score += 3;
+  76    } else {
+  77      score += 7;
+  78    }
+  79  
+  80    score += 9;
+  81    score += 7;
+  82  
+  83    let riskScore = 10;
+  84    if (!input?.monthlyStaffCosts) riskScore -= 2;
+  85    if (!input?.monthlyUtilitiesAndOtherCosts) riskScore -= 2;
+  86    if (!input?.monthlyBusinessRates) riskScore -= 2;
+  87    if (rentBurden !== undefined && rentBurden > 18) riskScore -= 2;
+  88    if (breakEven !== undefined && expectedCustomers !== undefined && breakEven > expectedCustomers) riskScore -= 2;
+  89  
+  90    score += Math.max(0, riskScore);
+  91  
+  92    return Math.min(100, Math.round(score));
+  93  }
+  94  
+  95  export function calculateCommercialResult(input: CommercialInput): CommercialResult {
+  96    const estimatedMonthlyRevenue = calculateCommercialRevenue(input);
+  97    const monthlyRent = calculateMonthlyRent(input.annualRent);
+  98    const estimatedMonthlyCostBase = calculateCommercialCostBase(input);
+  99    const rentBurdenPercentage = calculateRentBurden(monthlyRent, estimatedMonthlyRevenue);
+ 100    const breakEvenCustomersPerDay = calculateBreakEvenCustomersPerDay(
+ 101      estimatedMonthlyCostBase,
+ 102      input.averageSpendPerCustomer,
+ 103      input.openingDaysPerMonth
+ 104    );
+ 105  
+ 106    const score = calculateCommercialScore(
+ 107      rentBurdenPercentage,
+ 108      breakEvenCustomersPerDay,
+ 109      input.expectedCustomersPerDay,
+ 110      input
+ 111    );
+ 112  
+ 113    const verdict = getVerdictFromScore(score);
+ 114    const riskFlags = generateCommercialRiskFlags(
+ 115      input,
+ 116      rentBurdenPercentage,
+ 117      breakEvenCustomersPerDay,
+ 118      input.expectedCustomersPerDay
+ 119    );
+ 120  
+ 121    const assumptions = [
+ 122      'Revenue is estimated from average spend multiplied by expected customers and opening days.',
+ 123      'Local competition score is an indicative placeholder.',
+ 124      'Area suitability score is an indicative placeholder.',
+ 125      'No live footfall or competitor data is used.',
+ 126      'Fit-out costs are noted but not factored into monthly break-even.',
+ 127    ];
+ 128  
+ 129    const missingDataWarnings: string[] = [];
+ 130  
+ 131    if (!input.monthlyStaffCosts) {
+ 132      missingDataWarnings.push('Staff costs not provided. Monthly cost base is understated.');
+ 133    }
+ 134  
+ 135    if (!input.monthlyUtilitiesAndOtherCosts) {
+ 136      missingDataWarnings.push('Utilities and other costs not provided. Cost base may be understated.');
+ 137    }
+ 138  
+ 139    if (!input.monthlyBusinessRates) {
+ 140      missingDataWarnings.push('Business rates not provided. Confirm separately.');
+ 141    }
+ 142  
+ 143    const nextSteps = [
+ 144      'Confirm achievable footfall at different times of day.',
+ 145      'Check nearby direct competitors.',
+ 146      'Confirm business rates, utilities, licensing, and staffing costs.',
+ 147      'Stress-test the site using lower customers per day and lower average spend.',
+ 148      'Treat this as an initial screen before signing heads of terms or a lease.',
+ 149    ];
+ 150  
+ 151    return {
+ 152      score,
+ 153      verdict,
+ 154      estimatedMonthlyRevenue,
+ 155      monthlyRent,
+ 156      estimatedMonthlyCostBase,
+ 157      rentBurdenPercentage,
+ 158      breakEvenCustomersPerDay,
+ 159      expectedCustomersPerDay: input.expectedCustomersPerDay,
+ 160      riskFlags,
+ 161      assumptions,
+ 162      missingDataWarnings,
+ 163      nextSteps,
+ 164    };
+ 165  }

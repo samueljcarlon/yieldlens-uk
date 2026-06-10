@@ -48,6 +48,12 @@ export interface CommercialInput {
   monthlyUtilitiesAndOtherCosts?: number;
   monthlyBusinessRates?: number;
   fitOutBudget?: number;
+  rentDeposit?: number;
+  legalFees?: number;
+  openingStock?: number;
+  otherSetupCosts?: number;
+  startingCash?: number;
+  downsideRevenuePercentage?: number;
   email?: string;
 }
 
@@ -74,6 +80,14 @@ export interface CommercialResult {
   rentBurdenPercentage?: number;
   breakEvenCustomersPerDay?: number;
   expectedCustomersPerDay?: number;
+  upfrontCashNeeded?: number;
+  availableCashAfterOpening?: number;
+  downsideRevenuePercentage?: number;
+  downsideMonthlyRevenue?: number;
+  downsideMonthlyPosition?: number;
+  monthlyBurnInDownside?: number;
+  survivalMonths?: number;
+  survivesSixBadMonths?: boolean;
   riskFlags: RiskFlag[];
   assumptions: string[];
   missingDataWarnings: string[];

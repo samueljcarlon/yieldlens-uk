@@ -1,0 +1,1440 @@
+COMMERCIAL SURVIVAL MODEL DIAGNOSTICS
+
+
+=== components/CommercialForm.tsx (217 lines) ===
+
+--- IMPORTS ---
+   3  import { useState } from 'react';
+   4  import type { CommercialInput } from '@/types/property';
+
+--- TYPE / INTERFACE / PROPS ---
+   6  interface Props {
+
+--- FORM STATE SETUP (useState) ---
+   2  
+   3  import { useState } from 'react';
+   4  import type { CommercialInput } from '@/types/property';
+   5  
+   6  interface Props {
+   7    onSubmit: (input: CommercialInput) => void;
+   8  }
+   9  
+
+  24  export default function CommercialForm({ onSubmit }: Props) {
+  25    const [form, setForm] = useState<Record<string, string>>({});
+  26    const [errors, setErrors] = useState<Record<string, string>>({});
+  27  
+  28    const set = (key: string, value: string) => {
+  29      setForm((current) => ({ ...current, [key]: value }));
+  30    };
+  31  
+
+  25    const [form, setForm] = useState<Record<string, string>>({});
+  26    const [errors, setErrors] = useState<Record<string, string>>({});
+  27  
+  28    const set = (key: string, value: string) => {
+  29      setForm((current) => ({ ...current, [key]: value }));
+  30    };
+  31  
+  32    const field = (key: string) => ({
+
+
+--- ALL INPUT FIELDS ---
+ 100              Address <span className="text-stone-400">(optional)</span>
+ 101            </label>
+ 102            <input type="text" className={inputClass} placeholder="e.g. 22 High Street" {...field('address')} />
+ 103          </div>
+ 104  
+
+ 107              Postcode <span className="text-stone-400">(optional)</span>
+ 108            </label>
+ 109            <input type="text" className={inputClass} placeholder="e.g. EC1A 1BB" {...field('postcode')} />
+ 110          </div>
+ 111  
+
+ 121              Business type
+ 122            </label>
+ 123            <select className={inputClass} {...field('businessType')}>
+ 124              <option value="">Select type</option>
+ 125              <option>Cafe</option>
+
+ 139              Annual rent (£) <span className="text-red-500">*</span>
+ 140            </label>
+ 141            <input type="text" inputMode="numeric" className={errors.annualRent ? errorInputClass : inputClass} placeholder="e.g. 60000" {...field('annualRent')} />
+ 142            {errors.annualRent && <p className="text-red-600 text-xs mt-1">{errors.annualRent}</p>}
+ 143          </div>
+
+ 148            </label>
+ 149            <p className="text-xs text-stone-400 mb-1">Typical transaction value.</p>
+ 150            <input type="text" inputMode="numeric" className={errors.averageSpendPerCustomer ? errorInputClass : inputClass} placeholder="e.g. 12" {...field('averageSpendPerCustomer')} />
+ 151            {errors.averageSpendPerCustomer && <p className="text-red-600 text-xs mt-1">{errors.averageSpendPerCustomer}</p>}
+ 152          </div>
+
+ 156              Expected customers per day <span className="text-red-500">*</span>
+ 157            </label>
+ 158            <input type="text" inputMode="numeric" className={errors.expectedCustomersPerDay ? errorInputClass : inputClass} placeholder="e.g. 80" {...field('expectedCustomersPerDay')} />
+ 159            {errors.expectedCustomersPerDay && <p className="text-red-600 text-xs mt-1">{errors.expectedCustomersPerDay}</p>}
+ 160          </div>
+
+ 164              Opening days per month <span className="text-red-500">*</span>
+ 165            </label>
+ 166            <input type="text" inputMode="numeric" className={errors.openingDaysPerMonth ? errorInputClass : inputClass} placeholder="e.g. 26" {...field('openingDaysPerMonth')} />
+ 167            {errors.openingDaysPerMonth && <p className="text-red-600 text-xs mt-1">{errors.openingDaysPerMonth}</p>}
+ 168          </div>
+
+ 172              Monthly staff costs (£) <span className="text-stone-400">(optional)</span>
+ 173            </label>
+ 174            <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 7000" {...field('monthlyStaffCosts')} />
+ 175          </div>
+ 176  
+
+ 179              Monthly utilities and other costs (£) <span className="text-stone-400">(optional)</span>
+ 180            </label>
+ 181            <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 1200" {...field('monthlyUtilitiesAndOtherCosts')} />
+ 182          </div>
+ 183  
+
+ 186              Monthly business rates (£) <span className="text-stone-400">(optional)</span>
+ 187            </label>
+ 188            <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 900" {...field('monthlyBusinessRates')} />
+ 189          </div>
+ 190  
+
+ 194            </label>
+ 195            <p className="text-xs text-stone-400 mb-1">One-off cost, not included in monthly break-even.</p>
+ 196            <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 50000" {...field('fitOutBudget')} />
+ 197          </div>
+ 198  
+
+ 202            </label>
+ 203            <p className="text-xs text-stone-400 mb-1">Required so your check can be saved and followed up.</p>
+ 204            <input type="email" className={errors.email ? errorInputClass : inputClass} placeholder="you@example.com" {...field('email')} />
+ 205            {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+ 206          </div>
+
+
+--- SUBMIT HANDLER ---
+   6  interface Props {
+   7    onSubmit: (input: CommercialInput) => void;
+   8  }
+   9  
+  10  function parseNum(val: string): number | undefined {
+  11    const n = parseFloat((val || '').replace(/,/g, ''));
+  12    return Number.isNaN(n) ? undefined : n;
+  13  }
+  14  
+  15  function requireNum(val: string): number {
+  16    const n = parseFloat((val || '').replace(/,/g, ''));
+  17    return Number.isNaN(n) ? 0 : n;
+  18  }
+  19  
+
+  23  
+  24  export default function CommercialForm({ onSubmit }: Props) {
+  25    const [form, setForm] = useState<Record<string, string>>({});
+  26    const [errors, setErrors] = useState<Record<string, string>>({});
+  27  
+  28    const set = (key: string, value: string) => {
+  29      setForm((current) => ({ ...current, [key]: value }));
+  30    };
+  31  
+  32    const field = (key: string) => ({
+  33      value: form[key] ?? '',
+  34      onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+  35        set(key, event.target.value),
+  36    });
+
+  37  
+  38    const validate = (): boolean => {
+  39      const nextErrors: Record<string, string> = {};
+  40  
+  41      if (!form.annualRent || Number.isNaN(parseFloat(form.annualRent))) {
+  42        nextErrors.annualRent = 'Annual rent is required.';
+  43      }
+  44  
+  45      if (!form.averageSpendPerCustomer || Number.isNaN(parseFloat(form.averageSpendPerCustomer))) {
+  46        nextErrors.averageSpendPerCustomer = 'Average spend per customer is required.';
+  47      }
+  48  
+  49      if (!form.expectedCustomersPerDay || Number.isNaN(parseFloat(form.expectedCustomersPerDay))) {
+  50        nextErrors.expectedCustomersPerDay = 'Expected customers per day is required.';
+
+  64  
+  65    const handleSubmit = (event: React.FormEvent) => {
+  66      event.preventDefault();
+  67  
+  68      if (!validate()) return;
+  69  
+  70      const input: CommercialInput = {
+  71        address: form.address || undefined,
+  72        postcode: form.postcode || undefined,
+  73        listingUrl: form.listingUrl || undefined,
+  74        businessType: form.businessType || undefined,
+  75        annualRent: requireNum(form.annualRent ?? ''),
+  76        averageSpendPerCustomer: requireNum(form.averageSpendPerCustomer ?? ''),
+  77        expectedCustomersPerDay: requireNum(form.expectedCustomersPerDay ?? ''),
+
+  67  
+  68      if (!validate()) return;
+  69  
+  70      const input: CommercialInput = {
+  71        address: form.address || undefined,
+  72        postcode: form.postcode || undefined,
+  73        listingUrl: form.listingUrl || undefined,
+  74        businessType: form.businessType || undefined,
+  75        annualRent: requireNum(form.annualRent ?? ''),
+  76        averageSpendPerCustomer: requireNum(form.averageSpendPerCustomer ?? ''),
+  77        expectedCustomersPerDay: requireNum(form.expectedCustomersPerDay ?? ''),
+  78        openingDaysPerMonth: requireNum(form.openingDaysPerMonth ?? ''),
+  79        monthlyStaffCosts: parseNum(form.monthlyStaffCosts ?? ''),
+  80        monthlyUtilitiesAndOtherCosts: parseNum(form.monthlyUtilitiesAndOtherCosts ?? ''),
+
+  85  
+  86      onSubmit(input);
+  87    };
+  88  
+  89    const inputClass =
+  90      'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+  91  
+  92    const errorInputClass =
+  93      'w-full border border-red-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+  94  
+  95    return (
+  96      <form onSubmit={handleSubmit} className="space-y-6">
+  97        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  98          <div>
+
+  95    return (
+  96      <form onSubmit={handleSubmit} className="space-y-6">
+  97        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  98          <div>
+  99            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 100              Address <span className="text-stone-400">(optional)</span>
+ 101            </label>
+ 102            <input type="text" className={inputClass} placeholder="e.g. 22 High Street" {...field('address')} />
+ 103          </div>
+ 104  
+ 105          <div>
+ 106            <label className="block text-sm font-medium text-stone-700 mb-1">
+ 107              Postcode <span className="text-stone-400">(optional)</span>
+ 108            </label>
+
+
+
+=== lib/calculations/commercial.ts (165 lines) ===
+
+--- IMPORTS ---
+   1  import type { CommercialInput, CommercialResult } from '@/types/property';
+   2  import { getVerdictFromScore } from './verdict';
+   3  import { generateCommercialRiskFlags } from './riskFlags';
+
+--- CONSTANTS / DEFAULTS ---
+  63      const ratio = breakEven / expectedCustomers;
+  72      const margin = expectedCustomers - breakEven;
+  96    const estimatedMonthlyRevenue = calculateCommercialRevenue(input);
+  97    const monthlyRent = calculateMonthlyRent(input.annualRent);
+  98    const estimatedMonthlyCostBase = calculateCommercialCostBase(input);
+  99    const rentBurdenPercentage = calculateRentBurden(monthlyRent, estimatedMonthlyRevenue);
+ 100    const breakEvenCustomersPerDay = calculateBreakEvenCustomersPerDay(
+ 106    const score = calculateCommercialScore(
+ 113    const verdict = getVerdictFromScore(score);
+ 114    const riskFlags = generateCommercialRiskFlags(
+ 121    const assumptions = [
+ 129    const missingDataWarnings: string[] = [];
+ 143    const nextSteps = [
+
+--- calculateCommercialResult FUNCTION / RELEVANT LINES ---
+   2  import { getVerdictFromScore } from './verdict';
+   3  import { generateCommercialRiskFlags } from './riskFlags';
+   4  
+   5  function safe(value: number | undefined): number {
+   6    if (value === undefined || value === null || Number.isNaN(value)) return 0;
+   7    return value;
+   8  }
+   9  
+  10  export function calculateCommercialRevenue(input: CommercialInput): number {
+  11    return safe(input.averageSpendPerCustomer) * safe(input.expectedCustomersPerDay) * safe(input.openingDaysPerMonth);
+
+  37  export function calculateRentBurden(
+  38    monthlyRent: number,
+  39    monthlyRevenue: number
+  40  ): number | undefined {
+  41    if (!monthlyRent || !monthlyRevenue) return undefined;
+  42    return (monthlyRent / monthlyRevenue) * 100;
+  43  }
+  44  
+  45  export function calculateCommercialScore(
+  46    rentBurden?: number,
+
+  40  ): number | undefined {
+  41    if (!monthlyRent || !monthlyRevenue) return undefined;
+  42    return (monthlyRent / monthlyRevenue) * 100;
+  43  }
+  44  
+  45  export function calculateCommercialScore(
+  46    rentBurden?: number,
+  47    breakEven?: number,
+  48    expectedCustomers?: number,
+  49    input?: CommercialInput
+
+  41    if (!monthlyRent || !monthlyRevenue) return undefined;
+  42    return (monthlyRent / monthlyRevenue) * 100;
+  43  }
+  44  
+  45  export function calculateCommercialScore(
+  46    rentBurden?: number,
+  47    breakEven?: number,
+  48    expectedCustomers?: number,
+  49    input?: CommercialInput
+  50  ): number {
+
+  45  export function calculateCommercialScore(
+  46    rentBurden?: number,
+  47    breakEven?: number,
+  48    expectedCustomers?: number,
+  49    input?: CommercialInput
+  50  ): number {
+  51    let score = 0;
+  52  
+  53    if (rentBurden === undefined) score += 10;
+  54    else if (rentBurden < 8) score += 25;
+
+  46    rentBurden?: number,
+  47    breakEven?: number,
+  48    expectedCustomers?: number,
+  49    input?: CommercialInput
+  50  ): number {
+  51    let score = 0;
+  52  
+  53    if (rentBurden === undefined) score += 10;
+  54    else if (rentBurden < 8) score += 25;
+  55    else if (rentBurden < 12) score += 20;
+
+  52  
+  53    if (rentBurden === undefined) score += 10;
+  54    else if (rentBurden < 8) score += 25;
+  55    else if (rentBurden < 12) score += 20;
+  56    else if (rentBurden < 18) score += 14;
+  57    else if (rentBurden < 25) score += 8;
+  58    else score += 3;
+  59  
+  60    if (breakEven === undefined || expectedCustomers === undefined || expectedCustomers <= 0) {
+  61      score += 12;
+
+  53    if (rentBurden === undefined) score += 10;
+  54    else if (rentBurden < 8) score += 25;
+  55    else if (rentBurden < 12) score += 20;
+  56    else if (rentBurden < 18) score += 14;
+  57    else if (rentBurden < 25) score += 8;
+  58    else score += 3;
+  59  
+  60    if (breakEven === undefined || expectedCustomers === undefined || expectedCustomers <= 0) {
+  61      score += 12;
+  62    } else {
+
+  54    else if (rentBurden < 8) score += 25;
+  55    else if (rentBurden < 12) score += 20;
+  56    else if (rentBurden < 18) score += 14;
+  57    else if (rentBurden < 25) score += 8;
+  58    else score += 3;
+  59  
+  60    if (breakEven === undefined || expectedCustomers === undefined || expectedCustomers <= 0) {
+  61      score += 12;
+  62    } else {
+  63      const ratio = breakEven / expectedCustomers;
+
+  55    else if (rentBurden < 12) score += 20;
+  56    else if (rentBurden < 18) score += 14;
+  57    else if (rentBurden < 25) score += 8;
+  58    else score += 3;
+  59  
+  60    if (breakEven === undefined || expectedCustomers === undefined || expectedCustomers <= 0) {
+  61      score += 12;
+  62    } else {
+  63      const ratio = breakEven / expectedCustomers;
+  64      if (ratio < 0.5) score += 25;
+
+  56    else if (rentBurden < 18) score += 14;
+  57    else if (rentBurden < 25) score += 8;
+  58    else score += 3;
+  59  
+  60    if (breakEven === undefined || expectedCustomers === undefined || expectedCustomers <= 0) {
+  61      score += 12;
+  62    } else {
+  63      const ratio = breakEven / expectedCustomers;
+  64      if (ratio < 0.5) score += 25;
+  65      else if (ratio < 0.75) score += 19;
+
+  59  
+  60    if (breakEven === undefined || expectedCustomers === undefined || expectedCustomers <= 0) {
+  61      score += 12;
+  62    } else {
+  63      const ratio = breakEven / expectedCustomers;
+  64      if (ratio < 0.5) score += 25;
+  65      else if (ratio < 0.75) score += 19;
+  66      else if (ratio <= 1) score += 13;
+  67      else if (ratio <= 1.3) score += 7;
+  68      else score += 2;
+
+  62    } else {
+  63      const ratio = breakEven / expectedCustomers;
+  64      if (ratio < 0.5) score += 25;
+  65      else if (ratio < 0.75) score += 19;
+  66      else if (ratio <= 1) score += 13;
+  67      else if (ratio <= 1.3) score += 7;
+  68      else score += 2;
+  69    }
+  70  
+  71    if (breakEven !== undefined && expectedCustomers !== undefined && expectedCustomers > 0) {
+
+  70  
+  71    if (breakEven !== undefined && expectedCustomers !== undefined && expectedCustomers > 0) {
+  72      const margin = expectedCustomers - breakEven;
+  73      if (margin > expectedCustomers * 0.5) score += 15;
+  74      else if (margin > 0) score += 9;
+  75      else score += 3;
+  76    } else {
+  77      score += 7;
+  78    }
+  79  
+
+  71    if (breakEven !== undefined && expectedCustomers !== undefined && expectedCustomers > 0) {
+  72      const margin = expectedCustomers - breakEven;
+  73      if (margin > expectedCustomers * 0.5) score += 15;
+  74      else if (margin > 0) score += 9;
+  75      else score += 3;
+  76    } else {
+  77      score += 7;
+  78    }
+  79  
+  80    score += 9;
+
+  86    if (!input?.monthlyBusinessRates) riskScore -= 2;
+  87    if (rentBurden !== undefined && rentBurden > 18) riskScore -= 2;
+  88    if (breakEven !== undefined && expectedCustomers !== undefined && breakEven > expectedCustomers) riskScore -= 2;
+  89  
+  90    score += Math.max(0, riskScore);
+  91  
+  92    return Math.min(100, Math.round(score));
+  93  }
+  94  
+  95  export function calculateCommercialResult(input: CommercialInput): CommercialResult {
+
+  87    if (rentBurden !== undefined && rentBurden > 18) riskScore -= 2;
+  88    if (breakEven !== undefined && expectedCustomers !== undefined && breakEven > expectedCustomers) riskScore -= 2;
+  89  
+  90    score += Math.max(0, riskScore);
+  91  
+  92    return Math.min(100, Math.round(score));
+  93  }
+  94  
+  95  export function calculateCommercialResult(input: CommercialInput): CommercialResult {
+  96    const estimatedMonthlyRevenue = calculateCommercialRevenue(input);
+
+  94  
+  95  export function calculateCommercialResult(input: CommercialInput): CommercialResult {
+  96    const estimatedMonthlyRevenue = calculateCommercialRevenue(input);
+  97    const monthlyRent = calculateMonthlyRent(input.annualRent);
+  98    const estimatedMonthlyCostBase = calculateCommercialCostBase(input);
+  99    const rentBurdenPercentage = calculateRentBurden(monthlyRent, estimatedMonthlyRevenue);
+ 100    const breakEvenCustomersPerDay = calculateBreakEvenCustomersPerDay(
+ 101      estimatedMonthlyCostBase,
+ 102      input.averageSpendPerCustomer,
+ 103      input.openingDaysPerMonth
+
+  95  export function calculateCommercialResult(input: CommercialInput): CommercialResult {
+  96    const estimatedMonthlyRevenue = calculateCommercialRevenue(input);
+  97    const monthlyRent = calculateMonthlyRent(input.annualRent);
+  98    const estimatedMonthlyCostBase = calculateCommercialCostBase(input);
+  99    const rentBurdenPercentage = calculateRentBurden(monthlyRent, estimatedMonthlyRevenue);
+ 100    const breakEvenCustomersPerDay = calculateBreakEvenCustomersPerDay(
+ 101      estimatedMonthlyCostBase,
+ 102      input.averageSpendPerCustomer,
+ 103      input.openingDaysPerMonth
+ 104    );
+
+  96    const estimatedMonthlyRevenue = calculateCommercialRevenue(input);
+  97    const monthlyRent = calculateMonthlyRent(input.annualRent);
+  98    const estimatedMonthlyCostBase = calculateCommercialCostBase(input);
+  99    const rentBurdenPercentage = calculateRentBurden(monthlyRent, estimatedMonthlyRevenue);
+ 100    const breakEvenCustomersPerDay = calculateBreakEvenCustomersPerDay(
+ 101      estimatedMonthlyCostBase,
+ 102      input.averageSpendPerCustomer,
+ 103      input.openingDaysPerMonth
+ 104    );
+ 105  
+
+  98    const estimatedMonthlyCostBase = calculateCommercialCostBase(input);
+  99    const rentBurdenPercentage = calculateRentBurden(monthlyRent, estimatedMonthlyRevenue);
+ 100    const breakEvenCustomersPerDay = calculateBreakEvenCustomersPerDay(
+ 101      estimatedMonthlyCostBase,
+ 102      input.averageSpendPerCustomer,
+ 103      input.openingDaysPerMonth
+ 104    );
+ 105  
+ 106    const score = calculateCommercialScore(
+ 107      rentBurdenPercentage,
+
+  99    const rentBurdenPercentage = calculateRentBurden(monthlyRent, estimatedMonthlyRevenue);
+ 100    const breakEvenCustomersPerDay = calculateBreakEvenCustomersPerDay(
+ 101      estimatedMonthlyCostBase,
+ 102      input.averageSpendPerCustomer,
+ 103      input.openingDaysPerMonth
+ 104    );
+ 105  
+ 106    const score = calculateCommercialScore(
+ 107      rentBurdenPercentage,
+ 108      breakEvenCustomersPerDay,
+
+ 106    const score = calculateCommercialScore(
+ 107      rentBurdenPercentage,
+ 108      breakEvenCustomersPerDay,
+ 109      input.expectedCustomersPerDay,
+ 110      input
+ 111    );
+ 112  
+ 113    const verdict = getVerdictFromScore(score);
+ 114    const riskFlags = generateCommercialRiskFlags(
+ 115      input,
+
+ 107      rentBurdenPercentage,
+ 108      breakEvenCustomersPerDay,
+ 109      input.expectedCustomersPerDay,
+ 110      input
+ 111    );
+ 112  
+ 113    const verdict = getVerdictFromScore(score);
+ 114    const riskFlags = generateCommercialRiskFlags(
+ 115      input,
+ 116      rentBurdenPercentage,
+
+ 113    const verdict = getVerdictFromScore(score);
+ 114    const riskFlags = generateCommercialRiskFlags(
+ 115      input,
+ 116      rentBurdenPercentage,
+ 117      breakEvenCustomersPerDay,
+ 118      input.expectedCustomersPerDay
+ 119    );
+ 120  
+ 121    const assumptions = [
+ 122      'Revenue is estimated from average spend multiplied by expected customers and opening days.',
+
+ 115      input,
+ 116      rentBurdenPercentage,
+ 117      breakEvenCustomersPerDay,
+ 118      input.expectedCustomersPerDay
+ 119    );
+ 120  
+ 121    const assumptions = [
+ 122      'Revenue is estimated from average spend multiplied by expected customers and opening days.',
+ 123      'Local competition score is an indicative placeholder.',
+ 124      'Area suitability score is an indicative placeholder.',
+
+ 116      rentBurdenPercentage,
+ 117      breakEvenCustomersPerDay,
+ 118      input.expectedCustomersPerDay
+ 119    );
+ 120  
+ 121    const assumptions = [
+ 122      'Revenue is estimated from average spend multiplied by expected customers and opening days.',
+ 123      'Local competition score is an indicative placeholder.',
+ 124      'Area suitability score is an indicative placeholder.',
+ 125      'No live footfall or competitor data is used.',
+
+ 120  
+ 121    const assumptions = [
+ 122      'Revenue is estimated from average spend multiplied by expected customers and opening days.',
+ 123      'Local competition score is an indicative placeholder.',
+ 124      'Area suitability score is an indicative placeholder.',
+ 125      'No live footfall or competitor data is used.',
+ 126      'Fit-out costs are noted but not factored into monthly break-even.',
+ 127    ];
+ 128  
+ 129    const missingDataWarnings: string[] = [];
+
+ 128  
+ 129    const missingDataWarnings: string[] = [];
+ 130  
+ 131    if (!input.monthlyStaffCosts) {
+ 132      missingDataWarnings.push('Staff costs not provided. Monthly cost base is understated.');
+ 133    }
+ 134  
+ 135    if (!input.monthlyUtilitiesAndOtherCosts) {
+ 136      missingDataWarnings.push('Utilities and other costs not provided. Cost base may be understated.');
+ 137    }
+
+ 131    if (!input.monthlyStaffCosts) {
+ 132      missingDataWarnings.push('Staff costs not provided. Monthly cost base is understated.');
+ 133    }
+ 134  
+ 135    if (!input.monthlyUtilitiesAndOtherCosts) {
+ 136      missingDataWarnings.push('Utilities and other costs not provided. Cost base may be understated.');
+ 137    }
+ 138  
+ 139    if (!input.monthlyBusinessRates) {
+ 140      missingDataWarnings.push('Business rates not provided. Confirm separately.');
+
+ 135    if (!input.monthlyUtilitiesAndOtherCosts) {
+ 136      missingDataWarnings.push('Utilities and other costs not provided. Cost base may be understated.');
+ 137    }
+ 138  
+ 139    if (!input.monthlyBusinessRates) {
+ 140      missingDataWarnings.push('Business rates not provided. Confirm separately.');
+ 141    }
+ 142  
+ 143    const nextSteps = [
+ 144      'Confirm achievable footfall at different times of day.',
+
+ 139    if (!input.monthlyBusinessRates) {
+ 140      missingDataWarnings.push('Business rates not provided. Confirm separately.');
+ 141    }
+ 142  
+ 143    const nextSteps = [
+ 144      'Confirm achievable footfall at different times of day.',
+ 145      'Check nearby direct competitors.',
+ 146      'Confirm business rates, utilities, licensing, and staffing costs.',
+ 147      'Stress-test the site using lower customers per day and lower average spend.',
+ 148      'Treat this as an initial screen before signing heads of terms or a lease.',
+
+ 142  
+ 143    const nextSteps = [
+ 144      'Confirm achievable footfall at different times of day.',
+ 145      'Check nearby direct competitors.',
+ 146      'Confirm business rates, utilities, licensing, and staffing costs.',
+ 147      'Stress-test the site using lower customers per day and lower average spend.',
+ 148      'Treat this as an initial screen before signing heads of terms or a lease.',
+ 149    ];
+ 150  
+ 151    return {
+
+ 150  
+ 151    return {
+ 152      score,
+ 153      verdict,
+ 154      estimatedMonthlyRevenue,
+ 155      monthlyRent,
+ 156      estimatedMonthlyCostBase,
+ 157      rentBurdenPercentage,
+ 158      breakEvenCustomersPerDay,
+ 159      expectedCustomersPerDay: input.expectedCustomersPerDay,
+
+ 153      verdict,
+ 154      estimatedMonthlyRevenue,
+ 155      monthlyRent,
+ 156      estimatedMonthlyCostBase,
+ 157      rentBurdenPercentage,
+ 158      breakEvenCustomersPerDay,
+ 159      expectedCustomersPerDay: input.expectedCustomersPerDay,
+ 160      riskFlags,
+ 161      assumptions,
+ 162      missingDataWarnings,
+
+ 154      estimatedMonthlyRevenue,
+ 155      monthlyRent,
+ 156      estimatedMonthlyCostBase,
+ 157      rentBurdenPercentage,
+ 158      breakEvenCustomersPerDay,
+ 159      expectedCustomersPerDay: input.expectedCustomersPerDay,
+ 160      riskFlags,
+ 161      assumptions,
+ 162      missingDataWarnings,
+ 163      nextSteps,
+
+ 156      estimatedMonthlyCostBase,
+ 157      rentBurdenPercentage,
+ 158      breakEvenCustomersPerDay,
+ 159      expectedCustomersPerDay: input.expectedCustomersPerDay,
+ 160      riskFlags,
+ 161      assumptions,
+ 162      missingDataWarnings,
+ 163      nextSteps,
+ 164    };
+ 165  }
+
+ 157      rentBurdenPercentage,
+ 158      breakEvenCustomersPerDay,
+ 159      expectedCustomersPerDay: input.expectedCustomersPerDay,
+ 160      riskFlags,
+ 161      assumptions,
+ 162      missingDataWarnings,
+ 163      nextSteps,
+ 164    };
+ 165  }
+
+ 159      expectedCustomersPerDay: input.expectedCustomersPerDay,
+ 160      riskFlags,
+ 161      assumptions,
+ 162      missingDataWarnings,
+ 163      nextSteps,
+ 164    };
+ 165  }
+
+ 160      riskFlags,
+ 161      assumptions,
+ 162      missingDataWarnings,
+ 163      nextSteps,
+ 164    };
+ 165  }
+
+ 161      assumptions,
+ 162      missingDataWarnings,
+ 163      nextSteps,
+ 164    };
+ 165  }
+
+ 162      missingDataWarnings,
+ 163      nextSteps,
+ 164    };
+ 165  }
+
+
+
+=== types/property.ts (94 lines) ===
+
+   1  export type PropertyMode = 'residential' | 'commercial';
+   2  
+   3  export type VerdictLabel =
+   4    | 'Strong candidate'
+   5    | 'Worth investigating'
+   6    | 'Marginal'
+   7    | 'Weak'
+   8    | 'Avoid';
+   9  
+  10  export interface Verdict {
+  11    label: VerdictLabel;
+  12    score: number;
+  13    colour: 'green' | 'teal' | 'yellow' | 'orange' | 'red';
+  14  }
+  15  
+  16  export interface RiskFlag {
+  17    severity: 'high' | 'medium' | 'low' | 'info';
+  18    message: string;
+  19  }
+  20  
+  21  export interface ResidentialInput {
+  22    address?: string;
+  23    postcode?: string;
+  24    listingUrl?: string;
+  25    propertyType?: string;
+  26    bedrooms?: number;
+  27    userObjective?: string;
+  28    purchasePrice?: number;
+  29    monthlyRent?: number;
+  30    expectedMonthlyRent?: number;
+  31    serviceChargeAnnual?: number;
+  32    groundRentAnnual?: number;
+  33    mortgageMonthlyCost?: number;
+  34    otherMonthlyCosts?: number;
+  35    email?: string;
+  36  }
+  37  
+  38  export interface CommercialInput {
+  39    address?: string;
+  40    postcode?: string;
+  41    listingUrl?: string;
+  42    businessType?: string;
+  43    annualRent: number;
+  44    averageSpendPerCustomer: number;
+  45    expectedCustomersPerDay: number;
+  46    openingDaysPerMonth: number;
+  47    monthlyStaffCosts?: number;
+  48    monthlyUtilitiesAndOtherCosts?: number;
+  49    monthlyBusinessRates?: number;
+  50    fitOutBudget?: number;
+  51    email?: string;
+  52  }
+  53  
+  54  export interface ResidentialResult {
+  55    score: number;
+  56    verdict: Verdict;
+  57    grossYield?: number;
+  58    annualRentalIncome?: number;
+  59    monthlyCashFlow?: number;
+  60    annualCashFlow?: number;
+  61    annualOwnershipCosts?: number;
+  62    riskFlags: RiskFlag[];
+  63    assumptions: string[];
+  64    missingDataWarnings: string[];
+  65    nextSteps: string[];
+  66  }
+  67  
+  68  export interface CommercialResult {
+  69    score: number;
+  70    verdict: Verdict;
+  71    estimatedMonthlyRevenue?: number;
+  72    monthlyRent?: number;
+  73    estimatedMonthlyCostBase?: number;
+  74    rentBurdenPercentage?: number;
+  75    breakEvenCustomersPerDay?: number;
+  76    expectedCustomersPerDay?: number;
+  77    riskFlags: RiskFlag[];
+  78    assumptions: string[];
+  79    missingDataWarnings: string[];
+  80    nextSteps: string[];
+  81  }
+  82  
+  83  export type AnyInput = ResidentialInput | CommercialInput;
+  84  export type AnyResult = ResidentialResult | CommercialResult;
+  85  
+  86  export interface Submission {
+  87    id: string;
+  88    mode: PropertyMode;
+  89    createdAt: string;
+  90    input: AnyInput;
+  91    result: AnyResult;
+  92    score: number;
+  93    verdict: Verdict;
+  94  }
+
+
+=== app/results/page.tsx (308 lines) ===
+
+--- IMPORTS ---
+   3  import { useEffect, useState } from 'react';
+   4  import Link from 'next/link';
+   5  import type {
+  10  import { getLatestSubmission } from '@/lib/storage';
+  11  import MetricCard from '@/components/MetricCard';
+  12  import RiskFlags from '@/components/RiskFlags';
+  13  import AssumptionsPanel from '@/components/AssumptionsPanel';
+  14  import ScoreCard from '@/components/ScoreCard';
+  15  import ReportInterestButton from '@/components/ReportInterestButton';
+  16  import ScenarioPanel from '@/components/ScenarioPanel';
+  17  import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+
+--- COMMERCIAL / RENDER AREAS ---
+  11  import MetricCard from '@/components/MetricCard';
+  12  import RiskFlags from '@/components/RiskFlags';
+  13  import AssumptionsPanel from '@/components/AssumptionsPanel';
+  14  import ScoreCard from '@/components/ScoreCard';
+  15  import ReportInterestButton from '@/components/ReportInterestButton';
+  16  import ScenarioPanel from '@/components/ScenarioPanel';
+  17  import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+  18  
+  19  function formatCurrency(value?: number): string {
+  20    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+
+  15  import ReportInterestButton from '@/components/ReportInterestButton';
+  16  import ScenarioPanel from '@/components/ScenarioPanel';
+  17  import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+  18  
+  19  function formatCurrency(value?: number): string {
+  20    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+  21  
+  22    return new Intl.NumberFormat('en-GB', {
+  23      style: 'currency',
+  24      currency: 'GBP',
+
+  16  import ScenarioPanel from '@/components/ScenarioPanel';
+  17  import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+  18  
+  19  function formatCurrency(value?: number): string {
+  20    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+  21  
+  22    return new Intl.NumberFormat('en-GB', {
+  23      style: 'currency',
+  24      currency: 'GBP',
+  25      maximumFractionDigits: 0,
+
+ 148        ) : (
+ 149          <CommercialMetrics result={result as CommercialResult} />
+ 150        )}
+ 151  
+ 152        <div className="mt-8">
+ 153          <ScenarioPanel submission={submission} />
+ 154        </div>
+ 155  
+ 156        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+ 157          <RiskFlags flags={result.riskFlags} />
+
+ 152        <div className="mt-8">
+ 153          <ScenarioPanel submission={submission} />
+ 154        </div>
+ 155  
+ 156        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+ 157          <RiskFlags flags={result.riskFlags} />
+ 158          <AssumptionsPanel assumptions={result.assumptions} />
+ 159        </div>
+ 160  
+ 161        {result.missingDataWarnings.length > 0 && (
+
+ 156        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+ 157          <RiskFlags flags={result.riskFlags} />
+ 158          <AssumptionsPanel assumptions={result.assumptions} />
+ 159        </div>
+ 160  
+ 161        {result.missingDataWarnings.length > 0 && (
+ 162          <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-xl p-5">
+ 163            <p className="font-semibold text-yellow-900 mb-3">Missing data warnings</p>
+ 164  
+ 165            <ul className="space-y-2 text-sm text-yellow-800">
+
+ 160  
+ 161        {result.missingDataWarnings.length > 0 && (
+ 162          <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-xl p-5">
+ 163            <p className="font-semibold text-yellow-900 mb-3">Missing data warnings</p>
+ 164  
+ 165            <ul className="space-y-2 text-sm text-yellow-800">
+ 166              {result.missingDataWarnings.map((warning) => (
+ 167                <li key={warning}>• {warning}</li>
+ 168              ))}
+ 169            </ul>
+
+ 165            <ul className="space-y-2 text-sm text-yellow-800">
+ 166              {result.missingDataWarnings.map((warning) => (
+ 167                <li key={warning}>• {warning}</li>
+ 168              ))}
+ 169            </ul>
+ 170          </div>
+ 171        )}
+ 172  
+ 173        <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+ 174          <p className="font-semibold text-stone-900 mb-3">Next steps</p>
+
+ 173        <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+ 174          <p className="font-semibold text-stone-900 mb-3">Next steps</p>
+ 175  
+ 176          <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
+ 177            {result.nextSteps.map((step) => (
+ 178              <li key={step}>{step}</li>
+ 179            ))}
+ 180          </ol>
+ 181        </div>
+ 182  
+
+ 176          <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
+ 177            {result.nextSteps.map((step) => (
+ 178              <li key={step}>{step}</li>
+ 179            ))}
+ 180          </ol>
+ 181        </div>
+ 182  
+ 183        <div className="mt-8 bg-teal-50 border border-teal-200 rounded-xl p-6">
+ 184          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+ 185            Full viability file coming soon
+
+ 216          <div className="mt-8">
+ 217            <ResultsConversionPanel
+ 218              mode={submission.mode}
+ 219              score={submission.score}
+ 220              verdictLabel={submission.verdict.label}
+ 221            />
+ 222          </div>
+ 223        </div>
+ 224  
+ 225        <div className="mt-8 bg-stone-100 border border-stone-200 rounded-xl p-5 text-sm text-stone-600">
+
+ 273  
+ 274  function CommercialMetrics({ result }: { result: CommercialResult }) {
+ 275    return (
+ 276      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 277        <MetricCard
+ 278          label="Monthly revenue"
+ 279          value={formatCurrency(result.estimatedMonthlyRevenue)}
+ 280          helper="Spend × customers × opening days"
+ 281        />
+ 282  
+
+ 278          label="Monthly revenue"
+ 279          value={formatCurrency(result.estimatedMonthlyRevenue)}
+ 280          helper="Spend × customers × opening days"
+ 281        />
+ 282  
+ 283        <MetricCard
+ 284          label="Monthly rent"
+ 285          value={formatCurrency(result.monthlyRent)}
+ 286          helper="Annual rent ÷ 12"
+ 287        />
+
+ 284          label="Monthly rent"
+ 285          value={formatCurrency(result.monthlyRent)}
+ 286          helper="Annual rent ÷ 12"
+ 287        />
+ 288  
+ 289        <MetricCard
+ 290          label="Rent burden"
+ 291          value={formatPercent(result.rentBurdenPercentage)}
+ 292          helper="Rent as % of estimated revenue"
+ 293        />
+
+ 290          label="Rent burden"
+ 291          value={formatPercent(result.rentBurdenPercentage)}
+ 292          helper="Rent as % of estimated revenue"
+ 293        />
+ 294  
+ 295        <MetricCard
+ 296          label="Cost base"
+ 297          value={formatCurrency(result.estimatedMonthlyCostBase)}
+ 298          helper="Rent + staff + utilities + rates"
+ 299        />
+
+ 302          label="Break-even/day"
+ 303          value={formatNumber(result.breakEvenCustomersPerDay)}
+ 304          helper={`Assumed ${result.expectedCustomersPerDay} per day`}
+ 305        />
+ 306      </div>
+ 307    );
+ 308  }
+
+
+
+=== app/report/page.tsx (405 lines) ===
+
+--- IMPORTS ---
+   3  import { useEffect, useState } from 'react';
+   4  import Link from 'next/link';
+   5  import type {
+  11  import { getLatestSubmission } from '@/lib/storage';
+  12  import ScenarioPanel from '@/components/ScenarioPanel';
+
+--- COMMERCIAL REPORT / CHECKLIST / RENDER AREAS ---
+   5  import type {
+   6    CommercialResult,
+   7    ResidentialResult,
+   8    RiskFlag,
+   9    Submission,
+  10  } from '@/types/property';
+  11  import { getLatestSubmission } from '@/lib/storage';
+  12  import ScenarioPanel from '@/components/ScenarioPanel';
+  13  
+  14  function formatCurrency(value?: number): string {
+
+  11  import { getLatestSubmission } from '@/lib/storage';
+  12  import ScenarioPanel from '@/components/ScenarioPanel';
+  13  
+  14  function formatCurrency(value?: number): string {
+  15    if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
+  16  
+  17    return new Intl.NumberFormat('en-GB', {
+  18      style: 'currency',
+  19      currency: 'GBP',
+  20      maximumFractionDigits: 0,
+
+  75  
+  76    if (submission.mode === 'commercial' && 'businessType' in input && input.businessType) {
+  77      return input.businessType;
+  78    }
+  79  
+  80    return submission.mode === 'residential' ? 'Residential check' : 'Commercial check';
+  81  }
+  82  
+  83  function getExecutiveSummary(submission: Submission): string {
+  84    const { score, verdict, mode } = submission;
+
+  79  
+  80    return submission.mode === 'residential' ? 'Residential check' : 'Commercial check';
+  81  }
+  82  
+  83  function getExecutiveSummary(submission: Submission): string {
+  84    const { score, verdict, mode } = submission;
+  85  
+  86    if (mode === 'residential') {
+  87      const result = submission.result as ResidentialResult;
+  88  
+
+  89      if (score >= 80) {
+  90        return `This residential property screens as a strong candidate on the current assumptions. The indicated gross yield is ${formatPercent(result.grossYield)}, but the result should still be checked against comparable rents, full ownership costs, and financing risk.`;
+  91      }
+  92  
+  93      if (score >= 65) {
+  94        return `This residential property appears worth investigating, but the result is not risk-free. The indicated gross yield is ${formatPercent(result.grossYield)} and estimated monthly cash flow is ${formatCurrency(result.monthlyCashFlow)}, so the deal depends heavily on the accuracy of rent and cost assumptions.`;
+  95      }
+  96  
+  97      if (score >= 50) {
+  98        return `This residential property screens as marginal. The numbers may still work in a specific strategy, but the current return profile leaves limited room for higher costs, void periods, or weaker rent.`;
+
+  93      if (score >= 65) {
+  94        return `This residential property appears worth investigating, but the result is not risk-free. The indicated gross yield is ${formatPercent(result.grossYield)} and estimated monthly cash flow is ${formatCurrency(result.monthlyCashFlow)}, so the deal depends heavily on the accuracy of rent and cost assumptions.`;
+  95      }
+  96  
+  97      if (score >= 50) {
+  98        return `This residential property screens as marginal. The numbers may still work in a specific strategy, but the current return profile leaves limited room for higher costs, void periods, or weaker rent.`;
+  99      }
+ 100  
+ 101      return `This residential property screens as weak on the current assumptions. The return profile should be treated cautiously unless new evidence materially improves the rent, cost, or purchase price assumptions.`;
+ 102    }
+
+ 100  
+ 101      return `This residential property screens as weak on the current assumptions. The return profile should be treated cautiously unless new evidence materially improves the rent, cost, or purchase price assumptions.`;
+ 102    }
+ 103  
+ 104    const result = submission.result as CommercialResult;
+ 105  
+ 106    if (score >= 80) {
+ 107      return `This commercial site screens as a strong candidate on the current assumptions. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day against an assumed ${result.expectedCustomersPerDay} customers per day.`;
+ 108    }
+ 109  
+
+ 103  
+ 104    const result = submission.result as CommercialResult;
+ 105  
+ 106    if (score >= 80) {
+ 107      return `This commercial site screens as a strong candidate on the current assumptions. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day against an assumed ${result.expectedCustomersPerDay} customers per day.`;
+ 108    }
+ 109  
+ 110    if (score >= 65) {
+ 111      return `This commercial site appears worth investigating. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day, but the rent burden and operating cost assumptions still need careful checking.`;
+ 112    }
+
+ 106    if (score >= 80) {
+ 107      return `This commercial site screens as a strong candidate on the current assumptions. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day against an assumed ${result.expectedCustomersPerDay} customers per day.`;
+ 108    }
+ 109  
+ 110    if (score >= 65) {
+ 111      return `This commercial site appears worth investigating. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day, but the rent burden and operating cost assumptions still need careful checking.`;
+ 112    }
+ 113  
+ 114    if (score >= 50) {
+ 115      return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+
+ 110    if (score >= 65) {
+ 111      return `This commercial site appears worth investigating. Estimated break-even is ${formatNumber(result.breakEvenCustomersPerDay)} customers per day, but the rent burden and operating cost assumptions still need careful checking.`;
+ 112    }
+ 113  
+ 114    if (score >= 50) {
+ 115      return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+ 116    }
+ 117  
+ 118    return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, or a different business model to become viable.`;
+ 119  }
+
+ 114    if (score >= 50) {
+ 115      return `This commercial site screens as marginal. It may be viable, but the rent burden, customer assumptions, and operating costs need stress-testing before any lease commitment.`;
+ 116    }
+ 117  
+ 118    return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, or a different business model to become viable.`;
+ 119  }
+ 120  
+ 121  function RiskBadge({ flag }: { flag: RiskFlag }) {
+ 122    const classes: Record<RiskFlag['severity'], string> = {
+ 123      high: 'bg-red-50 text-red-800 border-red-200',
+
+ 117  
+ 118    return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, or a different business model to become viable.`;
+ 119  }
+ 120  
+ 121  function RiskBadge({ flag }: { flag: RiskFlag }) {
+ 122    const classes: Record<RiskFlag['severity'], string> = {
+ 123      high: 'bg-red-50 text-red-800 border-red-200',
+ 124      medium: 'bg-orange-50 text-orange-800 border-orange-200',
+ 125      low: 'bg-yellow-50 text-yellow-800 border-yellow-200',
+ 126      info: 'bg-stone-50 text-stone-700 border-stone-200',
+
+ 170  
+ 171  function CommercialReportMetrics({ result }: { result: CommercialResult }) {
+ 172    return (
+ 173      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+ 174        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
+ 175        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+ 176        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+
+ 175        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
+ 176        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+ 180    );
+ 181  }
+ 182  
+ 183  export default function ReportPage() {
+ 184    const [submission, setSubmission] = useState<Submission | null>(null);
+
+ 177        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
+ 178        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+ 179      </div>
+ 180    );
+ 181  }
+ 182  
+ 183  export default function ReportPage() {
+ 184    const [submission, setSubmission] = useState<Submission | null>(null);
+ 185  
+ 186    useEffect(() => {
+
+ 254                <h2 className="text-3xl font-bold text-stone-900 mb-3">
+ 255                  {isResidential ? 'Residential return report' : 'Commercial site report'}
+ 256                </h2>
+ 257  
+ 258                <p className="text-sm text-stone-500">
+ 259                  Generated {formatDate(submission.createdAt)}
+ 260                </p>
+ 261              </div>
+ 262  
+ 263              <div className="border border-stone-200 rounded-xl p-5 min-w-[220px] bg-stone-50">
+
+ 325            ) : (
+ 326              <CommercialReportMetrics result={result as CommercialResult} />
+ 327            )}
+ 328          </section>
+ 329  
+ 330          <section className="mb-8">
+ 331            <ScenarioPanel submission={submission} />
+ 332          </section>
+ 333  
+ 334          <section className="mb-8">
+
+ 330          <section className="mb-8">
+ 331            <ScenarioPanel submission={submission} />
+ 332          </section>
+ 333  
+ 334          <section className="mb-8">
+ 335            <h3 className="text-lg font-bold text-stone-900 mb-4">
+ 336              Risk flags
+ 337            </h3>
+ 338  
+ 339            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+
+ 339            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+ 340              {result.riskFlags.map((flag) => (
+ 341                <RiskBadge key={`${flag.severity}-${flag.message}`} flag={flag} />
+ 342              ))}
+ 343            </div>
+ 344          </section>
+ 345  
+ 346          <section className="mb-8">
+ 347            <h3 className="text-lg font-bold text-stone-900 mb-4">
+ 348              Assumptions used
+
+ 351            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 text-sm text-stone-700">
+ 352              {result.assumptions.map((assumption) => (
+ 353                <li key={assumption} className="bg-stone-50 border border-stone-200 rounded-lg p-3">
+ 354                  {assumption}
+ 355                </li>
+ 356              ))}
+ 357            </ul>
+ 358          </section>
+ 359  
+ 360          {result.missingDataWarnings.length > 0 && (
+
+ 359  
+ 360          {result.missingDataWarnings.length > 0 && (
+ 361            <section className="mb-8">
+ 362              <h3 className="text-lg font-bold text-stone-900 mb-4">
+ 363                Missing data warnings
+ 364              </h3>
+ 365  
+ 366              <ul className="space-y-2 text-sm text-yellow-800">
+ 367                {result.missingDataWarnings.map((warning) => (
+ 368                  <li key={warning} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+
+ 366              <ul className="space-y-2 text-sm text-yellow-800">
+ 367                {result.missingDataWarnings.map((warning) => (
+ 368                  <li key={warning} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+ 369                    {warning}
+ 370                  </li>
+ 371                ))}
+ 372              </ul>
+ 373            </section>
+ 374          )}
+ 375  
+
+ 381            <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
+ 382              {result.nextSteps.map((step) => (
+ 383                <li key={step} className="bg-white border border-stone-200 rounded-lg p-3">
+ 384                  {step}
+ 385                </li>
+ 386              ))}
+ 387            </ol>
+ 388          </section>
+ 389  
+ 390          <footer className="border-t border-stone-200 pt-5 text-xs text-stone-500 leading-6">
+
+ 398              YieldLens UK is an independent UK property analysis tool. Figures are based
+ 399              on user-provided inputs and MVP placeholder assumptions where live data is not yet connected.
+ 400            </p>
+ 401          </footer>
+ 402        </article>
+ 403      </div>
+ 404    );
+ 405  }
+
+
+
+=== components/ScenarioPanel.tsx (308 lines) ===
+
+ 109  
+ 110    const downsideCashFlow =
+ 111      expectedMonthlyRent !== undefined && monthlyCosts !== undefined
+ 112        ? expectedMonthlyRent * 0.95 - monthlyCosts * 1.1 - expectedMonthlyRent / 12
+ 113        : undefined;
+ 114  
+ 115    const stressCashFlow =
+ 116      expectedMonthlyRent !== undefined && monthlyCosts !== undefined
+ 117        ? expectedMonthlyRent * 0.9 - monthlyCosts * 1.2 - (expectedMonthlyRent * 2) / 12
+ 118        : undefined;
+
+ 129      <ScenarioLayout
+ 130        intro="This stress test checks whether the residential return survives more realistic downside assumptions."
+ 131        cards={
+ 132          <>
+ 133            <ScenarioCard
+ 134              title="Base case"
+ 135              value={formatCurrency(baseCashFlow)}
+ 136              helper="Estimated monthly cash flow from the submitted assumptions."
+ 137              tone={getCashFlowTone(baseCashFlow)}
+ 138            />
+
+ 141              title="Downside case"
+ 142              value={formatCurrency(downsideCashFlow)}
+ 143              helper="Rent 5% lower, known costs 10% higher, and one month annual void allowance."
+ 144              tone={getCashFlowTone(downsideCashFlow)}
+ 145            />
+ 146  
+ 147            <ScenarioCard
+ 148              title="Stress case"
+ 149              value={formatCurrency(stressCashFlow)}
+ 150              helper="Rent 10% lower, known costs 20% higher, and two months annual void allowance."
+
+ 143              helper="Rent 5% lower, known costs 10% higher, and one month annual void allowance."
+ 144              tone={getCashFlowTone(downsideCashFlow)}
+ 145            />
+ 146  
+ 147            <ScenarioCard
+ 148              title="Stress case"
+ 149              value={formatCurrency(stressCashFlow)}
+ 150              helper="Rent 10% lower, known costs 20% higher, and two months annual void allowance."
+ 151              tone={getCashFlowTone(stressCashFlow)}
+ 152            />
+
+ 173  
+ 174    const downsideRevenue =
+ 175      typeof baseRevenue === 'number' ? baseRevenue * 0.72 : undefined;
+ 176  
+ 177    const downsideCosts =
+ 178      typeof baseCosts === 'number' ? baseCosts * 1.1 : undefined;
+ 179  
+ 180    const downsideMargin =
+ 181      downsideRevenue !== undefined && downsideCosts !== undefined
+ 182        ? downsideRevenue - downsideCosts
+
+ 176  
+ 177    const downsideCosts =
+ 178      typeof baseCosts === 'number' ? baseCosts * 1.1 : undefined;
+ 179  
+ 180    const downsideMargin =
+ 181      downsideRevenue !== undefined && downsideCosts !== undefined
+ 182        ? downsideRevenue - downsideCosts
+ 183        : undefined;
+ 184  
+ 185    const stressRevenue =
+
+ 179  
+ 180    const downsideMargin =
+ 181      downsideRevenue !== undefined && downsideCosts !== undefined
+ 182        ? downsideRevenue - downsideCosts
+ 183        : undefined;
+ 184  
+ 185    const stressRevenue =
+ 186      typeof baseRevenue === 'number' ? baseRevenue * 0.5525 : undefined;
+ 187  
+ 188    const stressCosts =
+
+ 180    const downsideMargin =
+ 181      downsideRevenue !== undefined && downsideCosts !== undefined
+ 182        ? downsideRevenue - downsideCosts
+ 183        : undefined;
+ 184  
+ 185    const stressRevenue =
+ 186      typeof baseRevenue === 'number' ? baseRevenue * 0.5525 : undefined;
+ 187  
+ 188    const stressCosts =
+ 189      typeof baseCosts === 'number' ? baseCosts * 1.2 : undefined;
+
+ 181      downsideRevenue !== undefined && downsideCosts !== undefined
+ 182        ? downsideRevenue - downsideCosts
+ 183        : undefined;
+ 184  
+ 185    const stressRevenue =
+ 186      typeof baseRevenue === 'number' ? baseRevenue * 0.5525 : undefined;
+ 187  
+ 188    const stressCosts =
+ 189      typeof baseCosts === 'number' ? baseCosts * 1.2 : undefined;
+ 190  
+
+ 195  
+ 196    const downsideRentBurden =
+ 197      typeof result.monthlyRent === 'number' &&
+ 198      typeof downsideRevenue === 'number' &&
+ 199      downsideRevenue > 0
+ 200        ? (result.monthlyRent / downsideRevenue) * 100
+ 201        : undefined;
+ 202  
+ 203    const stressedBreakEvenCustomers =
+ 204      typeof stressCosts === 'number' &&
+
+ 197      typeof result.monthlyRent === 'number' &&
+ 198      typeof downsideRevenue === 'number' &&
+ 199      downsideRevenue > 0
+ 200        ? (result.monthlyRent / downsideRevenue) * 100
+ 201        : undefined;
+ 202  
+ 203    const stressedBreakEvenCustomers =
+ 204      typeof stressCosts === 'number' &&
+ 205      typeof averageSpend === 'number' &&
+ 206      typeof openingDays === 'number' &&
+
+ 198      typeof downsideRevenue === 'number' &&
+ 199      downsideRevenue > 0
+ 200        ? (result.monthlyRent / downsideRevenue) * 100
+ 201        : undefined;
+ 202  
+ 203    const stressedBreakEvenCustomers =
+ 204      typeof stressCosts === 'number' &&
+ 205      typeof averageSpend === 'number' &&
+ 206      typeof openingDays === 'number' &&
+ 207      averageSpend > 0 &&
+
+ 199      downsideRevenue > 0
+ 200        ? (result.monthlyRent / downsideRevenue) * 100
+ 201        : undefined;
+ 202  
+ 203    const stressedBreakEvenCustomers =
+ 204      typeof stressCosts === 'number' &&
+ 205      typeof averageSpend === 'number' &&
+ 206      typeof openingDays === 'number' &&
+ 207      averageSpend > 0 &&
+ 208      openingDays > 0
+
+ 233              title="Downside margin"
+ 234              value={formatCurrency(downsideMargin)}
+ 235              helper="Customers 20% lower, average spend 10% lower, and costs 10% higher."
+ 236              tone={getMarginTone(downsideMargin)}
+ 237            />
+ 238  
+ 239            <ScenarioCard
+ 240              title="Stress break-even"
+ 241              value={formatNumber(stressedBreakEvenCustomers)}
+ 242              helper={`Customers/day needed under stress. Downside rent burden: ${formatPercent(downsideRentBurden)}.`}
+
+ 235              helper="Customers 20% lower, average spend 10% lower, and costs 10% higher."
+ 236              tone={getMarginTone(downsideMargin)}
+ 237            />
+ 238  
+ 239            <ScenarioCard
+ 240              title="Stress break-even"
+ 241              value={formatNumber(stressedBreakEvenCustomers)}
+ 242              helper={`Customers/day needed under stress. Downside rent burden: ${formatPercent(downsideRentBurden)}.`}
+ 243              tone={
+ 244                typeof stressedBreakEvenCustomers === 'number' &&
+
+ 241              value={formatNumber(stressedBreakEvenCustomers)}
+ 242              helper={`Customers/day needed under stress. Downside rent burden: ${formatPercent(downsideRentBurden)}.`}
+ 243              tone={
+ 244                typeof stressedBreakEvenCustomers === 'number' &&
+ 245                typeof result.expectedCustomersPerDay === 'number' &&
+ 246                stressedBreakEvenCustomers > result.expectedCustomersPerDay
+ 247                  ? 'danger'
+ 248                  : 'warning'
+ 249              }
+ 250            />
+
+ 302  export default function ScenarioPanel({ submission }: { submission: Submission }) {
+ 303    if (submission.mode === 'residential') {
+ 304      return <ResidentialScenarios submission={submission} />;
+ 305    }
+ 306  
+ 307    return <CommercialScenarios submission={submission} />;
+ 308  }
+
