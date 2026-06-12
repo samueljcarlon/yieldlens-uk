@@ -6,14 +6,14 @@ import ToolConversionPanel from '@/components/ToolConversionPanel';
 export const metadata: Metadata = {
   title: 'Commercial Lease Viability Check | YieldLens UK',
   description:
-    'Check whether a commercial site can carry the rent before signing a lease. Estimate rent burden, break-even customers, operating costs, downside scenarios, and lease risk.',
+    'Check whether a commercial site can carry the rent before signing a lease. Pressure-test rent burden, break-even customers, upfront cash, fit-out risk, downside trading, and six-month survival.',
   alternates: {
     canonical: '/commercial-lease-viability-check',
   },
   openGraph: {
     title: 'Commercial Lease Viability Check | YieldLens UK',
     description:
-      'Pressure-test a commercial site before signing a lease. Check rent burden, break-even customers, downside risk, and operating cost pressure.',
+      'Pressure-test a commercial site before signing a lease. Check rent burden, break-even customers, upfront cash, downside trading, and six-month survival.',
     url: 'https://yieldlens.co.uk/commercial-lease-viability-check',
   },
 };
@@ -22,7 +22,7 @@ const faqs = [
   {
     question: 'What is a commercial lease viability check?',
     answer:
-      'A commercial lease viability check is an indicative pressure test of whether a site can support its rent and operating costs. It looks at rent burden, expected revenue, break-even customers, known costs, and downside assumptions.',
+      'A commercial lease viability check is an indicative pressure test of whether a site can support its rent, opening costs, and operating costs. It looks at rent burden, expected revenue, break-even customers, upfront cash, known costs, downside trading, and survival runway.',
   },
   {
     question: 'Is this a formal valuation?',
@@ -38,6 +38,16 @@ const faqs = [
     question: 'Why calculate break-even customers per day?',
     answer:
       'Break-even customers per day translates fixed costs into a practical trading target. It helps show whether the site needs realistic footfall or heroic assumptions just to cover rent and known costs.',
+  },
+  {
+    question: 'What is the six-month survival test?',
+    answer:
+      'The six-month survival test checks whether the site has enough cash after opening to withstand a weak trading period. A site only passes if opening costs are funded and the downside case either covers monthly costs or has enough runway for six weak months.',
+  },
+  {
+    question: 'Why include upfront cash?',
+    answer:
+      'A site can look workable month to month but still be fragile if fit-out, rent deposit, legal fees, opening stock, and setup costs use too much cash before trading starts.',
   },
   {
     question: 'Can this be used before heads of terms?',
@@ -81,7 +91,7 @@ const breadcrumbStructuredData = {
 const riskItems = [
   {
     title: 'Rent burden is too high',
-    text: 'The site may need unrealistic turnover just to make the rent acceptable.',
+    text: 'The site may need unrealistic turnover before rent feels proportionate to revenue.',
   },
   {
     title: 'Break-even customers are unrealistic',
@@ -89,7 +99,15 @@ const riskItems = [
   },
   {
     title: 'Fit-out risk is ignored',
-    text: 'Large upfront fit-out spend can make a site fragile even if the monthly numbers appear workable.',
+    text: 'Large upfront fit-out spend can make a site fragile even when the monthly numbers appear workable.',
+  },
+  {
+    title: 'Opening cash is too thin',
+    text: 'Deposits, fees, stock, and setup costs may leave too little cash for early trading.',
+  },
+  {
+    title: 'Six-month survival fails',
+    text: 'The site may run out of cash before it has proved that the trading case is reliable.',
   },
   {
     title: 'Costs are incomplete',
@@ -118,13 +136,42 @@ const checklist = [
   'What is the annual rent and monthly equivalent?',
   'What revenue is needed to make the rent burden acceptable?',
   'How many customers per day are needed to cover rent and known costs?',
-  'What happens if customers are 20% lower than expected?',
-  'What happens if average spend is 10% lower than expected?',
-  'What happens if staff, rates, utilities, or insurance costs rise?',
+  'How much upfront cash is needed before opening?',
+  'How much cash remains after fit-out, deposit, fees, stock, and setup costs?',
+  'What happens if revenue is lower than expected?',
+  'How much monthly burn appears in the downside case?',
+  'How many weak trading months can the opening cash buffer survive?',
   'How much fit-out spend is required before trading starts?',
   'What lease length, break clause, deposit, and repairing obligations apply?',
   'Are licensing, permitted use, planning, extraction, and trading hours suitable?',
   'Is there enough local demand to support the target customer count?',
+];
+
+const survivalChecks = [
+  {
+    title: 'Monthly revenue',
+    text: 'Estimate revenue from average spend, expected customers, and opening days.',
+  },
+  {
+    title: 'Rent burden',
+    text: 'Compare monthly rent against estimated monthly revenue.',
+  },
+  {
+    title: 'Break-even customers',
+    text: 'Estimate the customers per day needed to cover rent and known costs.',
+  },
+  {
+    title: 'Upfront cash needed',
+    text: 'Add fit-out, rent deposit, legal fees, opening stock, and other setup costs.',
+  },
+  {
+    title: 'Downside trading',
+    text: 'Reduce expected revenue and check whether the site still covers the monthly cost base.',
+  },
+  {
+    title: 'Six-month survival',
+    text: 'Check whether cash after opening can withstand six weak trading months.',
+  },
 ];
 
 function SectionTitle({
@@ -172,8 +219,9 @@ export default function CommercialLeaseViabilityPage() {
 
           <p className="text-lg text-stone-600 max-w-3xl mx-auto mb-8 leading-8">
             YieldLens UK helps founders, operators, and small business tenants
-            pressure-test rent burden, break-even customers, operating costs,
-            fit-out risk, and downside trading assumptions before committing to a lease.
+            pressure-test rent burden, break-even customers, upfront cash,
+            fit-out risk, downside trading, and six-month survival before
+            committing to a lease.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -185,10 +233,10 @@ export default function CommercialLeaseViabilityPage() {
             </Link>
 
             <Link
-              href="/property-cash-flow-calculator"
+              href="/viability-file"
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
-              Compare property cash flow tool
+              View viability file
             </Link>
           </div>
 
@@ -202,7 +250,7 @@ export default function CommercialLeaseViabilityPage() {
         <SectionTitle
           eyebrow="The problem"
           title="A bad lease can quietly wreck a good business idea."
-          description="Commercial property risk is not just about whether the location looks busy. The site has to generate enough reliable revenue to survive rent, staff, rates, utilities, insurance, fit-out, and quieter months."
+          description="Commercial property risk is not just about whether the location looks busy. The site has to fund opening costs, carry the rent, cover the operating cost base, and survive quieter trading."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -242,38 +290,20 @@ export default function CommercialLeaseViabilityPage() {
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What YieldLens checks"
-            title="A structured site viability screen, not generic AI commentary."
-            description="The check turns a lease decision into practical numbers: rent burden, monthly cost base, break-even customers, and downside pressure."
+            title="A commercial lease survival model, not generic commentary."
+            description="The check turns a lease decision into practical numbers: rent burden, monthly cost base, upfront cash, downside monthly position, and six-month survival."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="bg-stone-50 border border-stone-200 rounded-xl p-5">
-              <p className="font-semibold text-stone-900 mb-2">Monthly revenue</p>
-              <p className="text-sm text-stone-600 leading-6">
-                Estimate revenue from average spend, expected customers, and opening days.
-              </p>
-            </div>
-
-            <div className="bg-stone-50 border border-stone-200 rounded-xl p-5">
-              <p className="font-semibold text-stone-900 mb-2">Rent burden</p>
-              <p className="text-sm text-stone-600 leading-6">
-                Compare monthly rent against estimated monthly revenue.
-              </p>
-            </div>
-
-            <div className="bg-stone-50 border border-stone-200 rounded-xl p-5">
-              <p className="font-semibold text-stone-900 mb-2">Break-even customers</p>
-              <p className="text-sm text-stone-600 leading-6">
-                Estimate the customers per day needed to cover rent and known costs.
-              </p>
-            </div>
-
-            <div className="bg-stone-50 border border-stone-200 rounded-xl p-5">
-              <p className="font-semibold text-stone-900 mb-2">Downside scenario</p>
-              <p className="text-sm text-stone-600 leading-6">
-                Test what happens if customers, spend, or costs move against the plan.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {survivalChecks.map((item) => (
+              <div
+                key={item.title}
+                className="bg-stone-50 border border-stone-200 rounded-xl p-5"
+              >
+                <p className="font-semibold text-stone-900 mb-2">{item.title}</p>
+                <p className="text-sm text-stone-600 leading-6">{item.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -301,8 +331,8 @@ export default function CommercialLeaseViabilityPage() {
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Risk flags"
-            title="The risks that matter before signing."
-            description="The free check is designed to expose weak assumptions early, before they turn into expensive obligations."
+            title="The risks that matter before the lease becomes real."
+            description="The free check is designed to expose weak assumptions early, before rent, deposits, fit-out spend, and legal work turn into expensive obligations."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -323,7 +353,7 @@ export default function CommercialLeaseViabilityPage() {
         <SectionTitle
           eyebrow="Before you commit"
           title="Questions the site should answer before you sign."
-          description="These are the questions a commercial viability file should force into the open."
+          description="These are the questions a commercial viability file should force into the open before you spend serious money or negotiation effort."
         />
 
         <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
@@ -346,42 +376,50 @@ export default function CommercialLeaseViabilityPage() {
               </p>
 
               <h2 className="text-3xl font-bold mb-4">
-                The key question is not “is the rent expensive?”
+                A pass still needs the cash risk made obvious.
               </h2>
 
               <p className="text-sm text-stone-300 leading-7">
-                The better question is whether the site can still survive if customer
-                numbers, average spend, or operating costs are worse than expected.
+                The six-month test should only pass if opening costs are funded
+                and the downside trading case either covers monthly costs or has
+                enough cash runway.
               </p>
             </div>
 
             <div className="bg-white text-stone-900 rounded-xl p-6">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
                   <p className="text-xs uppercase tracking-wide text-stone-400">
-                    Base margin
+                    Upfront cash
                   </p>
-                  <p className="text-2xl font-bold">£10,860</p>
+                  <p className="text-2xl font-bold">£81,000</p>
                 </div>
 
-                <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wide text-orange-700">
-                    Downside margin
+                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+                  <p className="text-xs uppercase tracking-wide text-stone-400">
+                    Cash after opening
                   </p>
-                  <p className="text-2xl font-bold">£3,871</p>
+                  <p className="text-2xl font-bold">£9,000</p>
                 </div>
 
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wide text-red-700">
-                    Stress case
+                <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
+                  <p className="text-xs uppercase tracking-wide text-teal-700">
+                    Downside burn
                   </p>
-                  <p className="text-2xl font-bold">Fragile</p>
+                  <p className="text-2xl font-bold">£0</p>
+                </div>
+
+                <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
+                  <p className="text-xs uppercase tracking-wide text-teal-700">
+                    Six-month test
+                  </p>
+                  <p className="text-2xl font-bold">Pass</p>
                 </div>
               </div>
 
               <p className="text-xs text-stone-500 mt-4 leading-5">
-                Example only. Actual outputs depend on the rent, costs, average spend,
-                expected customers, and opening days entered by the user.
+                Example only. This site covers downside monthly costs, but the
+                cash left after opening is thin relative to expected revenue.
               </p>
             </div>
           </div>
@@ -417,11 +455,11 @@ export default function CommercialLeaseViabilityPage() {
           <ToolConversionPanel
             sourceTool="commercial_lease_page"
             title="Run the free commercial check before you sign the lease."
-            description="Enter the rent, trading assumptions, and known costs. YieldLens UK will return the headline viability score, rent burden, break-even customers, risk flags, and downside scenario."
+            description="Enter the rent, trading assumptions, known costs, upfront cash items, starting cash, and downside revenue. YieldLens UK will return the headline viability score, rent burden, break-even customers, risk flags, and six-month survival view."
             primaryLabel="Run free commercial check"
             primaryHref="/check?mode=commercial"
-            secondaryLabel="Compare property cash flow"
-            secondaryHref="/property-cash-flow-calculator"
+            secondaryLabel="View viability file"
+            secondaryHref="/viability-file"
           />
         </div>
       </section>
