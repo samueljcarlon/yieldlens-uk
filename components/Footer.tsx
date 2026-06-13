@@ -3,8 +3,8 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="border-t border-stone-200 bg-white mt-16">
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_0.8fr] gap-8">
           <div>
             <p className="font-semibold text-stone-900">
               YieldLens <span className="text-teal-700">UK</span>
@@ -18,7 +18,7 @@ export default function Footer() {
 
           <div>
             <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
-              Tools
+              Commercial tools
             </p>
 
             <div className="space-y-2 text-sm">
@@ -26,6 +26,30 @@ export default function Footer() {
                 Commercial lease viability check
               </Link>
 
+              <Link href="/commercial-rent-burden-calculator" className="block text-stone-500 hover:text-stone-900">
+                Commercial rent burden calculator
+              </Link>
+
+              <Link href="/break-even-customers-calculator" className="block text-stone-500 hover:text-stone-900">
+                Break-even customers calculator
+              </Link>
+
+              <Link href="/commercial-lease-survival-calculator" className="block text-stone-500 hover:text-stone-900">
+                Commercial lease survival calculator
+              </Link>
+
+              <Link href="/viability-file" className="block text-stone-500 hover:text-stone-900">
+                Viability file
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
+              Residential tools
+            </p>
+
+            <div className="space-y-2 text-sm">
               <Link href="/buy-to-let-yield-calculator" className="block text-stone-500 hover:text-stone-900">
                 Buy-to-let yield calculator
               </Link>
