@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
 import VerdictBadge from '@/components/VerdictBadge';
 
 export const metadata: Metadata = {
@@ -120,19 +121,27 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link
+                <TrackedCtaLink
                   href="/check?mode=commercial"
+                  eventName="commercial_home_cta_clicked"
+                  pagePath="/"
+                  ctaLabel="Run commercial lease check"
+                  pageType="homepage"
                   className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
                 >
                   Run commercial lease check
-                </Link>
+                </TrackedCtaLink>
 
-                <Link
+                <TrackedCtaLink
                   href="/viability-file"
+                  eventName="commercial_home_cta_clicked"
+                  pagePath="/"
+                  ctaLabel="View viability file"
+                  pageType="homepage"
                   className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
                 >
                   View viability file
-                </Link>
+                </TrackedCtaLink>
               </div>
 
               <p className="text-xs text-stone-400 mt-5">
@@ -268,12 +277,16 @@ export default function HomePage() {
               </p>
             </div>
 
-            <Link
+            <TrackedCtaLink
               href="/check?mode=commercial"
+              eventName="commercial_home_cta_clicked"
+              pagePath="/"
+              ctaLabel="Run commercial check"
+              pageType="homepage"
               className="bg-teal-700 text-white px-5 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
             >
               Run commercial check
-            </Link>
+            </TrackedCtaLink>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -322,19 +335,27 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link
+              <TrackedCtaLink
                 href="/viability-file"
+                eventName="commercial_home_cta_clicked"
+                pagePath="/"
+                ctaLabel="View viability file"
+                pageType="homepage"
                 className="bg-stone-950 text-white px-5 py-3 rounded font-medium hover:bg-stone-800 transition-colors text-sm text-center"
               >
                 View viability file
-              </Link>
+              </TrackedCtaLink>
 
-              <Link
+              <TrackedCtaLink
                 href="/check?mode=commercial"
+                eventName="commercial_home_cta_clicked"
+                pagePath="/"
+                ctaLabel="Run free check first"
+                pageType="homepage"
                 className="bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
               >
                 Run free check first
-              </Link>
+              </TrackedCtaLink>
             </div>
           </div>
 

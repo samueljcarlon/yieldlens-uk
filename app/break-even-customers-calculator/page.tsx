@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
   title: 'Break-Even Customers Calculator UK',
@@ -152,19 +152,27 @@ export default function BreakEvenCustomersCalculatorPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link
+                <TrackedCtaLink
                   href="/check?mode=commercial"
+                  eventName="break_even_page_cta_clicked"
+                  pagePath="/break-even-customers-calculator"
+                  ctaLabel="Run full commercial lease check"
+                  pageType="seo_tool"
                   className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
                 >
                   Run full commercial lease check
-                </Link>
+                </TrackedCtaLink>
 
-                <Link
+                <TrackedCtaLink
                   href="/commercial-rent-burden-calculator"
+                  eventName="break_even_page_cta_clicked"
+                  pagePath="/break-even-customers-calculator"
+                  ctaLabel="View commercial rent burden calculator"
+                  pageType="seo_tool"
                   className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
                 >
                   View commercial rent burden calculator
-                </Link>
+                </TrackedCtaLink>
               </div>
             </div>
 
@@ -350,19 +358,27 @@ export default function BreakEvenCustomersCalculatorPage() {
               </div>
 
               <div className="mt-5 flex flex-col sm:flex-row gap-3">
-                <Link
+                <TrackedCtaLink
                   href="/commercial-rent-burden-calculator"
+                  eventName="break_even_page_cta_clicked"
+                  pagePath="/break-even-customers-calculator"
+                  ctaLabel="View rent burden calculator"
+                  pageType="seo_tool"
                   className="bg-teal-700 text-white px-5 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
                 >
                   View rent burden calculator
-                </Link>
+                </TrackedCtaLink>
 
-                <Link
+                <TrackedCtaLink
                   href="/commercial-lease-viability-check"
+                  eventName="break_even_page_cta_clicked"
+                  pagePath="/break-even-customers-calculator"
+                  ctaLabel="View viability guide"
+                  pageType="seo_tool"
                   className="bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
                 >
                   View viability guide
-                </Link>
+                </TrackedCtaLink>
               </div>
             </div>
           </div>
@@ -414,19 +430,27 @@ export default function BreakEvenCustomersCalculatorPage() {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <Link
+            <TrackedCtaLink
               href="/check?mode=commercial"
+              eventName="break_even_page_cta_clicked"
+              pagePath="/break-even-customers-calculator"
+              ctaLabel="Run full commercial lease check"
+              pageType="seo_tool"
               className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
             >
               Run full commercial lease check
-            </Link>
+            </TrackedCtaLink>
 
-            <Link
+            <TrackedCtaLink
               href="/viability-file"
+              eventName="break_even_page_cta_clicked"
+              pagePath="/break-even-customers-calculator"
+              ctaLabel="View viability file"
+              pageType="seo_tool"
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
             >
               View viability file
-            </Link>
+            </TrackedCtaLink>
           </div>
         </div>
       </section>
@@ -448,19 +472,27 @@ export default function BreakEvenCustomersCalculatorPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
+            <TrackedCtaLink
               href="/check?mode=commercial"
+              eventName="break_even_page_cta_clicked"
+              pagePath="/break-even-customers-calculator"
+              ctaLabel="Run full commercial lease check"
+              pageType="seo_tool"
               className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
             >
               Run full commercial lease check
-            </Link>
+            </TrackedCtaLink>
 
-            <Link
+            <TrackedCtaLink
               href="/commercial-rent-burden-calculator"
+              eventName="break_even_page_cta_clicked"
+              pagePath="/break-even-customers-calculator"
+              ctaLabel="View rent burden calculator"
+              pageType="seo_tool"
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View rent burden calculator
-            </Link>
+            </TrackedCtaLink>
           </div>
         </div>
       </section>

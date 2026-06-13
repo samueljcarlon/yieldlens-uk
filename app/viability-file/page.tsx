@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
   title: 'Commercial Viability File UK',
@@ -189,19 +189,27 @@ export default function ViabilityFilePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link
+                <TrackedCtaLink
                   href="/check?mode=commercial"
+                  eventName="viability_file_page_cta_clicked"
+                  pagePath="/viability-file"
+                  ctaLabel="Run a free commercial check first"
+                  pageType="product_page"
                   className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
                 >
                   Run a free commercial check first
-                </Link>
+                </TrackedCtaLink>
 
-                <Link
+                <TrackedCtaLink
                   href="/report"
+                  eventName="viability_file_page_cta_clicked"
+                  pagePath="/viability-file"
+                  ctaLabel="View printable preview"
+                  pageType="product_page"
                   className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
                 >
                   View printable preview
-                </Link>
+                </TrackedCtaLink>
               </div>
 
               <p className="text-xs text-stone-400 mt-5">
@@ -299,19 +307,27 @@ export default function ViabilityFilePage() {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <Link
+            <TrackedCtaLink
               href="/check?mode=commercial"
+              eventName="viability_file_page_cta_clicked"
+              pagePath="/viability-file"
+              ctaLabel="Run a free commercial check first"
+              pageType="product_page"
               className="bg-teal-700 text-white px-5 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
             >
               Run a free commercial check first
-            </Link>
+            </TrackedCtaLink>
 
-            <Link
+            <TrackedCtaLink
               href="/report"
+              eventName="viability_file_page_cta_clicked"
+              pagePath="/viability-file"
+              ctaLabel="View printable preview"
+              pageType="product_page"
               className="bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
             >
               View printable preview
-            </Link>
+            </TrackedCtaLink>
           </div>
         </div>
       </section>
@@ -385,19 +401,27 @@ export default function ViabilityFilePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
+            <TrackedCtaLink
               href="/check?mode=commercial"
+              eventName="viability_file_page_cta_clicked"
+              pagePath="/viability-file"
+              ctaLabel="Run a free commercial check first"
+              pageType="product_page"
               className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
             >
               Run a free commercial check first
-            </Link>
+            </TrackedCtaLink>
 
-            <Link
+            <TrackedCtaLink
               href="/report"
+              eventName="viability_file_page_cta_clicked"
+              pagePath="/viability-file"
+              ctaLabel="View printable preview"
+              pageType="product_page"
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View printable preview
-            </Link>
+            </TrackedCtaLink>
           </div>
         </div>
       </section>

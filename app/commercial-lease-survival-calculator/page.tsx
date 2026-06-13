@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
   title: 'Commercial Lease Survival Calculator UK',
@@ -220,19 +220,27 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link
+                <TrackedCtaLink
                   href="/check?mode=commercial"
+                  eventName="lease_survival_page_cta_clicked"
+                  pagePath="/commercial-lease-survival-calculator"
+                  ctaLabel="Run full commercial lease check"
+                  pageType="seo_tool"
                   className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
                 >
                   Run full commercial lease check
-                </Link>
+                </TrackedCtaLink>
 
-                <Link
+                <TrackedCtaLink
                   href="/commercial-lease-viability-check"
+                  eventName="lease_survival_page_cta_clicked"
+                  pagePath="/commercial-lease-survival-calculator"
+                  ctaLabel="View commercial lease viability guide"
+                  pageType="seo_tool"
                   className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
                 >
                   View commercial lease viability guide
-                </Link>
+                </TrackedCtaLink>
               </div>
             </div>
 
@@ -440,12 +448,16 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
                 <p className="text-sm text-stone-600 leading-6 mb-5">
                   {item.text}
                 </p>
-                <Link
+                <TrackedCtaLink
                   href={item.href}
+                  eventName="lease_survival_page_cta_clicked"
+                  pagePath="/commercial-lease-survival-calculator"
+                  ctaLabel={item.label}
+                  pageType="seo_tool"
                   className="inline-flex bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
                 >
                   {item.label}
-                </Link>
+                </TrackedCtaLink>
               </div>
             ))}
           </div>
@@ -471,19 +483,27 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
-          <Link
+          <TrackedCtaLink
             href="/check?mode=commercial"
+            eventName="lease_survival_page_cta_clicked"
+            pagePath="/commercial-lease-survival-calculator"
+            ctaLabel="Run full commercial lease check"
+            pageType="seo_tool"
             className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
           >
             Run full commercial lease check
-          </Link>
+          </TrackedCtaLink>
 
-          <Link
+          <TrackedCtaLink
             href="/viability-file"
+            eventName="lease_survival_page_cta_clicked"
+            pagePath="/commercial-lease-survival-calculator"
+            ctaLabel="View viability file"
+            pageType="seo_tool"
             className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             View viability file
-          </Link>
+          </TrackedCtaLink>
         </div>
       </section>
 
@@ -504,19 +524,27 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
+            <TrackedCtaLink
               href="/check?mode=commercial"
+              eventName="lease_survival_page_cta_clicked"
+              pagePath="/commercial-lease-survival-calculator"
+              ctaLabel="Run full commercial lease check"
+              pageType="seo_tool"
               className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
             >
               Run full commercial lease check
-            </Link>
+            </TrackedCtaLink>
 
-            <Link
+            <TrackedCtaLink
               href="/commercial-lease-viability-check"
+              eventName="lease_survival_page_cta_clicked"
+              pagePath="/commercial-lease-survival-calculator"
+              ctaLabel="View commercial lease viability guide"
+              pageType="seo_tool"
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View commercial lease viability guide
-            </Link>
+            </TrackedCtaLink>
           </div>
         </div>
       </section>

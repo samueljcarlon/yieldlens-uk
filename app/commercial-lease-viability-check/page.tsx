@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
 import ToolConversionPanel from '@/components/ToolConversionPanel';
 
 export const metadata: Metadata = {
@@ -225,19 +225,27 @@ export default function CommercialLeaseViabilityPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
+            <TrackedCtaLink
               href="/check?mode=commercial"
+              eventName="commercial_viability_page_cta_clicked"
+              pagePath="/commercial-lease-viability-check"
+              ctaLabel="Run free commercial check"
+              pageType="commercial_landing"
               className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
             >
               Run free commercial check
-            </Link>
+            </TrackedCtaLink>
 
-            <Link
+            <TrackedCtaLink
               href="/viability-file"
+              eventName="commercial_viability_page_cta_clicked"
+              pagePath="/commercial-lease-viability-check"
+              ctaLabel="View viability file"
+              pageType="commercial_landing"
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View viability file
-            </Link>
+            </TrackedCtaLink>
           </div>
 
           <p className="text-xs text-stone-400 mt-5">
