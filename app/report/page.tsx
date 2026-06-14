@@ -1,8 +1,10 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type {
+  CommercialInput,
   CommercialResult,
   ResidentialResult,
   RiskFlag,
@@ -32,8 +34,15 @@ function formatNumber(value?: number): string {
 }
 
 function formatMonths(value?: number): string {
-  if (value === undefined || value === null || Number.isNaN(value)) return 'No monthly burn';
+  if (value === undefined || value === null || Number.isNaN(value)) {
+    return 'No monthly burn in downside case';
+  }
+
   return `${value.toFixed(1)} months`;
+}
+
+function hasNumber(value?: number): value is number {
+  return typeof value === 'number' && !Number.isNaN(value);
 }
 
 function formatDate(value: string): string {
@@ -127,6 +136,91 @@ function getExecutiveSummary(submission: Submission): string {
   return `This commercial site screens as weak on the current assumptions. It may require stronger footfall, lower rent, lower costs, more starting cash, or a different business model to become viable. ${survivalText}`;
 }
 
+function getCommercialVerdictLabel(result: CommercialResult): string {
+  const labels = {
+    'Strong candidate': 'Stronger case',
+    'Worth investigating': 'Worth investigating',
+    Marginal: 'Needs caution',
+    Weak: 'Fragile',
+    Avoid: 'Weaker case',
+  };
+
+  return labels[result.verdict.label] ?? result.verdict.label;
+}
+
+function formatDownsidePosition(value?: number): string {
+  if (!hasNumber(value)) return 'Not available';
+  if (value < 0) return `${formatCurrency(Math.abs(value))} monthly burn`;
+  if (value > 0) return `${formatCurrency(value)} monthly surplus`;
+
+  return 'Break-even';
+}
+
+function hasDownsideMonthlyBurn(result: CommercialResult): boolean {
+  return hasNumber(result.monthlyBurnInDownside) && result.monthlyBurnInDownside > 0;
+}
+
+function getCommercialExecutiveText(result: CommercialResult): string {
+  if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
+    return 'The pressure-test suggests a major opening funding issue. Upfront cash needed is higher than starting cash before trading begins.';
+  }
+
+  if (result.survivesSixBadMonths) {
+    if (!hasDownsideMonthlyBurn(result)) {
+      return 'The pressure-test suggests a stronger opening case on the submitted assumptions, with no monthly burn in the downside case.';
+    }
+
+    return 'The pressure-test suggests a stronger case worth investigating, subject to evidence for demand, spend, costs, and lease terms.';
+  }
+
+  return 'The pressure-test suggests the site needs caution. The lease case is fragile unless the trading, cost, cash, or rent assumptions improve.';
+}
+
+function getOpeningCashNote(result: CommercialResult): string {
+  if (!hasNumber(result.availableCashAfterOpening)) {
+    return 'Opening cash could not be assessed from the current inputs.';
+  }
+
+  if (result.availableCashAfterOpening < 0) {
+    return 'Major opening funding issue: upfront costs exceed available starting cash.';
+  }
+
+  if (
+    hasNumber(result.estimatedMonthlyCostBase) &&
+    result.availableCashAfterOpening < result.estimatedMonthlyCostBase
+  ) {
+    return 'Cash after opening is positive, but the buffer is thin against one month of known cost base.';
+  }
+
+  return 'Opening cash appears stronger on the submitted assumptions.';
+}
+
+function getDownsideNote(result: CommercialResult): string {
+  if (!hasNumber(result.downsideMonthlyPosition)) {
+    return 'Downside monthly position is not available from the current inputs.';
+  }
+
+  if (result.downsideMonthlyPosition < 0) {
+    return 'The downside case shows monthly burn, so runway depends on cash left after opening.';
+  }
+
+  return 'The downside case shows no monthly burn, but opening cash still matters for deposits, fit-out, stock, and early working capital.';
+}
+
+function getSixMonthNote(result: CommercialResult): string {
+  if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
+    return 'Fail: opening costs exceed available starting cash.';
+  }
+
+  if (result.survivesSixBadMonths) {
+    if (!hasDownsideMonthlyBurn(result)) return 'Pass: no monthly burn in downside case.';
+
+    return 'Pass: cash covers six weak trading months.';
+  }
+
+  return 'Fail: cash does not cover six weak trading months.';
+}
+
 function RiskBadge({ flag }: { flag: RiskFlag }) {
   const classes: Record<RiskFlag['severity'], string> = {
     high: 'bg-red-50 text-red-800 border-red-200',
@@ -167,6 +261,69 @@ function ReportMetric({
   );
 }
 
+function ReportSection({
+  title,
+  intro,
+  children,
+}: {
+  title: string;
+  intro?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className="mb-8 break-inside-avoid">
+      <div className="mb-4">
+        <h3 className="text-lg font-bold text-stone-900">
+          {title}
+        </h3>
+
+        {intro && (
+          <p className="text-sm text-stone-600 leading-6 mt-2 max-w-4xl">
+            {intro}
+          </p>
+        )}
+      </div>
+
+      {children}
+    </section>
+  );
+}
+
+function ReportDataTable({
+  rows,
+}: {
+  rows: Array<{ label: string; value: string; note?: string }>;
+}) {
+  return (
+    <div className="border border-stone-200 rounded-xl overflow-hidden bg-white">
+      {rows.map((row) => (
+        <div
+          key={row.label}
+          className="grid grid-cols-1 sm:grid-cols-[220px_minmax(0,1fr)] border-b border-stone-100 last:border-b-0"
+        >
+          <div className="bg-stone-50 px-4 py-3">
+            <p className="text-xs uppercase tracking-wide text-stone-500 font-medium">
+              {row.label}
+            </p>
+          </div>
+
+          <div className="px-4 py-3">
+            <p className="text-sm font-semibold text-stone-900">
+              {row.value}
+            </p>
+
+            {row.note && (
+              <p className="text-xs text-stone-500 leading-5 mt-1">
+                {row.note}
+              </p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ResidentialReportMetrics({ result }: { result: ResidentialResult }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -179,32 +336,272 @@ function ResidentialReportMetrics({ result }: { result: ResidentialResult }) {
   );
 }
 
-function CommercialReportMetrics({ result }: { result: CommercialResult }) {
+function CommercialExecutiveSummary({
+  result,
+}: {
+  result: CommercialResult;
+}) {
   return (
-    <div className="space-y-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <ReportMetric label="Monthly revenue" value={formatCurrency(result.estimatedMonthlyRevenue)} helper="Spend × customers × days" />
-        <ReportMetric label="Monthly rent" value={formatCurrency(result.monthlyRent)} helper="Annual rent ÷ 12" />
-        <ReportMetric label="Rent burden" value={formatPercent(result.rentBurdenPercentage)} helper="Rent as % of revenue" />
-        <ReportMetric label="Cost base" value={formatCurrency(result.estimatedMonthlyCostBase)} helper="Rent + known costs" />
-        <ReportMetric label="Break-even/day" value={formatNumber(result.breakEvenCustomersPerDay)} helper={`Assumed ${result.expectedCustomersPerDay} per day`} />
+    <ReportSection
+      title="Executive summary"
+      intro={getCommercialExecutiveText(result)}
+    >
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <ReportMetric
+          label="Verdict"
+          value={getCommercialVerdictLabel(result)}
+          helper="Mapped commercial pressure-test verdict"
+        />
+        <ReportMetric
+          label="Score"
+          value={`${result.score}/100`}
+          helper="Indicative score"
+        />
+        <ReportMetric
+          label="Rent burden"
+          value={formatPercent(result.rentBurdenPercentage)}
+          helper="Rent as a share of expected revenue"
+        />
+        <ReportMetric
+          label="Break-even/day"
+          value={formatNumber(result.breakEvenCustomersPerDay)}
+          helper="Customers needed each trading day"
+        />
+        <ReportMetric
+          label="Upfront cash needed"
+          value={formatCurrency(result.upfrontCashNeeded)}
+          helper="Fit-out, deposit, fees, stock, and setup costs"
+        />
+        <ReportMetric
+          label="Cash after opening"
+          value={formatCurrency(result.availableCashAfterOpening)}
+          helper={getOpeningCashNote(result)}
+        />
+        <ReportMetric
+          label="Downside monthly"
+          value={formatDownsidePosition(result.downsideMonthlyPosition)}
+          helper={getDownsideNote(result)}
+        />
+        <ReportMetric
+          label="Six-month test"
+          value={result.survivesSixBadMonths ? 'Pass' : 'Fail'}
+          helper={getSixMonthNote(result)}
+        />
       </div>
+    </ReportSection>
+  );
+}
 
-      <div>
-        <h4 className="text-base font-bold text-stone-900 mb-3">
-          Commercial survival model
-        </h4>
+function CommercialSiteSnapshot({
+  submission,
+  result,
+}: {
+  submission: Submission;
+  result: CommercialResult;
+}) {
+  const input = submission.input as CommercialInput;
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <ReportMetric label="Upfront cash needed" value={formatCurrency(result.upfrontCashNeeded)} helper="Fit-out, deposit, fees, opening stock, and setup costs" />
-          <ReportMetric label="Cash after opening" value={formatCurrency(result.availableCashAfterOpening)} helper="Starting cash minus upfront cash needed" />
-          <ReportMetric label="Downside revenue" value={formatCurrency(result.downsideMonthlyRevenue)} helper={`${formatPercent(result.downsideRevenuePercentage)} of expected monthly revenue`} />
-          <ReportMetric label="Downside burn" value={formatCurrency(result.monthlyBurnInDownside)} helper="Monthly cash burn in the downside case" />
-          <ReportMetric label="Survival runway" value={formatMonths(result.survivalMonths)} helper="How long cash covers downside burn" />
-          <ReportMetric label="Six-month test" value={result.survivesSixBadMonths ? 'Pass' : 'Fail'} helper="Whether the site survives six weak trading months" />
+  return (
+    <ReportSection
+      title="Site snapshot"
+      intro="Submitted assumptions used to create this commercial viability file prototype."
+    >
+      <ReportDataTable
+        rows={[
+          { label: 'Address', value: getAddress(submission) },
+          { label: 'Postcode', value: getLocation(submission) },
+          { label: 'Business type', value: input.businessType || 'Not provided' },
+          { label: 'Annual rent', value: formatCurrency(input.annualRent) },
+          { label: 'Expected monthly revenue', value: formatCurrency(result.estimatedMonthlyRevenue) },
+          { label: 'Average spend', value: formatCurrency(input.averageSpendPerCustomer) },
+          { label: 'Expected customers/day', value: formatNumber(input.expectedCustomersPerDay) },
+          { label: 'Opening days/month', value: formatNumber(input.openingDaysPerMonth) },
+          { label: 'Monthly staff costs', value: formatCurrency(input.monthlyStaffCosts) },
+          { label: 'Utilities and other costs', value: formatCurrency(input.monthlyUtilitiesAndOtherCosts) },
+          { label: 'Business rates', value: formatCurrency(input.monthlyBusinessRates) },
+          { label: 'Downside revenue case', value: formatPercent(result.downsideRevenuePercentage) },
+        ]}
+      />
+    </ReportSection>
+  );
+}
+
+function CommercialCashAndSurvivalModel({
+  submission,
+  result,
+}: {
+  submission: Submission;
+  result: CommercialResult;
+}) {
+  const input = submission.input as CommercialInput;
+
+  return (
+    <ReportSection
+      title="Opening cash and survival model"
+      intro="Cash needed before opening and the downside monthly position used for the six-month survival test."
+    >
+      {hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0 && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+          <p className="text-sm font-semibold text-red-900">
+            Major opening funding issue
+          </p>
+          <p className="text-sm text-red-800 leading-6 mt-1">
+            Upfront cash needed exceeds starting cash before trading begins.
+          </p>
+        </div>
+      )}
+
+      {!hasDownsideMonthlyBurn(result) && (
+        <div className="bg-teal-50 border border-teal-200 rounded-xl p-4 mb-4">
+          <p className="text-sm font-semibold text-teal-900">
+            No monthly burn in downside case
+          </p>
+          <p className="text-sm text-teal-800 leading-6 mt-1">
+            The downside case does not show monthly burn, but opening cash still matters
+            for deposits, fit-out, stock, and early working capital.
+          </p>
+        </div>
+      )}
+
+      <ReportDataTable
+        rows={[
+          { label: 'Fit-out budget', value: formatCurrency(input.fitOutBudget) },
+          { label: 'Rent deposit', value: formatCurrency(input.rentDeposit) },
+          { label: 'Legal fees', value: formatCurrency(input.legalFees) },
+          { label: 'Opening stock', value: formatCurrency(input.openingStock) },
+          { label: 'Other setup costs', value: formatCurrency(input.otherSetupCosts) },
+          { label: 'Upfront cash needed', value: formatCurrency(result.upfrontCashNeeded) },
+          { label: 'Starting cash', value: formatCurrency(input.startingCash) },
+          { label: 'Cash after opening', value: formatCurrency(result.availableCashAfterOpening), note: getOpeningCashNote(result) },
+          { label: 'Downside revenue', value: formatCurrency(result.downsideMonthlyRevenue) },
+          { label: 'Downside monthly position', value: formatDownsidePosition(result.downsideMonthlyPosition), note: getDownsideNote(result) },
+          { label: 'Survival runway', value: formatMonths(result.survivalMonths) },
+          { label: 'Six-month survival test', value: result.survivesSixBadMonths ? 'Pass' : 'Fail', note: getSixMonthNote(result) },
+        ]}
+      />
+    </ReportSection>
+  );
+}
+
+function CommercialRiskFindings({ flags }: { flags: RiskFlag[] }) {
+  return (
+    <ReportSection
+      title="Report findings"
+      intro="Risk flags from the commercial pressure-test, presented as findings to investigate."
+    >
+      {flags.length > 0 ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          {flags.map((flag) => (
+            <RiskBadge key={`${flag.severity}-${flag.message}`} flag={flag} />
+          ))}
+        </div>
+      ) : (
+        <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-stone-600">
+          No specific risk flags were generated from the submitted inputs.
+        </div>
+      )}
+    </ReportSection>
+  );
+}
+
+function CommercialLeaseQuestions() {
+  const questions = [
+    'What evidence supports expected customer volume?',
+    'What evidence supports average spend?',
+    'What happens if spend or customers are lower?',
+    'Can fit-out, deposit, fees, opening stock, and working capital be funded?',
+    'What are the break clauses?',
+    'What are the repairing obligations?',
+    'What are the rent review terms?',
+    'Are service charge, insurance, utilities, rates, and licences fully allowed for?',
+    'Is permitted use confirmed?',
+  ];
+
+  return (
+    <ReportSection
+      title="Lease and evidence questions"
+      intro="Questions to answer before treating the site as stronger than an initial screen."
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {questions.map((question) => (
+          <div
+            key={question}
+            className="bg-white border border-stone-200 rounded-lg p-3 text-sm text-stone-700 leading-6"
+          >
+            {question}
+          </div>
+        ))}
+      </div>
+    </ReportSection>
+  );
+}
+
+function CommercialMissingEvidence({
+  result,
+}: {
+  result: CommercialResult;
+}) {
+  const warnings =
+    result.missingDataWarnings.length > 0
+      ? result.missingDataWarnings
+      : ['No missing input warnings were generated. Lease documents, local evidence, and live operating costs still need checking.'];
+
+  return (
+    <ReportSection
+      title="Missing evidence and next checks"
+      intro="Due diligence prompts based on missing inputs, assumptions, and the next checks generated by the model."
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <p className="text-sm font-semibold text-stone-900 mb-3">
+            Missing evidence
+          </p>
+
+          <ul className="space-y-2">
+            {warnings.map((warning) => (
+              <li
+                key={warning}
+                className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm text-yellow-900 leading-6"
+              >
+                {warning}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="text-sm font-semibold text-stone-900 mb-3">
+            Next checks
+          </p>
+
+          <ol className="space-y-2 list-decimal list-inside">
+            {result.nextSteps.map((step) => (
+              <li
+                key={step}
+                className="bg-stone-50 border border-stone-200 rounded-lg p-3 text-sm text-stone-700 leading-6"
+              >
+                {step}
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
-    </div>
+    </ReportSection>
+  );
+}
+
+function CommercialReportBody({ submission }: { submission: Submission }) {
+  const result = submission.result as CommercialResult;
+
+  return (
+    <>
+      <CommercialExecutiveSummary result={result} />
+      <CommercialSiteSnapshot submission={submission} result={result} />
+      <CommercialCashAndSurvivalModel submission={submission} result={result} />
+      <CommercialRiskFindings flags={result.riskFlags} />
+      <CommercialLeaseQuestions />
+      <CommercialMissingEvidence result={result} />
+    </>
   );
 }
 
@@ -240,6 +637,10 @@ export default function ReportPage() {
 
   const isResidential = submission.mode === 'residential';
   const result = submission.result;
+  const commercialResult = isResidential ? null : (result as CommercialResult);
+  const displayedVerdictLabel = commercialResult
+    ? getCommercialVerdictLabel(commercialResult)
+    : submission.verdict.label;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
@@ -280,12 +681,26 @@ export default function ReportPage() {
               </p>
 
               <h2 className="text-3xl font-bold text-stone-900 mb-3">
-                {isResidential ? 'Residential viability file' : 'Commercial site viability file'}
+                {isResidential ? 'Residential viability file' : 'Commercial viability file'}
               </h2>
 
-              <p className="text-sm text-stone-500">
-                Generated {formatDate(submission.createdAt)}
-              </p>
+              <div className="space-y-1 text-sm text-stone-500">
+                <p>
+                  {getAddress(submission)} | {getLocation(submission)}
+                </p>
+
+                <p>
+                  Generated {formatDate(submission.createdAt)}
+                </p>
+              </div>
+
+              {!isResidential && (
+                <p className="text-xs text-stone-500 leading-5 mt-4 max-w-2xl">
+                  Indicative decision-support only, based on submitted inputs and
+                  prototype assumptions. Use this as an initial viability file before
+                  deeper professional due diligence.
+                </p>
+              )}
             </div>
 
             <div className="border border-stone-200 rounded-xl p-5 min-w-[220px] bg-stone-50">
@@ -299,127 +714,129 @@ export default function ReportPage() {
               </p>
 
               <p className="text-sm font-semibold text-teal-700 mt-2">
-                {submission.verdict.label}
+                {displayedVerdictLabel}
               </p>
             </div>
           </div>
         </header>
 
-        <section className="mb-8">
-          <h3 className="text-lg font-bold text-stone-900 mb-4">
-            Executive summary
-          </h3>
+        {isResidential ? (
+          <>
+            <section className="mb-8">
+              <h3 className="text-lg font-bold text-stone-900 mb-4">
+                Executive summary
+              </h3>
 
-          <p className="text-sm text-stone-700 leading-7 max-w-4xl">
-            {getExecutiveSummary(submission)}
-          </p>
-        </section>
+              <p className="text-sm text-stone-700 leading-7 max-w-4xl">
+                {getExecutiveSummary(submission)}
+              </p>
+            </section>
 
-        <section className="mb-8">
-          <h3 className="text-lg font-bold text-stone-900 mb-4">
-            Property snapshot
-          </h3>
+            <section className="mb-8">
+              <h3 className="text-lg font-bold text-stone-900 mb-4">
+                Property snapshot
+              </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
-              <p className="text-xs uppercase tracking-wide text-stone-400">Address</p>
-              <p className="font-semibold text-stone-900 mt-1">{getAddress(submission)}</p>
-            </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Address</p>
+                  <p className="font-semibold text-stone-900 mt-1">{getAddress(submission)}</p>
+                </div>
 
-            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
-              <p className="text-xs uppercase tracking-wide text-stone-400">Postcode</p>
-              <p className="font-semibold text-stone-900 mt-1">{getLocation(submission)}</p>
-            </div>
+                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Postcode</p>
+                  <p className="font-semibold text-stone-900 mt-1">{getLocation(submission)}</p>
+                </div>
 
-            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
-              <p className="text-xs uppercase tracking-wide text-stone-400">Use case</p>
-              <p className="font-semibold text-stone-900 mt-1">{getPropertyUse(submission)}</p>
-            </div>
+                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Use case</p>
+                  <p className="font-semibold text-stone-900 mt-1">{getPropertyUse(submission)}</p>
+                </div>
 
-            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
-              <p className="text-xs uppercase tracking-wide text-stone-400">Email</p>
-              <p className="font-semibold text-stone-900 mt-1 break-words">{getEmail(submission)}</p>
-            </div>
-          </div>
-        </section>
+                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Email</p>
+                  <p className="font-semibold text-stone-900 mt-1 break-words">{getEmail(submission)}</p>
+                </div>
+              </div>
+            </section>
 
-        <section className="mb-8">
-          <h3 className="text-lg font-bold text-stone-900 mb-4">
-            Key numbers
-          </h3>
+            <section className="mb-8">
+              <h3 className="text-lg font-bold text-stone-900 mb-4">
+                Key numbers
+              </h3>
 
-          {isResidential ? (
-            <ResidentialReportMetrics result={result as ResidentialResult} />
-          ) : (
-            <CommercialReportMetrics result={result as CommercialResult} />
-          )}
-        </section>
+              <ResidentialReportMetrics result={result as ResidentialResult} />
+            </section>
 
-        <section className="mb-8">
-          <ScenarioPanel submission={submission} />
-        </section>
+            <section className="mb-8">
+              <ScenarioPanel submission={submission} />
+            </section>
 
-        <section className="mb-8">
-          <h3 className="text-lg font-bold text-stone-900 mb-4">
-            Risk flags
-          </h3>
+            <section className="mb-8">
+              <h3 className="text-lg font-bold text-stone-900 mb-4">
+                Risk flags
+              </h3>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-            {result.riskFlags.map((flag) => (
-              <RiskBadge key={`${flag.severity}-${flag.message}`} flag={flag} />
-            ))}
-          </div>
-        </section>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                {result.riskFlags.map((flag) => (
+                  <RiskBadge key={`${flag.severity}-${flag.message}`} flag={flag} />
+                ))}
+              </div>
+            </section>
 
-        <section className="mb-8">
-          <h3 className="text-lg font-bold text-stone-900 mb-4">
-            Assumptions used
-          </h3>
+            <section className="mb-8">
+              <h3 className="text-lg font-bold text-stone-900 mb-4">
+                Assumptions used
+              </h3>
 
-          <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 text-sm text-stone-700">
-            {result.assumptions.map((assumption) => (
-              <li key={assumption} className="bg-stone-50 border border-stone-200 rounded-lg p-3">
-                {assumption}
-              </li>
-            ))}
-          </ul>
-        </section>
+              <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 text-sm text-stone-700">
+                {result.assumptions.map((assumption) => (
+                  <li key={assumption} className="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                    {assumption}
+                  </li>
+                ))}
+              </ul>
+            </section>
 
-        {result.missingDataWarnings.length > 0 && (
-          <section className="mb-8">
-            <h3 className="text-lg font-bold text-stone-900 mb-4">
-              Missing data warnings
-            </h3>
+            {result.missingDataWarnings.length > 0 && (
+              <section className="mb-8">
+                <h3 className="text-lg font-bold text-stone-900 mb-4">
+                  Missing data warnings
+                </h3>
 
-            <ul className="space-y-2 text-sm text-yellow-800">
-              {result.missingDataWarnings.map((warning) => (
-                <li key={warning} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                  {warning}
-                </li>
-              ))}
-            </ul>
-          </section>
+                <ul className="space-y-2 text-sm text-yellow-800">
+                  {result.missingDataWarnings.map((warning) => (
+                    <li key={warning} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                      {warning}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            <section className="mb-8">
+              <h3 className="text-lg font-bold text-stone-900 mb-4">
+                Recommended next steps
+              </h3>
+
+              <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
+                {result.nextSteps.map((step) => (
+                  <li key={step} className="bg-white border border-stone-200 rounded-lg p-3">
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </section>
+          </>
+        ) : (
+          <CommercialReportBody submission={submission} />
         )}
-
-        <section className="mb-8">
-          <h3 className="text-lg font-bold text-stone-900 mb-4">
-            Recommended next steps
-          </h3>
-
-          <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
-            {result.nextSteps.map((step) => (
-              <li key={step} className="bg-white border border-stone-200 rounded-lg p-3">
-                {step}
-              </li>
-            ))}
-          </ol>
-        </section>
 
         <footer className="border-t border-stone-200 pt-5 text-xs text-stone-500 leading-6">
           <p>
-            YieldLens UK provides indicative property pressure-tests and decision-support
-            analysis only. It is not a formal valuation, financial advice, mortgage
-            advice, legal advice, tax advice, or a substitute for professional due diligence.
+            YieldLens UK provides indicative decision-support only. It is not financial
+            advice, legal advice, tax advice, a formal valuation, or a substitute for
+            professional due diligence.
           </p>
 
           <p className="mt-2">
