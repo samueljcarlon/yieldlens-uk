@@ -160,20 +160,46 @@ function hasDownsideMonthlyBurn(result: CommercialResult): boolean {
   return hasNumber(result.monthlyBurnInDownside) && result.monthlyBurnInDownside > 0;
 }
 
+function hasThinOpeningCashBuffer(result: CommercialResult): boolean {
+  if (!hasNumber(result.availableCashAfterOpening) || result.availableCashAfterOpening <= 0) {
+    return false;
+  }
+
+  if (hasNumber(result.monthlyBurnInDownside) && result.monthlyBurnInDownside > 0) {
+    return result.availableCashAfterOpening < result.monthlyBurnInDownside * 3;
+  }
+
+  if (hasNumber(result.estimatedMonthlyCostBase) && result.estimatedMonthlyCostBase > 0) {
+    return result.availableCashAfterOpening < result.estimatedMonthlyCostBase;
+  }
+
+  return false;
+}
+
 function getCommercialExecutiveText(result: CommercialResult): string {
+  const verdict = getCommercialVerdictLabel(result).toLowerCase();
+
   if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
-    return 'The pressure-test suggests a major opening funding issue. Upfront cash needed is higher than starting cash before trading begins.';
+    return `The pressure-test maps this site to ${verdict} because upfront cash needed is higher than starting cash before trading begins.`;
+  }
+
+  if (result.survivesSixBadMonths && hasThinOpeningCashBuffer(result)) {
+    if (!hasDownsideMonthlyBurn(result)) {
+      return 'The pressure-test suggests the site can cover the downside monthly case, but the opening cash buffer is thin and the result needs caution.';
+    }
+
+    return 'The pressure-test suggests the site passes the six-month survival test, but the opening cash buffer is thin and the result needs caution.';
   }
 
   if (result.survivesSixBadMonths) {
-    if (!hasDownsideMonthlyBurn(result)) {
-      return 'The pressure-test suggests a stronger opening case on the submitted assumptions, with no monthly burn in the downside case.';
+    if (result.verdict.label === 'Strong candidate') {
+      return 'The pressure-test suggests a stronger case on the submitted assumptions, subject to evidence for demand, spend, costs, and lease terms.';
     }
 
-    return 'The pressure-test suggests a stronger case worth investigating, subject to evidence for demand, spend, costs, and lease terms.';
+    return `The pressure-test maps this site to ${verdict}. It passes the six-month survival test, but the assumptions still need evidence before relying on the lease case.`;
   }
 
-  return 'The pressure-test suggests the site needs caution. The lease case is fragile unless the trading, cost, cash, or rent assumptions improve.';
+  return `The pressure-test maps this site to ${verdict}. The lease case is fragile unless the trading, cost, cash, or rent assumptions improve.`;
 }
 
 function getOpeningCashNote(result: CommercialResult): string {
@@ -186,8 +212,7 @@ function getOpeningCashNote(result: CommercialResult): string {
   }
 
   if (
-    hasNumber(result.estimatedMonthlyCostBase) &&
-    result.availableCashAfterOpening < result.estimatedMonthlyCostBase
+    hasThinOpeningCashBuffer(result)
   ) {
     return 'Cash after opening is positive, but the buffer is thin against one month of known cost base.';
   }
@@ -404,7 +429,7 @@ function CommercialSiteSnapshot({
   return (
     <ReportSection
       title="Site snapshot"
-      intro="Submitted assumptions used to create this commercial viability file prototype."
+      intro="Submitted assumptions used to create this commercial viability file."
     >
       <ReportDataTable
         rows={[
@@ -487,12 +512,26 @@ function CommercialRiskFindings({ flags }: { flags: RiskFlag[] }) {
   return (
     <ReportSection
       title="Report findings"
-      intro="Risk flags from the commercial pressure-test, presented as findings to investigate."
+      intro="Use these findings to prioritise the evidence requests, lease questions, and cost checks before treating the site as robust."
     >
       {flags.length > 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          {flags.map((flag) => (
-            <RiskBadge key={`${flag.severity}-${flag.message}`} flag={flag} />
+        <div className="space-y-3">
+          {flags.map((flag, index) => (
+            <div
+              key={`${flag.severity}-${flag.message}`}
+              className="grid grid-cols-1 lg:grid-cols-[120px_minmax(0,1fr)] gap-3"
+            >
+              <div className="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                <p className="text-xs uppercase tracking-wide text-stone-500 font-semibold">
+                  Finding {index + 1}
+                </p>
+                <p className="text-sm font-semibold text-stone-900 mt-1 capitalize">
+                  {flag.severity === 'info' ? 'Note' : flag.severity}
+                </p>
+              </div>
+
+              <RiskBadge flag={flag} />
+            </div>
           ))}
         </div>
       ) : (
@@ -505,30 +544,53 @@ function CommercialRiskFindings({ flags }: { flags: RiskFlag[] }) {
 }
 
 function CommercialLeaseQuestions() {
-  const questions = [
-    'What evidence supports expected customer volume?',
-    'What evidence supports average spend?',
-    'What happens if spend or customers are lower?',
-    'Can fit-out, deposit, fees, opening stock, and working capital be funded?',
-    'What are the break clauses?',
-    'What are the repairing obligations?',
-    'What are the rent review terms?',
-    'Are service charge, insurance, utilities, rates, and licences fully allowed for?',
-    'Is permitted use confirmed?',
+  const questionGroups = [
+    {
+      title: 'Trading evidence',
+      questions: [
+        'What evidence supports expected customer volume?',
+        'What evidence supports average spend?',
+        'What happens if spend or customers are lower?',
+      ],
+    },
+    {
+      title: 'Funding and cost base',
+      questions: [
+        'Can fit-out, deposit, fees, opening stock, and working capital be funded?',
+        'Are service charge, insurance, utilities, rates, and licences fully allowed for?',
+      ],
+    },
+    {
+      title: 'Lease terms',
+      questions: [
+        'What are the break clauses?',
+        'What are the repairing obligations?',
+        'What are the rent review terms?',
+        'Is permitted use confirmed?',
+      ],
+    },
   ];
 
   return (
     <ReportSection
       title="Lease and evidence questions"
-      intro="Questions to answer before treating the site as stronger than an initial screen."
+      intro="A focused checklist for the assumptions that most affect the commercial lease case."
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {questions.map((question) => (
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {questionGroups.map((group) => (
           <div
-            key={question}
-            className="bg-white border border-stone-200 rounded-lg p-3 text-sm text-stone-700 leading-6"
+            key={group.title}
+            className="bg-white border border-stone-200 rounded-xl p-4"
           >
-            {question}
+            <p className="text-sm font-semibold text-stone-900 mb-3">
+              {group.title}
+            </p>
+
+            <ol className="space-y-2 list-decimal list-inside text-sm text-stone-700 leading-6">
+              {group.questions.map((question) => (
+                <li key={question}>{question}</li>
+              ))}
+            </ol>
           </div>
         ))}
       </div>
@@ -549,7 +611,7 @@ function CommercialMissingEvidence({
   return (
     <ReportSection
       title="Missing evidence and next checks"
-      intro="Due diligence prompts based on missing inputs, assumptions, and the next checks generated by the model."
+      intro="Convert the quick check into a due diligence worklist: fill the missing evidence first, then verify the assumptions that drive the score."
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
@@ -697,8 +759,8 @@ export default function ReportPage() {
               {!isResidential && (
                 <p className="text-xs text-stone-500 leading-5 mt-4 max-w-2xl">
                   Indicative decision-support only, based on submitted inputs and
-                  prototype assumptions. Use this as an initial viability file before
-                  deeper professional due diligence.
+                  stated assumptions. Use this as an initial viability file before
+                  deeper due diligence.
                 </p>
               )}
             </div>
@@ -833,9 +895,13 @@ export default function ReportPage() {
         )}
 
         <footer className="border-t border-stone-200 pt-5 text-xs text-stone-500 leading-6">
+          <p className="font-semibold text-stone-700 mb-2">
+            Important disclaimer
+          </p>
+
           <p>
             YieldLens UK provides indicative decision-support only. It is not financial
-            advice, legal advice, tax advice, a formal valuation, or a substitute for
+            advice, legal advice, tax advice, a valuation, or a substitute for
             professional due diligence.
           </p>
 
