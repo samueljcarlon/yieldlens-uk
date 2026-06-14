@@ -83,7 +83,7 @@ function CheckPageContent() {
         <p className="text-sm text-stone-600 max-w-2xl">
           Choose residential or commercial, enter the key numbers, and get a
           yield estimate, risk flags, and clear verdict. This is decision-support
-          only, not a formal valuation.
+          only, not a valuation.
         </p>
       </div>
 
@@ -107,8 +107,8 @@ function CheckPageContent() {
 
         <p>
           YieldLens UK provides indicative property pressure-tests and
-          decision-support analysis only. It is not a formal valuation, financial
-          advice, mortgage advice, legal advice, tax advice, or a substitute for
+          decision-support analysis only. It is not financial advice, mortgage
+          advice, legal advice, tax advice, a valuation, or a substitute for
           professional due diligence.
         </p>
       </div>
