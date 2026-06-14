@@ -25,9 +25,9 @@ const faqs = [
       'A commercial lease viability check is an indicative pressure test of whether a site can support its rent, opening costs, and operating costs. It looks at rent burden, expected revenue, break-even customers, upfront cash, known costs, downside trading, and survival runway.',
   },
   {
-    question: 'Is this a formal valuation?',
+    question: 'Is this advice or a valuation?',
     answer:
-      'No. YieldLens UK provides indicative decision-support only. It is not a formal valuation, financial advice, legal advice, tax advice, or a substitute for professional due diligence.',
+      'YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.',
   },
   {
     question: 'Why does rent burden matter?',
@@ -174,6 +174,62 @@ const survivalChecks = [
   },
 ];
 
+const exampleSummary = [
+  {
+    label: 'Verdict',
+    value: 'Needs caution',
+    helper: 'Passes the downside case, but the opening cash buffer is thin.',
+    tone: 'bg-amber-50 border-amber-200 text-amber-950',
+  },
+  {
+    label: 'Rent burden',
+    value: '20.0%',
+    helper: '£5,000 rent against £24,960 estimated monthly revenue.',
+    tone: 'bg-white border-stone-200 text-stone-950',
+  },
+  {
+    label: 'Break-even/day',
+    value: '45.2',
+    helper: 'Customers per day needed to cover the known monthly cost base.',
+    tone: 'bg-white border-stone-200 text-stone-950',
+  },
+  {
+    label: 'Six-month test',
+    value: 'Pass',
+    helper: 'No downside monthly burn, but opening cash still matters.',
+    tone: 'bg-teal-50 border-teal-200 text-teal-950',
+  },
+];
+
+const exampleAssumptions = [
+  { label: 'Location', value: 'South London cafe unit' },
+  { label: 'Annual rent', value: '£60,000' },
+  { label: 'Monthly rent', value: '£5,000' },
+  { label: 'Average spend', value: '£12' },
+  { label: 'Expected customers/day', value: '80' },
+  { label: 'Opening days/month', value: '26' },
+  { label: 'Estimated monthly revenue', value: '£24,960' },
+  { label: 'Staff, utilities, rates, rent', value: '£14,100 total cost base' },
+];
+
+const exampleOpeningCash = [
+  { label: 'Fit-out', value: '£50,000' },
+  { label: 'Rent deposit', value: '£15,000' },
+  { label: 'Legal fees', value: '£3,000' },
+  { label: 'Opening stock', value: '£8,000' },
+  { label: 'Other setup costs', value: '£5,000' },
+  { label: 'Upfront cash needed', value: '£81,000' },
+  { label: 'Starting cash', value: '£90,000' },
+  { label: 'Cash after opening', value: '£9,000' },
+];
+
+const exampleDownside = [
+  { label: 'Downside case', value: '60% of expected revenue' },
+  { label: 'Downside revenue', value: '£14,976' },
+  { label: 'Downside monthly position', value: '£876 surplus' },
+  { label: 'Survival runway', value: 'No monthly burn in downside case' },
+];
+
 function SectionTitle({
   eyebrow,
   title,
@@ -249,7 +305,7 @@ export default function CommercialLeaseViabilityPage() {
           </div>
 
           <p className="text-xs text-stone-400 mt-5">
-            Indicative decision-support only. Not a formal valuation, legal advice, or financial advice.
+            YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
           </p>
         </div>
       </section>
@@ -377,58 +433,135 @@ export default function CommercialLeaseViabilityPage() {
 
       <section className="bg-stone-950 text-white">
         <div className="max-w-5xl mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
             <div>
               <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
-                Example pressure test
+                Worked example
               </p>
 
               <h2 className="text-3xl font-bold mb-4">
-                A pass still needs the cash risk made obvious.
+                Worked example: 40-cover cafe lease
               </h2>
 
-              <p className="text-sm text-stone-300 leading-7">
-                The six-month test should only pass if opening costs are funded
-                and the downside trading case either covers monthly costs or has
-                enough cash runway.
+              <p className="text-sm text-stone-300 leading-7 mb-5">
+                This illustrative example shows how YieldLens pressure-tests a
+                South London cafe unit before signing. It is not a real property
+                assessment.
               </p>
-            </div>
 
-            <div className="bg-white text-stone-900 rounded-xl p-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wide text-stone-400">
-                    Upfront cash
-                  </p>
-                  <p className="text-2xl font-bold">£81,000</p>
-                </div>
+              <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+                <p className="text-sm font-semibold text-white mb-2">
+                  Why the verdict needs caution
+                </p>
 
-                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wide text-stone-400">
-                    Cash after opening
-                  </p>
-                  <p className="text-2xl font-bold">£9,000</p>
-                </div>
-
-                <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wide text-teal-700">
-                    Downside burn
-                  </p>
-                  <p className="text-2xl font-bold">£0</p>
-                </div>
-
-                <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wide text-teal-700">
-                    Six-month test
-                  </p>
-                  <p className="text-2xl font-bold">Pass</p>
-                </div>
+                <p className="text-sm text-stone-300 leading-7">
+                  The downside case does not show monthly burn, but the site still
+                  looks fragile because only £9,000 is left after opening costs.
+                  This is the kind of issue a basic rent calculator misses.
+                </p>
               </div>
 
-              <p className="text-xs text-stone-500 mt-4 leading-5">
-                Example only. This site covers downside monthly costs, but the
-                cash left after opening is thin relative to expected revenue.
-              </p>
+              <TrackedCtaLink
+                href="/check?mode=commercial"
+                eventName="commercial_viability_page_cta_clicked"
+                pagePath="/commercial-lease-viability-check"
+                ctaLabel="Run your commercial lease check"
+                pageType="commercial_landing"
+                className="mt-6 inline-block bg-teal-600 text-white px-6 py-3 rounded font-medium hover:bg-teal-500 transition-colors text-sm"
+              >
+                Run your commercial lease check
+              </TrackedCtaLink>
+            </div>
+
+            <div className="bg-white text-stone-900 rounded-xl p-5 sm:p-6 shadow-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                {exampleSummary.map((item) => (
+                  <div
+                    key={item.label}
+                    className={`border rounded-lg p-4 ${item.tone}`}
+                  >
+                    <p className="text-xs uppercase tracking-wide font-semibold mb-1">
+                      {item.label}
+                    </p>
+                    <p className="text-2xl font-bold">{item.value}</p>
+                    <p className="text-xs leading-5 mt-2 opacity-80">
+                      {item.helper}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-stone-400 font-semibold mb-3">
+                    Trading assumptions
+                  </p>
+
+                  <div className="border border-stone-200 rounded-lg overflow-hidden">
+                    {exampleAssumptions.map((item) => (
+                      <div
+                        key={item.label}
+                        className="flex items-start justify-between gap-4 border-b border-stone-100 last:border-b-0 px-3 py-2.5"
+                      >
+                        <p className="text-xs text-stone-500">{item.label}</p>
+                        <p className="text-xs font-semibold text-stone-900 text-right">
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-stone-400 font-semibold mb-3">
+                    Opening cash
+                  </p>
+
+                  <div className="border border-stone-200 rounded-lg overflow-hidden">
+                    {exampleOpeningCash.map((item) => (
+                      <div
+                        key={item.label}
+                        className="flex items-start justify-between gap-4 border-b border-stone-100 last:border-b-0 px-3 py-2.5"
+                      >
+                        <p className="text-xs text-stone-500">{item.label}</p>
+                        <p className="text-xs font-semibold text-stone-900 text-right">
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-stone-400 font-semibold mb-3">
+                    Downside case
+                  </p>
+
+                  <div className="border border-stone-200 rounded-lg overflow-hidden">
+                    {exampleDownside.map((item) => (
+                      <div
+                        key={item.label}
+                        className="flex items-start justify-between gap-4 border-b border-stone-100 last:border-b-0 px-3 py-2.5"
+                      >
+                        <p className="text-xs text-stone-500">{item.label}</p>
+                        <p className="text-xs font-semibold text-stone-900 text-right">
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-4">
+                    <p className="text-xs font-semibold text-amber-950 mb-1">
+                      Sample diagnostic note
+                    </p>
+                    <p className="text-xs text-amber-900 leading-5">
+                      Pass, but opening cash buffer is thin. The assumptions need
+                      evidence before signing.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
