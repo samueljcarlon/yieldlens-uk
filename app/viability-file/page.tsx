@@ -236,7 +236,7 @@ export default function ViabilityFilePage() {
                   Example commercial file
                 </p>
                 <p className="text-2xl font-bold mt-1">
-                  Worth investigating, but opening cash is tight.
+                  Fragile: opening cash shortfall before trading begins.
                 </p>
               </div>
 
@@ -261,9 +261,7 @@ export default function ViabilityFilePage() {
 
               <div className="p-5 bg-stone-50">
                 <p className="text-sm text-stone-700 leading-6">
-                  Risk flag: cash left after opening is thin relative to expected
-                  monthly revenue. Confirm fit-out costs, deposit terms, rates,
-                  utilities, and customer assumptions before signing.
+                  The downside month covers operating costs, but upfront cash needed exceeds available starting cash before trading begins.
                 </p>
               </div>
             </div>

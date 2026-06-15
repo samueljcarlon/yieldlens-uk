@@ -12,10 +12,10 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-5 text-sm text-stone-600">
           <Link
-            href="/check?mode=commercial"
+            href="/sample-commercial-viability-file"
             className="hover:text-stone-900 transition-colors"
           >
-            Commercial check
+            Sample file
           </Link>
 
           <Link
@@ -33,10 +33,10 @@ export default function Header() {
           </Link>
 
           <Link
-            href="/check?mode=commercial"
+            href="/sample-commercial-viability-file"
             className="hover:text-stone-900 transition-colors"
           >
-            Commercial check
+            Sample file
           </Link>
         </nav>
 

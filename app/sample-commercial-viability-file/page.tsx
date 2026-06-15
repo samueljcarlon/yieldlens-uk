@@ -3,14 +3,14 @@ import Link from 'next/link';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
-  title: 'Sample Commercial Viability File | YieldLens UK',
+  title: 'Sample Commercial Viability File',
   description:
     'View a sample YieldLens UK Standard commercial viability file for pressure-testing rent burden, break-even customers, upfront cash, downside trading, and lease questions before signing a commercial lease.',
   alternates: {
     canonical: '/sample-commercial-viability-file',
   },
   openGraph: {
-    title: 'Sample Commercial Viability File | YieldLens UK',
+    title: 'Sample Commercial Viability File',
     description:
       'See what the £49 Standard commercial viability file looks like using a redacted sample case before running a free commercial check.',
     url: 'https://yieldlens.co.uk/sample-commercial-viability-file',
@@ -49,6 +49,7 @@ const siteSnapshot = [
   { label: 'Business type', value: 'Cafe' },
   { label: 'Address', value: 'Redacted high street site' },
   { label: 'Postcode', value: 'NW6 sample' },
+  { label: 'Reference', value: 'SAMPLE-FILE' },
   { label: 'Annual rent', value: '£60,000' },
   { label: 'Monthly rent', value: '£5,000' },
   { label: 'Average spend', value: '£12' },
@@ -487,11 +488,6 @@ export default function SampleCommercialViabilityFilePage() {
             description="The model does not fail because the downside month burns cash; it fails because upfront cash needed exceeds available starting cash."
           />
           <div className="max-w-3xl text-stone-300 leading-7 text-sm space-y-3">
-            <p>
-              Final view: Pause unless the upfront capital position improves.
-              The model does not fail because the downside month burns cash; it
-              fails because upfront cash needed exceeds available starting cash.
-            </p>
             <p>
               The priority is to renegotiate fit-out, deposit, rent-free terms,
               landlord contribution, or increase available starting cash before
