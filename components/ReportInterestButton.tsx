@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Submission } from '@/types/property';
+import { logToolEvent } from '@/lib/logToolEvent';
 
 export default function ReportInterestButton({
   submission,
@@ -18,6 +19,23 @@ export default function ReportInterestButton({
     setMessage('');
 
     try {
+      if (submission.mode === 'commercial') {
+        void logToolEvent({
+          event_name: 'results_viability_file_requested_clicked',
+          page_path: '/results',
+          tool_name: 'commercial_funnel',
+          result_label: 'Request full viability file',
+          result_band: 'cta_click',
+          metadata: {
+            page_path: '/results',
+            cta_label: 'Request full viability file',
+            destination: '/thank-you',
+            funnel_area: 'commercial',
+            page_type: 'results',
+          },
+        });
+      }
+
       const response = await fetch('/api/report-interest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

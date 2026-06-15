@@ -96,6 +96,13 @@ function FieldBlock({
 export default function CommercialForm({ onSubmit }: Props) {
   const [form, setForm] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const sectionSteps = [
+    'Site and rent',
+    'Trading assumptions',
+    'Monthly operating costs',
+    'Opening cash and setup costs',
+    'Downside case',
+  ];
 
   const set = (key: string, value: string) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -182,6 +189,20 @@ export default function CommercialForm({ onSubmit }: Props) {
           break-even customers, opening cash pressure, downside trading, and six-month
           survival before signing.
         </p>
+
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-2 text-[11px] uppercase tracking-widest text-teal-800">
+          {sectionSteps.map((step, index) => (
+            <div
+              key={step}
+              className="flex items-center gap-2 rounded-lg border border-teal-200 bg-white px-3 py-2"
+            >
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-teal-700 text-[10px] font-semibold text-white">
+                {index + 1}
+              </span>
+              <span className="leading-tight">{step}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <FormSection

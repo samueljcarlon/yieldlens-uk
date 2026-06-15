@@ -16,6 +16,7 @@ import ScoreCard from '@/components/ScoreCard';
 import ReportInterestButton from '@/components/ReportInterestButton';
 import ScenarioPanel from '@/components/ScenarioPanel';
 import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 function formatCurrency(value?: number): string {
   if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
@@ -692,19 +693,45 @@ export default function ResultsPage() {
         <div className="mt-5 flex flex-col sm:flex-row gap-3">
           <ReportInterestButton submission={submission} />
 
-          <Link
-            href="/report"
-            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
-          >
-            View printable preview →
-          </Link>
+          {isResidential ? (
+            <Link
+              href="/report"
+              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
+            >
+              View printable preview →
+            </Link>
+          ) : (
+            <TrackedCtaLink
+              href="/report"
+              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
+              eventName="results_report_preview_clicked"
+              pagePath="/results"
+              ctaLabel="View printable preview"
+              pageType="results"
+            >
+              View printable preview →
+            </TrackedCtaLink>
+          )}
 
-          <Link
-            href={isResidential ? '/check?mode=residential' : '/check?mode=commercial'}
-            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
-          >
-            Run another {isResidential ? 'residential' : 'commercial'} check
-          </Link>
+          {isResidential ? (
+            <Link
+              href="/check?mode=residential"
+              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
+            >
+              Run another residential check
+            </Link>
+          ) : (
+            <TrackedCtaLink
+              href="/check?mode=commercial"
+              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
+              eventName="results_run_another_check_clicked"
+              pagePath="/results"
+              ctaLabel="Run another commercial check"
+              pageType="results"
+            >
+              Run another commercial check
+            </TrackedCtaLink>
+          )}
         </div>
 
         {isResidential && (

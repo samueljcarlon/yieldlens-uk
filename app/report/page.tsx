@@ -12,6 +12,8 @@ import type {
 } from '@/types/property';
 import { getLatestSubmission } from '@/lib/storage';
 import ScenarioPanel from '@/components/ScenarioPanel';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
+import { logToolEvent } from '@/lib/logToolEvent';
 
 function formatCurrency(value?: number): string {
   if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
@@ -719,7 +721,26 @@ export default function ReportPage() {
         <div className="flex gap-3">
           <button
             type="button"
-            onClick={() => window.print()}
+            onClick={() => {
+              if (!isResidential) {
+                void logToolEvent({
+                  event_name: 'report_print_or_save_clicked',
+                  page_path: '/report',
+                  tool_name: 'commercial_funnel',
+                  result_label: 'Print or save as PDF',
+                  result_band: 'cta_click',
+                  metadata: {
+                    page_path: '/report',
+                    cta_label: 'Print or save as PDF',
+                    destination: 'window.print',
+                    funnel_area: 'commercial',
+                    page_type: 'report',
+                  },
+                });
+              }
+
+              window.print();
+            }}
             className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
           >
             Print or save as PDF
@@ -731,6 +752,19 @@ export default function ReportPage() {
           >
             Back to results
           </Link>
+
+          {!isResidential && (
+            <TrackedCtaLink
+              href="/check?mode=commercial"
+              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+              eventName="report_run_another_check_clicked"
+              pagePath="/report"
+              ctaLabel="Run another commercial check"
+              pageType="report"
+            >
+              Run another commercial check
+            </TrackedCtaLink>
+          )}
         </div>
       </div>
 
