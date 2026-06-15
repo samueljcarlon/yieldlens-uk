@@ -83,6 +83,36 @@ function getEventLabel(eventName: string): string {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
+const commercialCtaEventNames = [
+  'commercial_home_cta_clicked',
+  'commercial_viability_page_cta_clicked',
+  'rent_burden_page_cta_clicked',
+  'break_even_page_cta_clicked',
+  'lease_survival_page_cta_clicked',
+  'viability_file_page_cta_clicked',
+];
+
+function isCommercialCtaEvent(event: ToolEvent): boolean {
+  return event.toolName === 'commercial_funnel';
+}
+
+function isCommercialSeoEvent(event: ToolEvent): boolean {
+  return [
+    'commercial_viability_page_cta_clicked',
+    'rent_burden_page_cta_clicked',
+    'break_even_page_cta_clicked',
+    'lease_survival_page_cta_clicked',
+  ].includes(event.eventName);
+}
+
+function isCommercialHomepageEvent(event: ToolEvent): boolean {
+  return event.eventName === 'commercial_home_cta_clicked';
+}
+
+function isViabilityFilePageEvent(event: ToolEvent): boolean {
+  return event.eventName === 'viability_file_page_cta_clicked';
+}
+
 export default function ToolEventsAdminPage() {
   const [adminPin, setAdminPin] = useState('');
   const [events, setEvents] = useState<ToolEvent[]>([]);
@@ -133,6 +163,20 @@ export default function ToolEventsAdminPage() {
 
   const eventCounts = useMemo(() => countBy(events, 'eventName'), [events]);
   const toolCounts = useMemo(() => countBy(events, 'toolName'), [events]);
+
+  const commercialSummary = useMemo(() => {
+    const commercialCtaClicks = events.filter(isCommercialCtaEvent).length;
+    const homepageCommercialClicks = events.filter(isCommercialHomepageEvent).length;
+    const seoToolClicks = events.filter(isCommercialSeoEvent).length;
+    const viabilityFilePageClicks = events.filter(isViabilityFilePageEvent).length;
+
+    return {
+      commercialCtaClicks,
+      homepageCommercialClicks,
+      seoToolClicks,
+      viabilityFilePageClicks,
+    };
+  }, [events]);
 
   const handleLoad = async () => {
     setError('');
@@ -208,6 +252,34 @@ export default function ToolEventsAdminPage() {
         <div className="bg-white border border-stone-200 rounded-xl p-4 shadow-sm">
           <p className="text-xs uppercase tracking-wide text-stone-400">Tools</p>
           <p className="text-2xl font-bold text-stone-900">{toolNames.length}</p>
+        </div>
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm mb-8">
+        <p className="font-semibold text-stone-900 mb-4">
+          Commercial funnel summary
+        </p>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+            <p className="text-xs uppercase tracking-wide text-stone-400">Commercial CTA clicks</p>
+            <p className="text-2xl font-bold text-stone-900 mt-1">{commercialSummary.commercialCtaClicks}</p>
+          </div>
+
+          <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+            <p className="text-xs uppercase tracking-wide text-stone-400">Homepage commercial clicks</p>
+            <p className="text-2xl font-bold text-stone-900 mt-1">{commercialSummary.homepageCommercialClicks}</p>
+          </div>
+
+          <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+            <p className="text-xs uppercase tracking-wide text-stone-400">SEO tool clicks</p>
+            <p className="text-2xl font-bold text-stone-900 mt-1">{commercialSummary.seoToolClicks}</p>
+          </div>
+
+          <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+            <p className="text-xs uppercase tracking-wide text-stone-400">Viability file clicks</p>
+            <p className="text-2xl font-bold text-stone-900 mt-1">{commercialSummary.viabilityFilePageClicks}</p>
+          </div>
         </div>
       </div>
 
@@ -334,6 +406,83 @@ export default function ToolEventsAdminPage() {
             className={filterButtonClass(eventFilter === 'all' && toolFilter === 'all')}
           >
             All
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEventFilter('all');
+              setToolFilter('commercial_funnel');
+            }}
+            className={filterButtonClass(toolFilter === 'commercial_funnel')}
+          >
+            All commercial CTA clicks
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEventFilter('commercial_home_cta_clicked');
+              setToolFilter('all');
+            }}
+            className={filterButtonClass(eventFilter === 'commercial_home_cta_clicked')}
+          >
+            Homepage commercial CTA
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEventFilter('commercial_viability_page_cta_clicked');
+              setToolFilter('all');
+            }}
+            className={filterButtonClass(eventFilter === 'commercial_viability_page_cta_clicked')}
+          >
+            Commercial viability page CTA
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEventFilter('rent_burden_page_cta_clicked');
+              setToolFilter('all');
+            }}
+            className={filterButtonClass(eventFilter === 'rent_burden_page_cta_clicked')}
+          >
+            Rent burden page CTA
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEventFilter('break_even_page_cta_clicked');
+              setToolFilter('all');
+            }}
+            className={filterButtonClass(eventFilter === 'break_even_page_cta_clicked')}
+          >
+            Break-even page CTA
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEventFilter('lease_survival_page_cta_clicked');
+              setToolFilter('all');
+            }}
+            className={filterButtonClass(eventFilter === 'lease_survival_page_cta_clicked')}
+          >
+            Lease survival page CTA
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEventFilter('viability_file_page_cta_clicked');
+              setToolFilter('all');
+            }}
+            className={filterButtonClass(eventFilter === 'viability_file_page_cta_clicked')}
+          >
+            Viability file page CTA
           </button>
 
           <button
