@@ -44,15 +44,10 @@ function buildRedirectUrl(baseUrl: string, path: string, reportRequestId: string
   return url.toString();
 }
 
+const allowedRequestedReportTypes = new Set(['standard_pdf', 'standard_viability_file']);
+
 export async function POST(request: NextRequest) {
   try {
-    const adminPin = process.env.ADMIN_PIN;
-    const providedPin = request.headers.get('x-admin-pin');
-
-    if (!adminPin || providedPin !== adminPin) {
-      return NextResponse.json({ error: 'Unauthorised.' }, { status: 401 });
-    }
-
     const body = await request.json();
     const reportRequestId =
       typeof body.reportRequestId === 'string' ? body.reportRequestId.trim() : '';
@@ -90,6 +85,13 @@ export async function POST(request: NextRequest) {
     if (reportRequest.mode !== 'commercial') {
       return NextResponse.json(
         { error: 'Stripe checkout is only available for commercial requests.' },
+        { status: 400 }
+      );
+    }
+
+    if (!allowedRequestedReportTypes.has(reportRequest.requested_report_type)) {
+      return NextResponse.json(
+        { error: 'Requested report type is not supported.' },
         { status: 400 }
       );
     }

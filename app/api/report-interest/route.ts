@@ -123,13 +123,24 @@ export async function POST(request: NextRequest) {
       updated_at: new Date().toISOString(),
     };
 
-    const { error } = await supabase.from('report_requests').insert(row);
+    const { data: created, error } = await supabase
+      .from('report_requests')
+      .insert(row)
+      .select('id')
+      .single();
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ ok: true });
+    if (!created?.id) {
+      return NextResponse.json(
+        { error: 'Failed to create report request.' },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ ok: true, requestId: created.id });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({ error: message }, { status: 500 });

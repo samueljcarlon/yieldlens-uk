@@ -50,7 +50,13 @@ export default function ReportInterestButton({
         throw new Error(body || 'Failed to request report.');
       }
 
-      router.push('/thank-you');
+      const data = (await response.json()) as { requestId?: string };
+
+      if (!data.requestId) {
+        throw new Error('Failed to request report.');
+      }
+
+      router.push(`/thank-you?request_id=${encodeURIComponent(data.requestId)}`);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Failed to request report.';
