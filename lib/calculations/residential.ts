@@ -115,9 +115,9 @@ export function calculateResidentialResult(input: ResidentialInput): Residential
   const riskFlags = generateResidentialRiskFlags(input, grossYield, monthlyCashFlow);
 
   const assumptions = [
-    'Local demand score is an indicative placeholder.',
-    'Transport and connectivity score is an indicative placeholder.',
-    'Price and rent reasonableness uses a placeholder score in this MVP.',
+    'Local demand score is indicative only.',
+    'Transport and connectivity score is indicative only.',
+    'Price and rent reasonableness uses an indicative screening score.',
     'No live comparable rental data is used.',
   ];
 

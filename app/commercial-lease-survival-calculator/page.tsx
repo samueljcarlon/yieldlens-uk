@@ -557,8 +557,8 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
 
           <p>
             YieldLens UK provides indicative decision-support only. It is not
-            financial advice, legal advice, tax advice, a formal valuation, or a
-            substitute for professional due diligence.
+            financial advice, legal advice, tax advice, a valuation, or a substitute
+            for professional due diligence.
           </p>
         </div>
       </section>
