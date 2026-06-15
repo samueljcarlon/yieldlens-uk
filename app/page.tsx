@@ -4,16 +4,16 @@ import TrackedCtaLink from '@/components/TrackedCtaLink';
 import VerdictBadge from '@/components/VerdictBadge';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Viability Check',
+  title: 'YieldLens UK | Commercial Lease Viability Check',
   description:
-    'Check whether a commercial site can carry the rent before you sign. Pressure-test rent burden, break-even customers, upfront cash, fit-out risk, and downside trading.',
+    'Check whether a commercial site can carry the rent before you sign. YieldLens UK pressure-tests rent burden, break-even customers, upfront cash, downside trading, and lease questions before a commercial commitment.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'YieldLens UK | Commercial Lease Viability Check',
     description:
-      'Pressure-test a commercial lease before you commit. Check rent burden, break-even customers, upfront cash, and downside trading.',
+      'Check whether a commercial site can carry the rent before you sign. YieldLens UK pressure-tests rent burden, break-even customers, upfront cash, downside trading, and lease questions before a commercial commitment.',
     url: 'https://yieldlens.co.uk',
   },
 };
@@ -115,9 +115,9 @@ export default function HomePage() {
               </h1>
 
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                Pressure-test rent burden, break-even customers, upfront cash,
-                fit-out risk, and downside trading before committing to a
-                commercial lease.
+                YieldLens UK pressure-tests rent burden, break-even customers,
+                upfront cash, downside trading, and lease questions before a
+                commercial commitment.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -125,11 +125,11 @@ export default function HomePage() {
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
                   pagePath="/"
-                  ctaLabel="Run commercial lease check"
+                  ctaLabel="Run commercial site check"
                   pageType="homepage"
                   className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
                 >
-                  Run commercial lease check
+                  Run commercial site check
                 </TrackedCtaLink>
 
                 <TrackedCtaLink
@@ -146,6 +146,10 @@ export default function HomePage() {
 
               <p className="text-xs text-stone-400 mt-5">
                 YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
+              </p>
+
+              <p className="text-xs text-stone-400 mt-3">
+                Standard commercial viability file is £49 after a commercial report request.
               </p>
             </div>
 
@@ -267,13 +271,13 @@ export default function HomePage() {
               </p>
 
               <h2 className="text-3xl font-bold text-stone-900 mb-3">
-                Commercial is the main wedge. Other checks stay useful.
+                Commercial is the main wedge. Other checks stay secondary.
               </h2>
 
               <p className="text-sm text-stone-600 leading-7">
-                YieldLens UK is built around pre-commitment pressure-tests.
-                The supporting tools help with residential rent, yield, and cash
-                flow questions.
+                YieldLens UK is built around commercial lease viability. The
+                supporting tools remain available for residential rent, yield,
+                and cash flow questions.
               </p>
             </div>
 
@@ -325,11 +329,11 @@ export default function HomePage() {
             </p>
 
             <h2 className="text-3xl font-bold text-stone-900 mb-4">
-              Save the result as a structured decision file.
+              Save the result as a structured commercial viability file.
             </h2>
 
             <p className="text-sm text-stone-600 leading-7 mb-6">
-              The free check gives the first signal. A viability file organises
+              The free check gives the first signal. The fuller file organises
               the key metrics, assumptions, risk flags, missing evidence, and
               next questions before you commit.
             </p>
@@ -357,6 +361,10 @@ export default function HomePage() {
                 Run free check first
               </TrackedCtaLink>
             </div>
+
+            <p className="text-xs text-stone-500 mt-4">
+              The standard commercial viability file is £49 and appears after a commercial report request.
+            </p>
           </div>
 
           <div className="bg-stone-950 text-white rounded-lg overflow-hidden shadow-xl">

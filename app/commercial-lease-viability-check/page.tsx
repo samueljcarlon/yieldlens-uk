@@ -6,14 +6,14 @@ import ToolConversionPanel from '@/components/ToolConversionPanel';
 export const metadata: Metadata = {
   title: 'Commercial Lease Viability Check | YieldLens UK',
   description:
-    'Check whether a commercial site can carry the rent before signing a lease. Pressure-test rent burden, break-even customers, upfront cash, fit-out risk, downside trading, and six-month survival.',
+    'Avoid a bad commercial lease commitment before you sign. Pressure-test rent burden, break-even customers, upfront cash, downside trading, survival runway, and lease questions.',
   alternates: {
     canonical: '/commercial-lease-viability-check',
   },
   openGraph: {
     title: 'Commercial Lease Viability Check | YieldLens UK',
     description:
-      'Pressure-test a commercial site before signing a lease. Check rent burden, break-even customers, upfront cash, downside trading, and six-month survival.',
+      'Avoid a bad commercial lease commitment before you sign. Pressure-test rent burden, break-even customers, upfront cash, downside trading, survival runway, and lease questions.',
     url: 'https://yieldlens.co.uk/commercial-lease-viability-check',
   },
 };
@@ -270,14 +270,14 @@ export default function CommercialLeaseViabilityPage() {
           </p>
 
           <h1 className="text-4xl sm:text-6xl font-bold text-stone-900 leading-tight mb-6">
-            Check whether a commercial site can carry the rent before you sign.
+            Avoid bad commercial lease commitments before you sign.
           </h1>
 
           <p className="text-lg text-stone-600 max-w-3xl mx-auto mb-8 leading-8">
             YieldLens UK helps founders, operators, and small business tenants
             pressure-test rent burden, break-even customers, upfront cash,
-            fit-out risk, downside trading, and six-month survival before
-            committing to a lease.
+            fit-out risk, downside trading, survival runway, and lease
+            questions before committing to a lease.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -285,11 +285,11 @@ export default function CommercialLeaseViabilityPage() {
               href="/check?mode=commercial"
               eventName="commercial_viability_page_cta_clicked"
               pagePath="/commercial-lease-viability-check"
-              ctaLabel="Run free commercial check"
+              ctaLabel="Start free commercial check"
               pageType="commercial_landing"
               className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
             >
-              Run free commercial check
+              Start free commercial check
             </TrackedCtaLink>
 
             <TrackedCtaLink
@@ -307,6 +307,21 @@ export default function CommercialLeaseViabilityPage() {
           <p className="text-xs text-stone-400 mt-5">
             YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
           </p>
+
+          <div className="mt-8 mx-auto max-w-2xl rounded-xl border border-stone-200 bg-stone-50 p-5 text-left">
+            <p className="text-xs uppercase tracking-widest text-teal-700 font-medium">
+              Standard commercial viability file
+            </p>
+            <p className="text-3xl font-bold mt-2 text-stone-900">£49</p>
+            <p className="text-sm text-stone-600 leading-7 mt-3">
+              Covers rent burden, break-even customers, upfront cash, downside
+              trading, survival runway, lease questions, and a due diligence
+              checklist.
+            </p>
+            <p className="text-xs text-stone-500 mt-3">
+              Checkout appears after a commercial report request.
+            </p>
+          </div>
         </div>
       </section>
 

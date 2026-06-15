@@ -3,16 +3,16 @@ import JsonLd from '@/components/JsonLd';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
-  title: 'Commercial Viability File UK',
+  title: 'YieldLens UK | Commercial Viability File',
   description:
-    'See what a YieldLens UK commercial viability file can include, from rent burden and break-even customers to upfront cash, downside trading, six-month survival, lease questions, and next checks.',
+    'Standard commercial viability file for YieldLens UK. See what the paid file can include after a free commercial check, from rent burden and break-even customers to upfront cash, downside trading, survival runway, lease questions, and next checks.',
   alternates: {
     canonical: '/viability-file',
   },
   openGraph: {
-    title: 'Commercial Viability File UK | YieldLens UK',
+    title: 'YieldLens UK | Commercial Viability File',
     description:
-      'A structured commercial lease decision file for pressure-testing a site before committing to rent, fit-out, deposits, legal work, or signing.',
+      'Standard commercial viability file for pressure-testing a site before committing to rent, fit-out, deposits, legal work, or signing.',
     url: 'https://yieldlens.co.uk/viability-file',
   },
 };
@@ -113,7 +113,7 @@ const workflowSteps = [
   {
     step: '3',
     title: 'Request a fuller file',
-    text: 'Use the saved result to request early access to a fuller viability file or view the printable preview.',
+    text: 'Use the saved result to request the fuller viability file or view the printable preview. Checkout appears after the commercial report request.',
   },
 ];
 
@@ -175,15 +175,16 @@ export default function ViabilityFilePage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
-                Commercial viability file
+                Standard commercial viability file
               </p>
 
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
-                Turn a commercial lease check into a structured decision file.
+                Standard commercial viability file, £49.
               </h1>
 
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                Organise the verdict, site snapshot, rent burden, break-even
+                This is the paid next step after a free commercial check. It
+                organises the verdict, site snapshot, rent burden, break-even
                 customers, upfront cash, downside trading, six-month survival,
                 lease questions, and next checks before you commit.
               </p>
@@ -214,6 +215,10 @@ export default function ViabilityFilePage() {
 
               <p className="text-xs text-stone-400 mt-5">
                 YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
+              </p>
+
+              <p className="text-xs text-stone-400 mt-3">
+                Checkout appears after a commercial report request.
               </p>
             </div>
 
@@ -262,7 +267,7 @@ export default function ViabilityFilePage() {
         <SectionTitle
           eyebrow="What it can include"
           title="A commercial file built around lease survival, not generic commentary."
-          description="The commercial version is designed to make the main lease risks visible in one place. It starts with the free check result, then organises the numbers and questions that should be reviewed before spending serious time, money, or negotiation effort."
+          description="The commercial version is designed to make the main lease risks visible in one place. It starts with the free check result, then organises the numbers and questions that should be reviewed before spending serious time, money, or negotiation effort. The paid file is £49 after a commercial report request."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -279,11 +284,11 @@ export default function ViabilityFilePage() {
 
       <section className="bg-white border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="How the flow works"
-            title="Free check first. Fuller file after there is a saved result."
-            description="The viability file is tied to a specific saved check. That keeps the output grounded in the rent, costs, opening cash, and downside trading assumptions entered for the site."
-          />
+        <SectionTitle
+          eyebrow="How the flow works"
+          title="Free check first. Fuller file after there is a saved result."
+          description="The viability file is tied to a specific saved check. That keeps the output grounded in the rent, costs, opening cash, and downside trading assumptions entered for the site. Checkout appears after the commercial report request."
+        />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {workflowSteps.map((item) => (
