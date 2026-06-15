@@ -356,9 +356,9 @@ function getWhatWouldNeedToImprove(request: ReportRequest): Array<{
       title: 'Rent burden',
       current:
         figures.rentBurden === null ? 'Not available' : `${figures.rentBurden.toFixed(1)}%`,
-      target: 'Under 18% is caution territory. Under 12% is healthier.',
+      target: '18% is the caution threshold. 12% is healthier.',
       action:
-        'Lower rent, raise revenue, or improve average spend and customer volume.',
+        'Lower rent, improve average spend, raise customer volume, or secure a stronger lease deal.',
     },
     {
       title: 'Break-even customers',
@@ -378,9 +378,9 @@ function getWhatWouldNeedToImprove(request: ReportRequest): Array<{
           : figures.cashAfterOpening < 0
             ? `Shortfall of ${shortfall ?? 'Not available'}`
             : `Buffer of ${formatCurrency(figures.cashAfterOpening)}`,
-      target: 'Leave enough cash after opening to handle launch friction.',
+      target: 'Leave a positive buffer after launch costs, ideally enough for early trading friction.',
       action:
-        'Increase starting cash, lower fit-out or setup costs, secure landlord contribution, or negotiate rent-free or reduced deposit terms.',
+        'Increase starting cash, lower fit-out or setup costs, secure landlord contribution, or negotiate rent-free and reduced deposit terms.',
     },
     {
       title: 'Downside survival',
@@ -479,12 +479,6 @@ function getStressTestScenarios(request: ReportRequest): Array<{
       baseCostBase === null || monthlyRent === null ? null : baseCostBase - monthlyRent * 0.1,
       'Shows the effect of a modest rent concession.'
     ),
-    row(
-      'Rent-free month',
-      baseRevenue,
-      baseCostBase === null || monthlyRent === null ? null : baseCostBase - monthlyRent,
-      'A rent-free period improves breathing room but does not fix the long-term trading model.'
-    ),
   ];
 }
 
@@ -508,7 +502,7 @@ function getNegotiationLevers(request: ReportRequest): Array<{
 
   return [
     {
-      title: 'Rent reduction',
+      title: 'Lower headline rent',
       priority: priority(highIfRentHeavy || highIfSurvivalWeak),
       text: 'Lower rent can move the site into a healthier burden band and reduce pressure on break-even customers.',
     },
@@ -518,7 +512,7 @@ function getNegotiationLevers(request: ReportRequest): Array<{
       text: 'A rent-free start gives the business more breathing room while trading settles and opening costs are absorbed.',
     },
     {
-      title: 'Landlord contribution to fit-out',
+      title: 'Landlord fit-out contribution',
       priority: priority(highIfNegativeCash),
       text: 'A contribution to fit-out reduces the opening capital stack and can close a shortfall before trading starts.',
     },
@@ -533,12 +527,12 @@ function getNegotiationLevers(request: ReportRequest): Array<{
       text: 'A break clause reduces the cost of a weak site if the trading case fails to improve.',
     },
     {
-      title: 'Cap on service charge',
+      title: 'Service charge cap',
       priority: priority(highIfRentHeavy),
       text: 'A cap keeps shared-cost pressure from drifting higher after the lease is signed.',
     },
     {
-      title: 'Clear repairing obligations',
+      title: 'Repairing obligations',
       priority: priority(highIfNegativeCash || highIfSurvivalWeak),
       text: 'Clear repair wording avoids hidden costs that can erode already thin margins.',
     },
@@ -706,6 +700,7 @@ function getFinalAssessment(request: ReportRequest): {
   renegotiate: string;
   verify: string;
   nextStep: string;
+  summary: string;
 } {
   const figures = getCommercialContext(request);
 
@@ -720,6 +715,8 @@ function getFinalAssessment(request: ReportRequest): {
         'Confirm fit-out quotes, deposit terms, landlord incentives, and whether the current cash stack is enough before trading begins.',
       nextStep:
         'Pause until the opening capital position improves, then retest the site on the revised numbers.',
+      summary:
+        `Final view: Pause unless the upfront capital position improves. The model does not currently fail because the downside month burns cash; it fails because upfront cash needed exceeds available starting cash. The priority is to renegotiate fit-out, deposit, rent-free terms, landlord contribution, or increase available starting cash before treating the site as viable.`,
     };
   }
 
@@ -734,6 +731,8 @@ function getFinalAssessment(request: ReportRequest): {
         'Confirm that the site can be funded to opening without stretching the cash buffer too far.',
       nextStep:
         'Renegotiate the upfront deal structure, then rerun the check with the revised terms.',
+      summary:
+        'Final view: Renegotiate upfront terms before signing. The downside month still covers operating costs, but the site does not yet have enough opening support to clear the six-month test comfortably.',
     };
   }
 
@@ -747,6 +746,8 @@ function getFinalAssessment(request: ReportRequest): {
         'Recheck footfall, average spend, and local competitor pressure before treating the site as a fit.',
       nextStep:
         'Renegotiate the rent position, then retest the site with the revised lease terms.',
+      summary:
+        'Final view: Renegotiate rent before signing. The lease economics need to improve before the numbers feel comfortable enough for a deeper due diligence pass.',
     };
   }
 
@@ -761,6 +762,8 @@ function getFinalAssessment(request: ReportRequest): {
         'Footfall, competitors, costs, rent review terms, repair obligations, and permitted use.',
       nextStep:
         'Proceed to deeper due diligence and keep pressure-testing the site before committing.',
+      summary:
+        'Final view: Proceed to deeper due diligence. The numbers are workable enough to keep going, but the lease still needs closer checking before any commitment.',
     };
   }
 
@@ -774,6 +777,8 @@ function getFinalAssessment(request: ReportRequest): {
       'Cost evidence, trading evidence, and any lease clauses that could increase the real risk.',
     nextStep:
       'Renegotiate the weak points, then rerun the check before deciding whether to continue.',
+    summary:
+      'Final view: Renegotiate and retest. The current assumptions do not yet give a clean enough result to move straight to commitment.',
   };
 }
 
@@ -1052,6 +1057,9 @@ export default function ViabilityFilePage() {
               <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-4">
                 What would need to improve?
               </p>
+              <p className="text-sm text-stone-600 leading-7 mb-4">
+                Treat 18% as the caution threshold and 12% as the healthier target. The question is whether the site mainly needs a better rent deal, stronger trading assumptions, or a stronger opening capital stack.
+              </p>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {getWhatWouldNeedToImprove(request).map((item) => (
                   <div key={item.title} className="rounded-lg border border-stone-200 bg-stone-50 p-4">
@@ -1218,6 +1226,7 @@ export default function ViabilityFilePage() {
                 return (
                   <div className="space-y-4">
                     <p className="text-lg font-semibold text-stone-900">{assessment.verdict}</p>
+                    <p className="text-sm text-stone-700 leading-7">{assessment.summary}</p>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                       <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
