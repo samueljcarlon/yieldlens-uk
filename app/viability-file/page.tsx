@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
@@ -211,6 +212,13 @@ export default function ViabilityFilePage() {
                 >
                   View printable preview
                 </TrackedCtaLink>
+
+                <Link
+                  href="/sample-commercial-viability-file"
+                  className="text-sm font-medium text-teal-300 hover:text-teal-200 self-center sm:self-auto"
+                >
+                  View sample file
+                </Link>
               </div>
 
               <p className="text-xs text-stone-400 mt-5">
@@ -333,6 +341,13 @@ export default function ViabilityFilePage() {
             >
               View printable preview
             </TrackedCtaLink>
+
+            <Link
+              href="/sample-commercial-viability-file"
+              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
+            >
+              View sample file
+            </Link>
           </div>
         </div>
       </section>
@@ -427,6 +442,13 @@ export default function ViabilityFilePage() {
             >
               View printable preview
             </TrackedCtaLink>
+
+            <Link
+              href="/sample-commercial-viability-file"
+              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
+            >
+              View sample file
+            </Link>
           </div>
         </div>
       </section>

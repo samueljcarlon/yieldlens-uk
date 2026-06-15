@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import ToolConversionPanel from '@/components/ToolConversionPanel';
@@ -303,6 +304,13 @@ export default function CommercialLeaseViabilityPage() {
               View viability file
             </TrackedCtaLink>
           </div>
+
+          <Link
+            href="/sample-commercial-viability-file"
+            className="inline-flex mt-4 text-sm font-medium text-teal-700 hover:text-teal-800"
+          >
+            View sample file
+          </Link>
 
           <p className="text-xs text-stone-400 mt-5">
             YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
@@ -617,6 +625,11 @@ export default function CommercialLeaseViabilityPage() {
             secondaryLabel="View viability file"
             secondaryHref="/viability-file"
           />
+          <div className="mt-4 text-center">
+            <Link href="/sample-commercial-viability-file" className="text-sm font-medium text-teal-700 hover:text-teal-800">
+              View sample file
+            </Link>
+          </div>
         </div>
       </section>
     </div>

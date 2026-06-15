@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/commercial-rent-burden-calculator',
     '/break-even-customers-calculator',
     '/commercial-lease-survival-calculator',
+    '/sample-commercial-viability-file',
     '/buy-to-let-yield-calculator',
     '/property-cash-flow-calculator',
     '/rent-affordability-check',

@@ -144,6 +144,13 @@ export default function HomePage() {
                 </TrackedCtaLink>
               </div>
 
+              <Link
+                href="/sample-commercial-viability-file"
+                className="inline-flex mt-4 text-sm font-medium text-teal-300 hover:text-teal-200"
+              >
+                View sample file
+              </Link>
+
               <p className="text-xs text-stone-400 mt-5">
                 YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
               </p>
