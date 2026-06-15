@@ -292,13 +292,15 @@ function ReportSection({
   title,
   intro,
   children,
+  className = '',
 }: {
   title: string;
   intro?: string;
   children: ReactNode;
+  className?: string;
 }) {
   return (
-    <section className="mb-8 break-inside-avoid">
+    <section className={`mb-8 break-inside-avoid ${className}`.trim()}>
       <div className="mb-4">
         <h3 className="text-lg font-bold text-stone-900">
           {title}
@@ -515,6 +517,7 @@ function CommercialRiskFindings({ flags }: { flags: RiskFlag[] }) {
     <ReportSection
       title="Report findings"
       intro="Use these findings to prioritise the evidence requests, lease questions, and cost checks before treating the site as robust."
+      className="print:break-after-page"
     >
       {flags.length > 0 ? (
         <div className="space-y-3">
@@ -577,6 +580,7 @@ function CommercialLeaseQuestions() {
     <ReportSection
       title="Lease and evidence questions"
       intro="A focused checklist for the assumptions that most affect the commercial lease case."
+      className="print:break-before-page"
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {questionGroups.map((group) => (
@@ -675,6 +679,21 @@ export default function ReportPage() {
   useEffect(() => {
     setSubmission(getLatestSubmission());
   }, []);
+
+  useEffect(() => {
+    const nextTitle = submission
+      ? submission.mode === 'commercial'
+        ? 'YieldLens UK | Commercial Viability File'
+        : 'YieldLens UK | Residential Viability File'
+      : 'YieldLens UK | Property Viability File';
+
+    const previousTitle = document.title;
+    document.title = nextTitle;
+
+    return () => {
+      document.title = previousTitle;
+    };
+  }, [submission]);
 
   if (!submission) {
     return (

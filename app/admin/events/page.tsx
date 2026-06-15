@@ -262,7 +262,7 @@ export default function ToolEventsAdminPage() {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
-            <p className="text-xs uppercase tracking-wide text-stone-400">Commercial CTA clicks</p>
+            <p className="text-xs uppercase tracking-wide text-stone-400">Commercial funnel events</p>
             <p className="text-2xl font-bold text-stone-900 mt-1">{commercialSummary.commercialCtaClicks}</p>
           </div>
 

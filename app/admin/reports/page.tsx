@@ -74,6 +74,18 @@ function getLocation(request: ReportRequest): string {
 
 const reportStatuses = ['requested', 'contacted', 'quoted', 'converted', 'lost'];
 
+function getCommercialVerdictLabel(verdictLabel: string): string {
+  const normalized = verdictLabel.trim().toLowerCase();
+
+  if (normalized === 'strong candidate') return 'Stronger case';
+  if (normalized === 'worth investigating') return 'Worth investigating';
+  if (normalized === 'marginal') return 'Needs caution';
+  if (normalized === 'weak') return 'Fragile';
+  if (normalized === 'avoid') return 'Weaker case';
+
+  return verdictLabel;
+}
+
 function getPriorityLabel(request: ReportRequest): {
   label: string;
   className: string;
@@ -424,7 +436,9 @@ export default function ReportRequestsAdminPage() {
                       </p>
 
                       <p className="text-sm font-medium text-teal-700">
-                        {request.verdictLabel}
+                        {request.mode === 'commercial'
+                          ? getCommercialVerdictLabel(request.verdictLabel)
+                          : request.verdictLabel}
                       </p>
                     </div>
 
@@ -495,7 +509,11 @@ export default function ReportRequestsAdminPage() {
 
             <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
               <p className="text-xs uppercase tracking-wide text-stone-400">Verdict</p>
-              <p className="font-semibold text-stone-900">{selectedRequest.verdictLabel}</p>
+              <p className="font-semibold text-stone-900">
+                {selectedRequest.mode === 'commercial'
+                  ? getCommercialVerdictLabel(selectedRequest.verdictLabel)
+                  : selectedRequest.verdictLabel}
+              </p>
             </div>
 
             <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
