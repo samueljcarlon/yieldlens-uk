@@ -66,14 +66,20 @@ function getCommercialVerdictLabel(verdictLabel: string): string {
   return verdictLabel;
 }
 
-function getRequestStatusLabel(status: ReportRequest['status']): string {
-  if (status === 'awaiting_info') return 'Awaiting info';
-
-  return status.charAt(0).toUpperCase() + status.slice(1);
-}
-
 function getShortReference(id: string): string {
   return id.slice(0, 8).toUpperCase();
+}
+
+function getOpeningShortfall(request: ReportRequest): string | null {
+  const result = request.result && typeof request.result === 'object'
+    ? (request.result as Record<string, unknown>)
+    : {};
+
+  const cashAfterOpening = toNumber(result.availableCashAfterOpening);
+
+  if (cashAfterOpening === null || cashAfterOpening >= 0) return null;
+
+  return formatCurrency(Math.abs(cashAfterOpening));
 }
 
 function getSiteSnapshotRows(request: ReportRequest): Array<{ label: string; value: string }> {
@@ -176,7 +182,11 @@ function getExecutiveSummary(request: ReportRequest): string {
   const survivesSixBadMonths = result.survivesSixBadMonths === true;
 
   if (cashAfterOpening !== null && cashAfterOpening < 0) {
-    return 'The opening capital stack does not work on the current inputs. The site needs more starting cash or lower upfront costs before it can be treated as viable.';
+    const upfrontCashNeeded = formatCurrency(result.upfrontCashNeeded);
+    const startingCash = formatCurrency(result.startingCash);
+    const shortfall = getOpeningShortfall(request) ?? 'Not available';
+
+    return `The opening capital stack does not work on the current inputs. Upfront cash needed is ${upfrontCashNeeded} against starting cash of ${startingCash}, leaving a ${shortfall} opening shortfall. The site needs more starting cash or lower upfront costs before it can be treated as viable.`;
   }
 
   if (rentBurden !== null && rentBurden > 18) {
@@ -198,30 +208,32 @@ function getExecutiveSummary(request: ReportRequest): string {
   return 'The current assumptions look workable, but the site still deserves deeper due diligence before signing. Keep pressure-testing the lease terms, trading assumptions, and opening cash needs.';
 }
 
-function getFinalView(request: ReportRequest): string {
+function getSurvivalExplanation(request: ReportRequest): string {
   const result = request.result && typeof request.result === 'object'
     ? (request.result as Record<string, unknown>)
     : {};
 
-  const rentBurden = toNumber(result.rentBurdenPercentage);
   const cashAfterOpening = toNumber(result.availableCashAfterOpening);
   const downsideMonthlyPosition = toNumber(result.downsideMonthlyPosition);
   const survivesSixBadMonths = result.survivesSixBadMonths === true;
 
+  if (cashAfterOpening !== null && cashAfterOpening < 0 && !survivesSixBadMonths) {
+    return 'The six-month test fails because the site does not have enough starting cash to cover upfront costs before trading begins, even though the downside month does not show operating burn.';
+  }
+
+  if (downsideMonthlyPosition !== null && downsideMonthlyPosition > 0 && !survivesSixBadMonths) {
+    return 'The downside month still covers operating costs, so the problem is upfront funding rather than monthly operating burn.';
+  }
+
   if (cashAfterOpening !== null && cashAfterOpening < 0) {
-    return 'Pause unless assumptions improve.';
+    return 'The six-month test fails because the opening capital stack leaves the site short before trading begins.';
   }
 
-  if (
-    (rentBurden !== null && rentBurden > 18) ||
-    (cashAfterOpening !== null && cashAfterOpening < 15000) ||
-    (downsideMonthlyPosition !== null && downsideMonthlyPosition < 0) ||
-    !survivesSixBadMonths
-  ) {
-    return 'Renegotiate rent and upfront terms before signing.';
+  if (!survivesSixBadMonths) {
+    return 'The six-month test fails because the site does not have enough runway on the current assumptions.';
   }
 
-  return 'Proceed to deeper due diligence.';
+  return 'The site clears the six-month survival test on the current assumptions.';
 }
 
 function getRiskInterpretation(request: ReportRequest): string[] {
@@ -243,7 +255,12 @@ function getRiskInterpretation(request: ReportRequest): string[] {
   }
 
   if (cashAfterOpening !== null && cashAfterOpening < 0) {
-    lines.push('The opening capital stack does not work on these inputs. Lower fit-out spend, deposit pressure, or additional starting cash would be needed.');
+    const shortfall = getOpeningShortfall(request);
+    lines.push(
+      shortfall
+        ? `The opening capital stack leaves a ${shortfall} shortfall before trading begins. Lower fit-out spend, deposit pressure, or additional starting cash would be needed.`
+        : 'The opening capital stack does not work on these inputs. Lower fit-out spend, deposit pressure, or additional starting cash would be needed.'
+    );
   } else if (cashAfterOpening !== null && cashAfterOpening < 15000) {
     lines.push('There is only a limited buffer after opening costs, so even modest overruns could make the site fragile.');
   }
@@ -255,6 +272,8 @@ function getRiskInterpretation(request: ReportRequest): string[] {
         ? 'The downside case burns cash each month.'
         : `The downside case burns about £${burn.toLocaleString('en-GB')} per month.`
     );
+  } else if (!survivesSixBadMonths && downsideMonthlyPosition !== null && downsideMonthlyPosition >= 0) {
+    lines.push('The downside month still covers operating costs, so the survival problem is upfront funding rather than monthly burn.');
   }
 
   if (!survivesSixBadMonths) {
@@ -270,6 +289,492 @@ function getRiskInterpretation(request: ReportRequest): string[] {
   }
 
   return lines;
+}
+
+function getCommercialContext(request: ReportRequest) {
+  const input = request.input && typeof request.input === 'object'
+    ? (request.input as Record<string, unknown>)
+    : {};
+  const result = request.result && typeof request.result === 'object'
+    ? (request.result as Record<string, unknown>)
+    : {};
+
+  const annualRent = toNumber(input.annualRent);
+  const monthlyRent = toNumber(result.monthlyRent) ?? (annualRent !== null ? annualRent / 12 : null);
+  const monthlyRevenue = toNumber(result.estimatedMonthlyRevenue);
+  const monthlyCostBase = toNumber(result.estimatedMonthlyCostBase);
+  const rentBurden = toNumber(result.rentBurdenPercentage);
+  const breakEven = toNumber(result.breakEvenCustomersPerDay);
+  const expectedCustomers = toNumber(input.expectedCustomersPerDay);
+  const averageSpend = toNumber(input.averageSpendPerCustomer);
+  const openingDays = toNumber(input.openingDaysPerMonth);
+  const upfrontCashNeeded = toNumber(result.upfrontCashNeeded);
+  const startingCash = toNumber(input.startingCash);
+  const cashAfterOpening = toNumber(result.availableCashAfterOpening);
+  const downsideRevenuePercentage = toNumber(result.downsideRevenuePercentage ?? input.downsideRevenuePercentage);
+  const downsideMonthlyRevenue = toNumber(result.downsideMonthlyRevenue);
+  const downsideMonthlyPosition = toNumber(result.downsideMonthlyPosition);
+  const monthlyBurnInDownside = toNumber(result.monthlyBurnInDownside);
+  const survivalMonths = toNumber(result.survivalMonths);
+  const survivesSixBadMonths = result.survivesSixBadMonths === true;
+
+  return {
+    input,
+    result,
+    annualRent,
+    monthlyRent,
+    monthlyRevenue,
+    monthlyCostBase,
+    rentBurden,
+    breakEven,
+    expectedCustomers,
+    averageSpend,
+    openingDays,
+    upfrontCashNeeded,
+    startingCash,
+    cashAfterOpening,
+    downsideRevenuePercentage,
+    downsideMonthlyRevenue,
+    downsideMonthlyPosition,
+    monthlyBurnInDownside,
+    survivalMonths,
+    survivesSixBadMonths,
+  };
+}
+
+function getWhatWouldNeedToImprove(request: ReportRequest): Array<{
+  title: string;
+  current: string;
+  target: string;
+  action: string;
+}> {
+  const figures = getCommercialContext(request);
+  const shortfall = getOpeningShortfall(request);
+
+  return [
+    {
+      title: 'Rent burden',
+      current:
+        figures.rentBurden === null ? 'Not available' : `${figures.rentBurden.toFixed(1)}%`,
+      target: 'Under 18% is caution territory. Under 12% is healthier.',
+      action:
+        'Lower rent, raise revenue, or improve average spend and customer volume.',
+    },
+    {
+      title: 'Break-even customers',
+      current:
+        figures.breakEven === null || figures.expectedCustomers === null
+          ? 'Not available'
+          : `${figures.breakEven.toFixed(1)} per day against ${figures.expectedCustomers.toFixed(1)} expected`,
+      target: 'Break-even should sit comfortably below expected customers per day.',
+      action:
+        'Increase customers per day, increase average spend, lower staffing or other costs, or reduce rent.',
+    },
+    {
+      title: 'Upfront cash',
+      current:
+        figures.cashAfterOpening === null
+          ? 'Not available'
+          : figures.cashAfterOpening < 0
+            ? `Shortfall of ${shortfall ?? 'Not available'}`
+            : `Buffer of ${formatCurrency(figures.cashAfterOpening)}`,
+      target: 'Leave enough cash after opening to handle launch friction.',
+      action:
+        'Increase starting cash, lower fit-out or setup costs, secure landlord contribution, or negotiate rent-free or reduced deposit terms.',
+    },
+    {
+      title: 'Downside survival',
+      current:
+        figures.survivalMonths === null
+          ? figures.survivesSixBadMonths
+            ? 'Passes on current assumptions'
+            : 'Not available'
+          : `${figures.survivalMonths.toFixed(1)} months`,
+      target: 'Six weak trading months is the minimum test here.',
+      action:
+        'Lower monthly burn, raise starting cash, or strengthen revenue assumptions before signing.',
+    },
+  ];
+}
+
+function getStressTestScenarios(request: ReportRequest): Array<{
+  label: string;
+  monthlyRevenue: string;
+  monthlyPosition: string;
+  breakEvenCustomers: string;
+  interpretation: string;
+}> {
+  const figures = getCommercialContext(request);
+  const avgSpend = figures.averageSpend;
+  const openingDays = figures.openingDays;
+  const monthlyRevenue = figures.monthlyRevenue;
+  const monthlyCostBase = figures.monthlyCostBase;
+  const monthlyRent = figures.monthlyRent;
+
+  const breakEvenForCostBase = () => {
+    if (
+      monthlyCostBase === null ||
+      avgSpend === null ||
+      openingDays === null ||
+      !avgSpend ||
+      !openingDays
+    ) {
+      return 'Not available';
+    }
+
+    return `${(monthlyCostBase / avgSpend / openingDays).toFixed(1)}`;
+  };
+
+  const breakEvenForCost = (cost: number | null) => {
+    if (cost === null || avgSpend === null || openingDays === null || !avgSpend || !openingDays) {
+      return 'Not available';
+    }
+
+    return `${(cost / avgSpend / openingDays).toFixed(1)}`;
+  };
+
+  const baseCostBase = monthlyCostBase;
+  const baseRevenue = monthlyRevenue;
+
+  const row = (label: string, revenue: number | null, cost: number | null, interpretation: string) => ({
+    label,
+    monthlyRevenue: formatCurrency(revenue),
+    monthlyPosition:
+      revenue === null || cost === null ? 'Not available' : formatCurrency(revenue - cost),
+    breakEvenCustomers:
+      label === 'Base case'
+        ? breakEvenForCostBase()
+        : breakEvenForCost(cost),
+    interpretation,
+  });
+
+  return [
+    row(
+      'Base case',
+      baseRevenue,
+      baseCostBase,
+      'Current assumptions as entered.'
+    ),
+    row(
+      'Revenue down 20%',
+      baseRevenue === null ? null : baseRevenue * 0.8,
+      baseCostBase,
+      'Useful for mild trading weakness without changing the cost base.'
+    ),
+    row(
+      'Revenue down 40%',
+      baseRevenue === null ? null : baseRevenue * 0.6,
+      baseCostBase,
+      'Shows whether the site still works if early trading is materially softer.'
+    ),
+    row(
+      'Costs up 15%',
+      baseRevenue,
+      baseCostBase === null ? null : baseCostBase * 1.15,
+      'Tests staff, rates, utilities, and operating pressure.'
+    ),
+    row(
+      'Rent reduced 10%',
+      baseRevenue,
+      baseCostBase === null || monthlyRent === null ? null : baseCostBase - monthlyRent * 0.1,
+      'Shows the effect of a modest rent concession.'
+    ),
+    row(
+      'Rent-free month',
+      baseRevenue,
+      baseCostBase === null || monthlyRent === null ? null : baseCostBase - monthlyRent,
+      'A rent-free period improves breathing room but does not fix the long-term trading model.'
+    ),
+  ];
+}
+
+function getNegotiationLevers(request: ReportRequest): Array<{
+  title: string;
+  priority: 'High' | 'Medium' | 'Low';
+  text: string;
+}> {
+  const figures = getCommercialContext(request);
+
+  const highIfCashTight = figures.cashAfterOpening !== null && figures.cashAfterOpening < 15000;
+  const highIfNegativeCash = figures.cashAfterOpening !== null && figures.cashAfterOpening < 0;
+  const highIfRentHeavy = figures.rentBurden !== null && figures.rentBurden > 18;
+  const highIfSurvivalWeak = !figures.survivesSixBadMonths;
+
+  const priority = (high: boolean, medium: boolean = false): 'High' | 'Medium' | 'Low' => {
+    if (high) return 'High';
+    if (medium) return 'Medium';
+    return 'Low';
+  };
+
+  return [
+    {
+      title: 'Rent reduction',
+      priority: priority(highIfRentHeavy || highIfSurvivalWeak),
+      text: 'Lower rent can move the site into a healthier burden band and reduce pressure on break-even customers.',
+    },
+    {
+      title: 'Rent-free period',
+      priority: priority(highIfNegativeCash || highIfCashTight),
+      text: 'A rent-free start gives the business more breathing room while trading settles and opening costs are absorbed.',
+    },
+    {
+      title: 'Landlord contribution to fit-out',
+      priority: priority(highIfNegativeCash),
+      text: 'A contribution to fit-out reduces the opening capital stack and can close a shortfall before trading starts.',
+    },
+    {
+      title: 'Reduced deposit',
+      priority: priority(highIfNegativeCash || highIfCashTight),
+      text: 'A smaller deposit keeps more cash in the business for launch costs and early working capital.',
+    },
+    {
+      title: 'Break clause',
+      priority: priority(highIfSurvivalWeak),
+      text: 'A break clause reduces the cost of a weak site if the trading case fails to improve.',
+    },
+    {
+      title: 'Cap on service charge',
+      priority: priority(highIfRentHeavy),
+      text: 'A cap keeps shared-cost pressure from drifting higher after the lease is signed.',
+    },
+    {
+      title: 'Clear repairing obligations',
+      priority: priority(highIfNegativeCash || highIfSurvivalWeak),
+      text: 'Clear repair wording avoids hidden costs that can erode already thin margins.',
+    },
+    {
+      title: 'Permitted use flexibility',
+      priority: priority(highIfSurvivalWeak),
+      text: 'Flexible permitted use helps if the original trading concept needs to adapt after opening.',
+    },
+  ];
+}
+
+function getEvidenceSections(): Array<{
+  title: string;
+  items: string[];
+}> {
+  return [
+    {
+      title: 'A. Trading evidence',
+      items: [
+        'Footfall counts',
+        'Competitor observations',
+        'Average spend validation',
+        'Opening-hours assumption',
+        'Local demand',
+      ],
+    },
+    {
+      title: 'B. Cost evidence',
+      items: [
+        'Business rates bill or estimate',
+        'Utility estimate',
+        'Insurance',
+        'Service charge',
+        'Fit-out quotes',
+        'Legal fees',
+      ],
+    },
+    {
+      title: 'C. Lease and legal evidence',
+      items: [
+        'Rent review',
+        'Break clause',
+        'Repairing obligations',
+        'Assignment and subletting',
+        'Planning and licensing',
+        'Handover condition',
+      ],
+    },
+  ];
+}
+
+function getDecisionMatrix(request: ReportRequest): Array<{
+  area: string;
+  signal: string;
+  improve: string;
+  priority: 'High' | 'Medium' | 'Low';
+}> {
+  const figures = getCommercialContext(request);
+
+  const missingCoreInputs = [
+    figures.input.businessType,
+    figures.input.monthlyStaffCosts,
+    figures.input.monthlyUtilitiesAndOtherCosts,
+    figures.input.monthlyBusinessRates,
+    figures.input.fitOutBudget,
+    figures.input.rentDeposit,
+    figures.input.legalFees,
+    figures.input.openingStock,
+    figures.input.otherSetupCosts,
+    figures.input.startingCash,
+    figures.input.downsideRevenuePercentage,
+  ].filter((value) => value === undefined || value === null || value === '').length;
+
+  const customerPriority =
+    figures.breakEven !== null &&
+    figures.expectedCustomers !== null &&
+    figures.breakEven > figures.expectedCustomers
+      ? 'High'
+      : figures.breakEven !== null &&
+        figures.expectedCustomers !== null &&
+        figures.breakEven > figures.expectedCustomers * 0.8
+        ? 'Medium'
+        : 'Low';
+
+  return [
+    {
+      area: 'Rent burden',
+      signal:
+        figures.rentBurden === null
+          ? 'Not available'
+          : `${figures.rentBurden.toFixed(1)}% of revenue`,
+      improve: 'Lower rent, higher revenue, or stronger spend and customer assumptions.',
+      priority:
+        figures.rentBurden !== null && figures.rentBurden > 18
+          ? 'High'
+          : figures.rentBurden !== null && figures.rentBurden > 12
+            ? 'Medium'
+            : 'Low',
+    },
+    {
+      area: 'Customer assumptions',
+      signal:
+        figures.breakEven === null || figures.expectedCustomers === null
+          ? 'Not available'
+          : `${figures.breakEven.toFixed(1)} break-even/day vs ${figures.expectedCustomers.toFixed(1)} expected`,
+      improve: 'Increase customers per day, increase average spend, or reduce fixed costs.',
+      priority: customerPriority,
+    },
+    {
+      area: 'Upfront cash',
+      signal:
+        figures.cashAfterOpening === null
+          ? 'Not available'
+          : figures.cashAfterOpening < 0
+            ? `Shortfall of ${getOpeningShortfall(request) ?? 'Not available'}`
+            : `Buffer of ${formatCurrency(figures.cashAfterOpening)}`,
+      improve: 'Increase starting cash, lower fit-out/setup costs, or improve landlord support.',
+      priority:
+        figures.cashAfterOpening !== null && figures.cashAfterOpening < 0
+          ? 'High'
+          : figures.cashAfterOpening !== null && figures.cashAfterOpening < 15000
+            ? 'Medium'
+            : 'Low',
+    },
+    {
+      area: 'Downside survival',
+      signal:
+        figures.survivalMonths === null
+          ? figures.survivesSixBadMonths
+            ? 'Pass'
+            : 'Not available'
+          : `${figures.survivalMonths.toFixed(1)} months`,
+      improve: 'Lower monthly burn, stronger revenue, or more starting cash.',
+      priority: !figures.survivesSixBadMonths ? 'High' : figures.survivalMonths !== null && figures.survivalMonths < 6 ? 'Medium' : 'Low',
+    },
+    {
+      area: 'Lease terms',
+      signal:
+        figures.rentBurden !== null && figures.rentBurden > 18
+          ? 'Needs tighter economics'
+          : 'Still worth checking carefully',
+      improve: 'Improve rent, break clause, deposit, service charge, and permitted use terms.',
+      priority:
+        figures.rentBurden !== null && figures.rentBurden > 18
+          ? 'High'
+          : figures.cashAfterOpening !== null && figures.cashAfterOpening < 15000
+            ? 'Medium'
+            : 'Low',
+    },
+    {
+      area: 'Missing evidence',
+      signal:
+        missingCoreInputs > 0
+          ? `${missingCoreInputs} core inputs still need evidence`
+          : 'Core inputs are mostly filled',
+      improve: 'Add the missing trading, cost, and lease evidence before signing.',
+      priority: missingCoreInputs > 3 ? 'High' : missingCoreInputs > 0 ? 'Medium' : 'Low',
+    },
+  ];
+}
+
+function getFinalAssessment(request: ReportRequest): {
+  verdict: string;
+  reason: string;
+  renegotiate: string;
+  verify: string;
+  nextStep: string;
+} {
+  const figures = getCommercialContext(request);
+
+  if (figures.cashAfterOpening !== null && figures.cashAfterOpening < 0) {
+    return {
+      verdict: 'Pause unless assumptions improve.',
+      reason:
+        `Upfront cash needed is ${formatCurrency(figures.upfrontCashNeeded)} against starting cash of ${formatCurrency(figures.startingCash)}, leaving an opening shortfall of ${getOpeningShortfall(request) ?? 'Not available'}.`,
+      renegotiate:
+        'Fit-out, deposit, rent-free period, landlord contribution, or any other term that improves the opening capital stack.',
+      verify:
+        'Confirm fit-out quotes, deposit terms, landlord incentives, and whether the current cash stack is enough before trading begins.',
+      nextStep:
+        'Pause until the opening capital position improves, then retest the site on the revised numbers.',
+    };
+  }
+
+  if (!figures.survivesSixBadMonths && figures.downsideMonthlyPosition !== null && figures.downsideMonthlyPosition >= 0) {
+    return {
+      verdict: 'Renegotiate upfront terms before signing.',
+      reason:
+        'The downside month still covers operating costs, so the issue is funding before opening rather than monthly burn after launch.',
+      renegotiate:
+        'Rent-free time, reduced deposit, landlord contribution, or lower fit-out costs.',
+      verify:
+        'Confirm that the site can be funded to opening without stretching the cash buffer too far.',
+      nextStep:
+        'Renegotiate the upfront deal structure, then rerun the check with the revised terms.',
+    };
+  }
+
+  if (figures.rentBurden !== null && figures.rentBurden > 18) {
+    return {
+      verdict: 'Renegotiate rent before signing.',
+      reason: `Rent burden is ${figures.rentBurden.toFixed(1)}% of expected monthly revenue, which is high enough to demand stronger trading or a better lease deal.`,
+      renegotiate:
+        'Rent level, break clause, service charge cap, and any landlord support that improves the monthly cost base.',
+      verify:
+        'Recheck footfall, average spend, and local competitor pressure before treating the site as a fit.',
+      nextStep:
+        'Renegotiate the rent position, then retest the site with the revised lease terms.',
+    };
+  }
+
+  if (figures.survivesSixBadMonths) {
+    return {
+      verdict: 'Proceed to deeper due diligence.',
+      reason:
+        'The current assumptions look workable on the numbers, but the lease still needs closer checking before any commitment.',
+      renegotiate:
+        'Use the due diligence pass to improve any remaining weak lease points before signing.',
+      verify:
+        'Footfall, competitors, costs, rent review terms, repair obligations, and permitted use.',
+      nextStep:
+        'Proceed to deeper due diligence and keep pressure-testing the site before committing.',
+    };
+  }
+
+  return {
+    verdict: 'Renegotiate and retest.',
+    reason:
+      'The site does not clear the full survival test on the current assumptions, so more breathing room is needed before the numbers feel comfortable.',
+    renegotiate:
+      'Rent, upfront costs, opening cash, or the lease terms that drive the weakest parts of the model.',
+    verify:
+      'Cost evidence, trading evidence, and any lease clauses that could increase the real risk.',
+    nextStep:
+      'Renegotiate the weak points, then rerun the check before deciding whether to continue.',
+  };
 }
 
 function getChecklistItems(): string[] {
@@ -371,8 +876,18 @@ export default function ViabilityFilePage() {
 
   return (
     <div className="min-h-screen bg-white text-stone-900 print:bg-white">
+      <style jsx global>{`
+        @media print {
+          header,
+          nav,
+          footer,
+          .admin-print-hide {
+            display: none !important;
+          }
+        }
+      `}</style>
       <div className="max-w-5xl mx-auto px-4 py-6 sm:py-10">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 print:hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 print:hidden admin-print-hide">
           <div>
             <p className="text-xs uppercase tracking-widest text-teal-700 font-medium">
               Internal fulfilment view
@@ -404,7 +919,7 @@ export default function ViabilityFilePage() {
           </div>
         </div>
 
-        <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm print:hidden mb-6">
+        <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm print:hidden admin-print-hide mb-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 lg:items-end">
             <div>
               <label className="block text-xs uppercase tracking-wide text-stone-400 font-medium mb-1">
@@ -462,7 +977,7 @@ export default function ViabilityFilePage() {
                 </div>
 
                 <div className="max-w-md rounded-lg bg-stone-50 border border-stone-200 p-4 text-sm text-stone-600">
-                  YieldLens UK provides indicative decision-support only. It is not a formal valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
+                  YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
                 </div>
               </div>
             </section>
@@ -484,9 +999,6 @@ export default function ViabilityFilePage() {
                 <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 min-w-[220px]">
                   <p className="text-xs uppercase tracking-wide text-stone-400">Score</p>
                   <p className="text-3xl font-bold text-stone-900 mt-1">{request.score}/100</p>
-                  <p className="text-xs text-stone-500 mt-2">
-                    Request status: {getRequestStatusLabel(request.status)}
-                  </p>
                 </div>
               </div>
             </section>
@@ -530,6 +1042,131 @@ export default function ViabilityFilePage() {
                     <p className="font-semibold text-stone-900 mt-1">{row.value}</p>
                   </div>
                 ))}
+              </div>
+              <p className="text-sm text-stone-700 leading-7 mt-4">
+                {getSurvivalExplanation(request)}
+              </p>
+            </section>
+
+            <section className="border border-stone-200 rounded-xl p-6 shadow-sm break-inside-avoid">
+              <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-4">
+                What would need to improve?
+              </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {getWhatWouldNeedToImprove(request).map((item) => (
+                  <div key={item.title} className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+                        <p className="text-xs uppercase tracking-wide text-stone-400 mt-1">Current</p>
+                        <p className="text-sm text-stone-700 mt-1">{item.current}</p>
+                      </div>
+                    </div>
+                    <p className="text-xs uppercase tracking-wide text-stone-400 mt-3">Target</p>
+                    <p className="text-sm text-stone-700 mt-1">{item.target}</p>
+                    <p className="text-xs uppercase tracking-wide text-stone-400 mt-3">What would help</p>
+                    <p className="text-sm text-stone-700 mt-1 leading-6">{item.action}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="border border-stone-200 rounded-xl p-6 shadow-sm break-inside-avoid">
+              <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-4">
+                Stress-test scenarios
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="text-left border-b border-stone-200">
+                      <th className="py-3 pr-4 font-semibold text-stone-700">Scenario</th>
+                      <th className="py-3 pr-4 font-semibold text-stone-700">Estimated monthly revenue</th>
+                      <th className="py-3 pr-4 font-semibold text-stone-700">Estimated monthly position</th>
+                      <th className="py-3 pr-4 font-semibold text-stone-700">Break-even/day</th>
+                      <th className="py-3 font-semibold text-stone-700">Interpretation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getStressTestScenarios(request).map((row) => (
+                      <tr key={row.label} className="border-b border-stone-100 align-top">
+                        <td className="py-3 pr-4 font-medium text-stone-900">{row.label}</td>
+                        <td className="py-3 pr-4 text-stone-700">{row.monthlyRevenue}</td>
+                        <td className="py-3 pr-4 text-stone-700">{row.monthlyPosition}</td>
+                        <td className="py-3 pr-4 text-stone-700">{row.breakEvenCustomers}</td>
+                        <td className="py-3 text-stone-600 leading-6">{row.interpretation}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section className="border border-stone-200 rounded-xl p-6 shadow-sm break-inside-avoid">
+              <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-4">
+                Negotiation levers
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {getNegotiationLevers(request).map((item) => (
+                  <div key={item.title} className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+                      <span className="rounded-full border border-stone-200 bg-white px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
+                        {item.priority}
+                      </span>
+                    </div>
+                    <p className="text-sm text-stone-700 leading-6 mt-2">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="border border-stone-200 rounded-xl p-6 shadow-sm break-inside-avoid">
+              <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-4">
+                Evidence needed before signing
+              </p>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                {getEvidenceSections().map((section) => (
+                  <div key={section.title} className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+                    <p className="text-sm font-semibold text-stone-900">{section.title}</p>
+                    <ul className="mt-3 space-y-2 text-sm text-stone-700 leading-6">
+                      {section.items.map((item) => (
+                        <li key={item} className="flex gap-2">
+                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-teal-600 shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="border border-stone-200 rounded-xl p-6 shadow-sm break-inside-avoid">
+              <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-4">
+                Decision matrix
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="text-left border-b border-stone-200">
+                      <th className="py-3 pr-4 font-semibold text-stone-700">Area</th>
+                      <th className="py-3 pr-4 font-semibold text-stone-700">Current signal</th>
+                      <th className="py-3 pr-4 font-semibold text-stone-700">What would improve it</th>
+                      <th className="py-3 font-semibold text-stone-700">Priority</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getDecisionMatrix(request).map((row) => (
+                      <tr key={row.area} className="border-b border-stone-100 align-top">
+                        <td className="py-3 pr-4 font-medium text-stone-900">{row.area}</td>
+                        <td className="py-3 pr-4 text-stone-700 leading-6">{row.signal}</td>
+                        <td className="py-3 pr-4 text-stone-700 leading-6">{row.improve}</td>
+                        <td className="py-3 text-stone-700">{row.priority}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </section>
 
@@ -575,9 +1212,37 @@ export default function ViabilityFilePage() {
               <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
                 Final view
               </p>
-              <p className="text-lg font-semibold text-stone-900">
-                {getFinalView(request)}
-              </p>
+              {(() => {
+                const assessment = getFinalAssessment(request);
+
+                return (
+                  <div className="space-y-4">
+                    <p className="text-lg font-semibold text-stone-900">{assessment.verdict}</p>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                      <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+                        <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">Main reason</p>
+                        <p className="text-sm text-stone-700 leading-7 mt-1">{assessment.reason}</p>
+                      </div>
+
+                      <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+                        <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">What to renegotiate</p>
+                        <p className="text-sm text-stone-700 leading-7 mt-1">{assessment.renegotiate}</p>
+                      </div>
+
+                      <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+                        <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">What to verify</p>
+                        <p className="text-sm text-stone-700 leading-7 mt-1">{assessment.verify}</p>
+                      </div>
+
+                      <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+                        <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">Next step</p>
+                        <p className="text-sm text-stone-700 leading-7 mt-1">{assessment.nextStep}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
             </section>
           </main>
         )}
