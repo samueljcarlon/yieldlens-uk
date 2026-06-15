@@ -20,6 +20,25 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment
+
+The app expects these environment variables for the commercial funnel and admin tools:
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `ADMIN_PIN`
+- `NEXT_PUBLIC_SITE_URL`
+
+Stripe test-mode checkout also needs:
+
+- `STRIPE_SECRET_KEY`
+
+Stripe webhooks are not implemented yet. When that sprint lands, add:
+
+- `STRIPE_WEBHOOK_SECRET`
+
+Stripe should remain in test mode at this stage. Payment status is recorded when the checkout session is created, but paid status will not be confirmed automatically until webhook handling is added.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

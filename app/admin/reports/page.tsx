@@ -9,6 +9,7 @@ import {
   type ReportRequest,
   type ReportRequestFulfilmentStatus,
   type ReportRequestLeadQuality,
+  type ReportRequestPaymentStatus,
   type ReportRequestStatus,
 } from '@/lib/reportRequests';
 
@@ -218,6 +219,31 @@ function formatOptionalDate(value?: string | null): string {
   return value ? formatDate(value) : 'Not available';
 }
 
+function formatPenceAmount(value?: number | null, currency = 'GBP'): string {
+  if (value === undefined || value === null) return 'Not available';
+
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: 0,
+  }).format(value / 100);
+}
+
+function getPaymentStatusLabel(value: ReportRequestPaymentStatus | null | undefined): string {
+  if (!value) return 'Not set';
+
+  const labels: Record<ReportRequestPaymentStatus, string> = {
+    not_required: 'Not required',
+    unpaid: 'Unpaid',
+    checkout_started: 'Checkout started',
+    paid: 'Paid',
+    refunded: 'Refunded',
+    failed: 'Failed',
+  };
+
+  return labels[value];
+}
+
 function getPriorityLabel(request: ReportRequest): {
   label: string;
   className: string;
@@ -264,6 +290,8 @@ export default function ReportRequestsAdminPage() {
   const [detailInternalNotes, setDetailInternalNotes] = useState('');
   const [detailSaveError, setDetailSaveError] = useState('');
   const [detailSaving, setDetailSaving] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState('');
 
   useEffect(() => {
     if (!selectedRequest) return;
@@ -273,6 +301,7 @@ export default function ReportRequestsAdminPage() {
     setDetailLeadQuality(selectedRequest.leadQuality ?? null);
     setDetailInternalNotes(selectedRequest.internalNotes ?? '');
     setDetailSaveError('');
+    setCheckoutError('');
   }, [selectedRequest]);
 
   const filteredRequests = useMemo(() => {
@@ -408,6 +437,45 @@ export default function ReportRequestsAdminPage() {
       setDetailSaveError(message);
     } finally {
       setDetailSaving(false);
+    }
+  };
+
+  const handleCreateTestCheckout = async () => {
+    if (!selectedRequest || selectedRequest.mode !== 'commercial') return;
+
+    setCheckoutError('');
+    setCheckoutLoading(true);
+
+    try {
+      const response = await fetch('/api/report-payment/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-pin': adminPin,
+        },
+        body: JSON.stringify({
+          reportRequestId: selectedRequest.id,
+        }),
+      });
+
+      if (!response.ok) {
+        const body = await response.text();
+        throw new Error(body || 'Failed to create test checkout.');
+      }
+
+      const data = (await response.json()) as { checkoutUrl?: string };
+
+      if (!data.checkoutUrl) {
+        throw new Error('Stripe checkout URL was not returned.');
+      }
+
+      window.location.href = data.checkoutUrl;
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : 'Failed to create test checkout.';
+      setCheckoutError(message);
+    } finally {
+      setCheckoutLoading(false);
     }
   };
 
@@ -933,6 +1001,74 @@ export default function ReportRequestsAdminPage() {
                 <p className="text-sm text-red-600">{detailSaveError}</p>
               )}
             </div>
+          </div>
+
+          <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+              <div>
+                <p className="font-semibold text-stone-900">Payment</p>
+                <p className="text-xs text-stone-500 mt-1">
+                  Stripe test mode only. Paid status still needs webhook confirmation later.
+                </p>
+              </div>
+
+              {selectedRequest.mode === 'commercial' && (
+                <button
+                  type="button"
+                  onClick={handleCreateTestCheckout}
+                  disabled={!adminPin || checkoutLoading || selectedRequest.paymentStatus === 'paid'}
+                  className="bg-stone-900 text-white px-4 py-2 rounded text-sm font-medium hover:bg-stone-800 disabled:opacity-50"
+                >
+                  {checkoutLoading ? 'Creating checkout...' : 'Create test checkout'}
+                </button>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
+              <div>
+                <p className="text-xs uppercase tracking-wide text-stone-400">Payment status</p>
+                <p className="font-medium text-stone-900">
+                  {getPaymentStatusLabel(selectedRequest.paymentStatus)}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs uppercase tracking-wide text-stone-400">Amount due</p>
+                <p className="font-medium text-stone-900">
+                  {formatPenceAmount(selectedRequest.amountDuePence, selectedRequest.currency)}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs uppercase tracking-wide text-stone-400">Amount paid</p>
+                <p className="font-medium text-stone-900">
+                  {formatPenceAmount(selectedRequest.amountPaidPence, selectedRequest.currency)}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs uppercase tracking-wide text-stone-400">Currency</p>
+                <p className="font-medium text-stone-900">{selectedRequest.currency || 'Not available'}</p>
+              </div>
+
+              <div className="sm:col-span-2">
+                <p className="text-xs uppercase tracking-wide text-stone-400">Stripe checkout session id</p>
+                <p className="font-medium text-stone-900 break-words">
+                  {selectedRequest.stripeCheckoutSessionId || 'Not available'}
+                </p>
+              </div>
+
+              <div className="sm:col-span-2 lg:col-span-3">
+                <p className="text-xs uppercase tracking-wide text-stone-400">Stripe payment intent id</p>
+                <p className="font-medium text-stone-900 break-words">
+                  {selectedRequest.stripePaymentIntentId || 'Not available'}
+                </p>
+              </div>
+            </div>
+
+            {checkoutError && (
+              <p className="text-sm text-red-600 mt-3">{checkoutError}</p>
+            )}
           </div>
 
           {selectedRequest.mode === 'commercial' && (

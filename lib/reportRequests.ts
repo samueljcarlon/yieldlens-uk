@@ -23,6 +23,14 @@ export type ReportRequestFulfilmentStatus =
   | 'sent'
   | 'closed';
 
+export type ReportRequestPaymentStatus =
+  | 'not_required'
+  | 'unpaid'
+  | 'checkout_started'
+  | 'paid'
+  | 'refunded'
+  | 'failed';
+
 export interface ReportRequest {
   id: string;
   createdAt: string;
@@ -38,6 +46,12 @@ export interface ReportRequest {
   fulfilmentStatus: ReportRequestFulfilmentStatus;
   leadQuality: ReportRequestLeadQuality | null;
   internalNotes: string | null;
+  paymentStatus: ReportRequestPaymentStatus;
+  amountDuePence: number | null;
+  amountPaidPence: number | null;
+  currency: string;
+  stripeCheckoutSessionId: string | null;
+  stripePaymentIntentId: string | null;
   updatedAt: string;
   contactedAt: string | null;
   input: unknown;
