@@ -1008,7 +1008,7 @@ export default function ReportRequestsAdminPage() {
               <div>
                 <p className="font-semibold text-stone-900">Payment</p>
                 <p className="text-xs text-stone-500 mt-1">
-                  Stripe test mode only. Paid status still needs webhook confirmation later.
+                  Stripe test mode only. Paid status is confirmed by the Stripe webhook.
                 </p>
               </div>
 

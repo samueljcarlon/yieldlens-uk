@@ -119,6 +119,13 @@ export async function POST(request: NextRequest) {
         mode: reportRequest.mode,
         requested_report_type: reportRequest.requested_report_type,
       },
+      payment_intent_data: {
+        metadata: {
+          report_request_id: reportRequest.id,
+          mode: reportRequest.mode,
+          requested_report_type: reportRequest.requested_report_type,
+        },
+      },
       line_items: [
         {
           quantity: 1,

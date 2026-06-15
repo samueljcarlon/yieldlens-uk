@@ -37,7 +37,18 @@ Stripe webhooks are not implemented yet. When that sprint lands, add:
 
 - `STRIPE_WEBHOOK_SECRET`
 
-Stripe should remain in test mode at this stage. Payment status is recorded when the checkout session is created, but paid status will not be confirmed automatically until webhook handling is added.
+Stripe should remain in test mode at this stage. Payment status is recorded when the checkout session is created, and paid status is confirmed by the webhook.
+
+Stripe webhook handling uses:
+
+- `STRIPE_WEBHOOK_SECRET`
+- webhook endpoint: `/api/stripe/webhook`
+
+For local testing, point Stripe CLI at the local webhook route:
+
+```bash
+stripe listen --forward-to localhost:3000/api/stripe/webhook
+```
 
 ## Learn More
 
