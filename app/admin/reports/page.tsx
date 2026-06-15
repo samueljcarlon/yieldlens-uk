@@ -1,11 +1,15 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
   getRemoteReportRequests,
+  updateReportRequest,
   updateReportRequestStatus,
   type ReportRequest,
+  type ReportRequestFulfilmentStatus,
+  type ReportRequestLeadQuality,
+  type ReportRequestStatus,
 } from '@/lib/reportRequests';
 
 function formatDate(value: string): string {
@@ -72,7 +76,7 @@ function getLocation(request: ReportRequest): string {
   return request.postcode || request.address || 'No location provided';
 }
 
-const reportStatuses = [
+const reportStatuses: ReportRequestStatus[] = [
   'requested',
   'reviewed',
   'contacted',
@@ -83,7 +87,32 @@ const reportStatuses = [
   'lost',
 ];
 
-const visibleStatuses = ['requested', 'reviewed', 'contacted', 'awaiting_info', 'converted', 'closed'];
+const visibleStatuses: Array<'requested' | 'reviewed' | 'contacted' | 'awaiting_info' | 'converted' | 'closed'> = [
+  'requested',
+  'reviewed',
+  'contacted',
+  'awaiting_info',
+  'converted',
+  'closed',
+];
+
+const fulfilmentStatuses: ReportRequestFulfilmentStatus[] = [
+  'not_started',
+  'awaiting_info',
+  'in_review',
+  'ready',
+  'sent',
+  'closed',
+];
+
+const leadQualityOptions: Array<ReportRequestLeadQuality | null> = [
+  null,
+  'unqualified',
+  'low',
+  'warm',
+  'high',
+  'priority',
+];
 
 function getCommercialVerdictLabel(verdictLabel: string): string {
   const normalized = verdictLabel.trim().toLowerCase();
@@ -103,6 +132,31 @@ function getStatusLabel(status: string): string {
   if (normalized === 'awaiting_info') return 'Awaiting info';
 
   return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+function getFulfilmentStatusLabel(status: string): string {
+  const normalized = status.trim().toLowerCase();
+
+  if (normalized === 'not_started') return 'Not started';
+  if (normalized === 'awaiting_info') return 'Awaiting info';
+  if (normalized === 'in_review') return 'In review';
+  if (normalized === 'closed') return 'Closed';
+
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+function getLeadQualityLabel(value: ReportRequestLeadQuality | null | undefined): string {
+  if (!value) return 'Not set';
+
+  const labels: Record<ReportRequestLeadQuality, string> = {
+    unqualified: 'Unqualified',
+    low: 'Low',
+    warm: 'Warm',
+    high: 'High',
+    priority: 'Priority',
+  };
+
+  return labels[value];
 }
 
 function formatFieldValue(value: unknown): string {
@@ -160,6 +214,10 @@ function getCommercialResultRows(result: unknown): Array<{ label: string; value:
   ];
 }
 
+function formatOptionalDate(value?: string | null): string {
+  return value ? formatDate(value) : 'Not available';
+}
+
 function getPriorityLabel(request: ReportRequest): {
   label: string;
   className: string;
@@ -200,6 +258,22 @@ export default function ReportRequestsAdminPage() {
   const [statusFilter, setStatusFilter] = useState<'all' | typeof visibleStatuses[number]>('all');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [detailStatus, setDetailStatus] = useState<ReportRequestStatus>('requested');
+  const [detailFulfilmentStatus, setDetailFulfilmentStatus] = useState<ReportRequestFulfilmentStatus>('not_started');
+  const [detailLeadQuality, setDetailLeadQuality] = useState<ReportRequestLeadQuality | null>(null);
+  const [detailInternalNotes, setDetailInternalNotes] = useState('');
+  const [detailSaveError, setDetailSaveError] = useState('');
+  const [detailSaving, setDetailSaving] = useState(false);
+
+  useEffect(() => {
+    if (!selectedRequest) return;
+
+    setDetailStatus(selectedRequest.status);
+    setDetailFulfilmentStatus(selectedRequest.fulfilmentStatus);
+    setDetailLeadQuality(selectedRequest.leadQuality ?? null);
+    setDetailInternalNotes(selectedRequest.internalNotes ?? '');
+    setDetailSaveError('');
+  }, [selectedRequest]);
 
   const filteredRequests = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();
@@ -235,7 +309,7 @@ export default function ReportRequestsAdminPage() {
     };
   }, [requests]);
 
-  const handleStatusChange = async (requestId: string, nextStatus: string) => {
+  const handleStatusChange = async (requestId: string, nextStatus: ReportRequestStatus) => {
     setError('');
 
     try {
@@ -245,23 +319,95 @@ export default function ReportRequestsAdminPage() {
         adminPin,
       });
 
+      const now = new Date().toISOString();
+
       setRequests((current) =>
-        current.map((request) =>
-          request.id === requestId
-            ? { ...request, status: nextStatus }
-            : request
-        )
+        current.map((request) => {
+          if (request.id !== requestId) return request;
+
+          return {
+            ...request,
+            status: nextStatus,
+            updatedAt: now,
+            contactedAt:
+              nextStatus === 'contacted' && !request.contactedAt
+                ? now
+                : request.contactedAt,
+          };
+        })
       );
 
       setSelectedRequest((current) =>
         current && current.id === requestId
-          ? { ...current, status: nextStatus }
+          ? {
+              ...current,
+              status: nextStatus,
+              updatedAt: now,
+              contactedAt:
+                nextStatus === 'contacted' && !current.contactedAt
+                  ? now
+                  : current.contactedAt,
+            }
           : current
       );
     } catch (err) {
       const message =
         err instanceof Error ? err.message : 'Failed to update status.';
       setError(message);
+    }
+  };
+
+  const updateLocalRequest = (requestId: string, patch: Partial<ReportRequest>) => {
+    setRequests((current) =>
+      current.map((request) =>
+        request.id === requestId
+          ? { ...request, ...patch }
+          : request
+      )
+    );
+
+    setSelectedRequest((current) =>
+      current && current.id === requestId
+        ? { ...current, ...patch }
+        : current
+    );
+  };
+
+  const handleSaveDetails = async () => {
+    if (!selectedRequest) return;
+
+    setDetailSaveError('');
+    setDetailSaving(true);
+
+    try {
+      await updateReportRequest({
+        id: selectedRequest.id,
+        adminPin,
+        status: detailStatus,
+        fulfilmentStatus: detailFulfilmentStatus,
+        leadQuality: detailLeadQuality,
+        internalNotes: detailInternalNotes.trim() ? detailInternalNotes.trim() : null,
+      });
+
+      const contactedAt =
+        detailStatus === 'contacted' && !selectedRequest.contactedAt
+          ? new Date().toISOString()
+          : selectedRequest.contactedAt;
+
+      updateLocalRequest(selectedRequest.id, {
+        status: detailStatus,
+        fulfilmentStatus: detailFulfilmentStatus,
+        leadQuality: detailLeadQuality,
+        internalNotes: detailInternalNotes.trim() ? detailInternalNotes.trim() : null,
+        updatedAt: new Date().toISOString(),
+        contactedAt,
+      });
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : 'Failed to save request details.';
+      setDetailSaveError(message);
+    } finally {
+      setDetailSaving(false);
     }
   };
 
@@ -541,7 +687,7 @@ export default function ReportRequestsAdminPage() {
 
                     <select
                       value={request.status}
-                      onChange={(event) => handleStatusChange(request.id, event.target.value)}
+                      onChange={(event) => handleStatusChange(request.id, event.target.value as ReportRequestStatus)}
                       disabled={!adminPin}
                       className="border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50"
                     >
@@ -617,7 +763,7 @@ export default function ReportRequestsAdminPage() {
               <p className="text-xs uppercase tracking-wide text-stone-400">Status</p>
               <select
                 value={selectedRequest.status}
-                onChange={(event) => handleStatusChange(selectedRequest.id, event.target.value)}
+                onChange={(event) => handleStatusChange(selectedRequest.id, event.target.value as ReportRequestStatus)}
                 disabled={!adminPin}
                 className="border border-stone-300 rounded px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50"
               >
@@ -690,6 +836,105 @@ export default function ReportRequestsAdminPage() {
             </div>
           </div>
 
+          <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 mb-6">
+            <p className="font-semibold text-stone-900 mb-3">CRM fields</p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label className="block">
+                <span className="block text-xs uppercase tracking-wide text-stone-400 font-medium mb-1">
+                  Lead quality
+                </span>
+
+                <select
+                  value={detailLeadQuality ?? ''}
+                  onChange={(event) =>
+                    setDetailLeadQuality(
+                      event.target.value === '' ? null : (event.target.value as ReportRequestLeadQuality)
+                    )
+                  }
+                  className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  disabled={!adminPin}
+                >
+                  {leadQualityOptions.map((option) => (
+                    <option key={option ?? 'none'} value={option ?? ''}>
+                      {option === null ? 'Not set' : getLeadQualityLabel(option)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block">
+                <span className="block text-xs uppercase tracking-wide text-stone-400 font-medium mb-1">
+                  Fulfilment status
+                </span>
+
+                <select
+                  value={detailFulfilmentStatus}
+                  onChange={(event) =>
+                    setDetailFulfilmentStatus(event.target.value as ReportRequestFulfilmentStatus)
+                  }
+                  className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  disabled={!adminPin}
+                >
+                  {fulfilmentStatuses.map((status) => (
+                    <option key={status} value={status}>
+                      {getFulfilmentStatusLabel(status)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block sm:col-span-2">
+                <span className="block text-xs uppercase tracking-wide text-stone-400 font-medium mb-1">
+                  CRM status
+                </span>
+
+                <select
+                  value={detailStatus}
+                  onChange={(event) => setDetailStatus(event.target.value as ReportRequestStatus)}
+                  className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  disabled={!adminPin}
+                >
+                  {reportStatuses.map((status) => (
+                    <option key={status} value={status}>
+                      {getStatusLabel(status)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block sm:col-span-2">
+                <span className="block text-xs uppercase tracking-wide text-stone-400 font-medium mb-1">
+                  Internal notes
+                </span>
+
+                <textarea
+                  value={detailInternalNotes}
+                  onChange={(event) => setDetailInternalNotes(event.target.value)}
+                  rows={5}
+                  className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  placeholder="Add follow-up context, lease questions, or handover notes"
+                  disabled={!adminPin}
+                />
+              </label>
+            </div>
+
+            <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3">
+              <button
+                type="button"
+                onClick={handleSaveDetails}
+                disabled={!adminPin || detailSaving}
+                className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800 disabled:opacity-50"
+              >
+                {detailSaving ? 'Saving...' : 'Save CRM changes'}
+              </button>
+
+              {detailSaveError && (
+                <p className="text-sm text-red-600">{detailSaveError}</p>
+              )}
+            </div>
+          </div>
+
           {selectedRequest.mode === 'commercial' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
               <div>
@@ -718,25 +963,6 @@ export default function ReportRequestsAdminPage() {
             </div>
           )}
 
-          <div className="text-xs text-stone-500 mb-6">
-            Internal notes and stored lead quality need a database field before they can be edited here.
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
-              <p className="font-semibold text-stone-900 mb-2">Input data</p>
-              <pre className="bg-stone-950 text-stone-100 rounded-lg p-4 text-xs overflow-auto max-h-80">
-                {JSON.stringify(selectedRequest.input, null, 2)}
-              </pre>
-            </div>
-
-            <div>
-              <p className="font-semibold text-stone-900 mb-2">Result data</p>
-              <pre className="bg-stone-950 text-stone-100 rounded-lg p-4 text-xs overflow-auto max-h-80">
-                {JSON.stringify(selectedRequest.result, null, 2)}
-              </pre>
-            </div>
-          </div>
         </div>
       )}
     </div>

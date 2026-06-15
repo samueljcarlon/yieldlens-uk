@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import type { Submission } from '@/types/property';
+import type {
+  ReportRequestFulfilmentStatus,
+  ReportRequestLeadQuality,
+  ReportRequestStatus,
+} from '@/lib/reportRequests';
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -27,6 +32,44 @@ function getTextField(input: unknown, key: string): string | null {
 
   return value.trim();
 }
+
+function getOptionalTextField(value: unknown): string | null | undefined {
+  if (value === undefined) return undefined;
+  if (value === null) return null;
+  if (typeof value !== 'string') return undefined;
+
+  const trimmed = value.trim();
+
+  return trimmed === '' ? null : trimmed;
+}
+
+const allowedStatuses: ReportRequestStatus[] = [
+  'requested',
+  'reviewed',
+  'contacted',
+  'awaiting_info',
+  'converted',
+  'closed',
+  'quoted',
+  'lost',
+];
+
+const allowedFulfilmentStatuses: ReportRequestFulfilmentStatus[] = [
+  'not_started',
+  'awaiting_info',
+  'in_review',
+  'ready',
+  'sent',
+  'closed',
+];
+
+const allowedLeadQuality: Array<ReportRequestLeadQuality> = [
+  'unqualified',
+  'low',
+  'warm',
+  'high',
+  'priority',
+];
 
 export async function POST(request: NextRequest) {
   try {
@@ -68,6 +111,10 @@ export async function POST(request: NextRequest) {
       input_json: submission.input,
       result_json: submission.result,
       status: 'requested',
+      fulfilment_status: 'not_started',
+      lead_quality: null,
+      internal_notes: null,
+      updated_at: new Date().toISOString(),
     };
 
     const { error } = await supabase.from('report_requests').insert(row);
@@ -115,6 +162,11 @@ export async function GET(request: NextRequest) {
       verdictLabel: row.verdict_label,
       requestedReportType: row.requested_report_type,
       status: row.status,
+      fulfilmentStatus: row.fulfilment_status,
+      leadQuality: row.lead_quality,
+      internalNotes: row.internal_notes,
+      updatedAt: row.updated_at,
+      contactedAt: row.contacted_at,
       input: row.input_json,
       result: row.result_json,
     }));
@@ -139,20 +191,52 @@ export async function PATCH(request: NextRequest) {
     const body = await request.json();
 
     const id = typeof body.id === 'string' ? body.id : '';
-    const status = typeof body.status === 'string' ? body.status : '';
+    const rawStatus = body.status;
+    if (rawStatus !== undefined && (typeof rawStatus !== 'string' || !allowedStatuses.includes(rawStatus as ReportRequestStatus))) {
+      return NextResponse.json(
+        { error: 'Invalid report request update.' },
+        { status: 400 }
+      );
+    }
+    const status = typeof rawStatus === 'string' ? (rawStatus as ReportRequestStatus) : undefined;
 
-    const allowedStatuses = [
-      'requested',
-      'reviewed',
-      'contacted',
-      'awaiting_info',
-      'converted',
-      'closed',
-      'quoted',
-      'lost',
-    ];
+    const rawFulfilmentStatus = body.fulfilment_status;
+    if (
+      rawFulfilmentStatus !== undefined &&
+      (typeof rawFulfilmentStatus !== 'string' ||
+        !allowedFulfilmentStatuses.includes(rawFulfilmentStatus as ReportRequestFulfilmentStatus))
+    ) {
+      return NextResponse.json(
+        { error: 'Invalid report request update.' },
+        { status: 400 }
+      );
+    }
+    const fulfilmentStatus =
+      typeof rawFulfilmentStatus === 'string'
+        ? (rawFulfilmentStatus as ReportRequestFulfilmentStatus)
+        : undefined;
 
-    if (!id || !allowedStatuses.includes(status)) {
+    const leadQualityRaw = body.lead_quality;
+    if (
+      leadQualityRaw !== undefined &&
+      leadQualityRaw !== null &&
+      (typeof leadQualityRaw !== 'string' || !allowedLeadQuality.includes(leadQualityRaw as ReportRequestLeadQuality))
+    ) {
+      return NextResponse.json(
+        { error: 'Invalid report request update.' },
+        { status: 400 }
+      );
+    }
+    const leadQuality =
+      leadQualityRaw === null
+        ? null
+        : typeof leadQualityRaw === 'string'
+          ? (leadQualityRaw as ReportRequestLeadQuality)
+          : undefined;
+
+    const internalNotes = getOptionalTextField(body.internal_notes);
+
+    if (!id || (status === undefined && fulfilmentStatus === undefined && leadQuality === undefined && internalNotes === undefined)) {
       return NextResponse.json(
         { error: 'Invalid report request update.' },
         { status: 400 }
@@ -161,9 +245,34 @@ export async function PATCH(request: NextRequest) {
 
     const supabase = getSupabaseAdmin();
 
+    const updates: Record<string, unknown> = {
+      updated_at: new Date().toISOString(),
+    };
+
+    if (status !== undefined) updates.status = status;
+    if (fulfilmentStatus !== undefined) updates.fulfilment_status = fulfilmentStatus;
+    if (leadQuality !== undefined) updates.lead_quality = leadQuality;
+    if (internalNotes !== undefined) updates.internal_notes = internalNotes;
+
+    if (status === 'contacted') {
+      const { data: existingRow, error: existingError } = await supabase
+        .from('report_requests')
+        .select('contacted_at')
+        .eq('id', id)
+        .maybeSingle();
+
+      if (existingError) {
+        return NextResponse.json({ error: existingError.message }, { status: 500 });
+      }
+
+      if (existingRow && !existingRow.contacted_at) {
+        updates.contacted_at = new Date().toISOString();
+      }
+    }
+
     const { error } = await supabase
       .from('report_requests')
-      .update({ status })
+      .update(updates)
       .eq('id', id);
 
     if (error) {
