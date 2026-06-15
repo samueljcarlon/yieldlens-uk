@@ -141,7 +141,16 @@ export async function PATCH(request: NextRequest) {
     const id = typeof body.id === 'string' ? body.id : '';
     const status = typeof body.status === 'string' ? body.status : '';
 
-    const allowedStatuses = ['requested', 'contacted', 'quoted', 'converted', 'lost'];
+    const allowedStatuses = [
+      'requested',
+      'reviewed',
+      'contacted',
+      'awaiting_info',
+      'converted',
+      'closed',
+      'quoted',
+      'lost',
+    ];
 
     if (!id || !allowedStatuses.includes(status)) {
       return NextResponse.json(

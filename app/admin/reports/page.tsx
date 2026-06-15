@@ -72,7 +72,18 @@ function getLocation(request: ReportRequest): string {
   return request.postcode || request.address || 'No location provided';
 }
 
-const reportStatuses = ['requested', 'contacted', 'quoted', 'converted', 'lost'];
+const reportStatuses = [
+  'requested',
+  'reviewed',
+  'contacted',
+  'awaiting_info',
+  'converted',
+  'closed',
+  'quoted',
+  'lost',
+];
+
+const visibleStatuses = ['requested', 'reviewed', 'contacted', 'awaiting_info', 'converted', 'closed'];
 
 function getCommercialVerdictLabel(verdictLabel: string): string {
   const normalized = verdictLabel.trim().toLowerCase();
@@ -84,6 +95,69 @@ function getCommercialVerdictLabel(verdictLabel: string): string {
   if (normalized === 'avoid') return 'Weaker case';
 
   return verdictLabel;
+}
+
+function getStatusLabel(status: string): string {
+  const normalized = status.trim().toLowerCase();
+
+  if (normalized === 'awaiting_info') return 'Awaiting info';
+
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+function formatFieldValue(value: unknown): string {
+  if (value === undefined || value === null || value === '') return 'Not provided';
+
+  if (typeof value === 'number') {
+    return new Intl.NumberFormat('en-GB', {
+      maximumFractionDigits: 2,
+    }).format(value);
+  }
+
+  return String(value);
+}
+
+function getUpdatedDate(request: ReportRequest): string {
+  const raw = (request as ReportRequest & { updatedAt?: string; updated_at?: string }).updatedAt
+    ?? (request as ReportRequest & { updatedAt?: string; updated_at?: string }).updated_at;
+
+  return raw ? formatDate(raw) : 'Not available';
+}
+
+function getCommercialInputRows(input: unknown): Array<{ label: string; value: string }> {
+  if (!input || typeof input !== 'object') return [];
+
+  const record = input as Record<string, unknown>;
+
+  return [
+    { label: 'Business type', value: formatFieldValue(record.businessType) },
+    { label: 'Annual rent', value: formatFieldValue(record.annualRent) },
+    { label: 'Average spend', value: formatFieldValue(record.averageSpendPerCustomer) },
+    { label: 'Expected customers/day', value: formatFieldValue(record.expectedCustomersPerDay) },
+    { label: 'Opening days/month', value: formatFieldValue(record.openingDaysPerMonth) },
+    { label: 'Monthly staff costs', value: formatFieldValue(record.monthlyStaffCosts) },
+    { label: 'Utilities and other costs', value: formatFieldValue(record.monthlyUtilitiesAndOtherCosts) },
+    { label: 'Business rates', value: formatFieldValue(record.monthlyBusinessRates) },
+    { label: 'Fit-out budget', value: formatFieldValue(record.fitOutBudget) },
+    { label: 'Rent deposit', value: formatFieldValue(record.rentDeposit) },
+    { label: 'Starting cash', value: formatFieldValue(record.startingCash) },
+    { label: 'Downside revenue %', value: formatFieldValue(record.downsideRevenuePercentage) },
+  ];
+}
+
+function getCommercialResultRows(result: unknown): Array<{ label: string; value: string }> {
+  if (!result || typeof result !== 'object') return [];
+
+  const record = result as Record<string, unknown>;
+
+  return [
+    { label: 'Rent burden', value: formatFieldValue(record.rentBurdenPercentage) },
+    { label: 'Break-even customers/day', value: formatFieldValue(record.breakEvenCustomersPerDay) },
+    { label: 'Upfront cash needed', value: formatFieldValue(record.upfrontCashNeeded) },
+    { label: 'Cash after opening', value: formatFieldValue(record.availableCashAfterOpening) },
+    { label: 'Downside monthly position', value: formatFieldValue(record.downsideMonthlyPosition) },
+    { label: 'Six-month test', value: formatFieldValue(record.survivesSixBadMonths ? 'Pass' : 'Fail') },
+  ];
 }
 
 function getPriorityLabel(request: ReportRequest): {
@@ -123,6 +197,7 @@ export default function ReportRequestsAdminPage() {
   const [selectedRequest, setSelectedRequest] = useState<ReportRequest | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [modeFilter, setModeFilter] = useState<'all' | 'residential' | 'commercial'>('all');
+  const [statusFilter, setStatusFilter] = useState<'all' | typeof visibleStatuses[number]>('all');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -131,6 +206,7 @@ export default function ReportRequestsAdminPage() {
 
     return requests.filter((request) => {
       const matchesMode = modeFilter === 'all' || request.mode === modeFilter;
+      const matchesStatus = statusFilter === 'all' || request.status === statusFilter;
 
       const searchable = [
         request.email,
@@ -146,9 +222,9 @@ export default function ReportRequestsAdminPage() {
 
       const matchesSearch = !query || searchable.includes(query);
 
-      return matchesMode && matchesSearch;
+      return matchesMode && matchesStatus && matchesSearch;
     });
-  }, [requests, searchTerm, modeFilter]);
+  }, [requests, searchTerm, modeFilter, statusFilter]);
 
   const stats = useMemo(() => {
     return {
@@ -357,6 +433,27 @@ export default function ReportRequestsAdminPage() {
           </button>
         </div>
 
+        <div className="flex flex-wrap gap-2 mt-3">
+          <button
+            type="button"
+            onClick={() => setStatusFilter('all')}
+            className={filterButtonClass(statusFilter === 'all')}
+          >
+            All statuses
+          </button>
+
+          {visibleStatuses.map((status) => (
+            <button
+              key={status}
+              type="button"
+              onClick={() => setStatusFilter(status)}
+              className={filterButtonClass(statusFilter === status)}
+            >
+              {getStatusLabel(status)}
+            </button>
+          ))}
+        </div>
+
         <p className="text-xs text-stone-400 mt-4">
           Showing {filteredRequests.length} of {requests.length} requests.
         </p>
@@ -531,6 +628,98 @@ export default function ReportRequestsAdminPage() {
                 ))}
               </select>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+            <div className="bg-stone-50 border border-stone-200 rounded-xl p-4">
+              <p className="text-sm font-semibold text-stone-900 mb-3">Request details</p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Email</p>
+                  <p className="font-medium text-stone-900 break-words">{selectedRequest.email}</p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Mode</p>
+                  <p className="font-medium text-stone-900 capitalize">{selectedRequest.mode}</p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Postcode</p>
+                  <p className="font-medium text-stone-900">{selectedRequest.postcode || 'Not provided'}</p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Address</p>
+                  <p className="font-medium text-stone-900">{selectedRequest.address || 'Not provided'}</p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Requested type</p>
+                  <p className="font-medium text-stone-900">{selectedRequest.requestedReportType}</p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Created</p>
+                  <p className="font-medium text-stone-900">{formatDate(selectedRequest.createdAt)}</p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Updated</p>
+                  <p className="font-medium text-stone-900">{getUpdatedDate(selectedRequest)}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-stone-50 border border-stone-200 rounded-xl p-4">
+              <p className="text-sm font-semibold text-stone-900 mb-3">Commercial summary</p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Score</p>
+                  <p className="font-medium text-stone-900">{selectedRequest.score}/100</p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Mapped verdict</p>
+                  <p className="font-medium text-stone-900">
+                    {selectedRequest.mode === 'commercial'
+                      ? getCommercialVerdictLabel(selectedRequest.verdictLabel)
+                      : selectedRequest.verdictLabel}
+                  </p>
+                </div>
+                <div className="sm:col-span-2">
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Stored status</p>
+                  <p className="font-medium text-stone-900">{getStatusLabel(selectedRequest.status)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {selectedRequest.mode === 'commercial' && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <div>
+                <p className="font-semibold text-stone-900 mb-2">Commercial inputs</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {getCommercialInputRows(selectedRequest.input).map((row) => (
+                    <div key={row.label} className="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                      <p className="text-xs uppercase tracking-wide text-stone-400">{row.label}</p>
+                      <p className="font-semibold text-stone-900 mt-1">{row.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="font-semibold text-stone-900 mb-2">Commercial outputs</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {getCommercialResultRows(selectedRequest.result).map((row) => (
+                    <div key={row.label} className="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                      <p className="text-xs uppercase tracking-wide text-stone-400">{row.label}</p>
+                      <p className="font-semibold text-stone-900 mt-1">{row.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="text-xs text-stone-500 mb-6">
+            Internal notes and stored lead quality need a database field before they can be edited here.
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
