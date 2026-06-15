@@ -1,6 +1,28 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { getLatestSubmission } from '@/lib/storage';
 
 export default function ThankYouPage() {
+  const [continueHref, setContinueHref] = useState('/check');
+  const [continueLabel, setContinueLabel] = useState('Run another check');
+
+  useEffect(() => {
+    const submission = getLatestSubmission();
+
+    if (submission?.mode === 'commercial') {
+      setContinueHref('/check?mode=commercial');
+      setContinueLabel('Run another commercial check');
+      return;
+    }
+
+    if (submission?.mode === 'residential') {
+      setContinueHref('/check?mode=residential');
+      setContinueLabel('Run another residential check');
+    }
+  }, []);
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-16 text-center">
       <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
@@ -20,10 +42,10 @@ export default function ThankYouPage() {
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <Link
-            href="/check"
+            href={continueHref}
             className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
           >
-            Run another check
+            {continueLabel}
           </Link>
 
           <Link

@@ -70,7 +70,7 @@ export function generateResidentialRiskFlags(
 
   flags.push({
     severity: 'info',
-    message: 'Local demand and transport assumptions are indicative placeholders in this MVP.',
+    message: 'Local demand and transport assumptions are indicative only.',
   });
 
   return flags;
@@ -128,12 +128,12 @@ export function generateCommercialRiskFlags(
 
   flags.push({
     severity: 'info',
-    message: 'Competitor data is not yet connected. Manual local research is advised.',
+    message: 'Third-party competitor data is not included in this version. Manual local research is still needed.',
   });
 
   flags.push({
     severity: 'info',
-    message: 'Area suitability assumptions are indicative placeholders in this MVP.',
+    message: 'Area suitability assumptions are indicative only.',
   });
 
   flags.push({

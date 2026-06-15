@@ -12,10 +12,10 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-5 text-sm text-stone-600">
           <Link
-            href="/commercial-lease-viability-check"
+            href="/check?mode=commercial"
             className="hover:text-stone-900 transition-colors"
           >
-            Commercial
+            Commercial check
           </Link>
 
           <Link
@@ -33,18 +33,18 @@ export default function Header() {
           </Link>
 
           <Link
-            href="/check"
+            href="/check?mode=commercial"
             className="hover:text-stone-900 transition-colors"
           >
-            Property check
+            Commercial check
           </Link>
         </nav>
 
         <Link
-          href="/check"
+          href="/check?mode=commercial"
           className="bg-teal-700 text-white px-4 py-2 rounded text-sm font-medium hover:bg-teal-800 transition-colors shrink-0"
         >
-          Start free check
+          Run commercial check
         </Link>
       </div>
     </header>

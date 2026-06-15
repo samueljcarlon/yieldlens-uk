@@ -683,14 +683,14 @@ export default function ReportPage() {
           </h1>
 
           <p className="text-sm text-stone-500 mb-6">
-            Run a property check first, then the printable report preview will appear here.
+            Run a free commercial check first, then the printable report preview will appear here.
           </p>
 
           <Link
-            href="/check"
+            href="/check?mode=commercial"
             className="inline-block bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
           >
-            Start a property check
+            Start a free commercial check
           </Link>
         </div>
       </div>
@@ -758,9 +758,10 @@ export default function ReportPage() {
 
               {!isResidential && (
                 <p className="text-xs text-stone-500 leading-5 mt-4 max-w-2xl">
-                  Indicative decision-support only, based on submitted inputs and
-                  stated assumptions. Use this as an initial viability file before
-                  deeper due diligence.
+                  YieldLens UK provides indicative decision-support only. It is
+                  based on submitted inputs and current assumptions where live
+                  data is unavailable. Use this as an initial viability file
+                  before deeper due diligence.
                 </p>
               )}
             </div>
@@ -899,16 +900,16 @@ export default function ReportPage() {
             Important disclaimer
           </p>
 
-          <p>
-            YieldLens UK provides indicative decision-support only. It is not financial
-            advice, legal advice, tax advice, a valuation, or a substitute for
-            professional due diligence.
-          </p>
+        <p>
+          YieldLens UK provides indicative decision-support only. It is not financial
+          advice, legal advice, tax advice, a valuation, or a substitute for professional
+          due diligence.
+        </p>
 
-          <p className="mt-2">
-            YieldLens UK is an independent UK property decision-support tool. Figures are based
-            on user-provided inputs and MVP placeholder assumptions where live data is not yet connected.
-          </p>
+        <p className="mt-2">
+          YieldLens UK is an independent UK property decision-support tool. Figures are based
+          on user-provided inputs and current indicative assumptions where live data is unavailable.
+        </p>
         </footer>
       </article>
     </div>

@@ -31,10 +31,10 @@ const faqStructuredData = {
     },
     {
       '@type': 'Question',
-      name: 'Is a viability file a formal valuation?',
+      name: 'Is a viability file a valuation?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. A viability file is indicative decision-support only. It is not a formal valuation, financial advice, mortgage advice, legal advice, tax advice, debt advice, or a substitute for professional due diligence.',
+        text: 'No. A viability file is indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.',
       },
     },
     {
@@ -133,7 +133,7 @@ const notIncluded = [
   'Legal advice',
   'Tax advice',
   'Debt advice',
-  'Broker recommendation',
+  'Broker input',
   'Replacement for professional due diligence',
 ];
 
@@ -213,7 +213,7 @@ export default function ViabilityFilePage() {
               </div>
 
               <p className="text-xs text-stone-400 mt-5">
-                Indicative decision-support only. Not a formal valuation, legal advice, or financial advice.
+                YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
               </p>
             </div>
 

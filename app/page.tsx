@@ -145,7 +145,7 @@ export default function HomePage() {
               </div>
 
               <p className="text-xs text-stone-400 mt-5">
-                Indicative decision-support only. Not a formal valuation or financial advice.
+                YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
               </p>
             </div>
 
@@ -390,9 +390,8 @@ export default function HomePage() {
           <p>
             YieldLens UK provides indicative commercial lease viability checks,
             property pressure-tests, and decision-support analysis only. It is
-            not a formal valuation, financial advice, mortgage advice, legal
-            advice, tax advice, debt advice, or a substitute for professional
-            due diligence.
+            not financial advice, legal advice, tax advice, a valuation, or a
+            substitute for professional due diligence.
           </p>
         </div>
       </section>

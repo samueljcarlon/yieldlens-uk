@@ -70,8 +70,8 @@ export default function Footer() {
             </p>
 
             <div className="space-y-2 text-sm">
-              <Link href="/check" className="block text-stone-500 hover:text-stone-900">
-                Property check
+              <Link href="/check?mode=commercial" className="block text-stone-500 hover:text-stone-900">
+                Commercial check
               </Link>
 
               <Link href="/privacy" className="block text-stone-500 hover:text-stone-900">
@@ -88,9 +88,8 @@ export default function Footer() {
         <div className="mt-8 pt-6 border-t border-stone-100 text-xs text-stone-400 leading-6">
           <p>
             YieldLens UK provides indicative property pressure-tests and
-            decision-support analysis only. It is not a formal valuation, financial
-            advice, mortgage advice, legal advice, tax advice, or a substitute for
-            professional due diligence.
+            decision-support analysis only. It is not financial advice, legal advice,
+            tax advice, a valuation, or a substitute for professional due diligence.
           </p>
 
           <p className="mt-2">

@@ -575,10 +575,10 @@ export default function ResultsPage() {
           </p>
 
           <Link
-            href="/check"
+            href="/check?mode=commercial"
             className="inline-block bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
           >
-            Start a free property check
+            Start a free commercial check
           </Link>
         </div>
       </div>
@@ -700,10 +700,10 @@ export default function ResultsPage() {
           </Link>
 
           <Link
-            href="/check"
+            href={isResidential ? '/check?mode=residential' : '/check?mode=commercial'}
             className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
           >
-            Run another check
+            Run another {isResidential ? 'residential' : 'commercial'} check
           </Link>
         </div>
 
@@ -723,8 +723,8 @@ export default function ResultsPage() {
 
         <p>
           YieldLens UK provides indicative property return checks and decision-support
-          analysis only. It is not financial advice, mortgage advice, legal advice,
-          tax advice, or a substitute for professional due diligence.
+          analysis only. It is not financial advice, legal advice, tax advice, a valuation,
+          or a substitute for professional due diligence.
         </p>
       </div>
     </div>
