@@ -195,6 +195,9 @@ function getCommercialInputRows(input: unknown): Array<{ label: string; value: s
     { label: 'Business rates', value: formatFieldValue(record.monthlyBusinessRates) },
     { label: 'Fit-out budget', value: formatFieldValue(record.fitOutBudget) },
     { label: 'Rent deposit', value: formatFieldValue(record.rentDeposit) },
+    { label: 'Legal fees', value: formatFieldValue(record.legalFees) },
+    { label: 'Opening stock', value: formatFieldValue(record.openingStock) },
+    { label: 'Other setup costs', value: formatFieldValue(record.otherSetupCosts) },
     { label: 'Starting cash', value: formatFieldValue(record.startingCash) },
     { label: 'Downside revenue %', value: formatFieldValue(record.downsideRevenuePercentage) },
   ];
@@ -210,7 +213,10 @@ function getCommercialResultRows(result: unknown): Array<{ label: string; value:
     { label: 'Break-even customers/day', value: formatFieldValue(record.breakEvenCustomersPerDay) },
     { label: 'Upfront cash needed', value: formatFieldValue(record.upfrontCashNeeded) },
     { label: 'Cash after opening', value: formatFieldValue(record.availableCashAfterOpening) },
+    { label: 'Downside monthly revenue', value: formatFieldValue(record.downsideMonthlyRevenue) },
     { label: 'Downside monthly position', value: formatFieldValue(record.downsideMonthlyPosition) },
+    { label: 'Monthly burn in downside', value: formatFieldValue(record.monthlyBurnInDownside) },
+    { label: 'Survival months', value: formatFieldValue(record.survivalMonths) },
     { label: 'Six-month test', value: formatFieldValue(record.survivesSixBadMonths ? 'Pass' : 'Fail') },
   ];
 }
@@ -242,6 +248,14 @@ function getPaymentStatusLabel(value: ReportRequestPaymentStatus | null | undefi
   };
 
   return labels[value];
+}
+
+function getPaymentStatusTone(value: ReportRequestPaymentStatus | null | undefined): string {
+  if (value === 'paid') return 'bg-green-50 text-green-800 border-green-200';
+  if (value === 'checkout_started') return 'bg-amber-50 text-amber-800 border-amber-200';
+  if (value === 'failed' || value === 'refunded') return 'bg-red-50 text-red-800 border-red-200';
+
+  return 'bg-stone-50 text-stone-700 border-stone-200';
 }
 
 function getPriorityLabel(request: ReportRequest): {
@@ -337,6 +351,10 @@ export default function ReportRequestsAdminPage() {
       warmOrBetter: requests.filter((request) => request.score >= 65).length,
     };
   }, [requests]);
+
+  const selectedPaymentStatus = selectedRequest?.paymentStatus ?? null;
+  const selectedPaymentStatusLabel = getPaymentStatusLabel(selectedPaymentStatus);
+  const selectedPaymentTone = getPaymentStatusTone(selectedPaymentStatus);
 
   const handleStatusChange = async (requestId: string, nextStatus: ReportRequestStatus) => {
     setError('');
@@ -807,7 +825,7 @@ export default function ReportRequestsAdminPage() {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
               <p className="text-xs uppercase tracking-wide text-stone-400">Mode</p>
               <p className="font-semibold text-stone-900 capitalize">{selectedRequest.mode}</p>
@@ -828,19 +846,13 @@ export default function ReportRequestsAdminPage() {
             </div>
 
             <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
-              <p className="text-xs uppercase tracking-wide text-stone-400">Status</p>
-              <select
-                value={selectedRequest.status}
-                onChange={(event) => handleStatusChange(selectedRequest.id, event.target.value as ReportRequestStatus)}
-                disabled={!adminPin}
-                className="border border-stone-300 rounded px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50"
-              >
-                {reportStatuses.map((status) => (
-                  <option key={status} value={status}>
-                    {status}
-                  </option>
-                ))}
-              </select>
+              <p className="text-xs uppercase tracking-wide text-stone-400">Request status</p>
+              <p className="font-semibold text-stone-900">{getStatusLabel(selectedRequest.status)}</p>
+            </div>
+
+            <div className={`border rounded-lg p-4 ${selectedPaymentTone}`}>
+              <p className="text-xs uppercase tracking-wide font-medium">Payment status</p>
+              <p className="font-semibold">{selectedPaymentStatusLabel}</p>
             </div>
           </div>
 
@@ -877,6 +889,10 @@ export default function ReportRequestsAdminPage() {
                   <p className="text-xs uppercase tracking-wide text-stone-400">Updated</p>
                   <p className="font-medium text-stone-900">{getUpdatedDate(selectedRequest)}</p>
                 </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Fulfilment status</p>
+                  <p className="font-medium text-stone-900">{getFulfilmentStatusLabel(selectedRequest.fulfilmentStatus)}</p>
+                </div>
               </div>
             </div>
 
@@ -897,8 +913,8 @@ export default function ReportRequestsAdminPage() {
                   </p>
                 </div>
                 <div className="sm:col-span-2">
-                  <p className="text-xs uppercase tracking-wide text-stone-400">Stored status</p>
-                  <p className="font-medium text-stone-900">{getStatusLabel(selectedRequest.status)}</p>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Fulfilment status</p>
+                  <p className="font-medium text-stone-900">{getFulfilmentStatusLabel(selectedRequest.fulfilmentStatus)}</p>
                 </div>
               </div>
             </div>
@@ -1012,16 +1028,20 @@ export default function ReportRequestsAdminPage() {
                 </p>
               </div>
 
-              {selectedRequest.mode === 'commercial' && (
+              {selectedRequest.mode === 'commercial' && selectedRequest.paymentStatus !== 'paid' ? (
                 <button
                   type="button"
                   onClick={handleCreateTestCheckout}
-                  disabled={!adminPin || checkoutLoading || selectedRequest.paymentStatus === 'paid'}
+                  disabled={!adminPin || checkoutLoading}
                   className="bg-stone-900 text-white px-4 py-2 rounded text-sm font-medium hover:bg-stone-800 disabled:opacity-50"
                 >
                   {checkoutLoading ? 'Creating checkout...' : 'Create test checkout'}
                 </button>
-              )}
+              ) : selectedRequest.mode === 'commercial' ? (
+                <p className="text-xs text-green-700 font-medium">
+                  Checkout already completed.
+                </p>
+              ) : null}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
