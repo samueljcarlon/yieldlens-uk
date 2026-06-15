@@ -355,6 +355,8 @@ export default function ReportRequestsAdminPage() {
   const selectedPaymentStatus = selectedRequest?.paymentStatus ?? null;
   const selectedPaymentStatusLabel = getPaymentStatusLabel(selectedPaymentStatus);
   const selectedPaymentTone = getPaymentStatusTone(selectedPaymentStatus);
+  const canOpenViabilityFile =
+    selectedRequest?.mode === 'commercial' && selectedRequest?.paymentStatus === 'paid';
 
   const handleStatusChange = async (requestId: string, nextStatus: ReportRequestStatus) => {
     setError('');
@@ -1028,11 +1030,11 @@ export default function ReportRequestsAdminPage() {
                 </p>
               </div>
 
-              {selectedRequest.mode === 'commercial' && selectedRequest.paymentStatus !== 'paid' ? (
-                <button
-                  type="button"
-                  onClick={handleCreateTestCheckout}
-                  disabled={!adminPin || checkoutLoading}
+            {selectedRequest.mode === 'commercial' && selectedRequest.paymentStatus !== 'paid' ? (
+              <button
+                type="button"
+                onClick={handleCreateTestCheckout}
+                disabled={!adminPin || checkoutLoading}
                   className="bg-stone-900 text-white px-4 py-2 rounded text-sm font-medium hover:bg-stone-800 disabled:opacity-50"
                 >
                   {checkoutLoading ? 'Creating checkout...' : 'Create test checkout'}
@@ -1043,6 +1045,23 @@ export default function ReportRequestsAdminPage() {
                 </p>
               ) : null}
             </div>
+
+            {selectedRequest.mode === 'commercial' && (
+              <div className="mb-3">
+                {canOpenViabilityFile ? (
+                  <Link
+                    href={`/admin/reports/${selectedRequest.id}/viability-file`}
+                    className="inline-flex items-center rounded border border-teal-700 bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+                  >
+                    Open viability file
+                  </Link>
+                ) : (
+                  <span className="inline-flex items-center rounded border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-500">
+                    Available after payment
+                  </span>
+                )}
+              </div>
+            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
               <div>
