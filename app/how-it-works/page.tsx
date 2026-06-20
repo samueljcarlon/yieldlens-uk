@@ -403,6 +403,10 @@ export default function HowItWorksPage() {
             <Link href="/commercial-lease-checklist-before-signing" className="text-teal-300 hover:text-teal-200 font-medium">
               Commercial lease checklist before signing
             </Link>
+            {' '}
+            <Link href="/restaurant-lease-viability-check" className="text-teal-300 hover:text-teal-200 font-medium ml-4">
+              Restaurant lease viability check
+            </Link>
           </div>
         </div>
       </section>

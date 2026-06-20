@@ -98,6 +98,11 @@ const relatedTools = [
     text: 'Check the lease items before you commit.',
   },
   {
+    title: 'Restaurant lease viability',
+    href: '/restaurant-lease-viability-check',
+    text: 'Use the restaurant page for a fuller dining concept pressure-test.',
+  },
+  {
     title: 'Commercial lease viability',
     href: '/commercial-lease-viability-check',
     text: 'Read the core commercial lease pressure-test before running the check.',

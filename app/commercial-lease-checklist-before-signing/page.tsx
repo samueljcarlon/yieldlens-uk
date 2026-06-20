@@ -129,6 +129,49 @@ const evidenceSections = [
   },
 ];
 
+const relatedPages = [
+  {
+    title: 'Restaurant lease viability check',
+    href: '/restaurant-lease-viability-check',
+    text: 'Use the restaurant page when the site is a dining concept rather than a simpler cafe or retail unit.',
+  },
+  {
+    title: 'Commercial lease viability check',
+    href: '/commercial-lease-viability-check',
+    text: 'Read the core commercial lease pressure-test before you run the check.',
+  },
+  {
+    title: 'Commercial rent burden calculator',
+    href: '/commercial-rent-burden-calculator',
+    text: 'See how monthly rent compares with expected revenue.',
+  },
+  {
+    title: 'Break-even customers calculator',
+    href: '/break-even-customers-calculator',
+    text: 'Convert rent and costs into a daily customer target.',
+  },
+  {
+    title: 'Commercial lease survival calculator',
+    href: '/commercial-lease-survival-calculator',
+    text: 'Check whether the site can survive weaker trading and opening pressure.',
+  },
+  {
+    title: 'How it works',
+    href: '/how-it-works',
+    text: 'Learn how the free check, paid file, and sample report fit together.',
+  },
+  {
+    title: 'Sample commercial viability file',
+    href: '/sample-commercial-viability-file',
+    text: 'See the kind of output the £49 paid file produces.',
+  },
+  {
+    title: 'Viability file',
+    href: '/viability-file',
+    text: 'Read what the paid Standard commercial viability file includes.',
+  },
+];
+
 const faqItems = [
   {
     q: 'What should I check before signing a commercial lease?',
@@ -442,6 +485,28 @@ export default function CommercialLeaseChecklistPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-white border-y border-stone-200">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Related pages"
+            title="Use the checklist alongside the restaurant and cafe pages."
+            description="These pages keep the same pressure-test framing but break the problem into simpler parts."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {relatedPages.map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="rounded-xl border border-stone-200 bg-stone-50 p-5 shadow-sm hover:border-stone-300 transition-colors"
+              >
+                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+                <p className="text-sm text-stone-700 leading-7 mt-2">{item.text}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
