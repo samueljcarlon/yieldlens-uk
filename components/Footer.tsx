@@ -30,6 +30,10 @@ export default function Footer() {
                 Restaurant lease viability check
               </Link>
 
+              <Link href="/salon-lease-viability-check" className="block text-stone-500 hover:text-stone-900">
+                Salon lease viability check
+              </Link>
+
               <Link href="/commercial-lease-viability-check" className="block text-stone-500 hover:text-stone-900">
                 Commercial lease viability check
               </Link>

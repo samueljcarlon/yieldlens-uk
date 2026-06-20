@@ -4,17 +4,17 @@ import JsonLd from '@/components/JsonLd';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
-  title: 'Restaurant Lease Viability Check | YieldLens UK',
+  title: 'Salon Lease Viability Check | YieldLens UK',
   description:
-    'Check whether a restaurant lease can carry the rent, break-even covers, average spend, staffing, upfront cash, downside trading, and lease risks before committing.',
+    'Check whether a salon lease can carry the rent, treatment capacity, average spend, staffing, fit-out, upfront cash, downside trading, and lease risks before committing.',
   alternates: {
-    canonical: 'https://yieldlens.co.uk/restaurant-lease-viability-check',
+    canonical: 'https://yieldlens.co.uk/salon-lease-viability-check',
   },
   openGraph: {
-    title: 'Restaurant Lease Viability Check | YieldLens UK',
+    title: 'Salon Lease Viability Check | YieldLens UK',
     description:
-      'Pressure-test whether a restaurant lease can carry the rent, covers, opening cash, staffing, and lease obligations before you commit.',
-    url: 'https://yieldlens.co.uk/restaurant-lease-viability-check',
+      'Pressure-test whether a salon lease can carry the rent, treatment capacity, opening cash, staffing, and lease obligations before you commit.',
+    url: 'https://yieldlens.co.uk/salon-lease-viability-check',
   },
 };
 
@@ -24,7 +24,7 @@ const faqStructuredData = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'How much rent can a restaurant afford?',
+      name: 'How much rent can a salon afford?',
       acceptedAnswer: {
         '@type': 'Answer',
         text: 'YieldLens UK treats rent burden as monthly rent divided by expected monthly revenue. It uses 12% as a healthier screen and 18% as a caution threshold. Those are indicative screening thresholds, not universal rules.',
@@ -32,15 +32,15 @@ const faqStructuredData = {
     },
     {
       '@type': 'Question',
-      name: 'What should I check before signing a restaurant lease?',
+      name: 'What should I check before signing a salon lease?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Check rent burden, break-even covers, staffing, rates, utilities, fit-out, opening cash, weaker trading, and lease terms such as service charge, repair obligations, break clauses, extraction, licensing, and planning.',
+        text: 'Check rent burden, break-even clients, staffing, treatment capacity, fit-out, upfront cash, downside trading, and lease terms such as service charge, repair obligations, permitted use, utilities, water, ventilation, and break clauses.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Can YieldLens tell me whether to sign a restaurant lease?',
+      name: 'Can YieldLens tell me whether to sign a salon lease?',
       acceptedAnswer: {
         '@type': 'Answer',
         text: 'No. YieldLens UK provides indicative decision-support only. It helps structure the commercial numbers and questions before you commit, but it does not tell you to sign or not sign a lease.',
@@ -50,9 +50,9 @@ const faqStructuredData = {
 };
 
 const quickAnswerPoints = [
-  'A restaurant lease looks more viable when rent is not taking too much expected revenue.',
-  'Break-even covers should sit comfortably below realistic covers, not just below the best case.',
-  'Staffing, rates, utilities, fit-out, opening cash, and lease terms can all change the result materially.',
+  'A salon lease looks more viable when rent is not taking too much expected revenue.',
+  'Break-even clients should sit comfortably below realistic clients per day.',
+  'Staffing, treatment capacity, utilities, water use, fit-out, and opening cash can change the result materially.',
   '12% rent burden is a healthier screen, 18% is a caution threshold, and above 18% needs stronger evidence or sharper lease terms.',
 ];
 
@@ -61,65 +61,46 @@ const leaseTerms = [
   'Rent review',
   'Service charge',
   'Repairing obligations',
-  'Extraction and ventilation',
-  'Permitted use',
-  'Alcohol or licensing',
-  'Planning use',
+  'Permitted use for beauty, hair, nails, treatments, or clinic-style services',
+  'Water, drainage, extraction, ventilation, and electrical capacity',
+  'Signage rights',
   'Break clause',
   'Handover condition',
   'Landlord works',
   'Assignment and subletting',
+  'Restrictions on treatments or operating hours',
 ];
 
 const commonMistakes = [
   'Judging the site by rent alone',
-  'Forgetting fit-out and equipment',
-  'Underestimating staffing',
-  'Ignoring business rates',
-  'Not checking service charge',
-  'Assuming every day trades like the best day',
-  'Ignoring lunch and dinner split',
-  'Not checking extraction, licensing, or planning',
-  'Ignoring repairing obligations',
-  'Not modelling downside revenue',
-];
-
-const relatedPages = [
-  {
-    title: 'Salon lease viability check',
-    href: '/salon-lease-viability-check',
-    text: 'Use the salon page when treatment rooms, chair capacity, or chair-rent assumptions matter.',
-  },
-  {
-    title: 'Commercial lease checklist before signing',
-    href: '/commercial-lease-checklist-before-signing',
-    text: 'Use the checklist to review rent, cash, and lease terms before you commit.',
-  },
-  {
-    title: 'Commercial lease viability check',
-    href: '/commercial-lease-viability-check',
-    text: 'Read the core commercial lease pressure-test before you run the check.',
-  },
+  'Overestimating daily client capacity',
+  'Forgetting treatment duration',
+  'Underestimating fit-out and equipment',
+  'Ignoring utilities and water usage',
+  'Not checking permitted use',
+  'Assuming bookings ramp immediately',
+  'Ignoring local competition',
+  'Ignoring service charge and repairing obligations',
+  'Not modelling downside bookings',
 ];
 
 const exampleSummary = [
-  { label: 'Business type', value: 'Restaurant' },
-  { label: 'Address', value: 'Redacted city centre site' },
-  { label: 'Postcode', value: 'SW1 sample' },
-  { label: 'Annual rent', value: '£96,000' },
-  { label: 'Monthly rent', value: '£8,000' },
-  { label: 'Expected covers/day', value: '100' },
-  { label: 'Average spend', value: '£28' },
+  { label: 'Business type', value: 'Salon' },
+  { label: 'Address', value: 'Redacted high street site' },
+  { label: 'Postcode', value: 'SE1 sample' },
+  { label: 'Annual rent', value: '£48,000' },
+  { label: 'Monthly rent', value: '£4,000' },
+  { label: 'Expected clients/day', value: '35' },
+  { label: 'Average spend', value: '£45' },
   { label: 'Opening days/month', value: '26' },
-  { label: 'Monthly revenue', value: '£72,800' },
-  { label: 'Rent burden', value: 'about 11.0%' },
-  { label: 'Known monthly cost base', value: '£48,000' },
-  { label: 'Break-even covers/day', value: 'about 66' },
-  { label: 'Upfront cash needed', value: '£195,000' },
-  { label: 'Starting cash', value: '£220,000' },
-  { label: 'Opening buffer', value: '£25,000' },
-  { label: 'Downside monthly position', value: '£4,320 burn' },
-  { label: 'Indicative runway', value: 'about 5.8 months' },
+  { label: 'Monthly revenue', value: '£40,950' },
+  { label: 'Rent burden', value: 'about 9.8%' },
+  { label: 'Known monthly cost base', value: '£23,500' },
+  { label: 'Break-even clients/day', value: 'about 20' },
+  { label: 'Upfront cash needed', value: '£85,000' },
+  { label: 'Starting cash', value: '£95,000' },
+  { label: 'Opening buffer', value: '£10,000' },
+  { label: 'Downside monthly position', value: '£1,070 surplus' },
 ];
 
 function SectionTitle({
@@ -140,7 +121,7 @@ function SectionTitle({
   );
 }
 
-export default function RestaurantLeaseViabilityPage() {
+export default function SalonLeaseViabilityPage() {
   return (
     <div className="bg-stone-50 text-stone-900">
       <JsonLd data={faqStructuredData} />
@@ -150,27 +131,27 @@ export default function RestaurantLeaseViabilityPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
-                Restaurant lease viability
+                Salon lease viability
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
-                Check whether a restaurant lease can carry the numbers.
+                Check whether a salon lease can carry the numbers.
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                A restaurant lease is not only a rent decision. You need to
-                pressure-test rent burden, daily covers, average spend, staffing,
-                rates, fit-out, opening cash, weaker trading, and lease terms
-                before committing.
+                A salon lease is not only a rent decision. You need to
+                pressure-test rent burden, daily clients, average spend,
+                staffing, treatment capacity, fit-out, opening cash, weaker
+                trading, and lease terms before committing.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
-                  pagePath="/restaurant-lease-viability-check"
-                  ctaLabel="Run a free restaurant lease check"
+                  pagePath="/salon-lease-viability-check"
+                  ctaLabel="Run a free salon lease check"
                   pageType="seo_page"
                   className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
                 >
-                  Run a free restaurant lease check
+                  Run a free salon lease check
                 </TrackedCtaLink>
                 <Link
                   href="/sample-commercial-viability-file"
@@ -202,22 +183,23 @@ export default function RestaurantLeaseViabilityPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="Why restaurants need a separate pressure-test"
-          title="Restaurants can be more exposed than simple retail or cafe assumptions."
-          description="The cost structure is often heavier, the opening process is more complex, and the downside case can move quickly if the trading pattern is weaker than expected."
+          eyebrow="Why salons need a separate pressure-test"
+          title="Salon sites have their own cost and capacity risks."
+          description="The shape of the business matters because treatment capacity, staffing, and room layout can change the economics fast."
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            'Fit-out intensity',
-            'Kitchen equipment',
-            'Staffing',
-            'Prep and service complexity',
-            'Licensing and planning',
-            'Utility costs',
-            'Stock and waste',
-            'Variable trading by daypart',
-            'Service charge and repairs',
-            'Long lead time before opening',
+            'Fit-out and treatment room costs',
+            'Chairs, stations, basins, mirrors, lighting, reception, laundry, and equipment',
+            'Staffing or self-employed chair-rent assumptions',
+            'Treatment duration and capacity',
+            'Repeat customer dependence',
+            'Local competition',
+            'Utilities and water use',
+            'Service charge',
+            'Repairing obligations',
+            'Permitted use',
+            'Opening period before appointments stabilise',
           ].map((item) => (
             <div key={item} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
@@ -231,19 +213,19 @@ export default function RestaurantLeaseViabilityPage() {
           <SectionTitle
             eyebrow="Core formula"
             title="Rent burden is monthly rent divided by expected monthly revenue."
-            description="For a restaurant, covers/day can be treated as customers/day for the commercial check."
+            description="For a salon, clients/day can be treated as customers/day for the commercial check."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
               <p className="text-sm font-semibold text-stone-900 mb-3">Worked example</p>
               <div className="space-y-3 text-sm text-stone-700 leading-7">
-                <p>Annual rent: £96,000</p>
-                <p>Monthly rent: £8,000</p>
-                <p>Expected covers/day: 100</p>
-                <p>Average spend: £28</p>
+                <p>Annual rent: £48,000</p>
+                <p>Monthly rent: £4,000</p>
+                <p>Expected clients/day: 35</p>
+                <p>Average spend: £45</p>
                 <p>Opening days/month: 26</p>
-                <p>Expected monthly revenue: £72,800</p>
-                <p>Rent burden: about 11.0%</p>
+                <p>Expected monthly revenue: £40,950</p>
+                <p>Rent burden: about 9.8%</p>
               </div>
               <div className="mt-4">
                 <Link href="/commercial-rent-burden-calculator" className="text-teal-700 font-medium hover:text-teal-900 text-sm">
@@ -254,9 +236,8 @@ export default function RestaurantLeaseViabilityPage() {
             <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Interpretation</p>
               <p className="text-sm text-stone-700 leading-7">
-                This rent burden is healthier on paper than a high-burden site,
-                but the rest of the cost base, fit-out, and downside trading
-                still need checking.
+                This rent burden looks workable on paper, but capacity, staffing,
+                fit-out, and downside trading still need checking.
               </p>
             </div>
           </div>
@@ -265,24 +246,25 @@ export default function RestaurantLeaseViabilityPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="Break-even covers"
-          title="Convert fixed monthly costs into a daily covers target."
+          eyebrow="Break-even clients"
+          title="Convert fixed monthly costs into a daily client target."
           description="Affordability becomes clearer when the known cost base becomes a break-even number the trading plan has to beat."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
             <p className="text-sm font-semibold text-stone-900 mb-3">Break-even example</p>
             <p className="text-sm text-stone-700 leading-7">
-              If the known monthly cost base is £48,000 and average spend is £28
-              across 26 opening days, break-even is about 66 covers/day.
+              If the known monthly cost base is £23,500 and average spend is £45
+              across 26 opening days, break-even is about 20 clients/day.
             </p>
           </div>
           <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">What it means</p>
             <p className="text-sm text-stone-700 leading-7">
-              If expected covers/day is 100, there is headroom on paper, but the
-              100-cover assumption needs evidence by daypart, weekpart,
-              competitor observation, and capacity.
+              If expected clients/day is 35, there is headroom on paper, but the
+              35-client assumption needs evidence from treatment capacity,
+              appointment length, local demand, repeat bookings, and staff
+              availability.
             </p>
             <div className="mt-4">
               <Link href="/break-even-customers-calculator" className="text-teal-700 font-medium hover:text-teal-900 text-sm">
@@ -297,27 +279,28 @@ export default function RestaurantLeaseViabilityPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Upfront cash and fit-out"
-            title="Restaurants can fail before opening if the launch costs absorb too much cash."
-            description="Fit-out, equipment, deposit, legal fees, licensing, stock, and launch costs can overwhelm the opening budget."
+            title="Salons can fail before opening if launch costs absorb too much cash."
+            description="Fit-out, treatment equipment, deposit, legal fees, stock, and launch costs can overwhelm the opening budget."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-700 leading-7">
-                <p>Fit-out and equipment: £140,000</p>
-                <p>Rent deposit: £24,000</p>
-                <p>Legal/professional fees: £6,000</p>
-                <p>Opening stock: £15,000</p>
-                <p>Other setup costs: £10,000</p>
-                <p>Starting cash: £220,000</p>
-                <p>Upfront cash needed: £195,000</p>
-                <p>Opening buffer: £25,000</p>
+                <p>Fit-out and equipment: £55,000</p>
+                <p>Rent deposit: £12,000</p>
+                <p>Legal/professional fees: £4,000</p>
+                <p>Opening stock: £8,000</p>
+                <p>Other setup costs: £6,000</p>
+                <p>Starting cash: £95,000</p>
+                <p>Upfront cash needed: £85,000</p>
+                <p>Opening buffer: £10,000</p>
               </div>
             </div>
             <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Why it matters</p>
               <p className="text-sm text-stone-700 leading-7">
-                The opening buffer is positive, but it may still be thin relative
-                to restaurant fit-out overruns and early trading friction.
+                The opening buffer is positive, but thin if fit-out overruns,
+                appointments build slowly, or early staffing costs are higher
+                than expected.
               </p>
             </div>
           </div>
@@ -327,24 +310,24 @@ export default function RestaurantLeaseViabilityPage() {
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
           eyebrow="Downside trading"
-          title="Test the lease against weaker revenue, not only the expected case."
-          description="Restaurants should be checked against a weaker trading scenario so you can see whether the opening buffer is enough."
+          title="Test the lease against weaker bookings, not only expected trading."
+          description="Salons should be checked against a weaker booking scenario so you can see whether the opening buffer is enough."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
             <div className="space-y-3 text-sm text-stone-700 leading-7">
-              <p>Base monthly revenue: £72,800</p>
-              <p>60% downside revenue: £43,680</p>
-              <p>Known monthly cost base: £48,000</p>
-              <p>Downside monthly position: £4,320 burn</p>
+              <p>Base monthly revenue: £40,950</p>
+              <p>60% downside revenue: £24,570</p>
+              <p>Known monthly cost base: £23,500</p>
+              <p>Downside monthly position: £1,070 surplus</p>
             </div>
           </div>
           <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">Interpretation</p>
             <p className="text-sm text-stone-700 leading-7">
-              In this downside case, the site burns cash. With a £25,000 opening
-              buffer, that gives about 5.8 months before the buffer is exhausted,
-              before allowing for other shocks.
+              In this downside case, the salon still covers known costs, but the
+              opening buffer remains important because setup overruns and slow
+              client acquisition can still create pressure.
             </p>
             <div className="mt-4">
               <Link href="/commercial-lease-survival-calculator" className="text-teal-700 font-medium hover:text-teal-900 text-sm">
@@ -358,7 +341,7 @@ export default function RestaurantLeaseViabilityPage() {
       <section className="bg-white border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Restaurant lease terms that matter"
+            eyebrow="Salon lease terms that matter"
             title="Use the lease questions before the rent number becomes a commitment."
             description="Ask a solicitor to review the lease wording before committing."
           />
@@ -378,9 +361,9 @@ export default function RestaurantLeaseViabilityPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="Worked restaurant example"
-          title="Redacted restaurant site"
-          description="This example is fictional and redacted. It shows the shape of the restaurant affordability question without exposing a real tenant or address."
+          eyebrow="Worked salon example"
+          title="Redacted high street site"
+          description="This example is fictional and redacted. It shows the shape of the salon affordability question without exposing a real tenant or address."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
@@ -396,11 +379,10 @@ export default function RestaurantLeaseViabilityPage() {
           <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">Verdict</p>
             <p className="text-sm text-stone-700 leading-7">
-              The rent burden is not the main problem in this example. The bigger
-              issue is downside trading and the size of the opening cash buffer
-              relative to restaurant setup risk. The site needs evidence for
-              covers, average spend, staffing costs, fit-out costs, and lease
-              clauses before committing.
+              The rent burden looks workable in this example, but the opening
+              buffer is still thin. The site needs evidence for appointment
+              demand, realistic average spend, staff capacity, fit-out costs,
+              and lease clauses before committing.
             </p>
           </div>
         </div>
@@ -408,7 +390,7 @@ export default function RestaurantLeaseViabilityPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="Common restaurant lease mistakes"
+          eyebrow="Common salon lease mistakes"
           title="The lease question often goes wrong for predictable reasons."
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -424,8 +406,8 @@ export default function RestaurantLeaseViabilityPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="How YieldLens helps"
-            title="Turn the restaurant lease into numbers you can challenge."
-            description="The free commercial check can be used for restaurants by treating covers/day as customers/day and average spend as spend per cover."
+            title="Turn the salon lease into numbers you can challenge."
+            description="The free commercial check can be used for salons by treating clients/day as customers/day and average spend as spend per client."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
@@ -433,7 +415,7 @@ export default function RestaurantLeaseViabilityPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-7">
                 {[
                   'Rent burden',
-                  'Break-even covers/day',
+                  'Break-even clients/day',
                   'Upfront cash needed',
                   'Cash after opening',
                   'Downside monthly position',
@@ -472,8 +454,8 @@ export default function RestaurantLeaseViabilityPage() {
             <Link href="/commercial-lease-checklist-before-signing" className="text-teal-700 font-medium hover:text-teal-900">
               Commercial lease checklist before signing
             </Link>
-            <Link href="/salon-lease-viability-check" className="text-teal-700 font-medium hover:text-teal-900">
-              Salon lease viability check
+            <Link href="/restaurant-lease-viability-check" className="text-teal-700 font-medium hover:text-teal-900">
+              Restaurant lease viability check
             </Link>
             <Link href="/how-it-works" className="text-teal-700 font-medium hover:text-teal-900">
               See how YieldLens works
@@ -488,57 +470,37 @@ export default function RestaurantLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Related pages"
-          title="Use the restaurant page alongside the other commercial guides."
-          description="These pages keep the same pressure-test framing but focus on different site types."
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {relatedPages.map((item) => (
-            <Link
-              key={item.title}
-              href={item.href}
-              className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm hover:border-stone-300 transition-colors"
-            >
-              <p className="text-sm font-semibold text-stone-900">{item.title}</p>
-              <p className="text-sm text-stone-700 leading-7 mt-2">{item.text}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
       <section className="bg-white border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="FAQ"
-            title="Restaurant lease viability questions"
-            description="Short answers for people deciding whether a restaurant site deserves a deeper look."
+            title="Salon lease viability questions"
+            description="Short answers for people deciding whether a salon site deserves a deeper look."
           />
           <div className="grid grid-cols-1 gap-4">
             {[
               {
-                q: 'How much rent can a restaurant afford?',
+                q: 'How much rent can a salon afford?',
                 a: 'There is no universal number. YieldLens uses rent burden as a screen, with 12% as a healthier threshold and 18% as a caution threshold. Those are indicative screening thresholds, not universal rules.',
               },
               {
-                q: 'What is a good rent burden for a restaurant?',
+                q: 'What is a good rent burden for a salon?',
                 a: 'Lower is generally easier to carry. YieldLens treats around 12% as healthier and around 18% as a caution threshold. The right level still depends on the rest of the cost base and opening cash.',
               },
               {
-                q: 'How do I calculate restaurant break-even covers?',
-                a: 'Add the known monthly cost base, then divide it by average spend and opening days to get a daily covers target. The commercial check helps turn that into a practical figure.',
+                q: 'How do I calculate salon break-even clients?',
+                a: 'Add the known monthly cost base, then divide it by average spend and opening days to get a daily client target. The commercial check helps turn that into a practical figure.',
               },
               {
-                q: 'Should I include fit-out before judging a restaurant lease?',
+                q: 'Should I include fit-out before judging a salon lease?',
                 a: 'Yes. Fit-out, equipment, deposits, fees, and stock can determine whether the site survives the opening phase.',
               },
               {
-                q: 'What lease clauses matter most for restaurants?',
-                a: 'Service charge, repairing obligations, rent review, break clauses, extraction, licensing, planning, and permitted use usually deserve close attention.',
+                q: 'What lease clauses matter most for salons?',
+                a: 'Service charge, repairing obligations, rent review, break clauses, permitted use, water, drainage, ventilation, electrical capacity, and signage rights usually deserve close attention.',
               },
               {
-                q: 'Can YieldLens tell me whether to sign a restaurant lease?',
+                q: 'Can YieldLens tell me whether to sign a salon lease?',
                 a: 'No. YieldLens UK provides indicative decision-support only. It helps structure the commercial numbers and questions before you commit, but it does not tell you to sign or not sign.',
               },
             ].map((item) => (
@@ -553,19 +515,19 @@ export default function RestaurantLeaseViabilityPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="Pressure-test the restaurant lease before you commit."
+          eyebrow="Pressure-test the salon lease before you commit."
           title="Start with the free check, then review the sample and methodology."
         />
         <div className="flex flex-col sm:flex-row gap-3">
           <TrackedCtaLink
             href="/check?mode=commercial"
             eventName="commercial_home_cta_clicked"
-            pagePath="/restaurant-lease-viability-check"
-            ctaLabel="Run a free restaurant lease check"
+            pagePath="/salon-lease-viability-check"
+            ctaLabel="Run a free salon lease check"
             pageType="seo_page"
             className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
           >
-            Run a free restaurant lease check
+            Run a free salon lease check
           </TrackedCtaLink>
           <Link
             href="/sample-commercial-viability-file"
@@ -581,8 +543,14 @@ export default function RestaurantLeaseViabilityPage() {
           </Link>
         </div>
         <div className="mt-6 flex flex-wrap gap-4 text-sm">
+          <Link href="/commercial-lease-viability-check" className="text-teal-700 font-medium hover:text-teal-900">
+            Commercial lease viability check
+          </Link>
           <Link href="/commercial-lease-checklist-before-signing" className="text-teal-700 font-medium hover:text-teal-900">
             Commercial lease checklist before signing
+          </Link>
+          <Link href="/restaurant-lease-viability-check" className="text-teal-700 font-medium hover:text-teal-900">
+            Restaurant lease viability check
           </Link>
           <Link href="/commercial-rent-burden-calculator" className="text-teal-700 font-medium hover:text-teal-900">
             Commercial rent burden calculator

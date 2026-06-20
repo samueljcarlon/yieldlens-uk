@@ -136,6 +136,11 @@ const relatedPages = [
     text: 'Use the restaurant page when the site is a dining concept rather than a simpler cafe or retail unit.',
   },
   {
+    title: 'Salon lease viability check',
+    href: '/salon-lease-viability-check',
+    text: 'Use the salon page when treatment capacity and chair use drive the numbers.',
+  },
+  {
     title: 'Commercial lease viability check',
     href: '/commercial-lease-viability-check',
     text: 'Read the core commercial lease pressure-test before you run the check.',

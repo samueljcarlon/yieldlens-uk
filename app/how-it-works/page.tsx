@@ -407,6 +407,10 @@ export default function HowItWorksPage() {
             <Link href="/restaurant-lease-viability-check" className="text-teal-300 hover:text-teal-200 font-medium ml-4">
               Restaurant lease viability check
             </Link>
+            {' '}
+            <Link href="/salon-lease-viability-check" className="text-teal-300 hover:text-teal-200 font-medium ml-4">
+              Salon lease viability check
+            </Link>
           </div>
         </div>
       </section>
