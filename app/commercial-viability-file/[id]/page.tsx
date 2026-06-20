@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 import type { ReportRequest } from '@/lib/reportRequests';
 import PrintButton from './PrintButton';
@@ -96,6 +97,28 @@ function getOpeningShortfall(request: ReportRequest): string | null {
   if (cashAfterOpening === null || cashAfterOpening >= 0) return null;
 
   return formatCurrency(Math.abs(cashAfterOpening));
+}
+
+function getOpeningPositionSummary(request: ReportRequest): { label: string; value: string } {
+  const result = request.result && typeof request.result === 'object'
+    ? (request.result as Record<string, unknown>)
+    : {};
+
+  const cashAfterOpening = toNumber(result.availableCashAfterOpening);
+
+  if (cashAfterOpening === null) {
+    return { label: 'Opening position', value: 'Not available' };
+  }
+
+  if (cashAfterOpening < 0) {
+    return { label: 'Opening shortfall', value: formatCurrency(Math.abs(cashAfterOpening)) };
+  }
+
+  return { label: 'Opening buffer', value: formatCurrency(cashAfterOpening) };
+}
+
+function getCustomerAccessCookieName(id: string): string {
+  return `yieldlens_paid_file_${id}`;
 }
 
 function getCommercialContext(request: ReportRequest) {
@@ -317,22 +340,26 @@ function getRiskInterpretation(request: ReportRequest): string {
 
   const rentSentence =
     rentBurden !== null
-      ? `Rent burden is ${rentBurden.toFixed(1)}% of expected monthly revenue, so the lease depends on the entered trading assumptions being broadly right.`
+      ? `Rent burden is ${rentBurden.toFixed(1)}% of expected monthly revenue, which puts pressure on the entered customer and spend assumptions.`
       : 'Rent burden is not available, so the cost pressure needs more evidence before it can be read confidently.';
 
   const breakEvenSentence =
     toNumber(result.breakEvenCustomersPerDay) !== null && toNumber(result.expectedCustomersPerDay) !== null
-      ? `Break-even sits at ${formatNumber(result.breakEvenCustomersPerDay)} customers/day against ${formatNumber(result.expectedCustomersPerDay)} expected, which leaves headroom only if footfall and spend prove real.`
+      ? `Break-even sits at ${formatNumber(result.breakEvenCustomersPerDay)} customers/day against ${formatNumber(result.expectedCustomersPerDay)} expected, so the base case has room on paper, but that room depends on the ${formatNumber(result.expectedCustomersPerDay)}-per-day assumption being realistic.`
       : 'Break-even and expected customers/day need more evidence before the operating case can be read confidently.';
 
   let capitalSentence = '';
   if (cashAfterOpening !== null && cashAfterOpening < 0) {
     const shortfall = getOpeningShortfall(request);
     capitalSentence = shortfall
-      ? `The opening capital stack leaves a ${shortfall} shortfall before trading begins, so the main risk is funding the launch rather than operating burn.`
+      ? `Only ${shortfall} remains after opening costs, so the opening capital stack does not work on the current inputs and the main risk is funding the launch rather than monthly operating burn.`
       : 'The opening capital stack does not work on these inputs, so the main risk is funding the launch rather than operating burn.';
   } else if (cashAfterOpening !== null && cashAfterOpening < 15000) {
-    capitalSentence = `There is only a limited buffer after opening costs at ${formatCurrency(cashAfterOpening)}, so even modest overruns could make the site fragile.`;
+    const monthlyCostBase = toNumber(result.estimatedMonthlyCostBase);
+    const bufferMonths = monthlyCostBase && monthlyCostBase > 0 ? cashAfterOpening / monthlyCostBase : null;
+    capitalSentence = bufferMonths !== null
+      ? `Only ${formatCurrency(cashAfterOpening)} remains after opening costs, which covers about ${bufferMonths.toFixed(1)} months of the current monthly cost base and leaves limited room for opening overruns.`
+      : `Only ${formatCurrency(cashAfterOpening)} remains after opening costs, so even modest overruns could make the site fragile.`;
   } else {
     capitalSentence = 'The opening buffer is not the main pressure point on the current inputs, but it still needs checking against real quotes and lease terms.';
   }
@@ -341,14 +368,16 @@ function getRiskInterpretation(request: ReportRequest): string {
     downsideMonthlyPosition !== null && downsideMonthlyPosition < 0
       ? `The downside case burns about ${monthlyBurnInDownside === null ? 'Not available' : formatCurrency(monthlyBurnInDownside)} per month, so the site also needs stronger trading or lower fixed costs if the weaker case is to hold up.`
       : survivesSixBadMonths
-        ? 'The downside month still covers operating costs, so the deal is less exposed to monthly burn than to opening-cost pressure.'
+        ? 'The downside month still covers operating costs, which is positive, but the file is more exposed to opening-cost overruns, slower launch trading, or uncapped lease costs than to immediate monthly burn.'
         : 'The downside month still covers operating costs, so the survival problem is not monthly burn on its own.';
 
   const survivalSentence = !survivesSixBadMonths
     ? survivalMonths !== null
       ? `The site only survives about ${survivalMonths.toFixed(1)} months in the downside case, which is short of the six-month test.`
       : 'The site does not clear the six-month survival test on the current assumptions.'
-    : 'The site clears the six-month survival test on the current assumptions.';
+    : cashAfterOpening !== null && cashAfterOpening < 15000
+      ? 'The six-month test passes, but the opening buffer is still thin, so the pass depends on launch costs staying controlled.'
+      : 'The site clears the six-month survival test on the current assumptions.';
 
   return [rentSentence, breakEvenSentence, capitalSentence, downsideSentence, survivalSentence].join(' ');
 }
@@ -365,6 +394,22 @@ function getWhatWouldNeedToImprove(request: ReportRequest): Array<{
     figures.monthlyRent === null ? null : figures.monthlyRent * 0.9;
   const burdenAfterReduction =
     figures.rentBurden === null ? null : figures.rentBurden * 0.9;
+  const monthlyRevenueAtCurrentSpend =
+    figures.expectedCustomers !== null && figures.openingDays !== null && figures.averageSpend !== null
+      ? figures.expectedCustomers * figures.openingDays * figures.averageSpend
+      : null;
+  const monthlyRevenueAtSpendPlusOne =
+    figures.expectedCustomers !== null && figures.openingDays !== null && figures.averageSpend !== null
+      ? figures.expectedCustomers * figures.openingDays * (figures.averageSpend + 1)
+      : null;
+  const monthlyRevenueAtSpendPlusTwo =
+    figures.expectedCustomers !== null && figures.openingDays !== null && figures.averageSpend !== null
+      ? figures.expectedCustomers * figures.openingDays * (figures.averageSpend + 2)
+      : null;
+  const customerGap =
+    figures.expectedCustomers !== null && figures.breakEven !== null
+      ? figures.expectedCustomers - figures.breakEven
+      : null;
 
   return [
     {
@@ -378,6 +423,18 @@ function getWhatWouldNeedToImprove(request: ReportRequest): Array<{
           : 'Lower rent, improve average spend, raise customer volume, or secure a stronger lease deal.',
     },
     {
+      title: 'Trading assumptions',
+      current:
+        figures.expectedCustomers === null || figures.averageSpend === null
+          ? 'Not available'
+          : `${formatNumber(figures.expectedCustomers)} customers/day at ${formatCurrency(figures.averageSpend)} average spend`,
+      target: 'Validate the entered customers/day and average spend assumptions with evidence.',
+      action:
+        figures.expectedCustomers !== null && figures.openingDays !== null && figures.averageSpend !== null && monthlyRevenueAtCurrentSpend !== null && monthlyRevenueAtSpendPlusOne !== null && monthlyRevenueAtSpendPlusTwo !== null
+          ? `At ${formatNumber(figures.expectedCustomers)} customers/day over ${figures.openingDays.toFixed(0)} days, raising average spend from ${formatCurrency(figures.averageSpend)} to ${formatCurrency(figures.averageSpend + 1)} would add about ${formatCurrency(monthlyRevenueAtSpendPlusOne - monthlyRevenueAtCurrentSpend)} a month, and ${formatCurrency(figures.averageSpend + 2)} would add about ${formatCurrency(monthlyRevenueAtSpendPlusTwo - monthlyRevenueAtCurrentSpend)} a month.`
+          : 'Use footfall and basket evidence to support the customer and spend assumptions rather than treating them as fixed.',
+    },
+    {
       title: 'Break-even customers',
       current:
         figures.breakEven === null || figures.expectedCustomers === null
@@ -385,8 +442,8 @@ function getWhatWouldNeedToImprove(request: ReportRequest): Array<{
           : `${figures.breakEven.toFixed(1)} per day against ${figures.expectedCustomers.toFixed(1)} expected`,
       target: 'Break-even should sit comfortably below expected customers per day.',
       action:
-        figures.breakEven !== null && figures.expectedCustomers !== null
-          ? `Break-even is ${figures.breakEven.toFixed(1)} customers/day against ${figures.expectedCustomers.toFixed(1)} expected, so the entered footfall and spend assumptions need evidence rather than optimism.`
+        figures.breakEven !== null && figures.expectedCustomers !== null && customerGap !== null
+          ? `Break-even is ${figures.breakEven.toFixed(1)} customers/day against ${figures.expectedCustomers.toFixed(1)} expected, leaving a margin of ${customerGap.toFixed(1)} customers/day. That is comfortable on paper, but it still needs footfall validation.`
           : 'Increase customers per day, increase average spend, lower staffing or other costs, or reduce rent.',
     },
     {
@@ -401,7 +458,9 @@ function getWhatWouldNeedToImprove(request: ReportRequest): Array<{
       action:
         figures.upfrontCashNeeded !== null && figures.startingCash !== null && figures.cashAfterOpening !== null && figures.cashAfterOpening < 0
           ? `Upfront cash needed is ${formatCurrency(figures.upfrontCashNeeded)} against starting cash of ${formatCurrency(figures.startingCash)}, leaving a ${shortfall ?? 'Not available'} shortfall before trading begins.`
-          : 'Increase starting cash, lower fit-out or setup costs, secure landlord contribution, or negotiate rent-free and reduced deposit terms.',
+          : figures.cashAfterOpening !== null && figures.monthlyCostBase !== null && figures.cashAfterOpening < 15000
+            ? `A buffer of ${formatCurrency(figures.cashAfterOpening)} covers about ${(figures.cashAfterOpening / figures.monthlyCostBase).toFixed(1)} months of the current monthly cost base of ${formatCurrency(figures.monthlyCostBase)}, so even a modest opening overrun could use it up.`
+            : 'Increase starting cash, lower fit-out or setup costs, secure landlord contribution, or negotiate rent-free and reduced deposit terms.',
     },
     {
       title: 'Downside survival',
@@ -749,15 +808,15 @@ function getRankedActionItems(request: ReportRequest): Array<{
     },
     {
       rank: 2,
-      title: 'Verify the customer/day assumption',
+      title: 'Validate the customer/day and spend assumptions',
       why:
         figures.breakEven !== null && figures.expectedCustomers !== null
           ? `Break-even sits at ${figures.breakEven.toFixed(1)} customers/day against ${figures.expectedCustomers.toFixed(1)} expected, so the revenue case needs evidence.`
           : 'The revenue case needs evidence before the site can be read confidently.',
       confidence:
-        figures.expectedCustomers !== null
-          ? `Use footfall counts and competitor checks to support the ${figures.expectedCustomers.toFixed(1)} expected customers/day assumption.`
-          : 'Use footfall counts and competitor checks to support the expected customer assumption.',
+        figures.expectedCustomers !== null && figures.averageSpend !== null
+          ? `Use footfall counts and basket checks to support the ${figures.expectedCustomers.toFixed(1)} expected customers/day assumption and the ${formatCurrency(figures.averageSpend)} average spend.`
+          : 'Use footfall counts and basket checks to support the customer and spend assumptions.',
       priority: customerPriority,
     },
     {
@@ -828,6 +887,27 @@ function getFinalAssessment(request: ReportRequest): {
     };
   }
 
+  if (
+    figures.rentBurden !== null &&
+    figures.rentBurden > 18 &&
+    figures.cashAfterOpening !== null &&
+    figures.cashAfterOpening < 15000
+  ) {
+    return {
+      verdict: 'Renegotiate rent before committing.',
+      reason:
+        `Rent burden is ${figures.rentBurden.toFixed(1)}% and only ${formatCurrency(figures.cashAfterOpening)} remains after opening costs, so the lease has limited room for error even though the downside case still covers operating costs.`,
+      renegotiate:
+        'Rent, rent-free period, landlord contribution, deposit, or any term that improves the opening capital stack and monthly cost base.',
+      verify:
+        'Recheck footfall, average spend, fit-out quotes, deposit terms, and service charge wording before treating the site as a fit.',
+      nextStep:
+        'Renegotiate the rent position and opening terms, then retest the site with revised assumptions.',
+      summary:
+        'Renegotiate rent before committing. The lease economics are still carrying too much pressure from rent and opening costs for the margin of safety to feel comfortable.',
+    };
+  }
+
   if (!figures.survivesSixBadMonths && figures.downsideMonthlyPosition !== null && figures.downsideMonthlyPosition >= 0) {
     return {
       verdict: 'Renegotiate upfront terms before signing.',
@@ -846,7 +926,7 @@ function getFinalAssessment(request: ReportRequest): {
 
   if (figures.rentBurden !== null && figures.rentBurden > 18) {
     return {
-      verdict: 'Renegotiate rent before signing.',
+      verdict: 'Renegotiate rent before committing.',
       reason: `Rent burden is ${figures.rentBurden.toFixed(1)}% of expected monthly revenue, which is high enough to demand stronger trading or a better lease deal.`,
       renegotiate:
         'Rent level, break clause, service charge cap, and any landlord support that improves the monthly cost base.',
@@ -955,6 +1035,54 @@ function getChecklistItems(request: ReportRequest): Array<{ label: string; detai
   ];
 }
 
+function getLeaseQuestionsContext(request: ReportRequest): string {
+  const figures = getCommercialContext(request);
+  const parts: string[] = [];
+
+  if (figures.rentBurden !== null && figures.rentBurden > 18) {
+    parts.push(
+      `Because rent burden is ${figures.rentBurden.toFixed(1)}%, service charge caps and rent review wording matter more here.`
+    );
+  }
+
+  if (figures.cashAfterOpening !== null && figures.cashAfterOpening < 15000) {
+    parts.push(
+      `Because only ${formatCurrency(figures.cashAfterOpening)} remains after opening costs, deposit, rent-free period, repair obligations, and fit-out contribution matter more.`
+    );
+  }
+
+  return parts.length > 0
+    ? parts.join(' ')
+    : 'The lease questions below are the points that most often change a commercial site from workable to fragile.';
+}
+
+function getDueDiligenceContext(request: ReportRequest): string {
+  const figures = getCommercialContext(request);
+  const parts: string[] = [];
+
+  if (figures.expectedCustomers !== null) {
+    parts.push(
+      `Because the model relies on ${formatNumber(figures.expectedCustomers)} customers/day, footfall checks and competitor observations are high-value evidence.`
+    );
+  }
+
+  if (figures.breakEven !== null) {
+    parts.push(
+      `Because break-even is ${formatNumber(figures.breakEven)} customers/day, the site has room on paper, but only if customer and spend assumptions are real.`
+    );
+  }
+
+  if (figures.cashAfterOpening !== null && figures.cashAfterOpening < 15000) {
+    parts.push(
+      `Because the opening cash buffer is limited, fit-out quotes and setup costs need tighter verification.`
+    );
+  }
+
+  return parts.length > 0
+    ? parts.join(' ')
+    : 'The due diligence checklist focuses on the evidence that most often changes the commercial case.';
+}
+
 function getDueDiligenceItems(request: ReportRequest): Array<{ label: string; detail: string }> {
   const figures = getCommercialContext(request);
 
@@ -1024,7 +1152,7 @@ function getReportReference(request: ReportRequest): string {
   return getShortReference(request.id);
 }
 
-async function getPaidCustomerReport(id: string, token: string): Promise<ReportRequest | null> {
+async function getPaidCustomerReport(id: string): Promise<ReportRequest | null> {
   const supabase = getSupabaseAdmin();
 
   const { data, error } = await supabase
@@ -1039,11 +1167,7 @@ async function getPaidCustomerReport(id: string, token: string): Promise<ReportR
     return null;
   }
 
-  if (
-    data.mode !== 'commercial' ||
-    data.payment_status !== 'paid' ||
-    data.customer_access_token !== token
-  ) {
+  if (data.mode !== 'commercial' || data.payment_status !== 'paid') {
     return null;
   }
 
@@ -1112,13 +1236,26 @@ export default async function CommercialViabilityFilePage({
     ? routeSearchParams.token[0]
     : routeSearchParams.token ?? '';
 
-  if (!reportRequestId || !token) {
+  if (!reportRequestId) {
     notFound();
   }
 
-  const request = await getPaidCustomerReport(reportRequestId, token);
+  if (token) {
+    redirect(
+      `/commercial-viability-file/${encodeURIComponent(reportRequestId)}/unlock?token=${encodeURIComponent(token)}`
+    );
+  }
+
+  const request = await getPaidCustomerReport(reportRequestId);
 
   if (!request) {
+    notFound();
+  }
+
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get(getCustomerAccessCookieName(reportRequestId))?.value ?? '';
+
+  if (!accessToken || accessToken !== request.customerAccessToken) {
     notFound();
   }
 
@@ -1135,9 +1272,14 @@ export default async function CommercialViabilityFilePage({
           .customer-print-hide {
             display: none !important;
           }
+
+          .customer-print-section {
+            break-inside: avoid-page;
+            page-break-inside: avoid;
+          }
         }
       `}</style>
-      <section className="bg-stone-950 text-white">
+      <section className="bg-stone-950 text-white customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 items-start">
             <div>
@@ -1148,7 +1290,7 @@ export default async function CommercialViabilityFilePage({
                 Commercial viability file
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                This paid file is the customer-facing report for a commercial request that has been paid and unlocked.
+                This file organises the site’s rent burden, break-even customers, upfront cash, downside trading, lease questions, and next checks before you commit.
               </p>
               <p className="text-xs text-stone-400">
                 YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
@@ -1163,6 +1305,9 @@ export default async function CommercialViabilityFilePage({
                   Run another commercial check
                 </Link>
               </div>
+              <p className="mt-4 text-xs text-stone-400 leading-6 customer-print-hide">
+                For the cleanest saved PDF, turn off browser headers and footers in the print dialog.
+              </p>
             </div>
 
             <div className="bg-white text-stone-900 rounded-xl overflow-hidden shadow-2xl">
@@ -1181,12 +1326,16 @@ export default async function CommercialViabilityFilePage({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2">
-                {[
-                  { label: 'Score', value: `${request.score}/100` },
-                  { label: 'Rent burden', value: formatPercent(context.rentBurden) },
-                  { label: 'Break-even/day', value: formatNumber(context.breakEven) },
-                  { label: 'Opening shortfall', value: getOpeningShortfall(request) ?? 'None' },
-                ].map((metric) => (
+                {(() => {
+                  const openingPosition = getOpeningPositionSummary(request);
+
+                  return [
+                    { label: 'Score', value: `${request.score}/100` },
+                    { label: 'Rent burden', value: formatPercent(context.rentBurden) },
+                    { label: 'Break-even/day', value: formatNumber(context.breakEven) },
+                    openingPosition,
+                  ];
+                })().map((metric) => (
                   <div key={metric.label} className="border-b border-stone-200 p-4 sm:odd:border-r">
                     <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{metric.label}</p>
                     <p className="text-2xl font-bold text-stone-900 mt-1">{metric.value}</p>
@@ -1198,7 +1347,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
           eyebrow="Executive summary"
           title={assessment.verdict}
@@ -1206,7 +1355,7 @@ export default async function CommercialViabilityFilePage({
         />
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-white border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Site snapshot"
@@ -1223,7 +1372,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
           eyebrow="Key viability metrics"
           title="The core numbers the file makes easy to review."
@@ -1238,7 +1387,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-white border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Upfront cash and survival"
@@ -1258,7 +1407,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
           eyebrow="What would need to improve?"
           title="The deal needs a stronger opening capital position."
@@ -1279,7 +1428,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-white border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Stress-test scenarios"
@@ -1312,7 +1461,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
           eyebrow="Negotiation levers"
           title="Practical lease points worth testing before signing."
@@ -1332,7 +1481,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-white border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Evidence needed before signing"
@@ -1356,7 +1505,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
           eyebrow="Risk interpretation"
           title="How the file reads when the numbers are pulled together."
@@ -1364,10 +1513,11 @@ export default async function CommercialViabilityFilePage({
         <p className="text-sm text-stone-700 leading-7 max-w-4xl">{getRiskInterpretation(request)}</p>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
           eyebrow="Lease questions to verify"
           title="The lease points that matter most on this file."
+          description={getLeaseQuestionsContext(request)}
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
           {getChecklistItems(request).map((item) => (
@@ -1379,11 +1529,12 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-white border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Due diligence checklist"
             title="The checks that should happen before signing."
+            description={getDueDiligenceContext(request)}
           />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {getDueDiligenceItems(request).map((item) => (
@@ -1396,7 +1547,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
           eyebrow="How this file was built"
           title="The method behind the paid file."
@@ -1404,9 +1555,9 @@ export default async function CommercialViabilityFilePage({
         <p className="text-sm text-stone-700 leading-7 max-w-4xl">{getMethodologyNote()}</p>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
-          eyebrow="Ranked action list before signing"
+          eyebrow="Ranked actions before committing"
           title="What to tackle first on this file."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -1428,7 +1579,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-stone-950 text-white">
+      <section className="bg-stone-950 text-white customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Final view"
@@ -1456,10 +1607,10 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-teal-50 border-y border-teal-200">
+      <section className="bg-teal-50 border-y border-teal-200 customer-print-section">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
-            Next step
+            Retest the site
           </p>
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
             Run another commercial check if you want to retest the site.

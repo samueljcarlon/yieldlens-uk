@@ -47,7 +47,7 @@ export default async function PaymentSuccessPage({
   const isPaid = request?.payment_status === 'paid';
   const isReady = tokenMatches && isPaid && isCommercial;
   const fileHref = isReady
-    ? `/commercial-viability-file/${encodeURIComponent(requestId)}?token=${encodeURIComponent(token)}`
+    ? `/commercial-viability-file/${encodeURIComponent(requestId)}/unlock?token=${encodeURIComponent(token)}`
     : null;
 
   return (
