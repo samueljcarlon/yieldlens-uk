@@ -93,6 +93,11 @@ const checklist = [
 
 const relatedTools = [
   {
+    title: 'Commercial lease checklist',
+    href: '/commercial-lease-checklist-before-signing',
+    text: 'Check the lease items before you commit.',
+  },
+  {
     title: 'Commercial lease viability',
     href: '/commercial-lease-viability-check',
     text: 'Read the core commercial lease pressure-test before running the check.',
@@ -423,6 +428,26 @@ export default function CafeRentAffordabilityPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-16">
+        <SectionTitle
+          eyebrow="Related tools"
+          title="Use the cafe guide alongside the other commercial pages."
+          description="These pages keep the same pressure-test framing but break the problem into simpler parts."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {relatedTools.map((item) => (
+            <Link
+              key={item.title}
+              href={item.href}
+              className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm hover:border-stone-300 transition-colors"
+            >
+              <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+              <p className="text-sm text-stone-700 leading-7 mt-2">{item.text}</p>
+            </Link>
+          ))}
         </div>
       </section>
 

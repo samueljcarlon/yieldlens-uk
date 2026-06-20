@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/check',
     '/privacy',
     '/terms',
+    '/commercial-lease-checklist-before-signing',
     '/commercial-lease-viability-check',
     '/commercial-rent-burden-calculator',
     '/break-even-customers-calculator',

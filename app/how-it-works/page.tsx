@@ -399,6 +399,11 @@ export default function HowItWorksPage() {
               Cafe rent guide
             </Link>
           </div>
+          <div className="mt-5 text-sm text-stone-300">
+            <Link href="/commercial-lease-checklist-before-signing" className="text-teal-300 hover:text-teal-200 font-medium">
+              Commercial lease checklist before signing
+            </Link>
+          </div>
         </div>
       </section>
     </div>

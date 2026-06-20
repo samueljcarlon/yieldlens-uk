@@ -22,6 +22,10 @@ export default function Footer() {
             </p>
 
             <div className="space-y-2 text-sm">
+              <Link href="/commercial-lease-checklist-before-signing" className="block text-stone-500 hover:text-stone-900">
+                Commercial lease checklist before signing
+              </Link>
+
               <Link href="/commercial-lease-viability-check" className="block text-stone-500 hover:text-stone-900">
                 Commercial lease viability check
               </Link>
