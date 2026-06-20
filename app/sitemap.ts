@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/break-even-customers-calculator',
     '/commercial-lease-survival-calculator',
     '/sample-commercial-viability-file',
+    '/how-it-works',
     '/buy-to-let-yield-calculator',
     '/property-cash-flow-calculator',
     '/rent-affordability-check',

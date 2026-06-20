@@ -274,6 +274,12 @@ export default function SampleCommercialViabilityFilePage() {
                 >
                   View paid file details
                 </Link>
+                <Link
+                  href="/how-it-works"
+                  className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+                >
+                  How it works
+                </Link>
               </div>
             </div>
             <div className="rounded-lg border border-white/10 bg-white/5 p-5 sm:p-6">
@@ -524,6 +530,12 @@ export default function SampleCommercialViabilityFilePage() {
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               Get your own £49 viability file
+            </Link>
+            <Link
+              href="/how-it-works"
+              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+            >
+              How it works
             </Link>
           </div>
         </div>

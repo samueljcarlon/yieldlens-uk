@@ -74,6 +74,12 @@ const supportingTools = [
     featured: true,
   },
   {
+    title: 'How it works',
+    desc: 'Learn how the free check, paid file, and sample report fit together before you start.',
+    href: '/how-it-works',
+    cta: 'Read the methodology',
+  },
+  {
     title: 'Residential property check',
     desc: 'Screen a residential rent, purchase, or buy-to-let decision with yield, cash flow, assumptions, and risk flags.',
     href: '/check?mode=residential',
@@ -149,6 +155,13 @@ export default function HomePage() {
                 className="inline-flex mt-4 text-sm font-medium text-teal-300 hover:text-teal-200"
               >
                 View sample file
+              </Link>
+
+              <Link
+                href="/how-it-works"
+                className="inline-flex mt-3 text-sm font-medium text-teal-300 hover:text-teal-200"
+              >
+                How it works
               </Link>
 
               <p className="text-xs text-stone-400 mt-5">

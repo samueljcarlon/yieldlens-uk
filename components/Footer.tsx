@@ -74,6 +74,10 @@ export default function Footer() {
                 Commercial check
               </Link>
 
+              <Link href="/how-it-works" className="block text-stone-500 hover:text-stone-900">
+                How it works
+              </Link>
+
               <Link href="/privacy" className="block text-stone-500 hover:text-stone-900">
                 Privacy
               </Link>
