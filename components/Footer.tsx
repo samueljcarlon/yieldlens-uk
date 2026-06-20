@@ -41,6 +41,10 @@ export default function Footer() {
               <Link href="/viability-file" className="block text-stone-500 hover:text-stone-900">
                 Viability file
               </Link>
+
+              <Link href="/how-much-rent-can-a-cafe-afford" className="block text-stone-500 hover:text-stone-900">
+                Cafe rent affordability guide
+              </Link>
             </div>
           </div>
 

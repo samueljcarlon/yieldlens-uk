@@ -80,6 +80,12 @@ const supportingTools = [
     cta: 'Read the methodology',
   },
   {
+    title: 'Cafe rent affordability',
+    desc: 'Read the cafe-specific guide to rent burden, break-even customers, opening cash, and lease risk.',
+    href: '/how-much-rent-can-a-cafe-afford',
+    cta: 'Read cafe rent guide',
+  },
+  {
     title: 'Residential property check',
     desc: 'Screen a residential rent, purchase, or buy-to-let decision with yield, cash flow, assumptions, and risk flags.',
     href: '/check?mode=residential',

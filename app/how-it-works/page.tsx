@@ -347,12 +347,12 @@ export default function HowItWorksPage() {
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
           eyebrow="Trust and privacy"
-          title="The public sample is fictional. Paid files are token-protected."
+          title="The public sample is fictional. Paid files are access-protected."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {[
             'The public sample uses fictional and redacted inputs only.',
-            'Paid customer files are unlocked securely with a token and cookie.',
+            'Paid customer files are unlocked securely with a private link and cookie.',
             'Report access is not public by ID alone.',
             'Users should not enter information they are not comfortable using for decision-support analysis.',
           ].map((item) => (
@@ -391,6 +391,12 @@ export default function HowItWorksPage() {
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
             >
               Learn about the £49 file
+            </Link>
+            <Link
+              href="/how-much-rent-can-a-cafe-afford"
+              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            >
+              Cafe rent guide
             </Link>
           </div>
         </div>
