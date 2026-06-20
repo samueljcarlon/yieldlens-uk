@@ -52,6 +52,7 @@ export interface ReportRequest {
   currency: string;
   stripeCheckoutSessionId: string | null;
   stripePaymentIntentId: string | null;
+  customerAccessToken: string | null;
   updatedAt: string;
   contactedAt: string | null;
   input: unknown;

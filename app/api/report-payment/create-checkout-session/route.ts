@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { randomBytes } from 'crypto';
 import Stripe from 'stripe';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -44,6 +45,12 @@ function buildRedirectUrl(baseUrl: string, path: string, reportRequestId: string
   return url.toString();
 }
 
+function addTokenToRedirectUrl(url: string, customerAccessToken: string) {
+  const parsed = new URL(url);
+  parsed.searchParams.set('token', customerAccessToken);
+  return parsed.toString();
+}
+
 const allowedRequestedReportTypes = new Set(['standard_pdf', 'standard_viability_file']);
 
 export async function POST(request: NextRequest) {
@@ -66,7 +73,7 @@ export async function POST(request: NextRequest) {
     const { data: reportRequest, error: fetchError } = await supabase
       .from('report_requests')
       .select(
-        'id, mode, email, requested_report_type, payment_status, stripe_checkout_session_id'
+        'id, mode, email, requested_report_type, payment_status, stripe_checkout_session_id, customer_access_token'
       )
       .eq('id', reportRequestId)
       .maybeSingle();
@@ -106,9 +113,32 @@ export async function POST(request: NextRequest) {
     const amountDuePence = 4900;
     const currency = 'GBP';
     const productName = 'Standard commercial viability file';
+    let customerAccessToken = reportRequest.customer_access_token as string | null;
 
-    const successUrl = buildRedirectUrl(siteUrl, '/payment/success', reportRequestId);
-    const cancelUrl = buildRedirectUrl(siteUrl, '/payment/cancel', reportRequestId);
+    if (!customerAccessToken) {
+      customerAccessToken = randomBytes(32).toString('hex');
+
+      const { error: tokenUpdateError } = await supabase
+        .from('report_requests')
+        .update({
+          customer_access_token: customerAccessToken,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', reportRequest.id);
+
+      if (tokenUpdateError) {
+        return NextResponse.json({ error: tokenUpdateError.message }, { status: 500 });
+      }
+    }
+
+    const successUrl = addTokenToRedirectUrl(
+      buildRedirectUrl(siteUrl, '/payment/success', reportRequestId),
+      customerAccessToken
+    );
+    const cancelUrl = addTokenToRedirectUrl(
+      buildRedirectUrl(siteUrl, '/payment/cancel', reportRequestId),
+      customerAccessToken
+    );
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',

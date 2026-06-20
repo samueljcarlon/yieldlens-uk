@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { randomBytes } from 'crypto';
 import type { Submission } from '@/types/property';
 import type {
   ReportRequestFulfilmentStatus,
@@ -98,6 +99,7 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = getSupabaseAdmin();
+    const customerAccessToken = randomBytes(32).toString('hex');
 
     const row = {
       submission_id: submission.id,
@@ -120,6 +122,7 @@ export async function POST(request: NextRequest) {
       currency: 'GBP',
       stripe_checkout_session_id: null,
       stripe_payment_intent_id: null,
+      customer_access_token: customerAccessToken,
       updated_at: new Date().toISOString(),
     };
 
@@ -188,6 +191,7 @@ export async function GET(request: NextRequest) {
       currency: row.currency,
       stripeCheckoutSessionId: row.stripe_checkout_session_id,
       stripePaymentIntentId: row.stripe_payment_intent_id,
+      customerAccessToken: row.customer_access_token,
       updatedAt: row.updated_at,
       contactedAt: row.contacted_at,
       input: row.input_json,
