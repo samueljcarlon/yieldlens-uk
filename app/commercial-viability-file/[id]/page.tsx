@@ -904,7 +904,7 @@ function getFinalAssessment(request: ReportRequest): {
       nextStep:
         'Renegotiate the rent position and opening terms, then retest the site with revised assumptions.',
       summary:
-        'Renegotiate rent before committing. The lease economics are still carrying too much pressure from rent and opening costs for the margin of safety to feel comfortable.',
+        'The lease economics are still carrying too much pressure from rent and opening costs for the margin of safety to feel comfortable.',
     };
   }
 
@@ -1277,6 +1277,11 @@ export default async function CommercialViabilityFilePage({
             break-inside: avoid-page;
             page-break-inside: avoid;
           }
+
+          .customer-print-card {
+            break-inside: avoid-page;
+            page-break-inside: avoid;
+          }
         }
       `}</style>
       <section className="bg-stone-950 text-white customer-print-section">
@@ -1562,7 +1567,7 @@ export default async function CommercialViabilityFilePage({
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {getRankedActionItems(request).map((item) => (
-            <div key={item.title} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+            <div key={item.title} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.rank}</p>
@@ -1607,7 +1612,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-teal-50 border-y border-teal-200 customer-print-section">
+      <section className="bg-teal-50 border-y border-teal-200 customer-print-section customer-print-hide">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
             Retest the site
