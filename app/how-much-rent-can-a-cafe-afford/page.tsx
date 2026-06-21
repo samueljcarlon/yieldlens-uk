@@ -103,6 +103,11 @@ const relatedTools = [
     text: 'Use the restaurant page for a fuller dining concept pressure-test.',
   },
   {
+    title: 'Salon lease viability',
+    href: '/salon-lease-viability-check',
+    text: 'Use the salon page when chair capacity and treatment demand drive the decision.',
+  },
+  {
     title: 'Commercial lease viability',
     href: '/commercial-lease-viability-check',
     text: 'Read the core commercial lease pressure-test before running the check.',
