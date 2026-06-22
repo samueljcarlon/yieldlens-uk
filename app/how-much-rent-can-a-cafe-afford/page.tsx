@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
@@ -185,6 +186,13 @@ export default function CafeRentAffordabilityPage() {
   return (
     <div className="bg-stone-50 text-stone-900">
       <JsonLd data={faqStructuredData} />
+      <FunnelEventTracker
+        eventName="inbound_page_view"
+        pagePath="/how-much-rent-can-a-cafe-afford"
+        pageType="seo_page"
+        mode="commercial"
+        eventLabel="Cafe rent guide viewed"
+      />
 
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">

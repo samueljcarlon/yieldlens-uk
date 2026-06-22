@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import ToolConversionPanel from '@/components/ToolConversionPanel';
 
@@ -263,6 +264,13 @@ export default function CommercialLeaseViabilityPage() {
   return (
     <div>
       <JsonLd data={[faqStructuredData, breadcrumbStructuredData]} />
+      <FunnelEventTracker
+        eventName="inbound_page_view"
+        pagePath="/commercial-lease-viability-check"
+        pageType="commercial_landing"
+        mode="commercial"
+        eventLabel="Commercial lease viability page viewed"
+      />
 
       <section className="bg-white border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">

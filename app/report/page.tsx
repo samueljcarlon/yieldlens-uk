@@ -324,7 +324,7 @@ function ReportDataTable({
   rows: Array<{ label: string; value: string; note?: string }>;
 }) {
   return (
-    <div className="border border-stone-200 rounded-xl overflow-hidden bg-white">
+    <div className="border border-stone-200 rounded-2xl overflow-hidden bg-white shadow-sm">
       {rows.map((row) => (
         <div
           key={row.label}
@@ -470,7 +470,7 @@ function CommercialCashAndSurvivalModel({
       intro="Cash needed before opening and the downside monthly position used for the six-month survival test."
     >
       {hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0 && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+        <div className="bg-red-50 border border-red-200 rounded-2xl p-4 mb-4 shadow-sm">
           <p className="text-sm font-semibold text-red-900">
             Major opening funding issue
           </p>
@@ -481,7 +481,7 @@ function CommercialCashAndSurvivalModel({
       )}
 
       {!hasDownsideMonthlyBurn(result) && (
-        <div className="bg-teal-50 border border-teal-200 rounded-xl p-4 mb-4">
+        <div className="bg-teal-50 border border-teal-200 rounded-2xl p-4 mb-4 shadow-sm">
           <p className="text-sm font-semibold text-teal-900">
             No monthly burn in downside case
           </p>
@@ -540,7 +540,7 @@ function CommercialRiskFindings({ flags }: { flags: RiskFlag[] }) {
           ))}
         </div>
       ) : (
-        <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-stone-600">
+        <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 text-sm text-stone-600 shadow-sm">
           No specific risk flags were generated from the submitted inputs.
         </div>
       )}
@@ -586,7 +586,7 @@ function CommercialLeaseQuestions() {
         {questionGroups.map((group) => (
           <div
             key={group.title}
-            className="bg-white border border-stone-200 rounded-xl p-4"
+            className="bg-white border border-stone-200 rounded-2xl p-4 shadow-sm"
           >
             <p className="text-sm font-semibold text-stone-900 mb-3">
               {group.title}
@@ -698,7 +698,7 @@ export default function ReportPage() {
   if (!submission) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-        <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
+        <div className="bg-white border border-stone-200 rounded-2xl p-8 shadow-sm">
           <h1 className="text-2xl font-bold text-stone-900 mb-3">
             No report available
           </h1>
@@ -787,7 +787,7 @@ export default function ReportPage() {
         </div>
       </div>
 
-      <article className="report-page bg-white border border-stone-200 rounded-xl shadow-sm p-8">
+      <article className="report-page bg-white border border-stone-200 rounded-2xl shadow-[0_16px_40px_rgba(15,23,42,0.08)] p-8">
         <header className="border-b border-stone-200 pb-6 mb-8">
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
             <div>
@@ -819,7 +819,7 @@ export default function ReportPage() {
               )}
             </div>
 
-            <div className="border border-stone-200 rounded-xl p-5 min-w-[220px] bg-stone-50">
+            <div className="border border-stone-200 rounded-2xl p-5 min-w-[220px] bg-stone-50 shadow-sm">
               <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">
                 Indicative score
               </p>
@@ -854,22 +854,22 @@ export default function ReportPage() {
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+                <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 shadow-sm">
                   <p className="text-xs uppercase tracking-wide text-stone-400">Address</p>
                   <p className="font-semibold text-stone-900 mt-1">{getAddress(submission)}</p>
                 </div>
 
-                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+                <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 shadow-sm">
                   <p className="text-xs uppercase tracking-wide text-stone-400">Postcode</p>
                   <p className="font-semibold text-stone-900 mt-1">{getLocation(submission)}</p>
                 </div>
 
-                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+                <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 shadow-sm">
                   <p className="text-xs uppercase tracking-wide text-stone-400">Use case</p>
                   <p className="font-semibold text-stone-900 mt-1">{getPropertyUse(submission)}</p>
                 </div>
 
-                <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+                <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 shadow-sm">
                   <p className="text-xs uppercase tracking-wide text-stone-400">Email</p>
                   <p className="font-semibold text-stone-900 mt-1 break-words">{getEmail(submission)}</p>
                 </div>
@@ -907,7 +907,7 @@ export default function ReportPage() {
 
               <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 text-sm text-stone-700">
                 {result.assumptions.map((assumption) => (
-                  <li key={assumption} className="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                  <li key={assumption} className="bg-stone-50 border border-stone-200 rounded-2xl p-3 shadow-sm">
                     {assumption}
                   </li>
                 ))}
@@ -922,7 +922,7 @@ export default function ReportPage() {
 
                 <ul className="space-y-2 text-sm text-yellow-800">
                   {result.missingDataWarnings.map((warning) => (
-                    <li key={warning} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                    <li key={warning} className="bg-yellow-50 border border-yellow-200 rounded-2xl p-3 shadow-sm">
                       {warning}
                     </li>
                   ))}
@@ -937,7 +937,7 @@ export default function ReportPage() {
 
               <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
                 {result.nextSteps.map((step) => (
-                  <li key={step} className="bg-white border border-stone-200 rounded-lg p-3">
+                  <li key={step} className="bg-white border border-stone-200 rounded-2xl p-3 shadow-sm">
                     {step}
                   </li>
                 ))}

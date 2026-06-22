@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import VerdictBadge from '@/components/VerdictBadge';
 
@@ -114,6 +115,13 @@ const supportingTools = [
 export default function HomePage() {
   return (
     <div className="bg-stone-50">
+      <FunnelEventTracker
+        eventName="inbound_page_view"
+        pagePath="/"
+        pageType="homepage"
+        mode="commercial"
+        eventLabel="Homepage viewed"
+      />
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 lg:gap-12 items-center">
@@ -179,7 +187,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="rounded-lg border border-white/15 bg-white/5 overflow-hidden shadow-2xl">
+            <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-2xl">
               <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-stone-400 font-medium">
@@ -240,7 +248,7 @@ export default function HomePage() {
             {featureCards.map((card) => (
               <div
                 key={card.title}
-                className="border border-stone-200 bg-stone-50 rounded-lg p-4 shadow-sm"
+                className="border border-stone-200 bg-stone-50 rounded-2xl p-4 shadow-sm"
               >
                 <p className="font-semibold text-stone-900 mb-2">{card.title}</p>
                 <p className="text-sm text-stone-600 leading-6">{card.desc}</p>
@@ -267,11 +275,11 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {howItWorks.map((item) => (
-            <div
-              key={item.step}
-              className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm"
-            >
+            {howItWorks.map((item) => (
+              <div
+                key={item.step}
+                className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm"
+              >
               <p className="w-9 h-9 rounded-full bg-teal-700 text-white text-sm font-semibold flex items-center justify-center mb-5">
                 {item.step}
               </p>
@@ -324,7 +332,7 @@ export default function HomePage() {
               <Link
                 key={tool.title}
                 href={tool.href}
-                className={`border rounded-lg p-6 shadow-sm transition-colors ${
+                className={`border rounded-2xl p-6 shadow-sm transition-colors ${
                   tool.featured
                     ? 'bg-teal-50 border-teal-200 hover:border-teal-300'
                     : 'bg-white border-stone-200 hover:border-teal-300'
@@ -393,7 +401,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-stone-950 text-white rounded-lg overflow-hidden shadow-xl">
+          <div className="bg-stone-950 text-white rounded-2xl overflow-hidden shadow-xl">
             <div className="px-6 py-4 border-b border-white/10">
               <p className="text-xs uppercase tracking-widest text-teal-300 font-medium">
                 Commercial viability file

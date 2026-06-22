@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
@@ -244,6 +245,13 @@ function SectionTitle({
 export default function SampleCommercialViabilityFilePage() {
   return (
     <div className="bg-stone-50 text-stone-900">
+      <FunnelEventTracker
+        eventName="inbound_page_view"
+        pagePath="/sample-commercial-viability-file"
+        pageType="sample_file"
+        mode="commercial"
+        eventLabel="Sample commercial viability file viewed"
+      />
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
@@ -282,13 +290,13 @@ export default function SampleCommercialViabilityFilePage() {
                 </Link>
               </div>
             </div>
-            <div className="rounded-lg border border-white/10 bg-white/5 p-5 sm:p-6">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 shadow-[0_20px_40px_rgba(15,23,42,0.18)]">
               <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
                 Sample verdict snapshot
               </p>
               <div className="grid grid-cols-2 gap-3">
                 {sampleSummary.map((item) => (
-                  <div key={item.label} className={`rounded-lg border p-4 ${item.tone}`}>
+                  <div key={item.label} className={`rounded-2xl border p-4 shadow-sm ${item.tone}`}>
                     <p className="text-xs uppercase tracking-wide font-semibold mb-1">{item.label}</p>
                     <p className="text-2xl font-bold">{item.value}</p>
                     <p className="text-xs leading-5 mt-2 opacity-80">{item.helper}</p>
@@ -297,7 +305,7 @@ export default function SampleCommercialViabilityFilePage() {
               </div>
             </div>
           </div>
-          <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4 text-sm text-stone-300 leading-7">
+          <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-stone-300 leading-7">
             This is a sample decision-support file using fictional and redacted inputs. YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
           </div>
         </div>
@@ -312,7 +320,7 @@ export default function SampleCommercialViabilityFilePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {sampleSummary.map((item) => (
-            <div key={item.label} className="bg-white border rounded-xl p-5 shadow-sm">
+            <div key={item.label} className="bg-white border rounded-2xl p-5 shadow-sm">
               <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
               <p className="text-2xl font-bold mt-2 text-stone-900">{item.value}</p>
               <p className="text-sm text-stone-600 leading-6 mt-2">{item.helper}</p>
@@ -329,7 +337,7 @@ export default function SampleCommercialViabilityFilePage() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {siteSnapshot.map((item) => (
-              <div key={item.label} className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+              <div key={item.label} className="rounded-2xl border border-stone-200 bg-stone-50 p-4 shadow-sm">
                 <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
                 <p className="text-sm font-semibold text-stone-900 mt-1">{item.value}</p>
               </div>
@@ -345,7 +353,7 @@ export default function SampleCommercialViabilityFilePage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {keyMetrics.map((item) => (
-            <div key={item.label} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+            <div key={item.label} className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
               <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
               <p className="text-2xl font-bold mt-2 text-stone-900">{item.value}</p>
             </div>
@@ -361,7 +369,7 @@ export default function SampleCommercialViabilityFilePage() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {upfrontCash.map((item) => (
-              <div key={item.label} className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+              <div key={item.label} className="rounded-2xl border border-stone-200 bg-stone-50 p-4 shadow-sm">
                 <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
                 <p className="text-sm font-semibold text-stone-900 mt-1">{item.value}</p>
               </div>
@@ -378,7 +386,7 @@ export default function SampleCommercialViabilityFilePage() {
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {improvementPoints.map((item) => (
-            <div key={item} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
+            <div key={item} className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
             </div>
           ))}
@@ -391,7 +399,7 @@ export default function SampleCommercialViabilityFilePage() {
             eyebrow="Stress-test scenarios"
             title="How the site behaves under weaker trading or improved lease terms."
           />
-          <div className="overflow-x-auto rounded-xl border border-stone-200">
+          <div className="overflow-x-auto rounded-2xl border border-stone-200">
             <table className="w-full border-collapse text-sm bg-white">
               <thead>
                 <tr className="bg-stone-50 text-left border-b border-stone-200">
@@ -425,7 +433,7 @@ export default function SampleCommercialViabilityFilePage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {negotiationLevers.map((item) => (
-            <div key={item.title} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+            <div key={item.title} className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
               <p className="text-sm font-semibold text-stone-900">{item.title}</p>
               <p className="text-sm text-stone-600 leading-7 mt-2">{item.text}</p>
             </div>
@@ -441,7 +449,7 @@ export default function SampleCommercialViabilityFilePage() {
           />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {evidenceSections.map((section) => (
-              <div key={section.title} className="rounded-xl border border-stone-200 bg-stone-50 p-5">
+              <div key={section.title} className="rounded-2xl border border-stone-200 bg-stone-50 p-5 shadow-sm">
                 <p className="text-sm font-semibold text-stone-900">{section.title}</p>
                 <ul className="mt-3 space-y-2 text-sm text-stone-700 leading-6">
                   {section.items.map((item) => (
@@ -462,7 +470,7 @@ export default function SampleCommercialViabilityFilePage() {
           eyebrow="Decision matrix"
           title="A quick read on what matters most in the sample case."
         />
-        <div className="overflow-x-auto rounded-xl border border-stone-200 bg-white shadow-sm">
+        <div className="overflow-x-auto rounded-2xl border border-stone-200 bg-white shadow-sm">
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="bg-stone-50 text-left border-b border-stone-200">

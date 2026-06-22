@@ -1,14 +1,16 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ModeSelector from '@/components/ModeSelector';
 import ResidentialForm from '@/components/ResidentialForm';
 import CommercialForm from '@/components/CommercialForm';
+import FunnelEventTracker from '@/components/FunnelEventTracker';
 import { calculateResidentialResult } from '@/lib/calculations/residential';
 import { calculateCommercialResult } from '@/lib/calculations/commercial';
 import { saveSubmission } from '@/lib/storage';
 import { saveRemoteSubmission } from '@/lib/remoteSubmissions';
+import { logToolEvent } from '@/lib/logToolEvent';
 import type {
   CommercialInput,
   PropertyMode,
@@ -32,6 +34,28 @@ function CheckPageContent() {
     searchParams.get('mode') === 'commercial' ? 'commercial' : 'residential';
 
   const [mode, setMode] = useState<PropertyMode>(initialMode);
+  const hasTrackedCommercialStart = useRef(false);
+
+  useEffect(() => {
+    if (mode !== 'commercial' || hasTrackedCommercialStart.current) return;
+
+    hasTrackedCommercialStart.current = true;
+
+    void logToolEvent({
+      event_name: 'commercial_check_started',
+      page_path: '/check',
+      tool_name: 'commercial_funnel',
+      result_label: 'Commercial check started',
+      result_band: 'form_opened',
+      metadata: {
+        page_path: '/check',
+        page_type: 'commercial_check',
+        funnel_area: 'commercial',
+        mode: 'commercial',
+        source_page: '/check?mode=commercial',
+      },
+    });
+  }, [mode]);
 
   const handleResidentialSubmit = async (input: ResidentialInput) => {
     const result = calculateResidentialResult(input);
@@ -70,47 +94,91 @@ function CheckPageContent() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
-      <div className="mb-8">
-        <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
-          Free property check
-        </p>
+    <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
+      {mode === 'commercial' && (
+        <FunnelEventTracker
+          eventName="inbound_page_view"
+          pagePath="/check"
+          pageType="commercial_check"
+          mode="commercial"
+          eventLabel="Commercial check page viewed"
+        />
+      )}
 
-        <h1 className="text-3xl font-bold text-stone-900 mb-3">
-          Run an indicative property pressure-test
-        </h1>
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 lg:items-start">
+        <div>
+          <div className="mb-8">
+            <p className="text-xs uppercase tracking-[0.24em] text-teal-700 font-semibold mb-2">
+              Free property check
+            </p>
 
-        <p className="text-sm text-stone-600 max-w-2xl">
-          Choose residential or commercial, enter the key numbers, and get a
-          yield estimate, risk flags, and clear verdict. This is decision-support
-          only.
-        </p>
-      </div>
+            <h1 className="text-3xl sm:text-4xl font-bold text-stone-950 mb-3">
+              Run an indicative property pressure-test
+            </h1>
 
-      <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
-        <ModeSelector mode={mode} onChange={setMode} />
+            <p className="text-sm sm:text-base text-stone-600 max-w-2xl leading-7">
+              Choose residential or commercial, enter the key numbers, and get a
+              yield estimate, risk flags, and clear verdict. This is decision-support
+              only.
+            </p>
+          </div>
 
-        {mode === 'residential' ? (
-          <ResidentialForm onSubmit={handleResidentialSubmit} />
-        ) : (
-          <CommercialForm onSubmit={handleCommercialSubmit} />
-        )}
+          <div className="bg-white border border-stone-200 rounded-2xl p-5 sm:p-6 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
+            <ModeSelector mode={mode} onChange={setMode} />
 
-        <p className="text-xs text-stone-400 mt-6 leading-5">
-          By submitting this check, you agree to the Privacy Notice and Terms.
-          We use your email to save the check and follow up about this submission or report access.
-        </p>
-      </div>
+            {mode === 'residential' ? (
+              <ResidentialForm onSubmit={handleResidentialSubmit} />
+            ) : (
+              <CommercialForm onSubmit={handleCommercialSubmit} />
+            )}
 
-      <div className="mt-8 bg-stone-100 border border-stone-200 rounded-xl p-5 text-sm text-stone-600">
-        <p className="font-semibold text-stone-800 mb-2">Important disclaimer</p>
+            <p className="text-xs text-stone-500 mt-6 leading-5">
+              By submitting this check, you agree to the Privacy Notice and Terms.
+              We use your email to save the check and follow up about this submission or report access.
+            </p>
+          </div>
+        </div>
 
-        <p>
-          YieldLens UK provides indicative property pressure-tests and
-          decision-support analysis only. It is not financial advice, legal
-          advice, tax advice, a valuation, or a substitute for professional due
-          diligence.
-        </p>
+        <aside className="lg:sticky lg:top-24 space-y-4">
+          <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
+              Commercial workflow
+            </p>
+
+            <h2 className="text-xl font-bold text-stone-950 mb-3">
+              Use commercial mode when the lease is the decision
+            </h2>
+
+            <p className="text-sm text-stone-600 leading-6">
+              The commercial check pressure-tests rent burden, break-even customers,
+              opening cash, downside trading, and lease questions before you commit.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-teal-200 bg-teal-50 p-5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
+              What you get
+            </p>
+
+            <ul className="space-y-2 text-sm text-teal-950">
+              <li>Rent burden and break-even pressure test</li>
+              <li>Upfront cash and opening buffer detail</li>
+              <li>Downside survival and risk flags</li>
+              <li>Clear next steps before spending more time</li>
+            </ul>
+          </div>
+
+          <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 text-sm text-stone-600 shadow-sm">
+            <p className="font-semibold text-stone-900 mb-2">Important disclaimer</p>
+
+            <p className="leading-6">
+              YieldLens UK provides indicative property pressure-tests and
+              decision-support analysis only. It is not financial advice, legal
+              advice, tax advice, a valuation, or a substitute for professional due
+              diligence.
+            </p>
+          </div>
+        </aside>
       </div>
     </div>
   );

@@ -40,6 +40,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           reportRequestId: requestId,
+          sourcePage: '/thank-you',
         }),
       });
 

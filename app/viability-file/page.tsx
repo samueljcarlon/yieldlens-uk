@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
@@ -170,6 +171,13 @@ export default function ViabilityFilePage() {
   return (
     <div className="bg-stone-50">
       <JsonLd data={faqStructuredData} />
+      <FunnelEventTracker
+        eventName="inbound_page_view"
+        pagePath="/viability-file"
+        pageType="product_page"
+        mode="commercial"
+        eventLabel="Viability file page viewed"
+      />
 
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
@@ -226,13 +234,6 @@ export default function ViabilityFilePage() {
                 >
                   View sample file
                 </Link>
-
-                <Link
-                  href="/how-it-works"
-                  className="text-sm font-medium text-teal-300 hover:text-teal-200 self-center sm:self-auto"
-                >
-                  How it works
-                </Link>
               </div>
 
               <p className="text-xs text-stone-400 mt-5">
@@ -244,7 +245,7 @@ export default function ViabilityFilePage() {
               </p>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-lg overflow-hidden shadow-2xl">
+            <div className="bg-white text-stone-900 rounded-2xl overflow-hidden shadow-2xl">
               <div className="px-5 py-4 border-b border-stone-200">
                 <p className="text-xs uppercase tracking-widest text-teal-700 font-semibold">
                   Example commercial file
@@ -294,7 +295,7 @@ export default function ViabilityFilePage() {
           {commercialFileItems.map((item) => (
             <div
               key={item}
-              className="bg-white border border-stone-200 rounded-lg p-5 text-sm font-medium text-stone-800 shadow-sm"
+              className="bg-white border border-stone-200 rounded-2xl p-5 text-sm font-medium text-stone-800 shadow-sm"
             >
               {item}
             </div>
@@ -314,7 +315,7 @@ export default function ViabilityFilePage() {
             {workflowSteps.map((item) => (
               <div
                 key={item.step}
-                className="bg-stone-50 border border-stone-200 rounded-lg p-6"
+                className="bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-sm"
               >
                 <p className="w-9 h-9 rounded-full bg-teal-700 text-white text-sm font-semibold flex items-center justify-center mb-5">
                   {item.step}
@@ -355,13 +356,6 @@ export default function ViabilityFilePage() {
             </TrackedCtaLink>
 
             <Link
-              href="/how-it-works"
-              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
-            >
-              How it works
-            </Link>
-
-            <Link
               href="/sample-commercial-viability-file"
               className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
             >
@@ -389,7 +383,7 @@ export default function ViabilityFilePage() {
           {residentialItems.map((item) => (
             <div
               key={item}
-              className="bg-white border border-stone-200 rounded-lg p-5 text-sm text-stone-700 shadow-sm"
+              className="bg-white border border-stone-200 rounded-2xl p-5 text-sm text-stone-700 shadow-sm"
             >
               {item}
             </div>
@@ -420,7 +414,7 @@ export default function ViabilityFilePage() {
               {notIncluded.map((item) => (
                 <div
                   key={item}
-                  className="bg-white/5 border border-white/10 rounded-lg p-4 text-sm text-stone-200"
+                  className="bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-stone-200"
                 >
                   {item}
                 </div>
@@ -468,13 +462,6 @@ export default function ViabilityFilePage() {
             >
               View printable preview
             </TrackedCtaLink>
-
-            <Link
-              href="/how-it-works"
-              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
-            >
-              How it works
-            </Link>
 
             <Link
               href="/sample-commercial-viability-file"

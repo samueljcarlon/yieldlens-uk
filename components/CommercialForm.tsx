@@ -33,17 +33,17 @@ function FormSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border border-stone-200 rounded-xl p-5 bg-white shadow-sm">
+    <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 shadow-sm">
       <div className="mb-5">
-        <p className="text-xs uppercase tracking-widest text-teal-700 font-semibold mb-2">
+        <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
           {eyebrow}
         </p>
 
-        <h2 className="text-lg font-bold text-stone-900">
+        <h2 className="text-lg sm:text-xl font-bold text-stone-950">
           {title}
         </h2>
 
-        <p className="text-sm text-stone-600 leading-6 mt-2">
+        <p className="text-sm text-stone-600 leading-6 mt-2 max-w-3xl">
           {description}
         </p>
       </div>
@@ -172,14 +172,14 @@ export default function CommercialForm({ onSubmit }: Props) {
   };
 
   const inputClass =
-    'w-full border border-stone-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white';
+    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-600 bg-white shadow-sm';
 
   const errorInputClass =
-    'w-full border border-red-400 rounded px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white';
+    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-600 bg-white shadow-sm';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-teal-50 border border-teal-200 rounded-xl p-5">
+      <div className="rounded-2xl border border-teal-200 bg-teal-50 p-5 sm:p-6 shadow-sm">
         <p className="text-sm font-semibold text-teal-950 mb-2">
           Commercial lease pressure-test
         </p>
@@ -190,11 +190,11 @@ export default function CommercialForm({ onSubmit }: Props) {
           survival before signing.
         </p>
 
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-2 text-[11px] uppercase tracking-widest text-teal-800">
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-2 text-[11px] uppercase tracking-[0.2em] text-teal-800">
           {sectionSteps.map((step, index) => (
             <div
               key={step}
-              className="flex items-center gap-2 rounded-lg border border-teal-200 bg-white px-3 py-2"
+              className="flex items-center gap-2 rounded-xl border border-teal-200 bg-white/90 px-3 py-2 shadow-sm"
             >
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-teal-700 text-[10px] font-semibold text-white">
                 {index + 1}
@@ -396,7 +396,7 @@ export default function CommercialForm({ onSubmit }: Props) {
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <button
           type="submit"
-          className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors"
+          className="w-full sm:w-auto bg-teal-700 text-white px-6 py-3.5 rounded-lg font-semibold hover:bg-teal-800 transition-colors shadow-sm"
         >
           Run commercial lease pressure-test
         </button>
