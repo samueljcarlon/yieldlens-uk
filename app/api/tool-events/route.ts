@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { sanitizeToolEventMetadata } from '@/lib/safeToolEventMetadata';
 
 export const runtime = 'nodejs';
 
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
       tool_name: tool_name ?? null,
       result_label: result_label ?? null,
       result_band: result_band ?? null,
-      metadata: metadata ?? null,
+      metadata: sanitizeToolEventMetadata(metadata),
       user_agent,
       referrer,
     });

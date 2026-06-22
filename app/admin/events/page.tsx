@@ -223,6 +223,10 @@ export default function ToolEventsAdminPage() {
             Lead dashboard →
           </Link>
 
+          <Link href="/admin/funnel" className="text-teal-700 font-medium hover:underline">
+            Commercial funnel →
+          </Link>
+
           <Link href="/admin/reports" className="text-teal-700 font-medium hover:underline">
             Report requests →
           </Link>

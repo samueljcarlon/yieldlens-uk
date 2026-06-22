@@ -1,3 +1,5 @@
+import { sanitizeToolEventMetadata } from '@/lib/safeToolEventMetadata';
+
 export interface ToolEventPayload {
   event_name: string;
   page_path?: string;
@@ -12,7 +14,10 @@ export async function logToolEvent(payload: ToolEventPayload): Promise<void> {
     await fetch('/api/tool-events', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        ...payload,
+        metadata: sanitizeToolEventMetadata(payload.metadata),
+      }),
       keepalive: true,
     });
   } catch {
