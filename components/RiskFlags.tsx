@@ -1,16 +1,16 @@
 import type { RiskFlag } from '@/types/property';
 
 const severityStyles: Record<string, string> = {
-  high: 'bg-red-50 border-red-200 text-red-800',
-  medium: 'bg-orange-50 border-orange-200 text-orange-800',
-  low: 'bg-yellow-50 border-yellow-200 text-yellow-800',
+  high: 'bg-rose-50 border-rose-200 text-rose-900',
+  medium: 'bg-amber-50 border-amber-200 text-amber-900',
+  low: 'bg-teal-50 border-teal-100 text-teal-900',
   info: 'bg-stone-50 border-stone-200 text-stone-600',
 };
 
 const severityLabel: Record<string, string> = {
   high: 'High',
-  medium: 'Medium',
-  low: 'Low',
+  medium: 'Watch',
+  low: 'Note',
   info: 'Note',
 };
 
@@ -18,20 +18,19 @@ export default function RiskFlags({ flags }: { flags: RiskFlag[] }) {
   if (!flags || flags.length === 0) return null;
 
   return (
-    <div>
-      <h3 className="text-sm font-semibold text-stone-700 uppercase 
-tracking-wide mb-3">
+    <div className="rounded-3xl border border-stone-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+      <h3 className="text-[11px] uppercase tracking-[0.2em] text-stone-500 font-semibold mb-3">
         Risk flags
       </h3>
       <ul className="space-y-2">
         {flags.map((flag, i) => (
           <li
             key={i}
-            className={`flex items-start gap-3 border rounded-lg px-4 py-3 
-text-sm ${severityStyles[flag.severity]}`}
+            className={`flex items-start gap-3 border rounded-2xl px-4 py-3 text-sm shadow-sm ${severityStyles[flag.severity]}`}
           >
-            <span className="font-semibold 
-shrink-0">{severityLabel[flag.severity]}</span>
+            <span className="font-semibold shrink-0">
+              {severityLabel[flag.severity]}
+            </span>
             <span>{flag.message}</span>
           </li>
         ))}

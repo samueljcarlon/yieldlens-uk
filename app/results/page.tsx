@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type {
   CommercialResult,
@@ -17,6 +17,11 @@ import ReportInterestButton from '@/components/ReportInterestButton';
 import ScenarioPanel from '@/components/ScenarioPanel';
 import ResultsConversionPanel from '@/components/ResultsConversionPanel';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import { logToolEvent } from '@/lib/logToolEvent';
+import RentBurdenGauge from '@/components/visuals/RentBurdenGauge';
+import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
+import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
+import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
 
 function formatCurrency(value?: number): string {
   if (value === undefined || value === null || Number.isNaN(value)) return 'Not available';
@@ -261,6 +266,56 @@ function getSixMonthHelper(result: CommercialResult): string {
   return 'Fail: cash does not cover six weak trading months.';
 }
 
+function formatOpeningPosition(result: CommercialResult): string {
+  const value = result.availableCashAfterOpening;
+
+  if (!hasNumber(value)) return 'Opening position: Not available';
+  if (value < 0) return `Opening shortfall: ${formatCurrency(Math.abs(value))}`;
+
+  return `Opening buffer: ${formatCurrency(value)}`;
+}
+
+function getCommercialResultSummary(result: CommercialResult): string {
+  if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
+    return 'The main issue is the opening capital stack: upfront cash needed exceeds starting cash, so the site needs better fit-out, deposit, or landlord terms before it feels comfortable.';
+  }
+
+  if (result.survivesSixBadMonths === false) {
+    return 'The downside month can be managed only if the opening buffer is strong enough. The current numbers still need more evidence before commitment.';
+  }
+
+  if (
+    hasNumber(result.rentBurdenPercentage) &&
+    result.rentBurdenPercentage >= 18
+  ) {
+    return 'Rent takes a heavy share of expected revenue, so the deal needs stronger evidence around footfall, spend, and lease terms before it feels comfortable.';
+  }
+
+  if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening > 0) {
+    return 'The deal works more comfortably on paper, but the opening buffer and lease terms still need evidence before the site feels ready.';
+  }
+
+  return 'The quick check is indicative and still needs evidence around demand, costs, and lease terms.';
+}
+
+function getCommercialTakeawayQuestions(result: CommercialResult): string[] {
+  if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
+    return [
+      'Can fit-out, deposit, or landlord contribution be reduced enough to close the opening shortfall?',
+      'What evidence supports the expected customers per day and average spend?',
+      'Are business rates, service charge, insurance, utilities, repairs, and staffing fully included?',
+      'What lease terms, break clauses, rent reviews, repairing obligations, and permitted use restrictions apply?',
+    ];
+  }
+
+  return [
+    'What evidence supports the expected customers per day and average spend?',
+    'Are business rates, service charge, insurance, utilities, repairs, and staffing fully included?',
+    'What lease terms, break clauses, rent reviews, repairing obligations, and permitted use restrictions apply?',
+    'What trading evidence would make this case stronger or weaker before heads of terms?',
+  ];
+}
+
 function summaryToneClass(tone: SummaryTone): string {
   const tones = {
     neutral: 'border-stone-200 bg-white',
@@ -308,6 +363,13 @@ function getEmail(submission: Submission): string | null {
   return null;
 }
 
+function getCommercialInputNumber(submission: Submission, key: string): number | undefined {
+  const input = submission.input as Record<string, unknown>;
+  const value = input[key];
+
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
+}
+
 function formatDate(value: string): string {
   return new Date(value).toLocaleString('en-GB', {
     day: 'numeric',
@@ -330,7 +392,7 @@ function CommercialSummaryCard({
   tone?: SummaryTone;
 }) {
   return (
-    <div className={`border rounded-lg p-4 ${summaryToneClass(tone)}`}>
+    <div className={`border rounded-2xl p-4 shadow-sm ${summaryToneClass(tone)}`}>
       <p className="text-[11px] uppercase tracking-wide text-stone-500 font-semibold mb-1">
         {label}
       </p>
@@ -366,28 +428,44 @@ function CommercialSummaryGroup({
   );
 }
 
-function CommercialPressureSummary({ result }: { result: CommercialResult }) {
-  return (
-    <section className="mb-8 rounded-xl border border-stone-200 bg-stone-50 shadow-sm overflow-hidden">
-      <div className="bg-stone-950 text-white px-5 py-6 sm:px-7">
-        <p className="text-xs uppercase tracking-widest text-teal-300 font-semibold mb-2">
-          Commercial lease pressure-test summary
-        </p>
+function CommercialPressureSummary({ submission }: { submission: Submission }) {
+  const result = submission.result as CommercialResult;
 
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 lg:items-end">
+  return (
+    <section className="mb-8 overflow-hidden rounded-[32px] border border-stone-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
+      <div className="bg-stone-950 px-6 py-7 text-white sm:px-8 sm:py-8">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-end">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold leading-tight">
+            <p className="text-xs uppercase tracking-[0.24em] text-teal-300 font-semibold mb-3">
+              Commercial lease pressure-test summary
+            </p>
+
+            <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-3">
               Can the site carry the lease and withstand weak early trading?
             </h2>
 
-            <p className="text-sm text-stone-300 leading-6 mt-3 max-w-3xl">
-              An indicative front-page diagnostic using the submitted rent, trading,
-              setup cash, and downside assumptions.
+            <p className="text-sm sm:text-base text-stone-300 leading-7 max-w-3xl">
+              {getCommercialResultSummary(result)}
             </p>
+
+            <div className="mt-5 flex flex-wrap gap-2">
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white">
+                Rent burden {formatPercent(result.rentBurdenPercentage)}
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white">
+                Break-even {formatNumber(result.breakEvenCustomersPerDay)}/day
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white">
+                {formatOpeningPosition(result)}
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white">
+                Six-month test {getSixMonthValue(result)}
+              </span>
+            </div>
           </div>
 
-          <div className="rounded-lg bg-white text-stone-950 p-4 sm:p-5">
-            <p className="text-[11px] uppercase tracking-wide text-stone-500 font-semibold mb-1">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-wide text-stone-400 font-semibold mb-1">
               Verdict
             </p>
 
@@ -395,7 +473,7 @@ function CommercialPressureSummary({ result }: { result: CommercialResult }) {
               {getCommercialVerdictLabel(result)}
             </p>
 
-            <p className="text-xs text-stone-600 mt-2 leading-5">
+            <p className="text-xs text-stone-300 mt-2 leading-5">
               {getCommercialVerdictHelper(result)}
             </p>
 
@@ -406,60 +484,31 @@ function CommercialPressureSummary({ result }: { result: CommercialResult }) {
         </div>
       </div>
 
-      <div className="px-4 py-5 sm:px-7 sm:py-6 space-y-6">
-        <CommercialSummaryGroup title="Trading pressure">
-          <CommercialSummaryCard
-            label="Rent burden"
-            value={formatPercent(result.rentBurdenPercentage)}
-            helper={getRentBurdenHelper(result.rentBurdenPercentage)}
-            tone={getRentBurdenTone(result.rentBurdenPercentage)}
-          />
-
-          <CommercialSummaryCard
-            label="Break-even customers/day"
-            value={formatNumber(result.breakEvenCustomersPerDay)}
-            helper={getBreakEvenHelper(result)}
-            tone={getBreakEvenTone(result)}
-          />
-        </CommercialSummaryGroup>
-
-        <CommercialSummaryGroup title="Opening cash">
-          <CommercialSummaryCard
-            label="Upfront cash needed"
-            value={formatCurrency(result.upfrontCashNeeded)}
-            helper="Fit-out, deposit, fees, opening stock, and setup costs."
-          />
-
-          <CommercialSummaryCard
-            label="Cash after opening"
-            value={formatCurrency(result.availableCashAfterOpening)}
-            helper={getCashAfterOpeningHelper(result)}
-            tone={getCashAfterOpeningTone(result)}
-          />
-        </CommercialSummaryGroup>
-
-        <CommercialSummaryGroup title="Downside survival">
-          <CommercialSummaryCard
-            label="Downside monthly burn or surplus"
-            value={formatDownsidePosition(result)}
-            helper={getDownsidePositionHelper(result)}
-            tone={getDownsidePositionTone(result)}
-          />
-
-          <CommercialSummaryCard
-            label="Survival runway"
-            value={getSurvivalRunwayValue(result)}
-            helper={getSurvivalRunwayHelper(result)}
-            tone={getSurvivalRunwayTone(result)}
-          />
-
-          <CommercialSummaryCard
-            label="Six-month test"
-            value={getSixMonthValue(result)}
-            helper={getSixMonthHelper(result)}
-            tone={getSixMonthTone(result)}
-          />
-        </CommercialSummaryGroup>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-5 sm:p-6">
+        <RentBurdenGauge rentBurdenPercentage={result.rentBurdenPercentage ?? null} />
+        <BreakEvenComparison
+          breakEvenCustomersPerDay={result.breakEvenCustomersPerDay}
+          expectedCustomersPerDay={result.expectedCustomersPerDay}
+        />
+        <OpeningCashWaterfall
+          startingCash={getCommercialInputNumber(submission, 'startingCash')}
+          fitOutBudget={getCommercialInputNumber(submission, 'fitOutBudget')}
+          rentDeposit={getCommercialInputNumber(submission, 'rentDeposit')}
+          legalFees={getCommercialInputNumber(submission, 'legalFees')}
+          openingStock={getCommercialInputNumber(submission, 'openingStock')}
+          otherSetupCosts={getCommercialInputNumber(submission, 'otherSetupCosts')}
+          upfrontCashNeeded={result.upfrontCashNeeded}
+          cashAfterOpening={result.availableCashAfterOpening}
+        />
+        <DownsideSurvivalCard
+          downsideRevenuePercentage={result.downsideRevenuePercentage}
+          downsideMonthlyRevenue={result.downsideMonthlyRevenue}
+          monthlyCostBase={result.estimatedMonthlyCostBase}
+          downsideMonthlyPosition={result.downsideMonthlyPosition}
+          monthlyBurnInDownside={result.monthlyBurnInDownside}
+          survivalMonths={result.survivalMonths}
+          survivesSixBadMonths={result.survivesSixBadMonths}
+        />
       </div>
     </section>
   );
@@ -475,7 +524,7 @@ function CommercialScenarioCard({
   helper: string;
 }) {
   return (
-    <div className="bg-white border border-stone-200 rounded-xl p-4">
+      <div className="bg-white border border-stone-200 rounded-2xl p-4 shadow-sm">
       <p className="text-xs uppercase tracking-wide text-stone-500 font-medium mb-1">
         {label}
       </p>
@@ -492,58 +541,54 @@ function CommercialScenarioCard({
 }
 
 function CommercialScenarioPressureTest({ result }: { result: CommercialResult }) {
-  const baseMonthlyPosition =
-    hasNumber(result.estimatedMonthlyRevenue) && hasNumber(result.estimatedMonthlyCostBase)
-      ? result.estimatedMonthlyRevenue - result.estimatedMonthlyCostBase
-      : undefined;
-
-  const questions = [
-    'What evidence supports the expected customers per day and average spend?',
-    'Are business rates, service charge, insurance, utilities, repairs, and staffing fully allowed for?',
-    'What lease terms, break clauses, rent reviews, repairing obligations, and permitted use restrictions apply?',
-    'What trading evidence would make this case stronger or weaker before heads of terms?',
-  ];
+  const questions = getCommercialTakeawayQuestions(result);
 
   return (
-    <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+    <div className="rounded-[32px] border border-stone-200 bg-white p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
       <div className="mb-5">
-        <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
-          Scenario pressure test
+        <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
+          What the free result tells you
         </p>
 
-        <h2 className="text-xl font-bold text-stone-900 mb-2">
-          What needs checking if assumptions move?
+        <h2 className="text-xl font-bold text-stone-950 mb-2">
+          The quick check is useful, but it needs evidence before commitment
         </h2>
 
-        <p className="text-sm text-stone-600 leading-6">
-          Use this as a compact evidence check for demand, spend, cost base, and
-          lease terms. The summary above carries the headline diagnostic.
+        <p className="text-sm text-stone-600 leading-7 max-w-3xl">
+          Use the free result to judge the broad shape of the deal: rent burden, break-even volume,
+          opening cash, and downside survival. The paid file is where the lease gets pressure-tested properly.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-        <CommercialScenarioCard
-          label="Base monthly position"
-          value={formatCurrency(baseMonthlyPosition)}
-          helper="Submitted monthly revenue minus the known monthly cost base."
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        <MetricCard
+          label="Rent burden"
+          value={formatPercent(result.rentBurdenPercentage)}
+          helper={getRentBurdenHelper(result.rentBurdenPercentage)}
         />
-
-        <CommercialScenarioCard
-          label="Downside revenue"
-          value={formatCurrency(result.downsideMonthlyRevenue)}
-          helper={`${formatPercent(result.downsideRevenuePercentage)} revenue case used for the downside view.`}
+        <MetricCard
+          label="Break-even/day"
+          value={formatNumber(result.breakEvenCustomersPerDay)}
+          helper={getBreakEvenHelper(result)}
         />
-
-        <CommercialScenarioCard
-          label="Cost base"
-          value={formatCurrency(result.estimatedMonthlyCostBase)}
-          helper="Rent, staff, utilities, rates, and submitted operating costs."
+        <MetricCard
+          label={result.availableCashAfterOpening !== undefined && result.availableCashAfterOpening < 0 ? 'Opening shortfall' : 'Opening buffer'}
+          value={(() => {
+            const label = formatOpeningPosition(result);
+            return label.replace('Opening shortfall: ', '').replace('Opening buffer: ', '');
+          })()}
+          helper={getCashAfterOpeningHelper(result)}
+        />
+        <MetricCard
+          label="Six-month test"
+          value={getSixMonthValue(result)}
+          helper={getSixMonthHelper(result)}
         />
       </div>
 
-      <div className="bg-stone-50 border border-stone-200 rounded-xl p-5">
-        <p className="font-semibold text-stone-900 mb-3">
-          Questions to verify before committing
+      <div className="mt-5 rounded-2xl border border-stone-200 bg-stone-50 p-5">
+        <p className="font-semibold text-stone-950 mb-3">
+          Questions to verify next
         </p>
 
         <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
@@ -558,10 +603,41 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
 
 export default function ResultsPage() {
   const [submission, setSubmission] = useState<Submission | null>(null);
+  const hasTrackedSubmission = useRef(false);
 
   useEffect(() => {
     setSubmission(getLatestSubmission());
   }, []);
+
+  useEffect(() => {
+    if (!submission || submission.mode !== 'commercial' || hasTrackedSubmission.current) {
+      return;
+    }
+
+    hasTrackedSubmission.current = true;
+
+    void logToolEvent({
+      event_name: 'commercial_check_submitted',
+      page_path: '/results',
+      tool_name: 'commercial_funnel',
+      result_label: 'Commercial check submitted',
+      result_band:
+        submission.score >= 80
+          ? 'score_80_plus'
+          : submission.score >= 65
+            ? 'score_65_79'
+            : submission.score >= 50
+              ? 'score_50_64'
+              : 'score_below_50',
+      metadata: {
+        page_path: '/results',
+        page_type: 'results',
+        funnel_area: 'commercial',
+        mode: 'commercial',
+        source_page: '/check?mode=commercial',
+      },
+    });
+  }, [submission]);
 
   if (!submission) {
     return (
@@ -591,52 +667,68 @@ export default function ResultsPage() {
   const email = getEmail(submission);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
-      <div className="mb-8">
-        <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
-          {isResidential ? 'Residential return check' : 'Commercial site check'}
-        </p>
+    <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
+      <section className="mb-8 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
+        <div className="bg-gradient-to-r from-stone-950 to-stone-900 px-6 py-7 text-white sm:px-8 sm:py-8">
+          <p className="text-xs uppercase tracking-[0.24em] text-teal-300 font-semibold mb-3">
+            {isResidential ? 'Residential return check' : 'Commercial site check'}
+          </p>
 
-        <h1 className="text-3xl font-bold text-stone-900 mb-3">
-          Your indicative results
-        </h1>
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_290px] lg:items-end">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-3">
+                Your indicative results
+              </h1>
 
-        <p className="text-sm text-stone-500">
-          {formatDate(submission.createdAt)}
-        </p>
+              <p className="text-sm sm:text-base text-stone-300 leading-7 max-w-3xl">
+                {isResidential
+                  ? 'A quick screen of the property return, ownership costs, and downside risk.'
+                  : 'A quick screen of rent burden, break-even customers, opening cash, downside trading, and lease pressure.'}
+              </p>
+            </div>
 
-        <div className="mt-4 flex flex-wrap gap-2 text-sm">
-          <span className="bg-stone-100 border border-stone-200 text-stone-700 px-3 py-1 rounded-full">
-            {getLocation(submission)}
-          </span>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 font-medium mb-1">
+                Saved check
+              </p>
 
-          {getAddress(submission) && (
-            <span className="bg-stone-100 border border-stone-200 text-stone-700 px-3 py-1 rounded-full">
-              {getAddress(submission)}
+              <p className="text-sm text-white font-medium">
+                {formatDate(submission.createdAt)}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 flex flex-wrap gap-2 text-sm">
+            <span className="bg-white/10 border border-white/10 text-white px-3 py-1.5 rounded-full">
+              {getLocation(submission)}
             </span>
-          )}
 
-          {email && (
-            <span className="bg-teal-50 border border-teal-200 text-teal-800 px-3 py-1 rounded-full">
-              Saved for {email}
-            </span>
-          )}
+            {getAddress(submission) && (
+              <span className="bg-white/10 border border-white/10 text-white px-3 py-1.5 rounded-full">
+                {getAddress(submission)}
+              </span>
+            )}
+
+            {email && (
+              <span className="bg-teal-500/15 border border-teal-400/30 text-teal-200 px-3 py-1.5 rounded-full">
+                Saved for {email}
+              </span>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
 
       {isResidential ? (
         <div className="mb-8">
           <ScoreCard verdict={submission.verdict} />
         </div>
       ) : (
-        <CommercialPressureSummary result={result as CommercialResult} />
+        <CommercialPressureSummary submission={submission} />
       )}
 
       {isResidential ? (
         <ResidentialMetrics result={result as ResidentialResult} />
-      ) : (
-        <CommercialMetrics result={result as CommercialResult} />
-      )}
+      ) : null}
 
       <div className="mt-8">
         {isResidential ? (
@@ -673,21 +765,21 @@ export default function ResultsPage() {
         </ol>
       </div>
 
-      <div className="mt-8 bg-teal-50 border border-teal-200 rounded-xl p-6">
-        <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
-          {isResidential ? 'Full viability file coming soon' : 'Next step'}
+      <div className="mt-8 bg-teal-50 border border-teal-200 rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p className="text-xs uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
+          {isResidential ? 'Full viability file coming soon' : 'Unlock the paid file'}
         </p>
 
         <h2 className="text-xl font-bold text-stone-900 mb-2">
           {isResidential
             ? 'Want the full viability file for this property?'
-            : 'Turn this quick check into a viability file.'}
+            : 'Turn this quick check into a proper commercial decision document.'}
         </h2>
 
-        <p className="text-sm text-stone-700 leading-6 max-w-3xl">
+        <p className="text-sm text-stone-700 leading-7 max-w-3xl">
           {isResidential
             ? 'Your check has been saved. The next product step is a fuller viability file with a cleaner property snapshot, downside cases, assumptions, and a more detailed verdict. Launch users will get early access before paid reports go live.'
-            : 'Your quick check gives the first screen. A fuller viability file can turn this into a cleaner decision document with assumptions, downside cases, lease questions, and due diligence prompts.'}
+            : 'The Standard commercial viability file adds stress tests, negotiation levers, lease questions, due diligence prompts, ranked actions, and a clearer final view before you commit.'}
         </p>
 
         <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -703,7 +795,7 @@ export default function ResultsPage() {
           ) : (
             <TrackedCtaLink
               href="/report"
-              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
+              className="text-sm font-medium text-stone-600 hover:text-stone-900 hover:underline"
               eventName="results_report_preview_clicked"
               pagePath="/results"
               ctaLabel="View printable preview"
@@ -712,37 +804,40 @@ export default function ResultsPage() {
               View printable preview →
             </TrackedCtaLink>
           )}
+        </div>
 
+        <div className="mt-4 flex flex-wrap gap-4 text-sm text-stone-600">
           {isResidential ? (
-            <Link
-              href="/check?mode=residential"
-              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
-            >
+            <Link href="/check?mode=residential" className="hover:text-stone-900 hover:underline">
               Run another residential check
             </Link>
           ) : (
-            <TrackedCtaLink
-              href="/check?mode=commercial"
-              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
-              eventName="results_run_another_check_clicked"
-              pagePath="/results"
-              ctaLabel="Run another commercial check"
-              pageType="results"
-            >
-              Run another commercial check
-            </TrackedCtaLink>
+            <>
+              <TrackedCtaLink
+                href="/check?mode=commercial"
+                className="hover:text-stone-900 hover:underline"
+                eventName="results_run_another_check_clicked"
+                pagePath="/results"
+                ctaLabel="Run another commercial check"
+                pageType="results"
+              >
+                Run another commercial check
+              </TrackedCtaLink>
+
+              <Link href="/sample-commercial-viability-file" className="hover:text-stone-900 hover:underline">
+                View sample file
+              </Link>
+            </>
           )}
         </div>
 
-        {isResidential && (
-          <div className="mt-8">
-            <ResultsConversionPanel
-              mode={submission.mode}
-              score={submission.score}
-              verdictLabel={submission.verdict.label}
-            />
-          </div>
-        )}
+        <div className="mt-8">
+          <ResultsConversionPanel
+            mode={submission.mode}
+            score={submission.score}
+            verdictLabel={submission.verdict.label}
+          />
+        </div>
       </div>
 
       <div className="mt-8 bg-stone-100 border border-stone-200 rounded-xl p-5 text-sm text-stone-600">
@@ -829,7 +924,7 @@ function CommercialMetrics({ result }: { result: CommercialResult }) {
         />
       </div>
 
-      <div className="bg-stone-950 text-white rounded-xl p-6">
+      <div className="bg-stone-950 text-white rounded-2xl p-6 shadow-[0_16px_30px_rgba(15,23,42,0.16)]">
         <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-2">
           Commercial survival model
         </p>

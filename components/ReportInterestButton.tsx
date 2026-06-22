@@ -24,14 +24,16 @@ export default function ReportInterestButton({
           event_name: 'results_viability_file_requested_clicked',
           page_path: '/results',
           tool_name: 'commercial_funnel',
-          result_label: 'Request full viability file',
+          result_label: 'Unlock the £49 viability file',
           result_band: 'cta_click',
           metadata: {
             page_path: '/results',
-            cta_label: 'Request full viability file',
+            cta_label: 'Unlock the £49 viability file',
             destination: '/thank-you',
             funnel_area: 'commercial',
             page_type: 'results',
+            mode: submission.mode,
+            source_page: '/results',
           },
         });
       }
@@ -72,9 +74,13 @@ export default function ReportInterestButton({
         type="button"
         onClick={handleClick}
         disabled={status === 'loading'}
-        className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800 disabled:opacity-60 disabled:cursor-not-allowed text-center"
+        className="rounded-2xl bg-teal-700 px-5 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60 text-center"
       >
-        {status === 'loading' ? 'Saving request...' : 'Request full viability file'}
+        {status === 'loading'
+          ? 'Saving request...'
+          : submission.mode === 'commercial'
+            ? 'Unlock the £49 viability file'
+            : 'Request full viability file'}
       </button>
 
       {message && (
