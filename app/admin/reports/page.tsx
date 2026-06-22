@@ -475,6 +475,7 @@ export default function ReportRequestsAdminPage() {
         },
         body: JSON.stringify({
           reportRequestId: selectedRequest.id,
+          sourcePage: '/admin/reports',
         }),
       });
 

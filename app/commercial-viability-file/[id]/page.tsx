@@ -4,6 +4,7 @@ import { notFound, redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import type { ReportRequest } from '@/lib/reportRequests';
+import FunnelEventTracker from '@/components/FunnelEventTracker';
 import PrintButton from './PrintButton';
 
 export const metadata: Metadata = {
@@ -1264,6 +1265,13 @@ export default async function CommercialViabilityFilePage({
 
   return (
     <div className="bg-stone-50 text-stone-900">
+      <FunnelEventTracker
+        eventName="paid_file_opened"
+        pagePath="/commercial-viability-file/[id]"
+        pageType="paid_file"
+        mode="commercial"
+        eventLabel="Paid file opened"
+      />
       <style>{`
         @media print {
           header,
