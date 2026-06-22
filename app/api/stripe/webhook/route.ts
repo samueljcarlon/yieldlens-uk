@@ -2,6 +2,7 @@ import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 import type { ReportRequestFulfilmentStatus } from '@/lib/reportRequests';
+import { insertServerToolEvent } from '@/lib/serverToolEvents';
 
 export const runtime = 'nodejs';
 
@@ -107,6 +108,24 @@ async function updatePaidRequest({
   }
 }
 
+async function logPaymentCompletedEvent() {
+  await insertServerToolEvent({
+    eventName: 'payment_completed',
+    pagePath: '/payment/success',
+    toolName: 'commercial_funnel',
+    resultLabel: 'Payment completed',
+    resultBand: 'payment_completed',
+    metadata: {
+      page_path: '/payment/success',
+      page_type: 'payment',
+      funnel_area: 'commercial',
+      mode: 'commercial',
+      source_page: '/payment/success',
+      report_request_stage: 'paid',
+    },
+  });
+}
+
 async function markPaymentFailed({
   reportRequestId,
   sessionId,
@@ -181,6 +200,7 @@ export async function POST(request: NextRequest) {
           currency: session.currency,
           fulfilmentStatus,
         });
+        await logPaymentCompletedEvent();
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Failed to update report request.';
         return NextResponse.json({ error: message }, { status: 500 });

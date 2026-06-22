@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { randomBytes } from 'crypto';
 import Stripe from 'stripe';
 import { NextRequest, NextResponse } from 'next/server';
+import { insertServerToolEvent } from '@/lib/serverToolEvents';
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -51,6 +52,14 @@ function addTokenToRedirectUrl(url: string, customerAccessToken: string) {
   return parsed.toString();
 }
 
+function getSourcePage(body: Record<string, unknown>): string {
+  const sourcePage = body.sourcePage;
+
+  return typeof sourcePage === 'string' && sourcePage.trim() !== ''
+    ? sourcePage.trim()
+    : '/thank-you';
+}
+
 const allowedRequestedReportTypes = new Set(['standard_pdf', 'standard_viability_file']);
 
 export async function POST(request: NextRequest) {
@@ -58,6 +67,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const reportRequestId =
       typeof body.reportRequestId === 'string' ? body.reportRequestId.trim() : '';
+    const sourcePage = getSourcePage(body as Record<string, unknown>);
 
     if (!reportRequestId) {
       return NextResponse.json(
@@ -195,6 +205,23 @@ export async function POST(request: NextRequest) {
     if (updateError) {
       return NextResponse.json({ error: updateError.message }, { status: 500 });
     }
+
+    await insertServerToolEvent({
+      eventName: 'checkout_started',
+      pagePath: sourcePage,
+      toolName: 'commercial_funnel',
+      resultLabel: 'Secure checkout started',
+      resultBand: 'checkout_started',
+      metadata: {
+        page_path: sourcePage,
+        page_type: sourcePage.startsWith('/admin') ? 'admin' : 'checkout',
+        funnel_area: 'commercial',
+        mode: reportRequest.mode,
+        source_page: sourcePage,
+      },
+      userAgent: request.headers.get('user-agent'),
+      referrer: request.headers.get('referer'),
+    });
 
     return NextResponse.json({
       checkoutUrl: session.url,
