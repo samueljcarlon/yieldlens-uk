@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
@@ -101,6 +102,13 @@ function SectionTitle({
 export default function HowItWorksPage() {
   return (
     <div className="bg-stone-50 text-stone-900">
+      <FunnelEventTracker
+        eventName="inbound_page_view"
+        pagePath="/how-it-works"
+        pageType="trust_page"
+        mode="commercial"
+        eventLabel="How it works viewed"
+      />
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
