@@ -6,6 +6,10 @@ import Link from 'next/link';
 import type { ReportRequest } from '@/lib/reportRequests';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import PrintButton from './PrintButton';
+import RentBurdenGauge from '@/components/visuals/RentBurdenGauge';
+import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
+import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
+import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
 
 export const metadata: Metadata = {
   title: 'Commercial Viability File',
@@ -84,6 +88,75 @@ function getCommercialVerdictLabel(verdictLabel: string): string {
   return verdictLabel;
 }
 
+function getVerdictTone(verdictLabel: string): 'green' | 'teal' | 'amber' | 'orange' | 'rose' {
+  const normalized = verdictLabel.trim().toLowerCase();
+
+  if (normalized === 'strong candidate') return 'green';
+  if (normalized === 'worth investigating') return 'teal';
+  if (normalized === 'marginal') return 'amber';
+  if (normalized === 'weak') return 'orange';
+  if (normalized === 'avoid') return 'rose';
+  return 'rose';
+}
+
+function getVerdictToneClasses(verdictLabel: string): {
+  badge: string;
+  border: string;
+  subtle: string;
+  highlight: string;
+  metric: string;
+} {
+  const tone = getVerdictTone(verdictLabel);
+
+  if (tone === 'green') {
+    return {
+      badge: 'border-green-200 bg-green-50 text-green-900',
+      border: 'border-green-200',
+      subtle: 'bg-green-50 text-green-950',
+      highlight: 'text-green-800',
+      metric: 'text-green-900',
+    };
+  }
+
+  if (tone === 'teal') {
+    return {
+      badge: 'border-teal-200 bg-teal-50 text-teal-900',
+      border: 'border-teal-200',
+      subtle: 'bg-teal-50 text-teal-950',
+      highlight: 'text-teal-800',
+      metric: 'text-teal-900',
+    };
+  }
+
+  if (tone === 'amber') {
+    return {
+      badge: 'border-amber-200 bg-amber-50 text-amber-950',
+      border: 'border-amber-200',
+      subtle: 'bg-amber-50 text-amber-950',
+      highlight: 'text-amber-800',
+      metric: 'text-amber-900',
+    };
+  }
+
+  if (tone === 'orange') {
+    return {
+      badge: 'border-orange-200 bg-orange-50 text-orange-950',
+      border: 'border-orange-200',
+      subtle: 'bg-orange-50 text-orange-950',
+      highlight: 'text-orange-800',
+      metric: 'text-orange-900',
+    };
+  }
+
+  return {
+    badge: 'border-rose-200 bg-rose-50 text-rose-950',
+    border: 'border-rose-200',
+    subtle: 'bg-rose-50 text-rose-950',
+    highlight: 'text-rose-800',
+    metric: 'text-rose-900',
+  };
+}
+
 function getShortReference(id: string): string {
   return id.slice(0, 8).toUpperCase();
 }
@@ -116,6 +189,18 @@ function getOpeningPositionSummary(request: ReportRequest): { label: string; val
   }
 
   return { label: 'Opening buffer', value: formatCurrency(cashAfterOpening) };
+}
+
+function getOpeningPositionTone(request: ReportRequest): string {
+  const result = request.result && typeof request.result === 'object'
+    ? (request.result as Record<string, unknown>)
+    : {};
+  const cashAfterOpening = toNumber(result.availableCashAfterOpening);
+
+  if (cashAfterOpening === null) return 'text-stone-700 bg-stone-50 border-stone-200';
+  if (cashAfterOpening < 0) return 'text-rose-950 bg-rose-50 border-rose-200';
+  if (cashAfterOpening < 15000) return 'text-amber-950 bg-amber-50 border-amber-200';
+  return 'text-green-950 bg-green-50 border-green-200';
 }
 
 function getCustomerAccessCookieName(id: string): string {
@@ -173,6 +258,106 @@ function getCommercialContext(request: ReportRequest) {
   };
 }
 
+function getExecutiveHighlights(request: ReportRequest, assessment: ReturnType<typeof getFinalAssessment>) {
+  const figures = getCommercialContext(request);
+  const rentBurden = figures.rentBurden;
+  const cashAfterOpening = figures.cashAfterOpening;
+  const downsideMonthlyPosition = figures.downsideMonthlyPosition;
+  const openingShortfall = getOpeningShortfall(request);
+
+  const strongestPositive =
+    downsideMonthlyPosition !== null && downsideMonthlyPosition > 0
+      ? `Downside trading still covers the known monthly cost base by ${formatCurrency(downsideMonthlyPosition)}.`
+      : figures.breakEven !== null && figures.expectedCustomers !== null
+        ? `Break-even sits at ${formatNumber(figures.breakEven)} customers/day against ${formatNumber(figures.expectedCustomers)} expected.`
+        : 'The operating case needs more evidence before it can be read confidently.';
+
+  const biggestWeakness =
+    cashAfterOpening !== null && cashAfterOpening < 0
+      ? `Opening shortfall of ${openingShortfall ?? 'Not available'} before trading begins.`
+      : rentBurden !== null && rentBurden > 18
+        ? `Rent burden is ${rentBurden.toFixed(1)}%, above the caution threshold.`
+        : cashAfterOpening !== null && cashAfterOpening < 15000
+          ? `Only ${formatCurrency(cashAfterOpening)} remains after opening costs, so the buffer is thin.`
+          : 'The weakest point still needs more evidence in the lease and trading assumptions.';
+
+  return [
+    {
+      label: 'Main reason',
+      value: assessment.reason,
+      tone: 'stone',
+    },
+    {
+      label: 'Strongest positive',
+      value: strongestPositive,
+      tone: 'green',
+    },
+    {
+      label: 'Biggest weakness',
+      value: biggestWeakness,
+      tone: rentBurden !== null && rentBurden > 18 ? 'amber' : 'rose',
+    },
+    {
+      label: 'Immediate next action',
+      value: assessment.nextStep,
+      tone: 'teal',
+    },
+  ];
+}
+
+function getWhatMattersMost(request: ReportRequest): Array<{ rank: number; title: string; text: string; tone: 'green' | 'teal' | 'amber' | 'rose' }> {
+  const figures = getCommercialContext(request);
+  const items: Array<{ rank: number; title: string; text: string; tone: 'green' | 'teal' | 'amber' | 'rose' }> = [];
+
+  if (figures.rentBurden !== null) {
+    items.push({
+      rank: 1,
+      title: 'Rent burden',
+      text:
+        `Rent burden is ${figures.rentBurden.toFixed(1)}% of expected monthly revenue, so the lease depends on the entered trading assumptions being broadly right.`,
+      tone: figures.rentBurden > 18 ? 'amber' : 'teal',
+    });
+  }
+
+  if (figures.expectedCustomers !== null && figures.breakEven !== null) {
+    items.push({
+      rank: 2,
+      title: 'Customer volume',
+      text:
+        `Break-even sits at ${formatNumber(figures.breakEven)} customers/day against ${formatNumber(figures.expectedCustomers)} expected, so the headroom exists on paper but needs evidence.`,
+      tone: figures.breakEven > figures.expectedCustomers ? 'amber' : 'green',
+    });
+  }
+
+  if (figures.cashAfterOpening !== null) {
+    items.push({
+      rank: 3,
+      title: 'Opening buffer',
+      text:
+        figures.cashAfterOpening < 0
+          ? `Upfront cash needed is ${formatCurrency(figures.upfrontCashNeeded)} against starting cash of ${formatCurrency(figures.startingCash)}, leaving a ${getOpeningShortfall(request) ?? 'Not available'} opening shortfall.`
+          : figures.cashAfterOpening < 15000
+            ? `Only ${formatCurrency(figures.cashAfterOpening)} remains after opening costs, which leaves limited room for overruns.`
+            : `The opening buffer is ${formatCurrency(figures.cashAfterOpening)}, which is positive but still needs quote-backed verification.`,
+      tone: figures.cashAfterOpening < 0 ? 'rose' : figures.cashAfterOpening < 15000 ? 'amber' : 'green',
+    });
+  }
+
+  if (figures.downsideMonthlyPosition !== null) {
+    items.push({
+      rank: 4,
+      title: 'Downside survival',
+      text:
+        figures.survivesSixBadMonths
+          ? `Downside trading still covers operating costs by ${formatCurrency(figures.downsideMonthlyPosition)}, so monthly burn is not the main failure point.`
+          : `Downside trading does not clear the six-month test, which means the site needs more room in the opening capital stack or lower monthly pressure.`,
+      tone: figures.survivesSixBadMonths ? 'green' : 'rose',
+    });
+  }
+
+  return items.slice(0, 4);
+}
+
 function getSiteSnapshotRows(request: ReportRequest): Array<{ label: string; value: string }> {
   const input = request.input && typeof request.input === 'object'
     ? (request.input as Record<string, unknown>)
@@ -190,26 +375,69 @@ function getSiteSnapshotRows(request: ReportRequest): Array<{ label: string; val
   ];
 }
 
-function getMetricRows(request: ReportRequest): Array<{ label: string; value: string }> {
+function getMetricRows(request: ReportRequest): Array<{
+  label: string;
+  value: string;
+  tone: 'neutral' | 'positive' | 'warning' | 'negative';
+}> {
   const result = request.result && typeof request.result === 'object'
     ? (request.result as Record<string, unknown>)
     : {};
 
+  const cashAfterOpening = toNumber(result.availableCashAfterOpening);
+  const rentBurden = toNumber(result.rentBurdenPercentage);
+  const downsideMonthlyPosition = toNumber(result.downsideMonthlyPosition);
+  const survivesSixBadMonths = result.survivesSixBadMonths === true;
+
   return [
-    { label: 'Score', value: `${request.score}/100` },
+    { label: 'Score', value: `${request.score}/100`, tone: 'neutral' },
     {
       label: 'Mapped verdict',
       value:
         request.mode === 'commercial'
           ? getCommercialVerdictLabel(request.verdictLabel)
           : request.verdictLabel,
+      tone: 'neutral',
     },
-    { label: 'Monthly revenue', value: formatCurrency(result.estimatedMonthlyRevenue) },
-    { label: 'Monthly rent', value: formatCurrency(result.monthlyRent) },
-    { label: 'Rent burden', value: formatPercent(result.rentBurdenPercentage) },
-    { label: 'Monthly cost base', value: formatCurrency(result.estimatedMonthlyCostBase) },
-    { label: 'Break-even customers/day', value: formatNumber(result.breakEvenCustomersPerDay) },
-    { label: 'Expected customers/day', value: formatNumber(result.expectedCustomersPerDay) },
+    { label: 'Monthly revenue', value: formatCurrency(result.estimatedMonthlyRevenue), tone: 'neutral' },
+    { label: 'Monthly rent', value: formatCurrency(result.monthlyRent), tone: 'neutral' },
+    { label: 'Rent burden', value: formatPercent(result.rentBurdenPercentage), tone: rentBurden !== null && rentBurden > 18 ? 'warning' : 'positive' },
+    { label: 'Monthly cost base', value: formatCurrency(result.estimatedMonthlyCostBase), tone: 'neutral' },
+    { label: 'Break-even customers/day', value: formatNumber(result.breakEvenCustomersPerDay), tone: 'neutral' },
+    { label: 'Expected customers/day', value: formatNumber(result.expectedCustomersPerDay), tone: 'neutral' },
+    { label: 'Upfront cash needed', value: formatCurrency(result.upfrontCashNeeded), tone: 'neutral' },
+    {
+      label: 'Cash after opening',
+      value: formatCurrency(result.availableCashAfterOpening),
+      tone:
+        cashAfterOpening === null
+          ? 'neutral'
+          : cashAfterOpening < 0
+            ? 'negative'
+            : cashAfterOpening < 15000
+              ? 'warning'
+              : 'positive',
+    },
+    {
+      label: 'Downside revenue',
+      value: formatCurrency(result.downsideMonthlyRevenue),
+      tone: 'neutral',
+    },
+    {
+      label: 'Downside monthly position',
+      value: formatCurrency(result.downsideMonthlyPosition),
+      tone:
+        downsideMonthlyPosition === null
+          ? 'neutral'
+          : downsideMonthlyPosition < 0
+            ? 'negative'
+            : 'positive',
+    },
+    {
+      label: 'Six-month test',
+      value: survivesSixBadMonths ? 'Pass' : 'Fail',
+      tone: survivesSixBadMonths ? 'positive' : 'negative',
+    },
   ];
 }
 
@@ -568,7 +796,8 @@ function getStressTestScenarios(request: ReportRequest): Array<{
 function getNegotiationLevers(request: ReportRequest): Array<{
   title: string;
   priority: 'High' | 'Medium' | 'Low';
-  text: string;
+  whyItMatters: string;
+  askFor: string;
 }> {
   const figures = getCommercialContext(request);
 
@@ -587,69 +816,78 @@ function getNegotiationLevers(request: ReportRequest): Array<{
     {
       title: 'Lower headline rent',
       priority: priority(highIfRentHeavy || highIfSurvivalWeak),
-      text:
+      whyItMatters:
         figures.monthlyRent !== null && figures.rentBurden !== null
           ? `A 10% rent cut would reduce monthly rent from ${formatCurrency(figures.monthlyRent)} to ${formatCurrency(figures.monthlyRent * 0.9)} and move rent burden from ${figures.rentBurden.toFixed(1)}% to about ${(figures.rentBurden * 0.9).toFixed(1)}% if revenue stays the same.`
           : 'Lower rent can move the site into a healthier burden band and reduce pressure on break-even customers.',
+      askFor: 'Ask for a lower headline rent, stepped rent, or a rent-free start if the landlord wants the deal to progress.',
     },
     {
       title: 'Rent-free period',
       priority: priority(highIfNegativeCash || highIfCashTight),
-      text:
+      whyItMatters:
         figures.cashAfterOpening !== null && figures.cashAfterOpening < 0
           ? `A rent-free start would help close the ${getOpeningShortfall(request) ?? 'opening shortfall'} by keeping more cash in the business while trading settles.`
           : 'A rent-free start gives the business more breathing room while trading settles and opening costs are absorbed.',
+      askFor: 'Ask for a rent-free period that covers fit-out, launch, and the first months of trading.',
     },
     {
       title: 'Landlord fit-out contribution',
       priority: priority(highIfNegativeCash),
-      text:
+      whyItMatters:
         figures.cashAfterOpening !== null && figures.cashAfterOpening < 0
           ? 'A contribution to fit-out reduces the opening capital stack and can close a shortfall before trading starts.'
           : 'A contribution to fit-out reduces the opening capital stack and improves working capital after launch.',
+      askFor: 'Ask for a contribution to fit-out, plant, or any landlord works that would otherwise drain cash.',
     },
     {
       title: 'Reduced deposit',
       priority: priority(highIfNegativeCash || highIfCashTight),
-      text:
+      whyItMatters:
         figures.startingCash !== null
           ? `A smaller deposit keeps more of the ${formatCurrency(figures.startingCash)} starting cash available for launch costs and early working capital.`
           : 'A smaller deposit keeps more cash in the business for launch costs and early working capital.',
+      askFor: 'Ask for a reduced deposit or staged deposit if the opening capital stack is tight.',
     },
     {
       title: 'Break clause',
       priority: priority(highIfSurvivalWeak),
-      text: 'A break clause reduces the cost of a weak site if the trading case fails to improve after launch.',
+      whyItMatters: 'A break clause reduces the cost of a weak site if the trading case fails to improve after launch.',
+      askFor: 'Ask for an early break option that reduces downside if trading does not improve.',
     },
     {
       title: 'Service charge cap',
       priority: priority(highIfRentHeavy),
-      text:
+      whyItMatters:
         figures.rentBurden !== null
           ? `A cap matters more at a ${figures.rentBurden.toFixed(1)}% rent burden because any extra shared cost quickly narrows the buffer.`
           : 'A cap keeps shared-cost pressure from drifting higher after the lease is signed.',
+      askFor: 'Ask for a service charge cap or clearer service charge mechanics before signing.',
     },
     {
       title: 'Repairing obligations',
       priority: priority(highIfNegativeCash || highIfSurvivalWeak),
-      text:
+      whyItMatters:
         figures.cashAfterOpening !== null && figures.cashAfterOpening < 15000
           ? 'Clear repair wording avoids hidden costs that can erode an already thin opening buffer.'
           : 'Clear repair wording avoids hidden costs that can erode already thin margins.',
+      askFor: 'Ask for a clearer repair schedule and tighter wording on what the tenant is expected to maintain.',
     },
     {
       title: 'Permitted use flexibility',
       priority: priority(highIfSurvivalWeak),
-      text:
+      whyItMatters:
         figures.expectedCustomers !== null
           ? `Flexible permitted use helps if the original trading concept needs to adapt after opening or if the ${formatNumber(figures.expectedCustomers)} expected customers/day assumption proves too optimistic.`
           : 'Flexible permitted use helps if the original trading concept needs to adapt after opening.',
+      askFor: 'Ask for wider permitted use so the site can adapt if the concept needs to change.',
     },
   ];
 }
 
 function getEvidenceSections(request: ReportRequest): Array<{
   title: string;
+  context: string;
   items: Array<{ label: string; detail: string }>;
 }> {
   const figures = getCommercialContext(request);
@@ -657,6 +895,7 @@ function getEvidenceSections(request: ReportRequest): Array<{
   return [
     {
       title: 'A. Trading evidence',
+      context: getLeaseQuestionsContext(request),
       items: [
         {
           label: 'Footfall counts',
@@ -694,6 +933,7 @@ function getEvidenceSections(request: ReportRequest): Array<{
     },
     {
       title: 'B. Cost evidence',
+      context: getDueDiligenceContext(request),
       items: [
         {
           label: 'Business rates bill or estimate',
@@ -732,6 +972,8 @@ function getEvidenceSections(request: ReportRequest): Array<{
     },
     {
       title: 'C. Lease and legal evidence',
+      context:
+        'Ask the solicitor to review the lease wording before committing. These are the points most likely to change the real cost of the site after signing.',
       items: [
         {
           label: 'Rent review',
@@ -1262,6 +1504,14 @@ export default async function CommercialViabilityFilePage({
 
   const context = getCommercialContext(request);
   const assessment = getFinalAssessment(request);
+  const verdictTone = getVerdictToneClasses(request.verdictLabel);
+  const executiveHighlights = getExecutiveHighlights(request, assessment);
+  const whatMattersMost = getWhatMattersMost(request);
+  const reportDate = new Date(request.createdAt).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
 
   return (
     <div className="bg-stone-50 text-stone-900">
@@ -1274,6 +1524,16 @@ export default async function CommercialViabilityFilePage({
       />
       <style>{`
         @media print {
+          @page {
+            margin: 12mm;
+          }
+
+          html,
+          body {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+
           header,
           nav,
           footer,
@@ -1294,66 +1554,94 @@ export default async function CommercialViabilityFilePage({
       `}</style>
       <section className="bg-stone-950 text-white customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 items-start">
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
                 Standard commercial viability file
               </p>
-              <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
+              <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-5">
                 Commercial viability file
               </h1>
-              <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                This file organises the site’s rent burden, break-even customers, upfront cash, downside trading, lease questions, and next checks before you commit.
+              <p className="text-lg text-stone-300 max-w-2xl leading-8">
+                Analyst-style decision support for a commercial lease. It pulls the rent burden, break-even customers, opening capital stack, downside trading, lease questions, and next actions into one report.
               </p>
-              <p className="text-xs text-stone-400">
+
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl">
+                <div className={`rounded-3xl border px-4 py-4 ${verdictTone.badge}`}>
+                  <p className="text-[11px] uppercase tracking-[0.18em] font-semibold mb-1">Verdict</p>
+                  <p className="text-lg font-bold">{getCommercialVerdictLabel(request.verdictLabel)}</p>
+                </div>
+                <div className="rounded-3xl border border-white/10 bg-white/6 px-4 py-4">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">Score</p>
+                  <p className="text-3xl font-bold tabular-nums">{request.score}/100</p>
+                </div>
+                <div className="rounded-3xl border border-white/10 bg-white/6 px-4 py-4">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">Reference</p>
+                  <p className="text-2xl font-bold tracking-[0.08em]">{getReportReference(request)}</p>
+                </div>
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl">
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">Generated</p>
+                  <p className="text-sm text-stone-200 leading-6">{reportDate}</p>
+                </div>
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">Final interpretation</p>
+                  <p className="text-sm text-stone-200 leading-6">{assessment.summary}</p>
+                </div>
+              </div>
+
+              <p className="mt-6 text-xs text-stone-400 leading-6 max-w-3xl">
                 YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3 customer-print-hide">
                 <PrintButton />
-                <Link
-                  href="/check?mode=commercial"
-                  className="bg-stone-800 text-white px-6 py-3 rounded font-medium hover:bg-stone-700 transition-colors text-sm text-center"
-                >
-                  Run another commercial check
-                </Link>
               </div>
               <p className="mt-4 text-xs text-stone-400 leading-6 customer-print-hide">
                 For the cleanest saved PDF, turn off browser headers and footers in the print dialog.
               </p>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-xl overflow-hidden shadow-2xl">
-              <div className="px-5 py-4 border-b border-stone-200">
-                <p className="text-xs uppercase tracking-widest text-teal-700 font-semibold">
-                  Customer file
-                </p>
-                <p className="text-2xl font-bold mt-1">{getCommercialVerdictLabel(request.verdictLabel)}</p>
-                <p className="text-sm text-stone-500 mt-1">
-                  Reference {getReportReference(request)} · Generated {new Date(request.createdAt).toLocaleDateString('en-GB', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                  })}
-                </p>
+            <div className="rounded-[32px] border border-white/10 bg-white text-stone-900 p-5 sm:p-6 shadow-[0_24px_64px_rgba(15,23,42,0.18)] customer-print-card">
+              <div className="flex items-start justify-between gap-4 mb-5">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.22em] text-teal-700 font-semibold mb-1">
+                    Report cover
+                  </p>
+                  <p className="text-2xl font-bold text-stone-950">{getCommercialVerdictLabel(request.verdictLabel)}</p>
+                  <p className="text-sm text-stone-500 mt-1">
+                    Reference {getReportReference(request)} · {reportDate}
+                  </p>
+                </div>
+                <div className={`rounded-3xl border px-3 py-2 text-right ${verdictTone.subtle}`}>
+                  <p className="text-[11px] uppercase tracking-[0.18em] font-semibold">Score</p>
+                  <p className="text-3xl font-bold tabular-nums">{request.score}</p>
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2">
-                {(() => {
-                  const openingPosition = getOpeningPositionSummary(request);
-
-                  return [
-                    { label: 'Score', value: `${request.score}/100` },
-                    { label: 'Rent burden', value: formatPercent(context.rentBurden) },
-                    { label: 'Break-even/day', value: formatNumber(context.breakEven) },
-                    openingPosition,
-                  ];
-                })().map((metric) => (
-                  <div key={metric.label} className="border-b border-stone-200 p-4 sm:odd:border-r">
-                    <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{metric.label}</p>
-                    <p className="text-2xl font-bold text-stone-900 mt-1">{metric.value}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { label: 'Rent burden', value: formatPercent(context.rentBurden), tone: context.rentBurden !== null && context.rentBurden > 18 ? 'text-amber-900 bg-amber-50 border-amber-200' : 'text-green-900 bg-green-50 border-green-200' },
+                  { label: 'Break-even/day', value: formatNumber(context.breakEven), tone: 'text-stone-900 bg-stone-50 border-stone-200' },
+                  { label: 'Opening position', value: getOpeningPositionSummary(request).value, tone: getOpeningPositionTone(request) },
+                  { label: 'Six-month test', value: context.survivesSixBadMonths ? 'Pass' : 'Fail', tone: context.survivesSixBadMonths ? 'text-green-900 bg-green-50 border-green-200' : 'text-rose-950 bg-rose-50 border-rose-200' },
+                ].map((metric) => (
+                  <div key={metric.label} className={`rounded-3xl border px-4 py-4 ${metric.tone}`}>
+                    <p className="text-[11px] uppercase tracking-[0.18em] font-semibold mb-1">{metric.label}</p>
+                    <p className="text-2xl font-bold tabular-nums">{metric.value}</p>
                   </div>
                 ))}
+              </div>
+
+              <div className="mt-5 rounded-3xl border border-stone-200 bg-stone-50 p-4">
+                <p className="text-xs uppercase tracking-[0.22em] text-stone-400 font-semibold mb-1">
+                  One-line read
+                </p>
+                <p className={`text-sm leading-7 ${verdictTone.highlight}`}>
+                  {assessment.summary}
+                </p>
               </div>
             </div>
           </div>
@@ -1366,35 +1654,27 @@ export default async function CommercialViabilityFilePage({
           title={assessment.verdict}
           description={getExecutiveSummary(request)}
         />
-      </section>
 
-      <section className="bg-white border-y border-stone-200 customer-print-section">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="Site snapshot"
-            title="The assumptions behind the paid file."
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {getSiteSnapshotRows(request).map((row) => (
-              <div key={row.label} className="rounded-xl border border-stone-200 bg-stone-50 p-4">
-                <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{row.label}</p>
-                <p className="text-sm font-semibold text-stone-900 mt-1">{row.value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
-        <SectionTitle
-          eyebrow="Key viability metrics"
-          title="The core numbers the file makes easy to review."
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {getMetricRows(request).map((item) => (
-            <div key={item.label} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
-              <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
-              <p className="text-2xl font-bold mt-2 text-stone-900">{item.value}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          {executiveHighlights.map((item) => (
+            <div
+              key={item.label}
+              className={`rounded-3xl border p-5 shadow-sm customer-print-card ${
+                item.tone === 'green'
+                  ? 'border-green-200 bg-green-50'
+                  : item.tone === 'teal'
+                    ? 'border-teal-200 bg-teal-50'
+                    : item.tone === 'amber'
+                      ? 'border-amber-200 bg-amber-50'
+                      : 'border-rose-200 bg-rose-50'
+              }`}
+            >
+              <p className="text-[11px] uppercase tracking-[0.18em] font-semibold text-stone-500 mb-2">
+                {item.label}
+              </p>
+              <p className="text-sm text-stone-800 leading-7">
+                {item.value}
+              </p>
             </div>
           ))}
         </div>
@@ -1403,20 +1683,145 @@ export default async function CommercialViabilityFilePage({
       <section className="bg-white border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Upfront cash and survival"
-            title="The opening capital stack and downside case."
+            eyebrow="Decision-support visuals"
+            title="The fast read before the written detail."
+            description="These four views show the rent burden, break-even gap, opening capital stack, and downside survival test together."
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {getUpfrontCashRows(request).map((item) => (
-              <div key={item.label} className="rounded-xl border border-stone-200 bg-stone-50 p-4">
-                <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
-                <p className="text-sm font-semibold text-stone-900 mt-1">{item.value}</p>
-              </div>
-            ))}
+
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+            <div className="customer-print-card break-inside-avoid">
+              <RentBurdenGauge rentBurdenPercentage={context.rentBurden} />
+            </div>
+            <div className="customer-print-card break-inside-avoid">
+              <BreakEvenComparison
+                breakEvenCustomersPerDay={context.breakEven ?? undefined}
+                expectedCustomersPerDay={context.expectedCustomers ?? undefined}
+              />
+            </div>
+            <div className="customer-print-card break-inside-avoid">
+              <OpeningCashWaterfall
+                startingCash={context.startingCash ?? undefined}
+                fitOutBudget={toNumber(context.input.fitOutBudget) ?? undefined}
+                rentDeposit={toNumber(context.input.rentDeposit) ?? undefined}
+                legalFees={toNumber(context.input.legalFees) ?? undefined}
+                openingStock={toNumber(context.input.openingStock) ?? undefined}
+                otherSetupCosts={toNumber(context.input.otherSetupCosts) ?? undefined}
+                upfrontCashNeeded={context.upfrontCashNeeded ?? undefined}
+                cashAfterOpening={context.cashAfterOpening ?? undefined}
+              />
+            </div>
+            <div className="customer-print-card break-inside-avoid">
+              <DownsideSurvivalCard
+                downsideRevenuePercentage={context.downsideRevenuePercentage ?? undefined}
+                downsideMonthlyRevenue={context.downsideMonthlyRevenue ?? undefined}
+                monthlyCostBase={context.monthlyCostBase ?? undefined}
+                downsideMonthlyPosition={context.downsideMonthlyPosition ?? undefined}
+                monthlyBurnInDownside={context.monthlyBurnInDownside ?? undefined}
+                survivalMonths={context.survivalMonths ?? undefined}
+                survivesSixBadMonths={context.survivesSixBadMonths}
+              />
+            </div>
           </div>
-          <p className="mt-4 text-sm text-stone-700 leading-7">
-            {getSurvivalExplanation(request)}
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
+        <SectionTitle
+          eyebrow="Site snapshot"
+          title="The assumptions behind the paid file."
+          description="These are the entered inputs the report is built from."
+        />
+        <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-white shadow-sm customer-print-card">
+          <table className="w-full border-collapse text-sm">
+            <tbody>
+              {getSiteSnapshotRows(request).map((row, index) => (
+                <tr key={row.label} className={index === 0 ? '' : 'border-t border-stone-100'}>
+                  <th className="px-4 py-4 text-left text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold w-[40%]">
+                    {row.label}
+                  </th>
+                  <td className="px-4 py-4 text-sm text-stone-800 font-medium">{row.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="bg-stone-950 text-white customer-print-section">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Key viability metrics"
+            title="The core numbers the file makes easy to review."
+            description="This table is the formal read of the model. Positive and negative fields are kept visible rather than hidden in summary cards."
+          />
+          <div className="overflow-x-auto rounded-3xl border border-white/10 bg-white text-stone-900 shadow-2xl customer-print-card">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="bg-stone-50 text-left border-b border-stone-200">
+                  <th className="py-3 px-4 font-semibold text-stone-700">Metric</th>
+                  <th className="py-3 px-4 font-semibold text-stone-700">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {getMetricRows(request).map((item) => (
+                  <tr key={item.label} className="border-b border-stone-100 align-top">
+                    <td className="py-3 px-4 font-medium text-stone-900">{item.label}</td>
+                    <td className={`py-3 px-4 font-semibold tabular-nums ${
+                      item.tone === 'negative'
+                        ? 'text-rose-700'
+                        : item.tone === 'warning'
+                          ? 'text-amber-700'
+                          : item.tone === 'positive'
+                            ? 'text-green-700'
+                            : 'text-stone-900'
+                    }`}>
+                      {item.value}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-xs text-stone-400 leading-6 max-w-4xl">
+            The formal table keeps the score, rent burden, opening cash, downside case, and survival test in one place so the weak point is obvious.
           </p>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
+        <SectionTitle
+          eyebrow="What matters most"
+          title="The issues that should be read first."
+          description="These are the items that change the commercial reading most quickly on the current numbers."
+        />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {whatMattersMost.map((item) => (
+            <div
+              key={item.rank}
+              className={`rounded-3xl border p-5 shadow-sm customer-print-card ${
+                item.tone === 'green'
+                  ? 'border-green-200 bg-green-50'
+                  : item.tone === 'teal'
+                    ? 'border-teal-200 bg-teal-50'
+                    : item.tone === 'amber'
+                      ? 'border-amber-200 bg-amber-50'
+                      : 'border-rose-200 bg-rose-50'
+              }`}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">
+                    {item.rank}
+                  </p>
+                  <p className="text-sm font-semibold text-stone-950">{item.title}</p>
+                </div>
+                <span className="rounded-full border border-stone-200 bg-white px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
+                  {item.tone === 'green' ? 'Strong' : item.tone === 'teal' ? 'Worth investigating' : item.tone === 'amber' ? 'Needs caution' : 'Fragile'}
+                </span>
+              </div>
+              <p className="mt-3 text-sm text-stone-700 leading-7">{item.text}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -1428,7 +1833,7 @@ export default async function CommercialViabilityFilePage({
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {getWhatWouldNeedToImprove(request).map((item) => (
-            <div key={item.title} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+            <div key={item.title} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card">
               <p className="text-sm font-semibold text-stone-900">{item.title}</p>
               <p className="text-xs uppercase tracking-wide text-stone-400 mt-2">Current</p>
               <p className="text-sm text-stone-700 mt-1 leading-6">{item.current}</p>
@@ -1447,7 +1852,7 @@ export default async function CommercialViabilityFilePage({
             eyebrow="Stress-test scenarios"
             title="How the site behaves under weaker trading or better lease terms."
           />
-          <div className="overflow-x-auto rounded-xl border border-stone-200">
+          <div className="overflow-x-auto rounded-3xl border border-stone-200 customer-print-card">
             <table className="w-full border-collapse text-sm bg-white">
               <thead>
                 <tr className="bg-stone-50 text-left border-b border-stone-200">
@@ -1463,7 +1868,17 @@ export default async function CommercialViabilityFilePage({
                   <tr key={row.label} className="border-b border-stone-100 align-top">
                     <td className="py-3 px-4 font-medium text-stone-900">{row.label}</td>
                     <td className="py-3 px-4 text-stone-700">{row.monthlyRevenue}</td>
-                    <td className="py-3 px-4 text-stone-700">{row.monthlyPosition}</td>
+                    <td
+                      className={`py-3 px-4 font-semibold tabular-nums ${
+                        row.monthlyPosition.startsWith('-')
+                          ? 'text-rose-700'
+                          : row.monthlyPosition === 'Not available'
+                            ? 'text-stone-500'
+                            : 'text-green-700'
+                      }`}
+                    >
+                      {row.monthlyPosition}
+                    </td>
                     <td className="py-3 px-4 text-stone-700">{row.breakEvenCustomers}</td>
                     <td className="py-3 px-4 text-stone-600 leading-6">{row.interpretation}</td>
                   </tr>
@@ -1481,14 +1896,17 @@ export default async function CommercialViabilityFilePage({
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {getNegotiationLevers(request).map((item) => (
-            <div key={item.title} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+            <div key={item.title} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card">
               <div className="flex items-start justify-between gap-3">
                 <p className="text-sm font-semibold text-stone-900">{item.title}</p>
                 <span className="rounded-full border border-stone-200 bg-stone-50 px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
                   {item.priority}
                 </span>
               </div>
-              <p className="text-sm text-stone-600 leading-7 mt-2">{item.text}</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-stone-400 mt-3">Why it matters</p>
+              <p className="text-sm text-stone-600 leading-7 mt-1">{item.whyItMatters}</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-stone-400 mt-3">What to ask for</p>
+              <p className="text-sm text-stone-700 leading-7 mt-1">{item.askFor}</p>
             </div>
           ))}
         </div>
@@ -1502,8 +1920,9 @@ export default async function CommercialViabilityFilePage({
           />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {getEvidenceSections(request).map((section) => (
-              <div key={section.title} className="rounded-xl border border-stone-200 bg-stone-50 p-5">
+              <div key={section.title} className="rounded-3xl border border-stone-200 bg-stone-50 p-5 shadow-sm customer-print-card">
                 <p className="text-sm font-semibold text-stone-900">{section.title}</p>
+                <p className="text-sm text-stone-600 leading-6 mt-2">{section.context}</p>
                 <ul className="mt-3 space-y-2 text-sm text-stone-700 leading-6">
                   {section.items.map((item) => (
                     <li key={item.label} className="space-y-1">
@@ -1534,7 +1953,7 @@ export default async function CommercialViabilityFilePage({
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
           {getChecklistItems(request).map((item) => (
-            <div key={item.label} className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+            <div key={item.label} className="rounded-3xl border border-stone-200 bg-white p-4 shadow-sm customer-print-card">
               <p className="font-medium text-stone-900">{item.label}</p>
               <p className="text-stone-600 leading-6 mt-1">{item.detail}</p>
             </div>
@@ -1551,7 +1970,7 @@ export default async function CommercialViabilityFilePage({
           />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {getDueDiligenceItems(request).map((item) => (
-              <div key={item.label} className="rounded-xl border border-stone-200 bg-stone-50 p-5">
+              <div key={item.label} className="rounded-3xl border border-stone-200 bg-stone-50 p-5 shadow-sm customer-print-card">
                 <p className="text-sm font-semibold text-stone-900">{item.label}</p>
                 <p className="text-sm text-stone-600 leading-6 mt-2">{item.detail}</p>
               </div>
@@ -1573,20 +1992,28 @@ export default async function CommercialViabilityFilePage({
           eyebrow="Ranked actions before committing"
           title="What to tackle first on this file."
         />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm customer-print-card">
           {getRankedActionItems(request).map((item) => (
-            <div key={item.title} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card">
-              <div className="flex items-start justify-between gap-3">
+            <div key={item.title} className="border-b border-stone-100 last:border-b-0 p-5 break-inside-avoid-page">
+              <div className="grid grid-cols-1 lg:grid-cols-[72px_1.1fr_0.9fr_140px] gap-4 items-start">
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.rank}</p>
+                  <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">Action {item.rank}</p>
                   <p className="text-sm font-semibold text-stone-900 mt-1">{item.title}</p>
                 </div>
-                <span className="rounded-full border border-stone-200 bg-stone-50 px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
-                  {item.priority}
-                </span>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">Why it matters</p>
+                  <p className="text-sm text-stone-700 leading-7">{item.why}</p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">What would change the result</p>
+                  <p className="text-sm text-stone-600 leading-7">{item.confidence}</p>
+                </div>
+                <div className="lg:text-right">
+                  <span className="inline-flex rounded-full border border-stone-200 bg-stone-50 px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
+                    {item.priority}
+                  </span>
+                </div>
               </div>
-              <p className="text-sm text-stone-700 leading-7 mt-3">{item.why}</p>
-              <p className="text-sm text-stone-600 leading-7 mt-2">{item.confidence}</p>
             </div>
           ))}
         </div>
@@ -1599,22 +2026,28 @@ export default async function CommercialViabilityFilePage({
             title={assessment.verdict}
             description={assessment.summary}
           />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-sm">
-            <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-              <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">Main reason</p>
-              <p className="text-stone-300 leading-7 mt-2">{assessment.reason}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-4 text-sm">
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 customer-print-card">
+              <p className="text-xs uppercase tracking-[0.18em] text-teal-300 font-semibold mb-2">Final view: {assessment.verdict}</p>
+              <p className="text-stone-300 leading-7">{assessment.summary}</p>
             </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-              <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">What to renegotiate</p>
-              <p className="text-stone-300 leading-7 mt-2">{assessment.renegotiate}</p>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-              <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">What to verify</p>
-              <p className="text-stone-300 leading-7 mt-2">{assessment.verify}</p>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-              <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">Next step</p>
-              <p className="text-stone-300 leading-7 mt-2">{assessment.nextStep}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 customer-print-card">
+                <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">Main reason</p>
+                <p className="text-stone-300 leading-7 mt-2">{assessment.reason}</p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 customer-print-card">
+                <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">What to renegotiate</p>
+                <p className="text-stone-300 leading-7 mt-2">{assessment.renegotiate}</p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 customer-print-card">
+                <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">What to verify</p>
+                <p className="text-stone-300 leading-7 mt-2">{assessment.verify}</p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 customer-print-card">
+                <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">Next step</p>
+                <p className="text-stone-300 leading-7 mt-2">{assessment.nextStep}</p>
+              </div>
             </div>
           </div>
         </div>

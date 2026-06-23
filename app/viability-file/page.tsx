@@ -193,9 +193,10 @@ export default function ViabilityFilePage() {
 
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 This is the paid next step after a free commercial check. It
-                organises the verdict, site snapshot, rent burden, break-even
-                customers, upfront cash, downside trading, six-month survival,
-                lease questions, and next checks before you commit.
+                reads like a concise decision memo, organising the verdict,
+                site snapshot, rent burden, break-even customers, upfront cash,
+                downside trading, six-month survival, lease questions, and next
+                checks before you commit.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -245,7 +246,7 @@ export default function ViabilityFilePage() {
               </p>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="bg-white text-stone-900 rounded-3xl overflow-hidden shadow-2xl">
               <div className="px-5 py-4 border-b border-stone-200">
                 <p className="text-xs uppercase tracking-widest text-teal-700 font-semibold">
                   Example commercial file
@@ -295,7 +296,7 @@ export default function ViabilityFilePage() {
           {commercialFileItems.map((item) => (
             <div
               key={item}
-              className="bg-white border border-stone-200 rounded-2xl p-5 text-sm font-medium text-stone-800 shadow-sm"
+              className="bg-white border border-stone-200 rounded-3xl p-5 text-sm font-medium text-stone-800 shadow-sm"
             >
               {item}
             </div>
@@ -315,7 +316,7 @@ export default function ViabilityFilePage() {
             {workflowSteps.map((item) => (
               <div
                 key={item.step}
-                className="bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-sm"
+                className="bg-stone-50 border border-stone-200 rounded-3xl p-6 shadow-sm"
               >
                 <p className="w-9 h-9 rounded-full bg-teal-700 text-white text-sm font-semibold flex items-center justify-center mb-5">
                   {item.step}
@@ -383,7 +384,7 @@ export default function ViabilityFilePage() {
           {residentialItems.map((item) => (
             <div
               key={item}
-              className="bg-white border border-stone-200 rounded-2xl p-5 text-sm text-stone-700 shadow-sm"
+              className="bg-white border border-stone-200 rounded-3xl p-5 text-sm text-stone-700 shadow-sm"
             >
               {item}
             </div>
@@ -414,7 +415,7 @@ export default function ViabilityFilePage() {
               {notIncluded.map((item) => (
                 <div
                   key={item}
-                  className="bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-stone-200"
+                  className="bg-white/5 border border-white/10 rounded-3xl p-4 text-sm text-stone-200"
                 >
                   {item}
                 </div>
