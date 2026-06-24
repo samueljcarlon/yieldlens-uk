@@ -14,7 +14,7 @@ import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
 export const metadata: Metadata = {
   title: 'Commercial Viability File',
   description:
-    'Paid commercial viability file for a token-protected commercial report request. Shows rent burden, break-even customers, upfront cash, downside trading, survival runway, lease questions, and due diligence checks.',
+    'Paid commercial viability file that turns a commercial result into a decision memo for negotiation and due diligence.',
   robots: {
     index: false,
     follow: false,
@@ -300,7 +300,7 @@ function getExecutiveHighlights(request: ReportRequest, assessment: ReturnType<t
     {
       label: 'Immediate next action',
       value: assessment.nextStep,
-      tone: 'teal',
+      tone: 'green',
     },
   ];
 }
@@ -1126,7 +1126,7 @@ function getFinalAssessment(request: ReportRequest): {
       nextStep:
         'Pause until the opening capital position improves, then retest the site on the revised numbers.',
       summary:
-        'Pause unless the upfront capital position improves. The model does not currently fail because the downside month burns cash; it fails because upfront cash needed exceeds available starting cash. The priority is to renegotiate fit-out, deposit, rent-free terms, landlord contribution, or increase available starting cash before treating the site as viable.',
+        'Pause unless the upfront capital position improves. The model does not currently fail because the downside month burns cash; it fails because the opening capital stack is too thin before trading begins. The priority is to renegotiate fit-out, deposit, rent-free terms, landlord contribution, or increase available starting cash before treating the site as viable.',
     };
   }
 
@@ -1560,10 +1560,10 @@ export default async function CommercialViabilityFilePage({
                 Standard commercial viability file
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-5">
-                Commercial viability file
+                Standard commercial viability file
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl leading-8">
-                Analyst-style decision support for a commercial lease. It pulls the rent burden, break-even customers, opening capital stack, downside trading, lease questions, and next actions into one report.
+                A £49 decision memo that turns the saved commercial result into one printable report for negotiation and due diligence. It pulls the rent burden, break-even customers, opening capital stack, downside trading, lease questions, and next actions into one place.
               </p>
 
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl">
@@ -1599,9 +1599,6 @@ export default async function CommercialViabilityFilePage({
               <div className="mt-8 flex flex-col sm:flex-row gap-3 customer-print-hide">
                 <PrintButton />
               </div>
-              <p className="mt-4 text-xs text-stone-400 leading-6 customer-print-hide">
-                For the cleanest saved PDF, turn off browser headers and footers in the print dialog.
-              </p>
             </div>
 
             <div className="rounded-[32px] border border-white/10 bg-[#fffaf0] text-stone-900 p-5 sm:p-6 shadow-[0_24px_64px_rgba(15,23,42,0.18)] customer-print-card">
@@ -1788,64 +1785,6 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
-        <SectionTitle
-          eyebrow="What matters most"
-          title="The issues that should be read first."
-          description="These are the items that change the commercial reading most quickly on the current numbers."
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {whatMattersMost.map((item) => (
-            <div
-              key={item.rank}
-              className={`rounded-3xl border p-5 shadow-sm customer-print-card ${
-                item.tone === 'green'
-                  ? 'border-green-200 bg-green-50'
-                  : item.tone === 'teal'
-                    ? 'border-green-200 bg-green-50'
-                    : item.tone === 'amber'
-                      ? 'border-amber-200 bg-amber-50'
-                      : 'border-rose-200 bg-rose-50'
-              }`}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">
-                    {item.rank}
-                  </p>
-                  <p className="text-sm font-semibold text-stone-950">{item.title}</p>
-                </div>
-                <span className="rounded-full border border-stone-200 bg-[#fffaf0] px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
-                  {item.tone === 'green' ? 'Strong' : item.tone === 'teal' ? 'Worth investigating' : item.tone === 'amber' ? 'Needs caution' : 'Fragile'}
-                </span>
-              </div>
-              <p className="mt-3 text-sm text-stone-700 leading-7">{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
-        <SectionTitle
-          eyebrow="What would need to improve?"
-          title="The deal needs a stronger opening capital position."
-          description="Treat 18% as the caution threshold and 12% as the healthier target. The question is whether the site mainly needs a better rent deal, stronger trading assumptions, or a stronger opening capital stack."
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {getWhatWouldNeedToImprove(request).map((item) => (
-            <div key={item.title} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm customer-print-card">
-              <p className="text-sm font-semibold text-stone-900">{item.title}</p>
-              <p className="text-xs uppercase tracking-wide text-stone-400 mt-2">Current</p>
-              <p className="text-sm text-stone-700 mt-1 leading-6">{item.current}</p>
-              <p className="text-xs uppercase tracking-wide text-stone-400 mt-3">Target</p>
-              <p className="text-sm text-stone-700 mt-1 leading-6">{item.target}</p>
-              <p className="text-xs uppercase tracking-wide text-stone-400 mt-3">What would help</p>
-              <p className="text-sm text-stone-700 mt-1 leading-6">{item.action}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <section className="bg-[#fbf7ef] border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
@@ -1979,43 +1918,28 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
-        <SectionTitle
-          eyebrow="How this file was built"
-          title="The method behind the paid file."
-        />
-        <p className="text-sm text-stone-700 leading-7 max-w-4xl">{getMethodologyNote()}</p>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
-        <SectionTitle
-          eyebrow="Ranked actions before committing"
-          title="What to tackle first on this file."
-        />
-        <div className="overflow-hidden rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-sm customer-print-card">
-          {getRankedActionItems(request).map((item) => (
-            <div key={item.title} className="border-b border-stone-100 last:border-b-0 p-5 break-inside-avoid-page">
-              <div className="grid grid-cols-1 lg:grid-cols-[72px_1.1fr_0.9fr_140px] gap-4 items-start">
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">Action {item.rank}</p>
-                  <p className="text-sm font-semibold text-stone-900 mt-1">{item.title}</p>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">Why it matters</p>
-                  <p className="text-sm text-stone-700 leading-7">{item.why}</p>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">What would change the result</p>
-                  <p className="text-sm text-stone-600 leading-7">{item.confidence}</p>
-                </div>
-                <div className="lg:text-right">
-                  <span className="inline-flex rounded-full border border-stone-200 bg-stone-50 px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
-                    {item.priority}
-                  </span>
-                </div>
+      <section className="bg-[#fbf7ef] border-y border-stone-200 customer-print-section">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Important limits"
+            title="Read this memo as decision-support, not advice."
+            description="The file is built from the assumptions entered for the site. It does not replace site inspection, lease review, or professional due diligence."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              'Built from user-entered assumptions and the saved commercial result.',
+              'No site inspection or physical condition review.',
+              'No lease document review or legal sign-off.',
+              'Professional due diligence is still required before signing.',
+            ].map((item) => (
+              <div key={item} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-4 shadow-sm customer-print-card">
+                <p className="text-sm text-stone-700 leading-7">{item}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <p className="mt-4 text-xs text-stone-500 leading-6 max-w-4xl">
+            YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
+          </p>
         </div>
       </section>
 
@@ -2056,20 +1980,20 @@ export default async function CommercialViabilityFilePage({
       <section className="bg-green-50 border-y border-green-200 customer-print-section customer-print-hide">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
-            Retest the site
+            Next step
           </p>
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
-            Run another commercial check if you want to retest the site.
+            Turn the snapshot into a fuller commercial memo if you need to revisit the site.
           </h2>
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
-            This file is unlocked for the paid commercial request you completed. Keep pressure-testing the lease terms and assumptions before you commit.
+            Keep pressure-testing the lease terms and assumptions before you commit.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/check?mode=commercial"
               className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
             >
-              Run another commercial check
+              Run a free commercial check
             </Link>
             <Link
               href="/"
