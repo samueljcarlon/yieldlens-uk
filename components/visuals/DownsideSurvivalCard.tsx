@@ -123,7 +123,9 @@ export default function DownsideSurvivalCard({
 
       <p className="mt-4 text-xs text-stone-600 leading-6">
         {fail
-          ? 'The downside month burns cash and the six-month test fails.'
+          ? typeof monthlyBurnInDownside === 'number' && monthlyBurnInDownside > 0
+            ? 'The downside month burns cash and the six-month test fails.'
+            : 'The downside month still covers operating costs, but the opening capital stack fails the six-month test.'
           : pass
             ? 'The downside month is covered and the six-month test passes under the current assumptions.'
             : 'The downside survival picture is not fully available from the current inputs.'}

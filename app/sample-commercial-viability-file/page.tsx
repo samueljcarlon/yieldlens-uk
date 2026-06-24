@@ -379,9 +379,9 @@ export default function SampleCommercialViabilityFilePage() {
                 rentDeposit={15000}
                 legalFees={3000}
                 openingStock={8000}
-                otherSetupCosts={5000}
-                upfrontCashNeeded={81000}
-                cashAfterOpening={9000}
+                otherSetupCosts={50000}
+                upfrontCashNeeded={126000}
+                cashAfterOpening={-36000}
               />
             </div>
             <div className="rounded-3xl border border-stone-200 bg-white shadow-sm p-1">
@@ -392,7 +392,7 @@ export default function SampleCommercialViabilityFilePage() {
                 downsideMonthlyPosition={876}
                 monthlyBurnInDownside={0}
                 survivalMonths={undefined}
-                survivesSixBadMonths={true}
+                survivesSixBadMonths={false}
               />
             </div>
           </div>
