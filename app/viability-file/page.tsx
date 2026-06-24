@@ -44,7 +44,7 @@ const faqStructuredData = {
       name: 'How do I request a full viability file?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Run a free commercial check first. From the results page, users can request a fuller viability file or view the printable preview for the latest saved result.',
+        text: 'Run a free commercial check first. From the results page, users can unlock the Standard commercial viability file or view the sample file for the latest saved result.',
       },
     },
   ],
@@ -105,18 +105,9 @@ const workflowSteps = [
   },
   {
     step: '3',
-    title: 'Request a fuller file',
-    text: 'Use the saved result to request the fuller viability file or view the printable preview. Checkout appears after the commercial report request.',
+    title: 'Unlock the Standard file for £49',
+    text: 'Use the saved result to unlock the fuller viability file or view the sample file.',
   },
-];
-
-const residentialItems = [
-  'Headline yield and cash flow summary',
-  'Ownership cost pressure',
-  'Void period and maintenance risk',
-  'Comparable rent evidence checklist',
-  'Downside scenario questions',
-  'Missing data warnings',
 ];
 
 const compareRows = [
@@ -243,13 +234,13 @@ export default function ViabilityFilePage() {
               </p>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-3xl overflow-hidden shadow-2xl">
+              <div className="bg-white text-stone-900 rounded-3xl overflow-hidden shadow-2xl">
               <div className="px-5 py-4 border-b border-stone-200">
                 <p className="text-xs uppercase tracking-widest text-teal-700 font-semibold">
                   Example commercial file
                 </p>
                 <p className="text-2xl font-bold mt-1">
-                  Fragile: opening cash shortfall before trading begins.
+                  Needs caution: rent burden is high and the opening buffer is thin.
                 </p>
               </div>
 
@@ -274,7 +265,7 @@ export default function ViabilityFilePage() {
 
               <div className="p-5 bg-stone-50">
                 <p className="text-sm text-stone-700 leading-6">
-                  The downside month covers operating costs, but upfront cash needed exceeds available starting cash before trading begins.
+                  The downside month covers known operating costs, but a £9k opening buffer is thin relative to setup risk and early trading friction.
                 </p>
               </div>
             </div>
@@ -394,22 +385,11 @@ export default function ViabilityFilePage() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Commercial first"
-          title="Residential viability files remain secondary."
-          description="Residential checks can still be organised into a useful file, but the main YieldLens UK product direction is now commercial lease viability and survival before signing."
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {residentialItems.map((item) => (
-            <div
-              key={item}
-              className="bg-white border border-stone-200 rounded-3xl p-5 text-sm text-stone-700 shadow-sm"
-            >
-              {item}
-            </div>
-          ))}
+      <section className="max-w-6xl mx-auto px-4 pb-4">
+        <div className="rounded-3xl border border-stone-200 bg-white px-6 py-5 shadow-sm">
+          <p className="text-sm text-stone-700 leading-7">
+            YieldLens also includes residential calculators, but the Standard viability file is currently focused on commercial lease pressure-testing.
+          </p>
         </div>
       </section>
 
@@ -449,17 +429,17 @@ export default function ViabilityFilePage() {
       <section className="bg-teal-50 border-y border-teal-200">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
-            Request early access
+            Unlock the Standard file from your result
           </p>
 
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
-            Start with the free commercial check, then request the fuller file from your result.
+            Start with the free commercial check, then unlock the fuller file from your result.
           </h2>
 
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
             The check creates the saved result that powers the file. From the
-            results page, you can request a full viability file, view the
-            printable preview, or rerun the check with different assumptions.
+            results page, you can unlock the Standard commercial viability file,
+            view the sample file, or rerun the check with different assumptions.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
