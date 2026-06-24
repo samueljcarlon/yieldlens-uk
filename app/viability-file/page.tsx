@@ -5,16 +5,16 @@ import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
-  title: 'YieldLens UK | Commercial Viability File',
+  title: 'Standard Commercial Viability File | YieldLens UK',
   description:
-    'Standard commercial viability file for YieldLens UK. See what the paid file can include after a free commercial check, from rent burden and break-even customers to upfront cash, downside trading, survival runway, lease questions, and next checks.',
+    'Turn a free commercial check into a £49 decision memo covering rent burden, break-even customers, opening cash, downside trading, negotiation levers, and the evidence to verify before committing.',
   alternates: {
     canonical: '/viability-file',
   },
   openGraph: {
-    title: 'YieldLens UK | Commercial Viability File',
+    title: 'Standard Commercial Viability File | YieldLens UK',
     description:
-      'Standard commercial viability file for pressure-testing a site before committing to rent, fit-out, deposits, legal work, or signing.',
+      'A £49 decision-support file for pressure-testing commercial rent, cash, downside trading, and lease viability before signing.',
     url: 'https://yieldlens.co.uk/viability-file',
   },
 };
@@ -51,21 +51,12 @@ const faqStructuredData = {
 };
 
 const commercialFileItems = [
-  'Executive verdict',
-  'Site snapshot',
-  'Rent burden analysis',
-  'Break-even customers per day',
-  'Upfront cash needed',
-  'Cash after opening',
-  'Downside revenue case',
-  'Monthly burn or surplus',
-  'Six-month survival test',
-  'Fit-out and opening cost risk',
-  'Lease questions',
-  'Missing evidence checklist',
-  'Landlord or agent questions',
-  'Recommended next checks',
-  'Decision-support disclaimer',
+  'Executive summary and verdict',
+  'Rent burden and break-even customers',
+  'Opening cash and six-month survival',
+  'Downside trading stress test',
+  'Negotiation levers',
+  'Evidence checklist before signing',
 ];
 
 const survivalMetrics = [
@@ -128,8 +119,22 @@ const residentialItems = [
   'Missing data warnings',
 ];
 
+const compareRows = [
+  ['Rent burden', 'Headline numbers and risk flags', 'Detailed interpretation with next checks'],
+  ['Break-even customers/day', 'Shown', 'Shown with context and evidence prompts'],
+  ['Monthly revenue and cost base', 'Shown', 'Shown and explained'],
+  ['Opening cash needed', 'Shown', 'Shown with buffer or shortfall framing'],
+  ['Downside trading', 'Shown', 'Shown with survival context'],
+  ['Stress-test scenarios', 'Not included', 'Included'],
+  ['Negotiation levers', 'Not included', 'Included'],
+  ['Lease questions', 'Not included', 'Included'],
+  ['Due diligence checklist', 'Not included', 'Included'],
+  ['Ranked action plan', 'Not included', 'Included'],
+  ['Printable file', 'Not included', 'Included'],
+];
+
 const notIncluded = [
-  'Formal valuation',
+  'Valuation',
   'Financial advice',
   'Mortgage advice',
   'Legal advice',
@@ -188,15 +193,14 @@ export default function ViabilityFilePage() {
               </p>
 
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
-                Standard commercial viability file, £49.
+                Turn a commercial lease check into a decision memo before you sign.
               </h1>
 
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                This is the paid next step after a free commercial check. It
-                reads like a concise decision memo, organising the verdict,
-                site snapshot, rent burden, break-even customers, upfront cash,
-                downside trading, six-month survival, lease questions, and next
-                checks before you commit.
+                Get a structured £49 viability file showing rent burden,
+                break-even customers, opening cash, downside trading,
+                negotiation levers, and the evidence to verify before
+                committing.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -212,14 +216,14 @@ export default function ViabilityFilePage() {
                 </TrackedCtaLink>
 
                 <TrackedCtaLink
-                  href="/report"
+                  href="/sample-commercial-viability-file"
                   eventName="viability_file_page_cta_clicked"
                   pagePath="/viability-file"
-                  ctaLabel="View printable preview"
+                  ctaLabel="View sample file"
                   pageType="product_page"
                   className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
-                >
-                  View printable preview
+                  >
+                  View sample file
                 </TrackedCtaLink>
 
                 <Link
@@ -228,17 +232,10 @@ export default function ViabilityFilePage() {
                 >
                   How it works
                 </Link>
-
-                <Link
-                  href="/sample-commercial-viability-file"
-                  className="text-sm font-medium text-teal-300 hover:text-teal-200 self-center sm:self-auto"
-                >
-                  View sample file
-                </Link>
               </div>
 
               <p className="text-xs text-stone-400 mt-5">
-                YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
+                Indicative decision-support only. Not advice, not a valuation, and not a substitute for professional due diligence.
               </p>
 
               <p className="text-xs text-stone-400 mt-3">
@@ -288,8 +285,8 @@ export default function ViabilityFilePage() {
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
           eyebrow="What it can include"
-          title="A commercial file built around lease survival, not generic commentary."
-          description="The commercial version is designed to make the main lease risks visible in one place. It starts with the free check result, then organises the numbers and questions that should be reviewed before spending serious time, money, or negotiation effort. The paid file is £49 after a commercial report request."
+          title="What the £49 file gives you."
+          description="The paid version turns the free check into a printable decision memo. It keeps the main numbers visible, then adds the interpretation, stress tests, and questions that help with negotiation and due diligence."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -301,6 +298,37 @@ export default function ViabilityFilePage() {
               {item}
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-white border-y border-stone-200">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Free vs paid"
+            title="The free check gives the numbers. The paid file turns them into a decision memo."
+            description="The comparison below keeps the offer honest. The free check is the screen. The paid file is the printable pressure-test and action plan."
+          />
+
+          <div className="overflow-x-auto">
+            <table className="min-w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-stone-200 bg-stone-50 text-left">
+                  <th className="px-4 py-3 font-semibold text-stone-700">What you get</th>
+                  <th className="px-4 py-3 font-semibold text-stone-700">Free check</th>
+                  <th className="px-4 py-3 font-semibold text-stone-700">Standard file, £49</th>
+                </tr>
+              </thead>
+              <tbody>
+                {compareRows.map(([label, freeValue, paidValue]) => (
+                  <tr key={label} className="border-b border-stone-100 align-top">
+                    <td className="px-4 py-3 font-medium text-stone-950">{label}</td>
+                    <td className="px-4 py-3 text-stone-700 leading-6">{freeValue}</td>
+                    <td className="px-4 py-3 text-stone-700 leading-6">{paidValue}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -341,27 +369,20 @@ export default function ViabilityFilePage() {
               ctaLabel="Run a free commercial check first"
               pageType="product_page"
               className="bg-teal-700 text-white px-5 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
-            >
+              >
               Run a free commercial check first
             </TrackedCtaLink>
 
             <TrackedCtaLink
-              href="/report"
+              href="/sample-commercial-viability-file"
               eventName="viability_file_page_cta_clicked"
               pagePath="/viability-file"
-              ctaLabel="View printable preview"
+              ctaLabel="View sample file"
               pageType="product_page"
               className="bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
             >
-              View printable preview
-            </TrackedCtaLink>
-
-            <Link
-              href="/sample-commercial-viability-file"
-              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
-            >
               View sample file
-            </Link>
+            </TrackedCtaLink>
 
             <Link
               href="/how-it-works"
@@ -454,22 +475,15 @@ export default function ViabilityFilePage() {
             </TrackedCtaLink>
 
             <TrackedCtaLink
-              href="/report"
+              href="/sample-commercial-viability-file"
               eventName="viability_file_page_cta_clicked"
               pagePath="/viability-file"
-              ctaLabel="View printable preview"
+              ctaLabel="View sample file"
               pageType="product_page"
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
-              View printable preview
-            </TrackedCtaLink>
-
-            <Link
-              href="/sample-commercial-viability-file"
-              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
-            >
               View sample file
-            </Link>
+            </TrackedCtaLink>
 
             <Link
               href="/how-it-works"
