@@ -126,6 +126,15 @@ function getStringMeta(event: ToolEvent, key: string): string {
   return typeof value === 'string' && value.trim() ? value.trim() : '';
 }
 
+function getPathMeta(event: ToolEvent, keys: string[]): string {
+  for (const key of keys) {
+    const value = getStringMeta(event, key);
+    if (value) return value;
+  }
+
+  return event.pagePath ?? 'unknown';
+}
+
 function getSafeMode(event: ToolEvent): string {
   const mode = getStringMeta(event, 'mode');
   if (mode) return mode;
@@ -141,8 +150,10 @@ function getStageCount(events: ToolEvent[], eventName: string): number {
 }
 
 function getPageKey(event: ToolEvent): string {
+  const currentPage = getStringMeta(event, 'current_page_path');
+  const lastPage = getStringMeta(event, 'last_page_path');
   const sourcePage = getStringMeta(event, 'source_page');
-  return sourcePage || event.pagePath || 'unknown';
+  return currentPage || lastPage || sourcePage || event.pagePath || 'unknown';
 }
 
 function isRelevantEvent(event: ToolEvent): boolean {
@@ -152,7 +163,27 @@ function isRelevantEvent(event: ToolEvent): boolean {
 
 function summarizeSafeMetadata(event: ToolEvent): string {
   const metadata = getMetadataObject(event);
-  const allowedKeys = ['page_path', 'page_type', 'funnel_area', 'mode', 'source_page', 'cta_label', 'destination', 'result_band'];
+  const allowedKeys = [
+    'page_path',
+    'page_type',
+    'funnel_area',
+    'mode',
+    'source_page',
+    'current_page_path',
+    'current_page_type',
+    'current_mode',
+    'first_page_path',
+    'first_page_type',
+    'first_mode',
+    'last_page_path',
+    'last_page_type',
+    'last_mode',
+    'referrer_type',
+    'referrer_host',
+    'cta_label',
+    'destination',
+    'result_band',
+  ];
 
   return allowedKeys
     .map((key) => {
@@ -278,6 +309,52 @@ export default function AdminFunnelPage() {
     });
   }, [events, rangeEvents]);
 
+  const attributionRows = useMemo(() => {
+    const groupEvents = (sourceEvents: ToolEvent[], keys: string[]) => {
+      const groups = new Map<string, number>();
+
+      for (const event of sourceEvents) {
+        const path = getPathMeta(event, keys);
+        const nextCount = groups.get(path) ?? 0;
+        groups.set(path, nextCount + 1);
+      }
+
+      return [...groups.entries()]
+        .map(([path, count]) => ({ path, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 5);
+    };
+
+    const inboundLandingRows = groupEvents(
+      rangeEvents.filter((event) => event.eventName === 'inbound_page_view'),
+      ['first_page_path', 'page_path']
+    );
+
+    const firstTouchPriority = [
+      'first_page_path',
+      'source_page',
+      'last_page_path',
+      'current_page_path',
+      'page_path',
+    ];
+
+    const submissionSourceRows = groupEvents(
+      rangeEvents.filter((event) => event.eventName === 'commercial_check_submitted'),
+      firstTouchPriority
+    );
+
+    const checkoutSourceRows = groupEvents(
+      rangeEvents.filter((event) => event.eventName === 'checkout_started'),
+      firstTouchPriority
+    );
+
+    return {
+      inboundLandingRows,
+      submissionSourceRows,
+      checkoutSourceRows,
+    };
+  }, [rangeEvents]);
+
   const latestEvents = useMemo(() => rangeEvents.slice(0, 20), [rangeEvents]);
 
   const missingStages = useMemo(() => {
@@ -288,13 +365,12 @@ export default function AdminFunnelPage() {
 
   const trackingGaps = useMemo(() => {
     const gaps = [
-      'inbound_page_view is tracked on the public pages, but the join back to later conversions is still weak.',
-      'commercial_check_started is tracked when the form opens, but source_page attribution is still weak.',
-      'commercial_check_submitted is tracked, but source_page attribution is still weak.',
-      'results_viability_file_requested_clicked is tracked, but source_page attribution is still weak.',
-      'checkout_started is tracked, but source_page attribution is still weak.',
-      'payment_completed is tracked, but source_page attribution is still weak.',
-      'paid_file_opened is tracked, but source_page attribution is still weak.',
+      'Older events may not have first_page_path, last_page_path, or referrer_host.',
+      'inbound_page_view now stores first-touch and last-touch attribution, but legacy rows can still be incomplete.',
+      'commercial_check_started and commercial_check_submitted now carry safe attribution metadata, but earlier rows may not.',
+      'results_viability_file_requested_clicked now carries safe attribution metadata, but earlier rows may not.',
+      'checkout_started and payment_completed now carry safe attribution metadata, but earlier Stripe-linked rows may not.',
+      'paid_file_opened now carries safe attribution metadata, but earlier rows may not.',
     ];
 
     return gaps;
@@ -460,9 +536,128 @@ export default function AdminFunnelPage() {
         </div>
 
         <p className="text-xs text-stone-500 mt-4 leading-6">
-          Page views and CTA clicks are tracked on the public pages. Submissions and paid-file requests
-          are only partially attributable today, so source-page attribution is still a gap.
+          Page views and CTA clicks are tracked on the public pages. Landing and source-page attribution now uses safe first-touch and current-page metadata where available. Older events without attribution still show as partial or not tracked yet.
         </p>
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm mb-8">
+        <p className="font-semibold text-stone-950 mb-4">
+          Attribution
+        </p>
+
+        <p className="text-xs text-stone-500 leading-6 mb-4 max-w-4xl">
+          Attribution rows use first_page_path where available, so newer conversion events can be tied back to the first public landing page.
+          Older events may fall back to current or source page metadata.
+        </p>
+
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-stone-400 font-semibold mb-3">
+              Top landing pages
+            </p>
+
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse text-sm">
+                <thead>
+                  <tr className="border-b border-stone-200 bg-stone-50 text-left">
+                    <th className="px-4 py-3 font-semibold text-stone-700">Page</th>
+                    <th className="px-4 py-3 font-semibold text-stone-700">In range</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {attributionRows.inboundLandingRows.length === 0 ? (
+                    <tr>
+                      <td className="px-4 py-3 text-sm text-stone-500" colSpan={2}>
+                        No inbound page views in the current range.
+                      </td>
+                    </tr>
+                  ) : (
+                    attributionRows.inboundLandingRows.map((row) => (
+                      <tr key={row.path} className="border-b border-stone-100 align-top">
+                        <td className="px-4 py-3">
+                          <div className="font-medium text-stone-950">{row.path}</div>
+                        </td>
+                        <td className="px-4 py-3 text-stone-700">{row.count}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-stone-400 font-semibold mb-3">
+                First-touch pages for commercial submissions
+              </p>
+
+              <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b border-stone-200 bg-stone-50 text-left">
+                      <th className="px-4 py-3 font-semibold text-stone-700">Page</th>
+                      <th className="px-4 py-3 font-semibold text-stone-700">In range</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {attributionRows.submissionSourceRows.length === 0 ? (
+                      <tr>
+                        <td className="px-4 py-3 text-sm text-stone-500" colSpan={2}>
+                          No commercial submissions in the current range.
+                        </td>
+                      </tr>
+                    ) : (
+                      attributionRows.submissionSourceRows.map((row) => (
+                        <tr key={row.path} className="border-b border-stone-100 align-top">
+                          <td className="px-4 py-3">
+                            <div className="font-medium text-stone-950">{row.path}</div>
+                          </td>
+                          <td className="px-4 py-3 text-stone-700">{row.count}</td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-stone-400 font-semibold mb-3">
+                First-touch pages for checkout started
+              </p>
+
+              <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b border-stone-200 bg-stone-50 text-left">
+                      <th className="px-4 py-3 font-semibold text-stone-700">Page</th>
+                      <th className="px-4 py-3 font-semibold text-stone-700">In range</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {attributionRows.checkoutSourceRows.length === 0 ? (
+                      <tr>
+                        <td className="px-4 py-3 text-sm text-stone-500" colSpan={2}>
+                          No checkout starts in the current range.
+                        </td>
+                      </tr>
+                    ) : (
+                      attributionRows.checkoutSourceRows.map((row) => (
+                        <tr key={row.path} className="border-b border-stone-100 align-top">
+                          <td className="px-4 py-3">
+                            <div className="font-medium text-stone-950">{row.path}</div>
+                          </td>
+                          <td className="px-4 py-3 text-stone-700">{row.count}</td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { captureFunnelTouch } from '@/lib/funnelAttribution';
 import { logToolEvent } from '@/lib/logToolEvent';
 
 interface FunnelEventTrackerProps {
@@ -28,6 +29,12 @@ export default function FunnelEventTracker({
     if (hasTracked.current) return;
     hasTracked.current = true;
 
+    captureFunnelTouch({
+      pagePath,
+      pageType,
+      mode,
+    });
+
     void logToolEvent({
       event_name: eventName,
       page_path: pagePath,
@@ -40,6 +47,9 @@ export default function FunnelEventTracker({
         funnel_area: 'commercial',
         mode,
         source_page: sourcePage ?? pagePath,
+        current_page_path: pagePath,
+        current_page_type: pageType,
+        current_mode: mode,
       },
     });
   }, [eventBand, eventLabel, eventName, mode, pagePath, pageType, sourcePage]);

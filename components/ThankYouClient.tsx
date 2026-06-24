@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getLatestSubmission } from '@/lib/storage';
+import { getFunnelAttributionSnapshot } from '@/lib/funnelAttribution';
 
 export default function ThankYouClient({ requestId }: { requestId: string }) {
   const [continueHref, setContinueHref] = useState('/check');
@@ -41,6 +42,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
         body: JSON.stringify({
           reportRequestId: requestId,
           sourcePage: '/thank-you',
+          attribution: getFunnelAttributionSnapshot(),
         }),
       });
 

@@ -60,6 +60,37 @@ function getReportRequestIdFromMetadata(
     : null;
 }
 
+function getSafeAttributionFromMetadata(
+  metadata: Stripe.Metadata | null | undefined
+): Record<string, string> {
+  if (!metadata) return {};
+
+  const safeKeys = [
+    'first_page_path',
+    'first_page_type',
+    'first_mode',
+    'first_seen_at',
+    'last_page_path',
+    'last_page_type',
+    'last_mode',
+    'last_seen_at',
+    'referrer_type',
+    'referrer_host',
+    'source_page',
+  ] as const;
+
+  const result: Record<string, string> = {};
+
+  for (const key of safeKeys) {
+    const value = metadata[key];
+    if (typeof value !== 'string' || !value.trim()) continue;
+
+    result[key] = key === 'referrer_host' ? value.trim().toLowerCase() : value.trim();
+  }
+
+  return result;
+}
+
 async function updatePaidRequest({
   reportRequestId,
   sessionId,
@@ -108,7 +139,7 @@ async function updatePaidRequest({
   }
 }
 
-async function logPaymentCompletedEvent() {
+async function logPaymentCompletedEvent(metadata: Record<string, string>) {
   await insertServerToolEvent({
     eventName: 'payment_completed',
     pagePath: '/payment/success',
@@ -121,7 +152,11 @@ async function logPaymentCompletedEvent() {
       funnel_area: 'commercial',
       mode: 'commercial',
       source_page: '/payment/success',
+      current_page_path: '/payment/success',
+      current_page_type: 'payment',
+      current_mode: 'commercial',
       report_request_stage: 'paid',
+      ...metadata,
     },
   });
 }
@@ -192,6 +227,7 @@ export async function POST(request: NextRequest) {
       const fulfilmentStatus = await getCurrentFulfilmentStatus(reportRequestId);
 
       try {
+        const attribution = getSafeAttributionFromMetadata(session.metadata);
         await updatePaidRequest({
           reportRequestId,
           sessionId: session.id,
@@ -200,7 +236,7 @@ export async function POST(request: NextRequest) {
           currency: session.currency,
           fulfilmentStatus,
         });
-        await logPaymentCompletedEvent();
+        await logPaymentCompletedEvent(attribution);
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Failed to update report request.';
         return NextResponse.json({ error: message }, { status: 500 });

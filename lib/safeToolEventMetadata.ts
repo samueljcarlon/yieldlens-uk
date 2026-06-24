@@ -1,9 +1,25 @@
+import { normalizeFunnelPath } from '@/lib/funnelAttribution';
+
 const SAFE_METADATA_KEYS = new Set([
   'page_path',
   'page_type',
   'funnel_area',
   'mode',
   'source_page',
+  'current_page_path',
+  'current_page_type',
+  'current_mode',
+  'current_seen_at',
+  'first_page_path',
+  'first_page_type',
+  'first_mode',
+  'first_seen_at',
+  'last_page_path',
+  'last_page_type',
+  'last_mode',
+  'last_seen_at',
+  'referrer_type',
+  'referrer_host',
   'cta_label',
   'destination',
   'result_band',
@@ -42,6 +58,25 @@ export function sanitizeToolEventMetadata(metadata: unknown): Record<string, Pri
     if (typeof value === 'string') {
       const trimmed = value.trim();
       if (!trimmed) continue;
+
+      if (
+        key.endsWith('_page_path') ||
+        key === 'page_path' ||
+        key === 'source_page' ||
+        key === 'destination'
+      ) {
+        const normalized = normalizeFunnelPath(trimmed);
+        if (normalized) {
+          result[key] = normalized;
+        }
+        continue;
+      }
+
+      if (key === 'referrer_host') {
+        result[key] = trimmed.toLowerCase();
+        continue;
+      }
+
       result[key] = trimmed;
       continue;
     }

@@ -3,6 +3,7 @@ import { randomBytes } from 'crypto';
 import Stripe from 'stripe';
 import { NextRequest, NextResponse } from 'next/server';
 import { insertServerToolEvent } from '@/lib/serverToolEvents';
+import { normalizeFunnelPath } from '@/lib/funnelAttribution';
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -55,9 +56,52 @@ function addTokenToRedirectUrl(url: string, customerAccessToken: string) {
 function getSourcePage(body: Record<string, unknown>): string {
   const sourcePage = body.sourcePage;
 
-  return typeof sourcePage === 'string' && sourcePage.trim() !== ''
-    ? sourcePage.trim()
-    : '/thank-you';
+  return normalizeFunnelPath(typeof sourcePage === 'string' ? sourcePage : '/thank-you') || '/thank-you';
+}
+
+function getCheckoutAttribution(body: Record<string, unknown>): Record<string, string> {
+  const attribution = body.attribution;
+
+  if (!attribution || typeof attribution !== 'object' || Array.isArray(attribution)) {
+    return {};
+  }
+
+  const safeKeys = [
+    'first_page_path',
+    'first_page_type',
+    'first_mode',
+    'first_seen_at',
+    'last_page_path',
+    'last_page_type',
+    'last_mode',
+    'last_seen_at',
+    'referrer_type',
+    'referrer_host',
+  ] as const;
+
+  const result: Record<string, string> = {};
+
+  for (const key of safeKeys) {
+    const value = (attribution as Record<string, unknown>)[key];
+    if (typeof value !== 'string' || !value.trim()) continue;
+
+    if (key.endsWith('_page_path')) {
+      const normalized = normalizeFunnelPath(value);
+      if (normalized) {
+        result[key] = normalized;
+      }
+      continue;
+    }
+
+    if (key === 'referrer_host') {
+      result[key] = value.trim().toLowerCase();
+      continue;
+    }
+
+    result[key] = value.trim();
+  }
+
+  return result;
 }
 
 const allowedRequestedReportTypes = new Set(['standard_pdf', 'standard_viability_file']);
@@ -68,6 +112,7 @@ export async function POST(request: NextRequest) {
     const reportRequestId =
       typeof body.reportRequestId === 'string' ? body.reportRequestId.trim() : '';
     const sourcePage = getSourcePage(body as Record<string, unknown>);
+    const attribution = getCheckoutAttribution(body as Record<string, unknown>);
 
     if (!reportRequestId) {
       return NextResponse.json(
@@ -160,12 +205,16 @@ export async function POST(request: NextRequest) {
         report_request_id: reportRequest.id,
         mode: reportRequest.mode,
         requested_report_type: reportRequest.requested_report_type,
+        source_page: sourcePage,
+        ...attribution,
       },
       payment_intent_data: {
         metadata: {
           report_request_id: reportRequest.id,
           mode: reportRequest.mode,
           requested_report_type: reportRequest.requested_report_type,
+          source_page: sourcePage,
+          ...attribution,
         },
       },
       line_items: [
@@ -218,6 +267,10 @@ export async function POST(request: NextRequest) {
         funnel_area: 'commercial',
         mode: reportRequest.mode,
         source_page: sourcePage,
+        current_page_path: sourcePage,
+        current_page_type: sourcePage.startsWith('/admin') ? 'admin' : 'checkout',
+        current_mode: reportRequest.mode,
+        ...attribution,
       },
       userAgent: request.headers.get('user-agent'),
       referrer: request.headers.get('referer'),
