@@ -4,6 +4,7 @@ import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import ToolConversionPanel from '@/components/ToolConversionPanel';
+import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, secondaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Commercial Lease Viability Check | YieldLens UK',
@@ -296,7 +297,7 @@ export default function CommercialLeaseViabilityPage() {
               pagePath="/commercial-lease-viability-check"
               ctaLabel="Start free commercial check"
               pageType="commercial_landing"
-              className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+              className={primaryCtaClass}
             >
               Start free commercial check
             </TrackedCtaLink>
@@ -307,7 +308,7 @@ export default function CommercialLeaseViabilityPage() {
               pagePath="/commercial-lease-viability-check"
               ctaLabel="View viability file"
               pageType="commercial_landing"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className={heroSecondaryCtaClass}
             >
               View viability file
             </TrackedCtaLink>
@@ -315,23 +316,23 @@ export default function CommercialLeaseViabilityPage() {
 
           <Link
             href="/sample-commercial-viability-file"
-            className="inline-flex mt-4 text-sm font-medium text-teal-700 hover:text-teal-800"
+            className={secondaryCtaClass}
           >
             View sample file
           </Link>
 
           <Link
             href="/commercial-rent-affordability-calculator"
-            className="inline-flex mt-3 text-sm font-medium text-teal-700 hover:text-teal-800"
+            className={secondaryCtaClass}
           >
             Commercial rent affordability calculator
           </Link>
 
-          <p className="text-xs text-stone-400 mt-5">
+          <p className={`${disclaimerClass} mt-5 text-stone-400`}>
             YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
           </p>
 
-          <div className="mt-8 mx-auto max-w-2xl rounded-xl border border-stone-200 bg-stone-50 p-5 text-left">
+          <div className={`${surfaceCardSoftClass} mt-8 mx-auto max-w-2xl p-5 text-left`}>
             <p className="text-xs uppercase tracking-widest text-teal-700 font-medium">
               Standard commercial viability file
             </p>
@@ -356,7 +357,7 @@ export default function CommercialLeaseViabilityPage() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+          <div className={`${surfaceCardClass} p-6`}>
             <p className="text-sm font-semibold text-stone-900 mb-2">
               Rent is fixed, revenue is not
             </p>
@@ -366,7 +367,7 @@ export default function CommercialLeaseViabilityPage() {
             </p>
           </div>
 
-          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+          <div className={`${surfaceCardClass} p-6`}>
             <p className="text-sm font-semibold text-stone-900 mb-2">
               Fit-out spend increases the bet
             </p>
@@ -376,7 +377,7 @@ export default function CommercialLeaseViabilityPage() {
             </p>
           </div>
 
-          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+          <div className={`${surfaceCardClass} p-6`}>
             <p className="text-sm font-semibold text-stone-900 mb-2">
               Optimism hides weak sites
             </p>
@@ -400,7 +401,7 @@ export default function CommercialLeaseViabilityPage() {
             {survivalChecks.map((item) => (
               <div
                 key={item.title}
-                className="bg-stone-50 border border-stone-200 rounded-xl p-5"
+                className={`${surfaceCardSoftClass} p-5`}
               >
                 <p className="font-semibold text-stone-900 mb-2">{item.title}</p>
                 <p className="text-sm text-stone-600 leading-6">{item.text}</p>
@@ -421,7 +422,7 @@ export default function CommercialLeaseViabilityPage() {
           {useCases.map((item) => (
             <div
               key={item}
-              className="bg-white border border-stone-200 rounded-xl p-5 text-sm font-medium text-stone-800 shadow-sm"
+              className={`${surfaceCardClass} p-5 text-sm font-medium text-stone-800`}
             >
               {item}
             </div>
@@ -441,7 +442,7 @@ export default function CommercialLeaseViabilityPage() {
             {riskItems.map((item) => (
               <div
                 key={item.title}
-                className="bg-stone-50 border border-stone-200 rounded-xl p-5"
+                className={`${surfaceCardSoftClass} p-5`}
               >
                 <p className="font-semibold text-stone-900 mb-2">{item.title}</p>
                 <p className="text-sm text-stone-600 leading-6">{item.text}</p>
@@ -458,10 +459,10 @@ export default function CommercialLeaseViabilityPage() {
           description="These are the questions a commercial viability file should force into the open before you spend serious money or negotiation effort."
         />
 
-        <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+        <div className={`${surfaceCardClass} p-6`}>
           <ol className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-stone-700 list-decimal list-inside">
             {checklist.map((item) => (
-              <li key={item} className="bg-stone-50 border border-stone-200 rounded-lg p-3">
+              <li key={item} className={`${surfaceCardSoftClass} p-3`}>
                 {item}
               </li>
             ))}
@@ -487,7 +488,7 @@ export default function CommercialLeaseViabilityPage() {
                 assessment.
               </p>
 
-              <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+              <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-5`}>
                 <p className="text-sm font-semibold text-white mb-2">
                   Why the verdict needs caution
                 </p>
@@ -505,18 +506,18 @@ export default function CommercialLeaseViabilityPage() {
                 pagePath="/commercial-lease-viability-check"
                 ctaLabel="Run your commercial lease check"
                 pageType="commercial_landing"
-                className="mt-6 inline-block bg-teal-600 text-white px-6 py-3 rounded font-medium hover:bg-teal-500 transition-colors text-sm"
+              className={`${primaryCtaClass} mt-6`}
               >
                 Run your commercial lease check
               </TrackedCtaLink>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-xl p-5 sm:p-6 shadow-sm">
+            <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900`}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                 {exampleSummary.map((item) => (
                   <div
                     key={item.label}
-                    className={`border rounded-lg p-4 ${item.tone}`}
+                    className={`border p-4 ${item.tone}`}
                   >
                     <p className="text-xs uppercase tracking-wide font-semibold mb-1">
                       {item.label}
@@ -535,7 +536,7 @@ export default function CommercialLeaseViabilityPage() {
                     Trading assumptions
                   </p>
 
-                  <div className="border border-stone-200 rounded-lg overflow-hidden">
+                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
                     {exampleAssumptions.map((item) => (
                       <div
                         key={item.label}
@@ -555,7 +556,7 @@ export default function CommercialLeaseViabilityPage() {
                     Opening cash
                   </p>
 
-                  <div className="border border-stone-200 rounded-lg overflow-hidden">
+                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
                     {exampleOpeningCash.map((item) => (
                       <div
                         key={item.label}
@@ -575,7 +576,7 @@ export default function CommercialLeaseViabilityPage() {
                     Downside case
                   </p>
 
-                  <div className="border border-stone-200 rounded-lg overflow-hidden">
+                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
                     {exampleDownside.map((item) => (
                       <div
                         key={item.label}
@@ -589,7 +590,7 @@ export default function CommercialLeaseViabilityPage() {
                     ))}
                   </div>
 
-                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-4">
+                  <div className="rounded-2xl border border-amber-200 bg-amber-50 p-3 mt-4">
                     <p className="text-xs font-semibold text-amber-950 mb-1">
                       Sample diagnostic note
                     </p>
@@ -615,7 +616,7 @@ export default function CommercialLeaseViabilityPage() {
           {faqs.map((faq) => (
             <div
               key={faq.question}
-              className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm"
+              className={`${surfaceCardClass} p-5`}
             >
               <h3 className="font-semibold text-stone-900 mb-2">
                 {faq.question}

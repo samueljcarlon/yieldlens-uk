@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Rental Valuation vs Rent Affordability | YieldLens UK',
@@ -221,7 +222,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check"
-                  className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+                  className={primaryCtaClass}
                   eventName="bridge_page_cta_clicked"
                   pagePath="/rental-valuation-vs-rent-affordability"
                   ctaLabel="Run a free check"
@@ -231,7 +232,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
                 </TrackedCtaLink>
                 <TrackedCtaLink
                   href="/commercial-rent-affordability-calculator"
-                  className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+                  className={heroSecondaryCtaClass}
                   eventName="bridge_page_cta_clicked"
                   pagePath="/rental-valuation-vs-rent-affordability"
                   ctaLabel="Commercial rent affordability calculator"
@@ -240,12 +241,12 @@ export default function RentalValuationVsRentAffordabilityPage() {
                   Commercial rent affordability calculator
                 </TrackedCtaLink>
               </div>
-              <p className="text-xs text-stone-400 mt-5">
+              <p className={`${disclaimerClass} mt-5 text-stone-400`}>
                 YieldLens UK provides indicative property pressure-tests and decision-support analysis only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
               </p>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6 shadow-[0_20px_40px_rgba(15,23,42,0.18)]">
+            <div className={`${surfaceCardClass} bg-white/5 p-5 sm:p-6`}>
               <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
                 Core distinction
               </p>
@@ -256,15 +257,15 @@ export default function RentalValuationVsRentAffordabilityPage() {
                 That difference matters when the market rent feels normal, but the tenant affordability, cash flow, opening cash, or downside trading still makes the decision fragile.
               </p>
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-4`}>
                   <p className="text-xs uppercase tracking-widest text-teal-300 mb-1">Valuation</p>
                   <p className="text-stone-200">What rent might the market support?</p>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-4`}>
                   <p className="text-xs uppercase tracking-widest text-teal-300 mb-1">Affordability</p>
                   <p className="text-stone-200">Can the user or business carry that rent?</p>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-4`}>
                   <p className="text-xs uppercase tracking-widest text-teal-300 mb-1">Viability</p>
                   <p className="text-stone-200">Does the deal still work after costs and downside trading?</p>
                 </div>
@@ -282,7 +283,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className={`${surfaceCardClass} p-6`}>
             <ul className="space-y-3 text-sm text-stone-700 leading-7">
               <li>A rental valuation estimates market rent.</li>
               <li>A rent affordability check asks whether a tenant can carry the rent.</li>
@@ -292,7 +293,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
             </ul>
           </div>
 
-          <div className="rounded-3xl border border-stone-200 bg-stone-950 p-6 text-white">
+          <div className={`${surfaceCardClass} bg-stone-950 p-6 text-white`}>
             <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
               When to use this page
             </p>
@@ -314,7 +315,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
             description="The same rent figure can be useful for market comparison, affordability screening, cash-flow analysis, or lease viability. The table below shows which YieldLens tool fits each job."
           />
 
-          <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-white shadow-sm">
+          <div className={tableShellClass}>
             <table className="min-w-full text-sm">
               <thead className="bg-stone-50 text-stone-700">
                 <tr>
@@ -355,7 +356,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className={`${surfaceCardClass} p-6`}>
             <p className="text-sm font-semibold text-stone-900 mb-3">When it goes wrong</p>
             <ul className="space-y-3 text-sm text-stone-600 leading-7">
               <li>The tenant cannot afford the rent after other costs are included.</li>
@@ -366,7 +367,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
             </ul>
           </div>
 
-          <div className="rounded-3xl border border-stone-200 bg-stone-950 p-6 text-white">
+          <div className={`${surfaceCardClass} bg-stone-950 p-6 text-white`}>
             <p className="text-sm font-semibold text-white mb-3">What YieldLens does instead</p>
             <p className="text-sm text-stone-300 leading-7">
               YieldLens turns the entered assumptions into a pressure test. That means rent burden, affordability, cash flow, and downside trading are checked before the user relies on the figure.
@@ -384,7 +385,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            <div className="rounded-3xl border border-stone-200 bg-stone-50 p-6">
+            <div className={`${surfaceCardSoftClass} p-6`}>
               <p className="text-sm font-semibold text-stone-900 mb-3">Residential example</p>
               <ul className="space-y-2 text-sm text-stone-600 leading-7">
                 {residentialExamplePoints.map((point) => (
@@ -405,7 +406,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-stone-200 bg-stone-50 p-6">
+            <div className={`${surfaceCardSoftClass} p-6`}>
               <p className="text-sm font-semibold text-stone-900 mb-3">Tenant affordability example</p>
               <ul className="space-y-2 text-sm text-stone-600 leading-7">
                 {tenantExamplePoints.map((point) => (
@@ -422,7 +423,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-stone-200 bg-stone-50 p-6">
+            <div className={`${surfaceCardSoftClass} p-6`}>
               <p className="text-sm font-semibold text-stone-900 mb-3">Commercial example</p>
               <ul className="space-y-2 text-sm text-stone-600 leading-7">
                 {commercialExamplePoints.map((point) => (
@@ -454,7 +455,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className={`${surfaceCardClass} p-6`}>
             <p className="text-sm font-semibold text-stone-900 mb-3">Can</p>
             <ul className="space-y-2 text-sm text-stone-600 leading-7">
               <li>Structure rent and cash-flow assumptions</li>
@@ -468,7 +469,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
             </ul>
           </div>
 
-          <div className="rounded-3xl border border-stone-200 bg-stone-950 p-6 text-white">
+          <div className={`${surfaceCardClass} bg-stone-950 p-6 text-white`}>
             <p className="text-sm font-semibold text-white mb-3">Cannot</p>
             <ul className="space-y-2 text-sm text-stone-300 leading-7">
               <li>Value a property</li>
@@ -496,7 +497,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
             {toolCards.map((card) => (
-              <div key={card.title} className="rounded-3xl border border-stone-200 bg-stone-50 p-6 shadow-sm">
+              <div key={card.title} className={`${surfaceCardSoftClass} p-6`}>
                 <p className="text-sm font-semibold text-stone-900 mb-2">{card.title}</p>
                 <p className="text-sm text-stone-600 leading-7">{card.text}</p>
                 <div className="mt-4">
@@ -519,7 +520,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {faqItems.map((item) => (
-            <div key={item.question} className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
+            <div key={item.question} className={`${surfaceCardClass} p-6`}>
               <p className="text-sm font-semibold text-stone-900 mb-3">{item.question}</p>
               <p className="text-sm text-stone-600 leading-7">{item.answer}</p>
             </div>
@@ -541,7 +542,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <TrackedCtaLink
               href="/check"
-              className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+              className={primaryCtaClass}
               eventName="bridge_page_cta_clicked"
               pagePath="/rental-valuation-vs-rent-affordability"
               ctaLabel="Run a free check"
@@ -551,7 +552,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
             </TrackedCtaLink>
             <TrackedCtaLink
               href="/commercial-rent-affordability-calculator"
-              className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+              className={heroSecondaryCtaClass}
               eventName="bridge_page_cta_clicked"
               pagePath="/rental-valuation-vs-rent-affordability"
               ctaLabel="Commercial rent affordability calculator"
@@ -561,7 +562,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
             </TrackedCtaLink>
             <TrackedCtaLink
               href="/sample-commercial-viability-file"
-              className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+              className={heroSecondaryCtaClass}
               eventName="bridge_page_cta_clicked"
               pagePath="/rental-valuation-vs-rent-affordability"
               ctaLabel="View sample commercial file"
