@@ -5,7 +5,7 @@ import TrackedCtaLink from '@/components/TrackedCtaLink';
 export const metadata: Metadata = {
   title: 'Break-Even Customers Calculator UK',
   description:
-    'Estimate customers per day from average spend, commercial rent, monthly cost base, and lease viability before committing to a site.',
+    'Estimate customers per day from average spend, commercial rent, monthly cost base, and lease viability before signing a lease.',
   alternates: {
     canonical: '/break-even-customers-calculator',
   },

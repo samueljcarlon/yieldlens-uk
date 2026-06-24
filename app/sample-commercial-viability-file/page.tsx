@@ -11,7 +11,7 @@ import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, surfaceCardCla
 export const metadata: Metadata = {
   title: 'Sample Commercial Viability File | YieldLens UK',
   description:
-    'View a sample YieldLens UK Standard commercial viability file for pressure-testing rent burden, break-even customers, upfront cash, downside trading, and lease questions before signing a commercial lease.',
+    'View a redacted sample of the YieldLens UK Standard commercial viability file before running a free commercial check.',
   alternates: {
     canonical: '/sample-commercial-viability-file',
   },

@@ -5,14 +5,14 @@ import TrackedCtaLink from '@/components/TrackedCtaLink';
 export const metadata: Metadata = {
   title: 'Commercial Rent Burden Calculator UK',
   description:
-    'Estimate commercial rent as a percentage of revenue, understand rent pressure, and pressure-test commercial lease viability before signing.',
+    'Estimate commercial rent as a percentage of revenue and pressure-test whether the rent burden looks manageable before signing a lease.',
   alternates: {
     canonical: '/commercial-rent-burden-calculator',
   },
   openGraph: {
     title: 'Commercial Rent Burden Calculator UK | YieldLens UK',
     description:
-      'Estimate rent as a percentage of revenue and see why high rent burden can make a commercial lease fragile before you sign.',
+      'Estimate rent as a percentage of revenue and see whether the rent burden looks manageable before you sign a commercial lease.',
     url: 'https://yieldlens.co.uk/commercial-rent-burden-calculator',
   },
 };

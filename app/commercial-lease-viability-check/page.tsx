@@ -9,14 +9,14 @@ import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, secondaryCtaCl
 export const metadata: Metadata = {
   title: 'Commercial Lease Viability Check | YieldLens UK',
   description:
-    'Avoid a bad commercial lease commitment before you sign. Pressure-test rent burden, break-even customers, upfront cash, downside trading, survival runway, and lease questions.',
+    'Pressure-test whether a commercial site can carry the rent before you sign. Check rent burden, break-even customers, upfront cash, downside trading, survival runway, and lease questions.',
   alternates: {
     canonical: '/commercial-lease-viability-check',
   },
   openGraph: {
     title: 'Commercial Lease Viability Check | YieldLens UK',
     description:
-      'Avoid a bad commercial lease commitment before you sign. Pressure-test rent burden, break-even customers, upfront cash, downside trading, survival runway, and lease questions.',
+      'Pressure-test whether a commercial site can carry the rent before you sign. Check rent burden, break-even customers, upfront cash, downside trading, survival runway, and lease questions.',
     url: 'https://yieldlens.co.uk/commercial-lease-viability-check',
   },
 };

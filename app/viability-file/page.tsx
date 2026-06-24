@@ -8,14 +8,14 @@ import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, surfaceCardCla
 export const metadata: Metadata = {
   title: 'Standard Commercial Viability File',
   description:
-    'Turn a free commercial check into a £49 decision memo covering rent burden, break-even customers, opening cash, downside trading, negotiation levers, and the evidence to verify before committing.',
+    'Turn a free commercial check into a £49 decision memo for negotiation and due diligence before signing a commercial lease.',
   alternates: {
     canonical: '/viability-file',
   },
   openGraph: {
     title: 'Standard Commercial Viability File',
     description:
-      'A £49 decision-support file for pressure-testing commercial rent, cash, downside trading, and lease viability before signing.',
+      'A £49 decision memo for pressure-testing commercial rent, cash, downside trading, and lease viability before signing.',
     url: 'https://yieldlens.co.uk/viability-file',
   },
 };

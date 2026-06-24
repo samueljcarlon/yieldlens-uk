@@ -5,7 +5,7 @@ import TrackedCtaLink from '@/components/TrackedCtaLink';
 export const metadata: Metadata = {
   title: 'Commercial Lease Survival Calculator UK',
   description:
-    'Estimate upfront cash, fit-out costs, downside revenue, monthly burn, survival runway, and commercial lease viability before signing.',
+    'Estimate upfront cash, fit-out costs, downside revenue, monthly burn, survival runway, and lease viability before signing a commercial lease.',
   alternates: {
     canonical: '/commercial-lease-survival-calculator',
   },
