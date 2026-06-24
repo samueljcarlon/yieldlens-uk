@@ -84,7 +84,7 @@ export default function OpeningCashWaterfall({
         ))}
       </div>
 
-      <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-950 p-4 text-white">
+      <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-950 p-4 text-white shadow-[0_16px_34px_rgba(15,23,42,0.12)]">
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-[11px] uppercase tracking-[0.2em] text-teal-300 font-semibold mb-1">
@@ -100,7 +100,7 @@ export default function OpeningCashWaterfall({
         </div>
       </div>
 
-      <div className={`mt-4 rounded-2xl border px-4 py-4 ${finalTone}`}>
+      <div className={`mt-4 rounded-2xl border px-4 py-4 shadow-sm ${finalTone}`}>
         <p className="text-[11px] uppercase tracking-[0.2em] font-semibold mb-1">
           {finalLabel}
         </p>

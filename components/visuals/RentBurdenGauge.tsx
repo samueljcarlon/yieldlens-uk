@@ -63,7 +63,7 @@ export default function RentBurdenGauge({
           </h3>
         </div>
 
-        <div className={`rounded-full border px-3 py-1 text-xs font-semibold ${markerClasses[tone as keyof typeof markerClasses]}`}>
+        <div className={`rounded-full border px-3 py-1 text-xs font-semibold shadow-sm ${markerClasses[tone as keyof typeof markerClasses]}`}>
           {getLabel(safeValue)}
         </div>
       </div>

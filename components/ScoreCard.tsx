@@ -13,10 +13,10 @@ const ringColour: Record<string, string> = {
 export default function ScoreCard({ verdict }: { verdict: Verdict }) {
   return (
     <div className={`${surfaceCardClass} flex flex-col items-center gap-3 p-6 text-center`}>
-      <p className="text-[11px] uppercase tracking-[0.2em] text-stone-400 font-medium">
+      <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 font-medium">
         Indicative score
       </p>
-      <p className={`text-6xl font-bold tabular-nums leading-none ${ringColour[verdict.colour] ?? 'text-stone-800'}`}>
+      <p className={`text-6xl font-bold tabular-nums leading-none tracking-tight ${ringColour[verdict.colour] ?? 'text-stone-800'}`}>
         {verdict.score}
         <span className="text-2xl text-stone-400 font-normal">/100</span>
       </p>

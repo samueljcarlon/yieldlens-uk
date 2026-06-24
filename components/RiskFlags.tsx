@@ -29,7 +29,7 @@ export default function RiskFlags({ flags }: { flags: RiskFlag[] }) {
             key={i}
             className={`flex items-start gap-3 border rounded-2xl px-4 py-3 text-sm shadow-sm ${severityStyles[flag.severity]}`}
           >
-            <span className="font-semibold shrink-0">
+            <span className="font-semibold shrink-0 uppercase tracking-wide text-[11px]">
               {severityLabel[flag.severity]}
             </span>
             <span>{flag.message}</span>

@@ -3,7 +3,7 @@ import { primaryCtaClass, secondaryCtaClass, surfaceCardClass } from '@/componen
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/85 backdrop-blur-xl supports-[backdrop-filter]:bg-white/75 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <span className="text-lg font-semibold text-stone-900 tracking-tight">
@@ -54,7 +54,7 @@ export default function Header() {
               Menu
             </summary>
 
-            <div className={`absolute right-0 top-[calc(100%+0.5rem)] w-60 p-2 ${surfaceCardClass}`}>
+            <div className={`absolute right-0 top-[calc(100%+0.5rem)] w-60 p-2 ${surfaceCardClass} shadow-[0_18px_44px_rgba(15,23,42,0.10)]`}>
               <Link href="/check?mode=commercial" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 Commercial check
               </Link>
@@ -75,7 +75,7 @@ export default function Header() {
 
           <Link
             href="/check?mode=commercial"
-            className={`${primaryCtaClass} shrink-0 px-4 py-2.5`}
+            className={`${primaryCtaClass} shrink-0 px-4 py-2.5 shadow-[0_12px_30px_rgba(13,148,136,0.20)]`}
           >
             Run commercial check
           </Link>

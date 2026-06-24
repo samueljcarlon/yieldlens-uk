@@ -112,7 +112,7 @@ export default function ResultsConversionPanel({
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-4 min-w-full lg:min-w-[260px] shadow-sm">
+          <div className="rounded-[28px] border border-white/10 bg-white/5 p-4 min-w-full lg:min-w-[260px] shadow-sm">
             <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 mb-1">
               Indicative score
             </p>
@@ -133,16 +133,16 @@ export default function ResultsConversionPanel({
 
       <div className="px-6 py-6 sm:px-7 sm:py-7">
         {isResidential ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {(items as string[]).map((item) => (
-              <div
-                key={`res-${item}`}
-                className={`${surfaceCardSoftClass} p-4 text-sm leading-6 text-stone-700`}
-              >
-                {item}
-              </div>
-            ))}
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {(items as string[]).map((item) => (
+                <div
+                  key={`res-${item}`}
+                  className={`${surfaceCardSoftClass} p-4 text-sm leading-6 text-stone-700`}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {(items as Array<{ title: string; body: string }>).map((item) => (

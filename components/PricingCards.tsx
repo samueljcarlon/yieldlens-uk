@@ -1,3 +1,5 @@
+import { primaryCtaClass, secondaryCtaClass, surfaceCardClass } from '@/components/yieldLensUi';
+
 const plans = [
   {
     name: 'Basic check',
@@ -43,15 +45,15 @@ export default function PricingCards() {
       {plans.map((plan) => (
         <div
           key={plan.name}
-          className={`rounded-xl border p-5 flex flex-col gap-3 ${
+          className={`${surfaceCardClass} p-5 flex flex-col gap-3 ${
             plan.highlight
-              ? 'border-teal-300 bg-teal-50'
+              ? 'border-teal-200 bg-gradient-to-br from-teal-50 via-white to-amber-50'
               : 'border-stone-200 bg-white'
           }`}
         >
           <div>
             <p className="font-semibold text-stone-900">{plan.name}</p>
-            <p className="text-2xl font-bold text-teal-700 mt-1">{plan.price}</p>
+            <p className="text-2xl font-bold text-teal-700 mt-1 tracking-tight">{plan.price}</p>
           </div>
 
           <p className="text-sm text-stone-600 flex-1">{plan.description}</p>
@@ -59,12 +61,12 @@ export default function PricingCards() {
           {plan.available ? (
             <a
               href={plan.href}
-              className="bg-teal-700 text-white text-sm font-medium px-4 py-2 rounded text-center hover:bg-teal-800 transition-colors"
+              className={`${primaryCtaClass} text-center`}
             >
               {plan.cta}
             </a>
           ) : (
-            <span className="text-sm text-stone-400 border border-stone-200 px-4 py-2 rounded text-center bg-white">
+            <span className={`${secondaryCtaClass} cursor-default text-center`}>
               {plan.cta}
             </span>
           )}

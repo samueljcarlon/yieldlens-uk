@@ -41,7 +41,7 @@ export default function DownsideSurvivalCard({
   const fail = survivesSixBadMonths === false;
 
   return (
-    <section className="rounded-3xl border border-stone-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+    <section className="rounded-[28px] border border-stone-200 bg-white p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
       <div className="flex items-start justify-between gap-4 mb-4">
         <div>
           <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 font-semibold mb-1">
@@ -52,7 +52,7 @@ export default function DownsideSurvivalCard({
           </h3>
         </div>
 
-        <div className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+        <div className={`rounded-full border px-3 py-1 text-xs font-semibold shadow-sm ${
           pass
             ? 'border-green-200 bg-green-50 text-green-800'
             : fail
@@ -64,7 +64,7 @@ export default function DownsideSurvivalCard({
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+        <div className="rounded-2xl border border-stone-200 bg-stone-50 p-4 shadow-sm">
           <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">
             Downside revenue
           </p>
@@ -74,7 +74,7 @@ export default function DownsideSurvivalCard({
           <p className="text-xs text-stone-600 mt-1">Revenue case used for the weaker trading view.</p>
         </div>
 
-        <div className="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+        <div className="rounded-2xl border border-stone-200 bg-stone-50 p-4 shadow-sm">
           <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">
             Downside revenue value
           </p>

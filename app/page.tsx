@@ -123,8 +123,11 @@ export default function HomePage() {
         mode="commercial"
         eventLabel="Homepage viewed"
       />
-      <section className="bg-stone-950 text-white">
-        <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
+      <section className="relative overflow-hidden bg-stone-950 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(20,184,166,0.22),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(245,158,11,0.12),transparent_30%)]" />
+        <div className="absolute -left-20 top-16 h-56 w-56 rounded-full bg-teal-500/10 blur-3xl" />
+        <div className="absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl" />
+        <div className="relative max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 lg:gap-12 items-center">
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
@@ -140,6 +143,17 @@ export default function HomePage() {
                 upfront cash, downside trading, and lease questions before a
                 commercial commitment.
               </p>
+
+              <div className="flex flex-wrap gap-2 mb-8">
+                {['Rent burden', 'Break-even customers', 'Opening cash', 'Downside trading', 'Lease questions'].map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-stone-200"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
@@ -167,14 +181,14 @@ export default function HomePage() {
 
               <Link
                 href="/sample-commercial-viability-file"
-                className="inline-flex mt-4 text-sm font-medium text-teal-300 hover:text-teal-200"
+                className={`${heroSecondaryCtaClass} mt-4`}
               >
                 View sample file
               </Link>
 
               <Link
                 href="/how-it-works"
-                className="inline-flex mt-3 text-sm font-medium text-teal-300 hover:text-teal-200"
+                className={`${heroSecondaryCtaClass} mt-3`}
               >
                 How it works
               </Link>
@@ -189,13 +203,17 @@ export default function HomePage() {
             </div>
 
             <div className={`${surfaceCardClass} overflow-hidden border-white/15 bg-white/5 shadow-2xl`}>
-              <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between gap-4">
+              <div className="border-b border-white/10 bg-gradient-to-r from-teal-500/10 via-white/5 to-amber-400/10 px-5 py-4 flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-stone-400 font-medium">
-                    Example output
+                    Commercial risk snapshot
                   </p>
-                  <p className="text-3xl font-bold mt-1">
+                  <p className="text-3xl font-bold mt-1 tracking-tight">
                     67<span className="text-lg text-stone-400">/100</span>
+                  </p>
+                  <p className="mt-2 text-sm text-stone-300 max-w-xs leading-6">
+                    Worth investigating. Rent burden is elevated, but the site still
+                    has room to prove itself if the assumptions are real.
                   </p>
                 </div>
 
@@ -203,36 +221,42 @@ export default function HomePage() {
               </div>
 
               <div className="grid grid-cols-2 border-b border-white/10">
-                <div className="p-4 border-r border-white/10">
+                <div className="p-4 border-r border-white/10 bg-white/[0.03]">
                   <p className="text-xs uppercase tracking-wide text-stone-400">
                     Rent burden
                   </p>
-                  <p className="text-2xl font-bold mt-1">20%</p>
+                  <p className="text-2xl font-bold mt-1 text-teal-300">20%</p>
+                  <div className="mt-3 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                    <div className="h-full w-5/6 rounded-full bg-gradient-to-r from-teal-400 via-teal-500 to-amber-400" />
+                  </div>
                 </div>
 
-                <div className="p-4">
+                <div className="p-4 bg-white/[0.03]">
                   <p className="text-xs uppercase tracking-wide text-stone-400">
                     Break-even/day
                   </p>
-                  <p className="text-2xl font-bold mt-1">45</p>
+                  <p className="text-2xl font-bold mt-1 text-white">45</p>
+                  <p className="mt-3 text-xs text-stone-400">Customers/day needed to cover the current cost base.</p>
                 </div>
 
-                <div className="p-4 border-t border-r border-white/10">
+                <div className="p-4 border-t border-r border-white/10 bg-white/[0.03]">
                   <p className="text-xs uppercase tracking-wide text-stone-400">
                     Upfront cash
                   </p>
-                  <p className="text-2xl font-bold mt-1">£81k</p>
+                  <p className="text-2xl font-bold mt-1 text-white">£81k</p>
+                  <p className="mt-3 text-xs text-stone-400">Fit-out, deposit, fees, stock, and setup costs.</p>
                 </div>
 
-                <div className="p-4 border-t border-white/10">
+                <div className="p-4 border-t border-white/10 bg-white/[0.03]">
                   <p className="text-xs uppercase tracking-wide text-stone-400">
                     Six-month test
                   </p>
                   <p className="text-2xl font-bold mt-1 text-teal-300">Pass</p>
+                  <p className="mt-3 text-xs text-stone-400">The downside month still needs a buffer, not confidence alone.</p>
                 </div>
               </div>
 
-              <div className="p-5">
+              <div className="p-5 bg-stone-950/40">
                 <p className="text-sm text-stone-200 leading-6">
                   Risk flag: the site covers downside monthly costs, but cash
                   left after opening is thin relative to expected revenue.
@@ -243,14 +267,34 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white border-b border-stone-200">
+      <section className="bg-stone-100 border-b border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             {featureCards.map((card) => (
               <div
                 key={card.title}
-                className={surfaceCardSoftClass + ' p-4'}
+                className={`${surfaceCardSoftClass} p-4 transition-colors hover:border-teal-300 ${
+                  card.title === 'Rent burden'
+                    ? 'bg-teal-50 border-teal-200'
+                    : card.title === 'Downside revenue'
+                      ? 'bg-amber-50 border-amber-200'
+                      : 'bg-white'
+                }`}
               >
+                <div className="mb-3 flex items-center gap-2">
+                  <span
+                    className={`h-2 w-2 rounded-full ${
+                      card.title === 'Rent burden'
+                        ? 'bg-teal-500'
+                        : card.title === 'Downside revenue'
+                          ? 'bg-amber-500'
+                          : 'bg-stone-400'
+                    }`}
+                  />
+                  <p className="text-xs font-medium uppercase tracking-widest text-stone-500">
+                    Commercial check
+                  </p>
+                </div>
                 <p className="font-semibold text-stone-900 mb-2">{card.title}</p>
                 <p className="text-sm text-stone-600 leading-6">{card.desc}</p>
               </div>
@@ -259,7 +303,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section className="relative overflow-hidden max-w-6xl mx-auto px-4 py-16">
+        <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
         <div className="max-w-3xl mb-10">
           <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">
             How it works
@@ -276,11 +321,11 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {howItWorks.map((item) => (
-              <div
-                key={item.step}
-                className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm"
-              >
+          {howItWorks.map((item) => (
+            <div
+              key={item.step}
+              className={`${surfaceCardClass} p-6 transition-shadow hover:shadow-[0_18px_44px_rgba(15,23,42,0.08)]`}
+            >
               <p className="w-9 h-9 rounded-full bg-teal-700 text-white text-sm font-semibold flex items-center justify-center mb-5">
                 {item.step}
               </p>
@@ -333,12 +378,21 @@ export default function HomePage() {
               <Link
                 key={tool.title}
                 href={tool.href}
-                className={`${surfaceCardClass} p-6 transition-colors ${
+                className={`${surfaceCardClass} p-6 transition-all hover:-translate-y-0.5 ${
                   tool.featured
-                    ? 'bg-teal-50 border-teal-200 hover:border-teal-300'
+                    ? 'bg-gradient-to-br from-teal-50 via-white to-amber-50 border-teal-200 hover:border-teal-300 shadow-[0_18px_42px_rgba(15,23,42,0.08)]'
                     : 'bg-white border-stone-200 hover:border-teal-300'
                 }`}
               >
+                {tool.featured ? (
+                  <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
+                    Main product
+                  </p>
+                ) : (
+                  <p className="text-xs uppercase tracking-widest text-stone-400 font-medium mb-3">
+                    Supporting tool
+                  </p>
+                )}
                 <p className="font-semibold text-stone-900 mb-2">
                   {tool.title}
                 </p>
@@ -402,8 +456,8 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-stone-950 text-white rounded-2xl overflow-hidden shadow-xl">
-            <div className="px-6 py-4 border-b border-white/10">
+          <div className="bg-stone-950 text-white rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(15,23,42,0.18)]">
+            <div className="px-6 py-4 border-b border-white/10 bg-gradient-to-r from-teal-500/10 via-white/5 to-amber-400/10">
               <p className="text-xs uppercase tracking-widest text-teal-300 font-medium">
                 Commercial viability file
               </p>

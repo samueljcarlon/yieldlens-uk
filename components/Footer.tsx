@@ -2,15 +2,15 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-stone-200 bg-white mt-16">
-      <div className="max-w-6xl mx-auto px-4 py-8">
+    <footer className="border-t border-stone-200 bg-stone-50 mt-16">
+      <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.1fr_1fr_1fr_1fr_0.8fr] gap-8">
           <div>
-            <p className="font-semibold text-stone-900">
+            <p className="font-semibold text-stone-950">
               YieldLens <span className="text-teal-700">UK</span>
             </p>
 
-            <p className="text-sm text-stone-500 mt-2 leading-6">
+            <p className="text-sm text-stone-500 mt-3 leading-7 max-w-sm">
               YieldLens UK provides indicative property pressure-tests and decision-support
               analysis only. It is not financial advice, legal advice, tax advice, a
               valuation, or a substitute for professional due diligence.
@@ -18,7 +18,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
+            <p className="text-xs uppercase tracking-[0.22em] text-stone-400 font-medium mb-3">
               Commercial
             </p>
 
@@ -42,7 +42,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
+            <p className="text-xs uppercase tracking-[0.22em] text-stone-400 font-medium mb-3">
               Commercial calculators
             </p>
 
@@ -62,7 +62,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
+            <p className="text-xs uppercase tracking-[0.22em] text-stone-400 font-medium mb-3">
               Commercial guides
             </p>
 
@@ -86,7 +86,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
+            <p className="text-xs uppercase tracking-[0.22em] text-stone-400 font-medium mb-3">
               Residential
             </p>
 
@@ -106,7 +106,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
+            <p className="text-xs uppercase tracking-[0.22em] text-stone-400 font-medium mb-3">
               Site
             </p>
 
@@ -126,7 +126,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-stone-100 text-xs text-stone-400 leading-6">
+        <div className="mt-10 pt-6 border-t border-stone-200 text-xs text-stone-400 leading-6">
           <p>
             YieldLens UK provides indicative property pressure-tests and
             decision-support analysis only. It is not financial advice, legal advice,

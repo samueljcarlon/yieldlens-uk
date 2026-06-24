@@ -1,3 +1,5 @@
+import { surfaceCardClass } from '@/components/yieldLensUi';
+
 interface AssumptionsPanelProps {
   assumptions?: string[];
   missingDataWarnings?: string[];
@@ -12,14 +14,14 @@ export default function AssumptionsPanel({
 
   if (!hasWarnings && !hasAssumptions) {
     return (
-      <div className="bg-stone-50 border border-stone-200 rounded-xl p-5 text-sm text-stone-500">
+      <div className={`${surfaceCardClass} p-5 text-sm text-stone-500`}>
         No assumptions or missing data warnings were recorded for this check.
       </div>
     );
   }
 
   return (
-    <div className="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-4 text-sm">
+    <div className={`${surfaceCardClass} p-5 space-y-4 text-sm`}>
       {hasWarnings && (
         <div>
           <p className="font-semibold text-orange-700 mb-2 uppercase tracking-wide text-xs">

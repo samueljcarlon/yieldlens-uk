@@ -2,6 +2,7 @@ import type { Submission } from '@/types/property';
 import type { ResidentialResult, CommercialResult } from 
 '@/types/property';
 import VerdictBadge from './VerdictBadge';
+import { surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 const gbp = (n?: number) =>
   n !== undefined
@@ -25,11 +26,9 @@ Submission }) {
   });
 
   return (
-    <div className="report-page max-w-2xl mx-auto bg-white p-8 border 
-border-stone-200 rounded-xl space-y-8 text-sm text-stone-700">
+    <div className={`report-page max-w-2xl mx-auto ${surfaceCardClass} p-8 space-y-8 text-sm text-stone-700`}>
       <div className="border-b border-stone-200 pb-6">
-        <p className="text-xs text-stone-400 uppercase tracking-widest 
-mb-2">YieldLens UK - Property Return Check</p>
+        <p className="text-xs text-stone-400 uppercase tracking-[0.22em] mb-2">YieldLens UK - Property Return Check</p>
         <h1 className="text-2xl font-bold text-stone-900 mb-1">
           {isRes ? 'Residential Return Check' : 'Commercial Site Check'}
         </h1>
@@ -39,14 +38,10 @@ mb-2">YieldLens UK - Property Return Check</p>
       <div>
         <h2 className="font-semibold text-stone-800 mb-3">Executive 
 summary</h2>
-        <div className="flex items-center gap-4 bg-stone-50 border 
-border-stone-200 rounded-lg px-5 py-4">
+        <div className={`${surfaceCardSoftClass} px-5 py-4 flex items-center gap-4`}>
           <div>
-            <p className="text-xs text-stone-400 uppercase tracking-wide 
-mb-1">Indicative score</p>
-            <p className="text-4xl font-bold 
-text-stone-900">{verdict.score}<span className="text-xl 
-text-stone-400">/100</span></p>
+            <p className="text-xs text-stone-400 uppercase tracking-[0.2em] mb-1">Indicative score</p>
+            <p className="text-4xl font-bold text-stone-950 tracking-tight">{verdict.score}<span className="text-xl text-stone-400">/100</span></p>
           </div>
           <div>
             <VerdictBadge verdict={verdict} />
@@ -59,7 +54,7 @@ only</p>
       <div>
         <h2 className="font-semibold text-stone-800 mb-3">Property 
 snapshot</h2>
-        <table className="w-full text-sm">
+        <table className={`w-full text-sm ${tableShellClass}`}>
           <tbody>
             {'address' in input && input.address && (
               <tr className="border-b border-stone-100">
@@ -100,7 +95,7 @@ font-medium">{input.businessType}</td>
 
       <div>
         <h2 className="font-semibold text-stone-800 mb-3">Key numbers</h2>
-        <table className="w-full text-sm">
+        <table className={`w-full text-sm ${tableShellClass}`}>
           <tbody>
             {isRes && res && (
               <>
