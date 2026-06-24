@@ -2,12 +2,19 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
-import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, secondaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
+import {
+  disclaimerClass,
+  heroSecondaryCtaClass,
+  primaryCtaClass,
+  secondaryCtaClass,
+  surfaceCardClass,
+  surfaceCardSoftClass,
+} from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'How YieldLens UK Works',
   description:
-    'Learn how YieldLens UK turns commercial lease assumptions into an indicative rent burden, break-even, upfront cash, downside trading, and viability file before signing a commercial lease.',
+    'Learn how YieldLens UK pressure-tests commercial leases with rent burden, break-even customers, opening cash, downside trading, and a paid decision memo before signing.',
   alternates: {
     canonical: '/how-it-works',
   },
@@ -19,67 +26,56 @@ export const metadata: Metadata = {
   },
 };
 
-const whoItIsFor = [
-  'Cafe founders',
-  'Restaurant operators',
-  'Salon owners',
-  'Small retailers',
-  'First-time commercial tenants',
-  'People comparing commercial sites',
-  'People checking whether a lease looks too heavy before signing',
+const freeCheckMetrics = [
+  {
+    label: 'Rent burden',
+    detail: 'Shows whether rent is taking too much of expected revenue.',
+  },
+  {
+    label: 'Break-even customers',
+    detail: 'Shows whether the daily trading assumption is realistic.',
+  },
+  {
+    label: 'Opening cash',
+    detail: 'Shows whether setup costs leave enough buffer before trading begins.',
+  },
+  {
+    label: 'Downside trading',
+    detail: 'Shows what happens if early revenue is weaker than planned.',
+  },
+  {
+    label: 'Six-month survival',
+    detail: 'Shows whether the site can absorb a weak start.',
+  },
+  {
+    label: 'Risk flags',
+    detail: 'Highlights the pressure points that need another look.',
+  },
 ];
 
-const freeCheckIncludes = [
-  'Rent',
-  'Expected customers/day',
-  'Average spend',
-  'Opening days',
-  'Staff costs',
+const methodologyPoints = [
+  'YieldLens uses the assumptions entered by the user.',
+  'It compares rent, revenue, costs, opening cash, and downside trading pressure.',
+  'Thresholds are caution bands, not approvals or recommendations.',
+  'It does not estimate market value or replace professional due diligence.',
+];
+
+const verificationPoints = [
+  'Comparable rents',
+  'Footfall',
+  'Competitor density',
+  'Service charge',
   'Business rates',
-  'Utilities and other costs',
-  'Fit-out and setup costs',
-  'Starting cash',
-  'Downside revenue percentage',
-];
-
-const freeCheckOutputs = [
-  'Score',
-  'Verdict',
-  'Rent burden',
-  'Break-even customers/day',
-  'Upfront cash needed',
-  'Cash after opening',
-  'Downside monthly position',
-  'Six-month survival test',
-  'Risk flags',
-];
-
-const paidFileIncludes = [
-  'Executive summary',
-  'Site snapshot',
-  'Key viability metrics',
-  'Upfront cash and survival',
-  'What would need to improve',
-  'Stress-test scenarios',
-  'Negotiation levers',
-  'Evidence needed before signing',
-  'Lease questions',
-  'Due diligence checklist',
-  'Methodology note',
-  'Ranked actions before committing',
-  'Final view',
-];
-
-const notIncluded = [
-  'Property valuation',
-  'Financial advice',
-  'Legal advice',
-  'Tax advice',
-  'Mortgage advice',
-  'Surveyor report',
-  'Lease verification',
-  'Footfall verification',
-  'Broker replacement',
+  'Utility costs',
+  'Supplier costs',
+  'Staffing assumptions',
+  'Fit-out quotes',
+  'Deposit terms',
+  'Rent-free period',
+  'Break clause',
+  'Repair obligations',
+  'Rent review terms',
+  'Planning and licensing',
 ];
 
 function SectionTitle({
@@ -110,6 +106,7 @@ export default function HowItWorksPage() {
         mode="commercial"
         eventLabel="How it works viewed"
       />
+
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
@@ -118,13 +115,10 @@ export default function HowItWorksPage() {
                 How it works
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
-                Commercial lease pressure-tests before you commit.
+                How YieldLens UK works
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                YieldLens UK helps early-stage tenants pressure-test whether a
-                commercial site can carry the rent, opening costs, and downside
-                trading assumptions before spending serious time or money on a
-                lease.
+                Commercial lease pressure-testing before you sign. YieldLens UK turns rent, revenue, costs, opening cash, and downside assumptions into an indicative viability view before a lease becomes expensive to unwind.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
@@ -137,17 +131,12 @@ export default function HowItWorksPage() {
                 >
                   Run a free commercial check
                 </TrackedCtaLink>
-                <Link
-                  href="/sample-commercial-viability-file"
-                  className={heroSecondaryCtaClass}
-                >
+                <Link href="/sample-commercial-viability-file" className={heroSecondaryCtaClass}>
                   View sample file
                 </Link>
               </div>
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>
-                YieldLens UK provides indicative decision-support only. It is not
-                a valuation, financial advice, mortgage advice, legal advice,
-                tax advice, or a substitute for professional due diligence.
+                YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
               </p>
             </div>
 
@@ -159,10 +148,18 @@ export default function HowItWorksPage() {
                 It turns lease assumptions into a structured early warning view.
               </p>
               <p className="mt-4 text-sm text-stone-300 leading-7">
-                The point is not to promise certainty. The point is to make the
-                rent, trading, opening cash, and lease questions easy to review
-                before you commit.
+                The point is not to promise certainty. The point is to make the rent, trading, opening cash, and lease questions easy to review before you commit.
               </p>
+              <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-4">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-3">
+                  What it asks
+                </p>
+                <ul className="space-y-2 text-sm text-stone-300 leading-6">
+                  <li>Can the business carry the rent?</li>
+                  <li>Does the opening buffer look thin?</li>
+                  <li>What happens if trade starts weak?</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -170,13 +167,18 @@ export default function HowItWorksPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="Who it is for"
-          title="Built for people comparing commercial sites before signing."
-          description="YieldLens UK is aimed at early-stage commercial tenants who need a quick, structured pressure-test before committing to a lease."
+          eyebrow="Why this exists"
+          title="A lease can look fine until the real costs are added."
+          description="Commercial tenants often focus on whether a site looks good. The harder question is whether the site can carry the rent after fit-out, deposits, staff, supplier costs, and a weaker-than-planned start."
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {whoItIsFor.map((item) => (
-            <div key={item} className={`${surfaceCardClass} p-5 text-sm text-stone-700 leading-7`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            'A rent figure can look acceptable until it is measured against expected revenue.',
+            'Setup costs can absorb more cash than the business expected before trading begins.',
+            'A weak start can expose whether the site works in real trading, not only in the best case.',
+            'Lease wording can shift the economics even when the headline rent looks reasonable.',
+          ].map((item) => (
+            <div key={item} className={`${surfaceCardSoftClass} p-5 text-sm text-stone-700 leading-7`}>
               {item}
             </div>
           ))}
@@ -186,19 +188,15 @@ export default function HowItWorksPage() {
       <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="The problem it solves"
-            title="Headline rent is only one part of the risk."
-            description="A site can look affordable until you add staffing, fit-out, deposit, legal fees, opening stock, starting cash, weaker trading, and the lease clauses that change the real cost base."
+            eyebrow="What the free commercial check does"
+            title="The free result is the fast viability snapshot."
+            description="It gives the headline numbers you need to decide whether a site deserves more time."
           />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {[
-              'Rent burden can look manageable until it is compared with actual expected revenue.',
-              'Opening costs can absorb more cash than a leaseholder expects before trading begins.',
-              'A weaker trading case can expose whether the concept works only in the best case.',
-              'Lease wording can shift the economics even when the headline rent looks acceptable.',
-            ].map((item) => (
-              <div key={item} className={`${surfaceCardSoftClass} p-5 text-sm text-stone-700 leading-7`}>
-                {item}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {freeCheckMetrics.map((item) => (
+              <div key={item.label} className={`${surfaceCardClass} p-5`}>
+                <p className="text-xs uppercase tracking-[0.18em] text-green-700 font-semibold mb-2">{item.label}</p>
+                <p className="text-sm text-stone-700 leading-7">{item.detail}</p>
               </div>
             ))}
           </div>
@@ -207,85 +205,76 @@ export default function HowItWorksPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="The free commercial check"
-          title="A quick pressure-test before you spend serious time on a site."
-          description="The free check is the first screen. It turns your inputs into a score, a verdict, and the key lease metrics you need to judge whether the site deserves more attention."
+          eyebrow="How to read the result"
+          title="The score is a screening signal, not a final answer."
+          description="A good score means the entered assumptions look more workable. A caution or fragile result means the assumptions, rent terms, evidence, and cash buffer need more checking. The result is only as useful as the numbers entered."
         />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div>
-            <p className="text-sm font-semibold text-stone-900 mb-3">Inputs</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {freeCheckIncludes.map((item) => (
-                <div key={item} className={`${surfaceCardClass} p-4 text-sm text-stone-700`}>
-                  {item}
-                </div>
-              ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            'Good scores suggest the current lease shape looks more workable on the entered assumptions.',
+            'Caution or fragile results suggest the rent, opening capital, or trading assumptions deserve a closer look.',
+            'The model does not create certainty. It helps the user see which assumption is carrying the weight.',
+            'A result is only as strong as the evidence behind the inputs.',
+          ].map((item) => (
+            <div key={item} className={`${surfaceCardSoftClass} p-5 text-sm text-stone-700 leading-7`}>
+              {item}
             </div>
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-stone-900 mb-3">Outputs</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {freeCheckOutputs.map((item) => (
-                <div key={item} className={`${surfaceCardClass} p-4 text-sm text-stone-700`}>
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="The £49 file"
-            title="The paid Standard commercial viability file is the next step after a saved check."
-            description="It expands the free result into the report structure users can review, print, save, and use as a due diligence prompt before committing."
+            eyebrow="What the £49 Standard file adds"
+            title="The paid file turns the snapshot into a decision memo."
+            description="It keeps the same numbers but organises them into a printable report the user can use for negotiation and due diligence before signing."
           />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {paidFileIncludes.map((item) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              'Executive summary',
+              'Stress-test interpretation',
+              'Rent burden interpretation',
+              'Break-even customer context',
+              'Opening cash and buffer view',
+              'Six-month downside survival',
+              'Negotiation levers',
+              'Evidence checklist',
+              'Lease questions',
+              'Printable memo',
+            ].map((item) => (
               <div key={item} className={`${surfaceCardSoftClass} p-5 text-sm font-medium text-stone-800`}>
                 {item}
               </div>
             ))}
           </div>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <Link
-              href="/sample-commercial-viability-file"
-              className={primaryCtaClass}
-            >
-              View sample file
-            </Link>
-            <Link
-              href="/viability-file"
-              className={secondaryCtaClass}
-            >
-              Learn about the £49 file
-            </Link>
-          </div>
         </div>
       </section>
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="How the file is built"
-          title="Generated from the assumptions entered into the commercial check."
-          description="The file uses standard arithmetic on rent, expected revenue, known costs, upfront cash items, and downside trading assumptions. It does not use live market data, inspect the property, verify lease documents, or validate the user’s figures."
+          eyebrow="Methodology and thresholds"
+          title="The model is built for early screening."
+          description="It is designed to pressure-test the lease decision, not to model the whole property market."
         />
-        <div className={`${surfaceCardClass} p-5 text-sm text-stone-700 leading-7`}>
-        The goal is to structure the early decision and highlight what needs
-        checking, not to pretend to be a valuation or professional advice.
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {methodologyPoints.map((item) => (
+            <div key={item} className={`${surfaceCardClass} p-5 text-sm text-stone-700 leading-7`}>
+              {item}
+            </div>
+          ))}
         </div>
       </section>
 
       <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="What it does not do"
-            title="The limits are deliberate."
+            eyebrow="What users should verify before signing"
+            title="The checks that matter before the lease becomes hard to unwind."
+            description="These are the items that should be checked after the commercial result but before commitment."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {notIncluded.map((item) => (
+            {verificationPoints.map((item) => (
               <div key={item} className={`${surfaceCardSoftClass} p-5 text-sm text-stone-700 leading-7`}>
                 {item}
               </div>
@@ -296,87 +285,61 @@ export default function HowItWorksPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="Why it is still useful"
-          title="It helps users challenge the assumptions before committing."
-          description="YieldLens UK is useful when you need to know whether a lease looks too heavy before the due diligence work gets expensive."
+          eyebrow="Example journey"
+          title="A generic cafe example shows how the tools fit together."
+          description="The example is fictional and redacted so the structure can be seen without exposing a real tenant or property."
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[
-            'Is rent too high relative to expected revenue?',
-            'How many customers/day are needed to break even?',
-            'Does starting cash survive fit-out and deposit?',
-            'What happens if revenue is 40% weaker?',
-            'Which lease terms matter most for this case?',
-            'What evidence should be gathered before committing?',
-          ].map((item) => (
-            <div key={item} className={`${surfaceCardClass} p-5 text-sm text-stone-700 leading-7`}>
-              {item}
+        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6">
+          <div className={`${surfaceCardSoftClass} p-5`}>
+            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">Fictional case</p>
+            <div className="space-y-3 text-sm text-stone-700 leading-6">
+              <p>Business type: Cafe</p>
+              <p>Address: Redacted high street site</p>
+              <p>Rent is high relative to the expected trade.</p>
+              <p>Opening costs leave the buffer thin.</p>
+              <p>Downside trading still matters, but the main question is whether the opening stack is strong enough.</p>
             </div>
-          ))}
+          </div>
+          <div className={`${surfaceCardClass} p-5 text-sm text-stone-700 leading-7`}>
+            <p>
+              YieldLens would push the user to challenge the rent, confirm footfall,
+              verify fit-out costs, and review lease clauses before committing.
+              The paid file then organises the same result into the memo used for
+              negotiation and due diligence.
+            </p>
+          </div>
         </div>
       </section>
 
       <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Example walkthrough"
-            title="A redacted cafe example shows the shape of the file."
-            description="The sample uses fictional and redacted inputs so the structure can be seen without exposing a real tenant or property."
+            eyebrow="What YieldLens does not do"
+            title="The limits are deliberate."
+            description="The tool is there to help with early screening and decision support, not to replace the people and evidence that close the deal."
           />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className={`${surfaceCardSoftClass} p-5`}>
-              <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">Sample case</p>
-              <div className="space-y-3 text-sm text-stone-700 leading-6">
-                <p>Business type: Cafe</p>
-                <p>Address: Redacted high street site</p>
-                <p>Postcode: NW6 sample</p>
-                <p>Annual rent: £60,000</p>
-                <p>Expected customers/day: 80</p>
-                <p>Average spend: £12</p>
-                <p>Monthly revenue: £24,960</p>
-                <p>Rent burden: 20%</p>
-                <p>Break-even: about 45 customers/day</p>
-                <p>Upfront cash needed: £81,000</p>
-                <p>Starting cash: £90,000</p>
-                <p>Opening buffer: £9,000</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              'Not financial advice.',
+              'Not legal advice.',
+              'Not tax advice.',
+              'Not a valuation.',
+              'Not a substitute for due diligence.',
+              'Not a replacement for reviewing the lease, speaking to advisers, or checking local evidence.',
+            ].map((item) => (
+              <div key={item} className={`${surfaceCardClass} p-5 text-sm text-stone-700 leading-7`}>
+                {item}
               </div>
-            </div>
-            <div className={`${surfaceCardClass} p-5 text-sm text-stone-700 leading-7`}>
-              <p>
-                The site may work month to month, but the rent burden is high and
-                the opening buffer is thin. The file would push the user to
-                renegotiate rent, verify footfall, confirm fit-out costs, and
-                check lease risk clauses before committing.
-              </p>
-            </div>
+            ))}
           </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Trust and privacy"
-          title="The public sample is fictional. Paid files are access-protected."
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {[
-            'The public sample uses fictional and redacted inputs only.',
-            'Paid customer files are unlocked securely with a private link and cookie.',
-            'Report access is not public by ID alone.',
-            'Users should not enter information they are not comfortable using for decision-support analysis.',
-          ].map((item) => (
-            <div key={item} className={`${surfaceCardClass} p-5 text-sm text-stone-700 leading-7`}>
-              {item}
-            </div>
-          ))}
         </div>
       </section>
 
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Pressure-test a lease before you commit."
-            title="Make the lease question easier to answer."
+            eyebrow="Final CTA"
+            title="Run the free check before the lease becomes expensive to unwind."
           />
           <div className="flex flex-col sm:flex-row gap-3">
             <TrackedCtaLink
@@ -389,42 +352,11 @@ export default function HowItWorksPage() {
             >
               Run a free commercial check
             </TrackedCtaLink>
-            <Link
-              href="/sample-commercial-viability-file"
-              className={heroSecondaryCtaClass}
-            >
+            <Link href="/sample-commercial-viability-file" className={heroSecondaryCtaClass}>
               View sample file
             </Link>
-            <Link
-              href="/viability-file"
-              className={secondaryCtaClass}
-            >
+            <Link href="/viability-file" className={secondaryCtaClass}>
               Learn about the £49 file
-            </Link>
-            <Link
-              href="/commercial-rent-affordability-calculator"
-              className={secondaryCtaClass}
-            >
-              Commercial rent affordability calculator
-            </Link>
-            <Link
-              href="/how-much-rent-can-a-cafe-afford"
-              className={secondaryCtaClass}
-            >
-              Cafe rent guide
-            </Link>
-          </div>
-          <div className="mt-5 text-sm text-stone-300">
-            <Link href="/commercial-lease-checklist-before-signing" className="text-green-300 hover:text-green-200 font-medium">
-              Commercial lease checklist before signing
-            </Link>
-            {' '}
-            <Link href="/restaurant-lease-viability-check" className="text-green-300 hover:text-green-200 font-medium ml-4">
-              Restaurant lease viability check
-            </Link>
-            {' '}
-            <Link href="/salon-lease-viability-check" className="text-green-300 hover:text-green-200 font-medium ml-4">
-              Salon lease viability check
             </Link>
           </div>
         </div>
