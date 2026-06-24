@@ -58,12 +58,12 @@ export default async function PaymentSuccessPage({
         </p>
 
         <h1 className="text-3xl font-bold text-stone-900 mb-4">
-          {isReady ? 'Your commercial viability file is ready.' : 'Payment received. Your file is being unlocked.'}
+          {isReady ? 'Your commercial viability file is ready to open.' : 'Payment received. Your file is being unlocked.'}
         </h1>
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">
           {isReady
-            ? 'Your payment has been confirmed and the file is ready to open.'
+            ? 'Your payment has been confirmed. Open the file from this page, then print or save it as PDF if you want a memo for negotiation and due diligence.'
             : 'Payment received. Your file may take a few seconds to unlock. Refresh this page shortly.'}
         </p>
 
@@ -77,11 +77,11 @@ export default async function PaymentSuccessPage({
               href={fileHref}
               className="bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
             >
-              View your viability file
+              Open your viability file
             </Link>
           ) : (
             <span className="inline-flex items-center justify-center bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium opacity-70">
-              View your viability file
+              Open your viability file
             </span>
           )}
 

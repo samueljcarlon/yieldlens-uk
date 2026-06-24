@@ -823,8 +823,8 @@ export default function ResultsPage() {
 
         <p className="text-sm text-stone-700 leading-7 max-w-3xl">
           {isResidential
-            ? 'Your check has been saved. The next product step is a fuller viability file with a cleaner property snapshot, downside cases, assumptions, and a more detailed verdict. Launch users will get early access before paid reports go live.'
-            : 'The Standard commercial viability file adds stress tests, negotiation levers, lease questions, due diligence prompts, ranked actions, and a clearer final view before you commit. It is the next step if you want to turn the free result into a working memo.'}
+            ? 'Your check has been saved. The next product step is a fuller viability file with a cleaner property snapshot, downside cases, assumptions, and a more detailed verdict.'
+            : 'The Standard commercial viability file adds stress tests, negotiation levers, lease questions, due diligence prompts, ranked actions, and a clearer final view before you commit. It is unlocked from this saved result, then opens as a memo you can print or save as PDF.'}
         </p>
 
         <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
@@ -880,7 +880,7 @@ export default function ResultsPage() {
 
             {!isResidential && (
               <p className="mt-4 text-xs text-stone-500 leading-5">
-                The Standard file is the decision memo, negotiation aid, due diligence checklist, and stress-test pack.
+                The Standard file is unlocked from this saved result. After payment, open the memo from the success page and print or save it as PDF.
               </p>
             )}
           </div>
@@ -892,7 +892,7 @@ export default function ResultsPage() {
 
             <p className="text-sm text-stone-700 leading-7">
               See the redacted sample first to understand how the £49 Standard file turns the free result
-              into a usable decision memo.
+              into a usable decision memo that opens from the saved result after payment.
             </p>
 
             <Link

@@ -78,7 +78,7 @@ export default function ReportInterestButton({
         className={`${primaryCtaClass} text-center`}
       >
         {status === 'loading'
-          ? 'Saving request...'
+          ? 'Preparing your file...'
           : submission.mode === 'commercial'
             ? 'Unlock the £49 viability file'
             : 'Request full viability file'}

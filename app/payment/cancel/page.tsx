@@ -21,13 +21,12 @@ export default async function PaymentCancelPage({
         </p>
 
         <h1 className="text-3xl font-bold text-stone-900 mb-4">
-          You can return to the commercial request flow when ready.
+          You can return to the saved result or sample file when ready.
         </h1>
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">
-          The checkout was not completed, so no payment step has been carried
-          through. You can return to the report request flow or run another
-          commercial check.
+          No payment was taken. You can return to the saved result handoff, view
+          the sample file, or run another commercial check.
         </p>
 
         <p className="text-sm text-stone-500 leading-7 max-w-2xl mx-auto mt-4">
@@ -49,7 +48,7 @@ export default async function PaymentCancelPage({
               href={thankYouHref}
               className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
             >
-              Return to request handoff
+              Return to saved result
             </Link>
           ) : (
             <Link
@@ -59,6 +58,13 @@ export default async function PaymentCancelPage({
               Return to commercial lease viability check
             </Link>
           )}
+
+          <Link
+            href="/sample-commercial-viability-file"
+            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+          >
+            View sample file
+          </Link>
 
           <Link
             href="/"

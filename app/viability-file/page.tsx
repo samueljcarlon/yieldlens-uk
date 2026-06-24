@@ -60,6 +60,17 @@ const commercialFileItems = [
   'Evidence checklist before signing',
 ];
 
+const proofBlocks = [
+  {
+    title: 'Why the checks matter',
+    text: 'Rent burden checks affordability pressure. Break-even customers check trading realism. Opening cash checks setup strain. Downside survival checks weak-start resilience. The evidence checklist reduces assumption risk.',
+  },
+  {
+    title: 'What the memo helps you do',
+    text: 'It helps the user see what to challenge before signing, what to verify, and where negotiation effort is most likely to change the result.',
+  },
+];
+
 const survivalMetrics = [
   {
     label: 'Rent burden',
@@ -107,7 +118,7 @@ const workflowSteps = [
   {
     step: '3',
     title: 'Unlock the Standard file for £49',
-    text: 'Use the saved result to unlock the Standard file or view the sample file.',
+    text: 'Use the saved result to unlock the Standard file for £49, then print or save it as PDF.',
   },
 ];
 
@@ -191,7 +202,8 @@ export default function ViabilityFilePage() {
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 Get a structured £49 viability file that turns the free
                 commercial check into a decision memo for negotiation and due
-                diligence before you sign.
+                diligence before you sign. It is unlocked from a saved result,
+                then opens as a memo you can print or save as PDF.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -280,6 +292,23 @@ export default function ViabilityFilePage() {
               {item}
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Methodology proof"
+            title="The memo is built from practical lease pressure points."
+          />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {proofBlocks.map((item) => (
+              <div key={item.title} className={`${surfaceCardSoftClass} p-5`}>
+                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+                <p className="mt-2 text-sm text-stone-700 leading-7">{item.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -390,7 +419,7 @@ export default function ViabilityFilePage() {
           </h2>
 
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
-            The check creates the saved result that powers the file. From the results page, you can unlock the Standard commercial viability file or view the sample file.
+            The check creates the saved result that powers the file. From the results page, you can unlock the Standard commercial viability file for that result or view the sample file.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

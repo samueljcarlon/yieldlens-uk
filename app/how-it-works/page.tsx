@@ -78,6 +78,54 @@ const verificationPoints = [
   'Planning and licensing',
 ];
 
+const proofPoints = [
+  {
+    title: 'Rent burden',
+    text: 'Checks whether rent is taking too much of expected revenue before the lease feels manageable.',
+  },
+  {
+    title: 'Break-even customers',
+    text: 'Checks whether the daily trading assumption is realistic instead of assuming the best case.',
+  },
+  {
+    title: 'Opening cash',
+    text: 'Checks whether fit-out, deposits, fees, and stock leave enough buffer before trading begins.',
+  },
+  {
+    title: 'Downside survival',
+    text: 'Checks whether a weak start still leaves enough room to survive the early months.',
+  },
+  {
+    title: 'Evidence checklist',
+    text: 'Reduces assumption risk by showing what should be verified before commitment.',
+  },
+];
+
+const exampleJourney = [
+  'A cafe operator is comparing a unit with strong expected trade but high rent.',
+  'YieldLens flags high rent burden, demanding break-even customers, and a thin opening cash buffer.',
+  'The next checks are rent-free period, deposit terms, fit-out quotes, service charge, and actual footfall.',
+];
+
+const beforeAfterPoints = [
+  {
+    title: 'Lower rent',
+    text: 'Usually lowers rent burden and gives the business more breathing room against revenue.',
+  },
+  {
+    title: 'Rent-free period',
+    text: 'Usually improves opening cash pressure by keeping more cash in the business at launch.',
+  },
+  {
+    title: 'Landlord contribution',
+    text: 'Usually reduces upfront cash needed for fit-out and other launch costs.',
+  },
+  {
+    title: 'Break clause',
+    text: 'Usually reduces downside exposure if trading never improves after launch.',
+  },
+];
+
 function SectionTitle({
   eyebrow,
   title,
@@ -253,6 +301,22 @@ export default function HowItWorksPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
+          eyebrow="Proof in practice"
+          title="The metrics work together, not in isolation."
+          description="Each check answers a different part of the lease question, and together they show where the pressure sits."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+          {proofPoints.map((item) => (
+            <div key={item.title} className={`${surfaceCardSoftClass} p-5`}>
+              <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+              <p className="mt-2 text-sm text-stone-700 leading-7">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-16">
+        <SectionTitle
           eyebrow="Methodology and thresholds"
           title="The model is built for early screening."
           description="It is designed to pressure-test the lease decision, not to model the whole property market."
@@ -286,26 +350,30 @@ export default function HowItWorksPage() {
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
           eyebrow="Example journey"
-          title="A generic cafe example shows how the tools fit together."
+          title="A fictional cafe example shows the path from snapshot to memo."
           description="The example is fictional and redacted so the structure can be seen without exposing a real tenant or property."
         />
         <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6">
           <div className={`${surfaceCardSoftClass} p-5`}>
             <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">Fictional case</p>
             <div className="space-y-3 text-sm text-stone-700 leading-6">
-              <p>Business type: Cafe</p>
-              <p>Address: Redacted high street site</p>
-              <p>Rent is high relative to the expected trade.</p>
-              <p>Opening costs leave the buffer thin.</p>
-              <p>Downside trading still matters, but the main question is whether the opening stack is strong enough.</p>
+              {exampleJourney.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
             </div>
           </div>
           <div className={`${surfaceCardClass} p-5 text-sm text-stone-700 leading-7`}>
-            <p>
-              YieldLens would push the user to challenge the rent, confirm footfall,
-              verify fit-out costs, and review lease clauses before committing.
-              The paid file then organises the same result into the memo used for
-              negotiation and due diligence.
+            <p className="font-semibold text-stone-900 mb-3">Before and after pressure-test</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {beforeAfterPoints.map((item) => (
+                <div key={item.title} className={`${surfaceCardSoftClass} p-4`}>
+                  <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+                  <p className="mt-2 text-sm text-stone-700 leading-7">{item.text}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4">
+              YieldLens would push the user to challenge the rent, confirm footfall, verify fit-out costs, and review lease clauses before committing. The paid file then organises the same result into the memo used for negotiation and due diligence.
             </p>
           </div>
         </div>

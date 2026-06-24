@@ -256,6 +256,10 @@ export default function ResultsConversionPanel({
                     View sample file
                   </TrackedCtaLink>
                 </div>
+
+                <p className="mt-4 text-xs text-stone-600 leading-5">
+                  After payment, the saved result opens as the memo. You can print it or save it as PDF.
+                </p>
               </div>
             </div>
 

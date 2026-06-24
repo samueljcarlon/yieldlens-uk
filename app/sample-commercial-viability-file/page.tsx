@@ -225,6 +225,17 @@ const decisionMatrix = [
   },
 ];
 
+const proofBlocks = [
+  {
+    title: 'Why the sample looks this way',
+    text: 'The sample file keeps the same shape as the paid memo: headline verdict, core metrics, opening cash view, stress tests, negotiation prompts, and evidence checks.',
+  },
+  {
+    title: 'What the sample demonstrates',
+    text: 'A business can pass the downside month and still be fragile if the opening cash buffer is too thin. That is why the memo highlights the opening capital stack, not just the rent burden.',
+  },
+];
+
 function SectionTitle({
   eyebrow,
   title,
@@ -553,6 +564,23 @@ export default function SampleCommercialViabilityFilePage() {
         </div>
       </section>
 
+      <section className="bg-stone-100 border-y border-stone-200">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Methodology proof"
+            title="The sample shows how the memo holds the numbers together."
+          />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {proofBlocks.map((item) => (
+              <div key={item.title} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm">
+                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+                <p className="mt-2 text-sm text-stone-700 leading-7">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
@@ -579,7 +607,7 @@ export default function SampleCommercialViabilityFilePage() {
             Run your own commercial check, then request the paid file if the site still looks worth pursuing.
           </h2>
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
-            The sample shows the kind of pressure-test, negotiation prompts, and due diligence structure that appears in the Standard commercial viability file.
+            The sample shows the kind of pressure-test, negotiation prompts, and due diligence structure that appears in the Standard commercial viability file. After payment, the same memo opens from the saved result and can be printed or saved as PDF.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <TrackedCtaLink

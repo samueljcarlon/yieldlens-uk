@@ -335,6 +335,13 @@ export default function CommercialLeaseViabilityPage() {
             Learn how it works
           </Link>
 
+          <Link
+            href="/how-it-works"
+            className={secondaryCtaClass}
+          >
+            Learn how it works
+          </Link>
+
           <p className={`${disclaimerClass} mt-5 text-stone-400`}>
             YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
           </p>
