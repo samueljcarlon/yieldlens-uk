@@ -419,13 +419,13 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
             </p>
 
             <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-3">
-              Your free result is a useful snapshot, not the final decision.
+              Your free result is the fast viability snapshot, not the final decision.
             </h2>
 
             <p className="text-sm sm:text-base text-stone-300 leading-7 max-w-3xl">
               It shows the pressure points on rent burden, break-even volume, opening
               cash, and downside survival. The Standard file turns the same numbers
-              into a decision memo for negotiation and due diligence.
+              into a decision memo for negotiation and due diligence before you sign.
             </p>
 
             <p className="mt-3 text-sm text-stone-400 leading-6 max-w-3xl">
@@ -511,7 +511,7 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
 
           <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-5 shadow-sm">
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-2">
-              What it does not fully answer
+              What it does not fully answer yet
             </p>
 
             <ul className="space-y-3 text-sm text-stone-700 leading-6">
@@ -801,7 +801,7 @@ export default function ResultsPage() {
       )}
 
       <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
-        <p className="font-semibold text-stone-900 mb-3">Next steps</p>
+        <p className="font-semibold text-stone-900 mb-3">What the £49 file adds</p>
 
         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
           {result.nextSteps.map((step) => (
@@ -812,7 +812,7 @@ export default function ResultsPage() {
 
       <div className="mt-8 bg-stone-100 border border-stone-200 rounded-2xl p-6 sm:p-7 shadow-sm">
         <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
-          {isResidential ? 'Full viability file coming soon' : 'Unlock the paid file'}
+          {isResidential ? 'Full viability file coming soon' : 'Unlock the £49 viability file'}
         </p>
 
         <h2 className="text-xl font-bold text-stone-900 mb-2">
@@ -849,10 +849,10 @@ export default function ResultsPage() {
                   className="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-stone-50"
                   eventName="results_report_preview_clicked"
                   pagePath="/results"
-                  ctaLabel="Turn this result into a decision memo"
+                  ctaLabel="Get the negotiation and due diligence file"
                   pageType="results"
                 >
-                  Turn this result into a decision memo
+                  Get the negotiation and due diligence file
                 </TrackedCtaLink>
               )}
             </div>
@@ -877,6 +877,12 @@ export default function ResultsPage() {
                 </>
               )}
             </div>
+
+            {!isResidential && (
+              <p className="mt-4 text-xs text-stone-500 leading-5">
+                The Standard file is the decision memo, negotiation aid, due diligence checklist, and stress-test pack.
+              </p>
+            )}
           </div>
 
           <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-5 shadow-sm">

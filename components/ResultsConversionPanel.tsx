@@ -18,11 +18,11 @@ const residentialItems = [
 
 const commercialItems = [
   {
-    title: 'Stress-test scenarios',
-    body: 'Base, downside, and cost-up views that keep the free result honest.',
+    title: 'Stress-test pack',
+    body: 'Base, downside, and cost-up views that keep the free snapshot honest.',
   },
   {
-    title: 'Negotiation levers',
+    title: 'Negotiation aid',
     body: 'Rent, rent-free terms, deposit, break clause, and landlord contribution prompts.',
   },
   {
@@ -52,8 +52,8 @@ const commercialQuestions = [
 ];
 
 const compareRows = [
-  ['Free result', 'Headline numbers, score, and risk flags'],
-  ['Standard file, £49', 'A decision memo for negotiation and due diligence'],
+  ['Fast snapshot', 'Headline numbers, score, and risk flags'],
+  ['Standard decision memo, £49', 'A decision memo for negotiation and due diligence'],
   ['Rent burden', 'Shown'],
   ['Break-even customers/day', 'Shown'],
   ['Opening cash needed', 'Shown'],
@@ -63,7 +63,7 @@ const compareRows = [
   ['Lease questions', 'Not included'],
   ['Due diligence checklist', 'Not included'],
   ['Ranked action plan', 'Not included'],
-  ['Printable file', 'Not included'],
+  ['Printable memo', 'Not included'],
 ];
 
 function getScoreMessage(score: number): string {
@@ -124,13 +124,13 @@ export default function ResultsConversionPanel({
             <h2 className="text-2xl font-bold leading-tight mb-3">
               {isResidential
                 ? 'A fuller viability file can pressure-test the property properly.'
-                : 'Unlock the Standard commercial viability file to pressure-test the lease properly.'}
+                : 'Unlock the Standard commercial viability file to turn the snapshot into a decision memo.'}
             </h2>
 
             <p className="text-sm text-stone-300 leading-7">
               Your quick check returned <span className="font-semibold text-white">{verdictLabel}</span>.
               {' '}
-              {getScoreMessage(score)}
+              {getScoreMessage(score)} The free result gives the snapshot; the paid file adds the negotiation and due diligence pack.
             </p>
           </div>
 
