@@ -176,7 +176,7 @@ export default function ViabilityFilePage() {
         eventLabel="Viability file page viewed"
       />
 
-      <section className="bg-stone-950 text-white">
+      <section className="bg-stone-900 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
@@ -285,7 +285,7 @@ export default function ViabilityFilePage() {
           {commercialFileItems.map((item) => (
             <div
               key={item}
-              className={`${surfaceCardSoftClass} p-5 text-sm font-medium text-stone-800`}
+              className="rounded-[28px] border border-stone-200 bg-white p-5 text-sm font-medium text-stone-800 shadow-sm"
             >
               {item}
             </div>
@@ -293,7 +293,7 @@ export default function ViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-stone-100 border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Free vs paid"
@@ -324,7 +324,7 @@ export default function ViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-stone-100 border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
           eyebrow="How the flow works"
@@ -394,7 +394,7 @@ export default function ViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-stone-950 text-white">
+      <section className="bg-stone-900 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-8">
             <div>
@@ -427,7 +427,7 @@ export default function ViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-green-50 border-y border-green-200">
+      <section className="bg-stone-100 border-y border-stone-200">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
             Unlock the Standard file from your result
@@ -450,7 +450,7 @@ export default function ViabilityFilePage() {
               pagePath="/viability-file"
               ctaLabel="Run a free commercial check first"
               pageType="product_page"
-              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
+              className="bg-[#5e7f5b] text-white px-6 py-3 rounded font-medium hover:bg-[#4f6d4c] transition-colors text-sm"
             >
               Run a free commercial check first
             </TrackedCtaLink>
@@ -461,14 +461,14 @@ export default function ViabilityFilePage() {
               pagePath="/viability-file"
               ctaLabel="View sample file"
               pageType="product_page"
-              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View sample file
             </TrackedCtaLink>
 
             <Link
               href="/how-it-works"
-              className="inline-flex items-center justify-center rounded border border-stone-300 bg-[#fffaf0] px-6 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
+              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
             >
               How it works
             </Link>

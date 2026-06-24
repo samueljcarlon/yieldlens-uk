@@ -1,6 +1,5 @@
 'use client';
-
-import { surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
+import { surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 interface ResultsConversionPanelProps {
   mode: 'residential' | 'commercial';
@@ -42,6 +41,29 @@ const commercialItems = [
     title: 'Final view',
     body: 'A concise go / renegotiate / pause view for the current assumptions.',
   },
+];
+
+const commercialQuestions = [
+  'Can this site carry the rent?',
+  'What turnover would I need?',
+  'What happens if trade starts slower than expected?',
+  'What should I challenge before signing?',
+  'What evidence should I collect?',
+];
+
+const compareRows = [
+  ['Free result', 'Headline numbers, score, and risk flags'],
+  ['Standard file, £49', 'A decision memo for negotiation and due diligence'],
+  ['Rent burden', 'Shown'],
+  ['Break-even customers/day', 'Shown'],
+  ['Opening cash needed', 'Shown'],
+  ['Downside trading', 'Shown'],
+  ['Stress-test scenarios', 'Not included'],
+  ['Negotiation levers', 'Not included'],
+  ['Lease questions', 'Not included'],
+  ['Due diligence checklist', 'Not included'],
+  ['Ranked action plan', 'Not included'],
+  ['Printable file', 'Not included'],
 ];
 
 function getScoreMessage(score: number): string {
@@ -95,7 +117,7 @@ export default function ResultsConversionPanel({
       <div className="bg-stone-950 px-6 py-6 text-white sm:px-7">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-2xl">
-            <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-green-300 font-semibold">
+            <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-green-200 font-semibold">
               {isResidential ? 'Residential follow-up' : 'Commercial follow-up'}
             </div>
 
@@ -144,17 +166,57 @@ export default function ResultsConversionPanel({
               ))}
             </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {(items as Array<{ title: string; body: string }>).map((item) => (
-              <PreviewCard key={item.title} title={item.title} body={item.body} />
-            ))}
+          <div className="space-y-5">
+            <div className={`${tableShellClass}`}>
+              <table className="min-w-full border-collapse text-sm">
+                <thead className="bg-stone-100/90 text-stone-700">
+                  <tr>
+                    <th className="px-4 py-3 text-left font-semibold">What changes</th>
+                    <th className="px-4 py-3 text-left font-semibold">Free result vs Standard file</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {compareRows.map(([label, value], index) => (
+                  <tr key={label} className={index % 2 === 0 ? 'bg-white' : 'bg-stone-50'}>
+                      <td className="px-4 py-3 align-top font-medium text-stone-900 border-t border-stone-200">
+                        {label}
+                      </td>
+                      <td className="px-4 py-3 align-top text-stone-700 border-t border-stone-200">
+                        {value}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {commercialItems.map((item) => (
+                <PreviewCard key={item.title} title={item.title} body={item.body} />
+              ))}
+            </div>
+
+            <div className={`${surfaceCardSoftClass} bg-white p-5`}>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-[#5b7d58] font-semibold mb-3">
+                Questions the paid file helps answer
+              </p>
+
+              <ul className="space-y-2 text-sm text-stone-700 leading-6">
+                {commercialQuestions.map((question) => (
+                  <li key={question} className="flex gap-2">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#5e7f5b] shrink-0" />
+                    <span>{question}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-4 text-xs text-stone-500 leading-5">
+                YieldLens is indicative decision-support only. It is not financial advice,
+                legal advice, tax advice, a valuation, or a substitute for professional due diligence.
+              </p>
+            </div>
           </div>
         )}
-
-        <p className="text-xs text-stone-500 mt-5 leading-5">
-          Use the buttons below to request a fuller viability file, view the sample file,
-          or run another check with different assumptions.
-        </p>
       </div>
     </section>
   );

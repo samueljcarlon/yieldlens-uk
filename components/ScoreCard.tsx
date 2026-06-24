@@ -3,8 +3,8 @@ import VerdictBadge from './VerdictBadge';
 import { surfaceCardClass } from '@/components/yieldLensUi';
 
 const ringColour: Record<string, string> = {
-  green: 'text-green-700',
-  teal: 'text-green-700',
+  green: 'text-[#5e7f5b]',
+  teal: 'text-[#5e7f5b]',
   yellow: 'text-amber-700',
   orange: 'text-orange-700',
   red: 'text-rose-700',

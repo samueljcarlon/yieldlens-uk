@@ -33,7 +33,7 @@ function FormSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-stone-200 bg-[#fffaf0] p-5 sm:p-6 shadow-sm">
+    <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 shadow-sm">
       <div className="mb-5">
         <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           {eyebrow}
@@ -172,14 +172,14 @@ export default function CommercialForm({ onSubmit }: Props) {
   };
 
   const inputClass =
-    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-[#fffaf0] shadow-sm';
+    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
 
   const errorInputClass =
-    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-[#fffaf0] shadow-sm';
+    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="rounded-2xl border border-green-200 bg-green-50 p-5 sm:p-6 shadow-sm">
+      <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 sm:p-6 shadow-sm">
         <p className="text-sm font-semibold text-green-950 mb-2">
           Commercial lease pressure-test
         </p>
@@ -192,9 +192,9 @@ export default function CommercialForm({ onSubmit }: Props) {
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-2 text-[11px] uppercase tracking-[0.2em] text-green-800">
           {sectionSteps.map((step, index) => (
-            <div
+          <div
               key={step}
-              className="flex items-center gap-2 rounded-xl border border-green-200 bg-white/90 px-3 py-2 shadow-sm"
+              className="flex items-center gap-2 rounded-xl border border-stone-200 bg-white px-3 py-2 shadow-sm"
             >
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-green-700 text-[10px] font-semibold text-white">
                 {index + 1}

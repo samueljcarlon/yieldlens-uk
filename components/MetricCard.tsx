@@ -9,7 +9,7 @@ interface Props {
 export default function MetricCard({ label, value, helper }: Props) {
   return (
     <div className={`${surfaceCardClass} p-5`}>
-      <div className="mb-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 via-green-600 to-amber-400" />
+      <div className="mb-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-[#8fa889] via-[#6f8b68] to-amber-300" />
       <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 font-medium mb-1">
         {label}
       </p>

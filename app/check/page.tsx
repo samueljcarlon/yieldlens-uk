@@ -156,7 +156,7 @@ function CheckPageContent() {
             </p>
           </div>
 
-          <div className={`${surfaceCardSoftClass} border-green-200 bg-green-50 p-5`}>
+          <div className={`${surfaceCardSoftClass} bg-stone-50 p-5`}>
             <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
               What you get
             </p>

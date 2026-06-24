@@ -1,6 +1,4 @@
 'use client';
-
-import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type {
@@ -277,25 +275,25 @@ function formatOpeningPosition(result: CommercialResult): string {
 
 function getCommercialResultSummary(result: CommercialResult): string {
   if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
-    return 'The main issue is the opening capital stack: upfront cash needed exceeds starting cash, so the site needs better fit-out, deposit, or landlord terms before it feels comfortable.';
+    return 'The free result shows the main pressure point: the opening capital stack is too tight, so the site needs better fit-out, deposit, or landlord terms before it feels comfortable.';
   }
 
   if (result.survivesSixBadMonths === false) {
-    return 'The downside month can be managed only if the opening buffer is strong enough. The current numbers still need more evidence before commitment.';
+    return 'The free result shows that downside trading is fragile, so the case still needs more evidence before commitment.';
   }
 
   if (
     hasNumber(result.rentBurdenPercentage) &&
     result.rentBurdenPercentage >= 18
   ) {
-    return 'Rent takes a heavy share of expected revenue, so the deal needs stronger evidence around footfall, spend, and lease terms before it feels comfortable.';
+    return 'The free result shows rent pressure is heavy, so the deal needs stronger evidence around footfall, spend, and lease terms before it feels comfortable.';
   }
 
   if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening > 0) {
-    return 'The deal works more comfortably on paper, but the opening buffer and lease terms still need evidence before the site feels ready.';
+    return 'The free result looks workable on paper, but the opening buffer and lease terms still need evidence before the site feels ready.';
   }
 
-  return 'The quick check is indicative and still needs evidence around demand, costs, and lease terms.';
+  return 'The free result is a useful snapshot, but it still needs evidence around demand, costs, and lease terms.';
 }
 
 function getCommercialTakeawayQuestions(result: CommercialResult): string[] {
@@ -318,8 +316,8 @@ function getCommercialTakeawayQuestions(result: CommercialResult): string[] {
 
 function summaryToneClass(tone: SummaryTone): string {
   const tones = {
-    neutral: 'border-stone-200 bg-[#fffaf0]',
-    strong: 'border-green-200 bg-green-50',
+    neutral: 'border-stone-200 bg-white',
+    strong: 'border-green-200 bg-[#eef4ea]',
     caution: 'border-amber-200 bg-amber-50',
     critical: 'border-red-200 bg-red-50',
   };
@@ -408,31 +406,11 @@ function CommercialSummaryCard({
   );
 }
 
-function CommercialSummaryGroup({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <div>
-      <p className="text-[11px] uppercase tracking-widest text-stone-500 font-semibold mb-3">
-        {title}
-      </p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {children}
-      </div>
-    </div>
-  );
-}
-
 function CommercialPressureSummary({ submission }: { submission: Submission }) {
   const result = submission.result as CommercialResult;
 
   return (
-    <section className="mb-8 overflow-hidden rounded-[32px] border border-stone-200 bg-[#fffaf0] shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
+    <section className="mb-8 overflow-hidden rounded-[32px] border border-stone-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
       <div className="bg-stone-950 px-6 py-7 text-white sm:px-8 sm:py-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-end">
           <div>
@@ -441,10 +419,16 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
             </p>
 
             <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-3">
-              Can the site carry the lease and withstand weak early trading?
+              Your free result is a useful snapshot, not the final decision.
             </h2>
 
             <p className="text-sm sm:text-base text-stone-300 leading-7 max-w-3xl">
+              It shows the pressure points on rent burden, break-even volume, opening
+              cash, and downside survival. The Standard file turns the same numbers
+              into a decision memo for negotiation and due diligence.
+            </p>
+
+            <p className="mt-3 text-sm text-stone-400 leading-6 max-w-3xl">
               {getCommercialResultSummary(result)}
             </p>
 
@@ -480,6 +464,67 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
             <p className="text-xs text-stone-400 mt-3">
               Indicative score: {result.score}/100
             </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-y border-stone-200 bg-stone-100 px-5 py-5 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-4">
+          <div className="rounded-[28px] border border-stone-200 bg-white p-5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-2">
+              What this result tells you
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <CommercialSummaryCard
+                label="Rent burden"
+                value={formatPercent(result.rentBurdenPercentage)}
+                helper={getRentBurdenHelper(result.rentBurdenPercentage)}
+                tone={getRentBurdenTone(result.rentBurdenPercentage)}
+              />
+
+              <CommercialSummaryCard
+                label="Break-even/day"
+                value={formatNumber(result.breakEvenCustomersPerDay)}
+                helper={getBreakEvenHelper(result)}
+                tone={getBreakEvenTone(result)}
+              />
+
+              <CommercialSummaryCard
+                label={result.availableCashAfterOpening !== undefined && result.availableCashAfterOpening < 0 ? 'Opening shortfall' : 'Opening buffer'}
+                value={(() => {
+                  const label = formatOpeningPosition(result);
+                  return label.replace('Opening shortfall: ', '').replace('Opening buffer: ', '');
+                })()}
+                helper={getCashAfterOpeningHelper(result)}
+                tone={getCashAfterOpeningTone(result)}
+              />
+
+              <CommercialSummaryCard
+                label="Six-month test"
+                value={getSixMonthValue(result)}
+                helper={getSixMonthHelper(result)}
+                tone={getSixMonthTone(result)}
+              />
+            </div>
+          </div>
+
+          <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-2">
+              What it does not fully answer
+            </p>
+
+            <ul className="space-y-3 text-sm text-stone-700 leading-6">
+              <li>Whether the lease terms can be improved before signing.</li>
+              <li>Whether footfall, spend, and cost assumptions are properly evidenced.</li>
+              <li>Whether repair, service charge, break clause, and use terms are acceptable.</li>
+              <li>Whether the case still feels right after negotiation and due diligence.</li>
+            </ul>
+
+            <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 p-4 text-sm text-stone-700 leading-6">
+              The Standard commercial viability file turns this snapshot into a decision memo
+              you can use for negotiation and due diligence.
+            </div>
           </div>
         </div>
       </div>
@@ -524,7 +569,7 @@ function CommercialScenarioCard({
   helper: string;
 }) {
   return (
-      <div className="bg-[#fffaf0] border border-stone-200 rounded-2xl p-4 shadow-sm">
+      <div className="bg-white border border-stone-200 rounded-2xl p-4 shadow-sm">
       <p className="text-xs uppercase tracking-wide text-stone-500 font-medium mb-1">
         {label}
       </p>
@@ -544,7 +589,7 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
   const questions = getCommercialTakeawayQuestions(result);
 
   return (
-    <div className="rounded-[32px] border border-stone-200 bg-[#fffaf0] p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+    <div className="rounded-[32px] border border-stone-200 bg-white p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
       <div className="mb-5">
         <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           What the free result tells you
@@ -642,7 +687,7 @@ export default function ResultsPage() {
   if (!submission) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-        <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-8 shadow-sm">
+        <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
           <h1 className="text-2xl font-bold text-stone-900 mb-3">
             No property check found
           </h1>
@@ -668,7 +713,7 @@ export default function ResultsPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
-      <section className="mb-8 overflow-hidden rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
+      <section className="mb-8 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
         <div className="bg-gradient-to-r from-stone-950 to-stone-900 px-6 py-7 text-white sm:px-8 sm:py-8">
           <p className="text-xs uppercase tracking-[0.24em] text-green-300 font-semibold mb-3">
             {isResidential ? 'Residential return check' : 'Commercial site check'}
@@ -755,7 +800,7 @@ export default function ResultsPage() {
         </div>
       )}
 
-      <div className="mt-8 bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
+      <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
         <p className="font-semibold text-stone-900 mb-3">Next steps</p>
 
         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
@@ -765,7 +810,7 @@ export default function ResultsPage() {
         </ol>
       </div>
 
-      <div className="mt-8 bg-green-50 border border-green-200 rounded-2xl p-6 sm:p-7 shadow-sm">
+      <div className="mt-8 bg-stone-100 border border-stone-200 rounded-2xl p-6 sm:p-7 shadow-sm">
         <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           {isResidential ? 'Full viability file coming soon' : 'Unlock the paid file'}
         </p>
@@ -773,62 +818,84 @@ export default function ResultsPage() {
         <h2 className="text-xl font-bold text-stone-900 mb-2">
           {isResidential
             ? 'Want the full viability file for this property?'
-            : 'Turn this quick check into a proper commercial decision document.'}
+            : 'Turn this result into a decision memo for negotiation and due diligence.'}
         </h2>
 
         <p className="text-sm text-stone-700 leading-7 max-w-3xl">
           {isResidential
             ? 'Your check has been saved. The next product step is a fuller viability file with a cleaner property snapshot, downside cases, assumptions, and a more detailed verdict. Launch users will get early access before paid reports go live.'
-            : 'The Standard commercial viability file adds stress tests, negotiation levers, lease questions, due diligence prompts, ranked actions, and a clearer final view before you commit.'}
+            : 'The Standard commercial viability file adds stress tests, negotiation levers, lease questions, due diligence prompts, ranked actions, and a clearer final view before you commit. It is the next step if you want to turn the free result into a working memo.'}
         </p>
 
-        <div className="mt-5 flex flex-col sm:flex-row gap-3">
-          <ReportInterestButton submission={submission} />
+        <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <div className="rounded-[28px] border border-stone-200 bg-white p-5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-3">
+              Get the negotiation and due diligence file
+            </p>
 
-          {isResidential ? (
+            <div className="flex flex-col sm:flex-row gap-3">
+              <ReportInterestButton submission={submission} />
+
+              {isResidential ? (
+                <Link
+                  href="/report"
+                  className="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-stone-50"
+                >
+                  Turn this result into a decision memo
+                </Link>
+              ) : (
+                <TrackedCtaLink
+                  href="/report"
+                  className="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-stone-50"
+                  eventName="results_report_preview_clicked"
+                  pagePath="/results"
+                  ctaLabel="Turn this result into a decision memo"
+                  pageType="results"
+                >
+                  Turn this result into a decision memo
+                </TrackedCtaLink>
+              )}
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-3 text-sm text-stone-600">
+              {isResidential ? (
+                <Link href="/check?mode=residential" className="hover:text-stone-900 hover:underline">
+                  Run another residential check
+                </Link>
+              ) : (
+                <>
+                  <TrackedCtaLink
+                    href="/check?mode=commercial"
+                    className="hover:text-stone-900 hover:underline"
+                    eventName="results_run_another_check_clicked"
+                    pagePath="/results"
+                    ctaLabel="Run another commercial check"
+                    pageType="results"
+                  >
+                    Run another commercial check
+                  </TrackedCtaLink>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-2">
+              Sample file proof
+            </p>
+
+            <p className="text-sm text-stone-700 leading-7">
+              See the redacted sample first to understand how the £49 Standard file turns the free result
+              into a usable decision memo.
+            </p>
+
             <Link
-              href="/report"
-              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
+              href="/sample-commercial-viability-file"
+              className="mt-4 inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-stone-50"
             >
-              View report preview →
+              View sample file
             </Link>
-          ) : (
-            <TrackedCtaLink
-              href="/report"
-              className="text-sm font-medium text-stone-600 hover:text-stone-900 hover:underline"
-              eventName="results_report_preview_clicked"
-              pagePath="/results"
-              ctaLabel="View report preview"
-              pageType="results"
-            >
-              View report preview →
-            </TrackedCtaLink>
-          )}
-        </div>
-
-        <div className="mt-4 flex flex-wrap gap-4 text-sm text-stone-600">
-          {isResidential ? (
-            <Link href="/check?mode=residential" className="hover:text-stone-900 hover:underline">
-              Run another residential check
-            </Link>
-          ) : (
-            <>
-              <TrackedCtaLink
-                href="/check?mode=commercial"
-                className="hover:text-stone-900 hover:underline"
-                eventName="results_run_another_check_clicked"
-                pagePath="/results"
-                ctaLabel="Run another commercial check"
-                pageType="results"
-              >
-                Run another commercial check
-              </TrackedCtaLink>
-
-              <Link href="/sample-commercial-viability-file" className="hover:text-stone-900 hover:underline">
-                View sample file
-              </Link>
-            </>
-          )}
+          </div>
         </div>
 
         <div className="mt-8">
