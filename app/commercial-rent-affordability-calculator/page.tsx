@@ -101,7 +101,7 @@ const exampleCards = [
     label: 'Break-even/day',
     value: '45.2',
     helper: 'Customers needed per day to cover the monthly cost base.',
-    tone: 'border-stone-200 bg-white text-stone-950',
+    tone: 'border-stone-200 bg-[#fffaf0] text-stone-950',
   },
   {
     label: 'Opening buffer',
@@ -244,7 +244,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           description="Use 12% as a healthier screening level and 18% as a caution threshold. Those are indicative YieldLens screening thresholds, not universal rules."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-4">The business is more likely to carry the rent when:</p>
             <ul className="space-y-3 text-sm text-stone-700 leading-7">
               {quickAnswerBullets.map((item) => (
@@ -260,14 +260,14 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             <p className="text-sm text-stone-700 leading-7">
               Search results often mix rent affordability queries with rental valuation queries. YieldLens is focused on the tenant side of the question. It helps you work out whether the business can carry the rent before you sign, rather than estimating what the market rent should be.
             </p>
-            <div className="mt-5 rounded-3xl border border-stone-200 bg-white p-4 text-sm text-stone-700 leading-7">
+            <div className="mt-5 rounded-3xl border border-stone-200 bg-[#fffaf0] p-4 text-sm text-stone-700 leading-7">
               A site can be fairly priced in the market and still be unaffordable for a specific business.
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Commercial rent affordability vs rental valuation"
@@ -292,7 +292,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           description="Rent burden = monthly rent / expected monthly revenue. The lower the burden, the more room the business has for staffing, rates, utilities, stock, and quieter trading."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               {[
                 ['Annual rent', '£60,000'],
@@ -327,7 +327,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Break-even customers/day"
@@ -344,7 +344,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                   ['Break-even customers/day', '45.2'],
                   ['Expected customers/day', '80'],
                 ].map(([label, value]) => (
-                  <div key={label} className="rounded-3xl border border-stone-200 bg-white p-4">
+                  <div key={label} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-4">
                     <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">{label}</p>
                     <p className="text-lg font-bold text-stone-950">{value}</p>
                   </div>
@@ -373,7 +373,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           description="A business can look affordable on operating numbers and still fail because fit-out, deposit, fees, stock, and setup costs leave too little cash after opening."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               {[
                 ['Starting cash', '£90,000'],
@@ -404,7 +404,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Downside trading"
@@ -420,7 +420,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                   ['Monthly cost base', '£14,100'],
                   ['Downside monthly position', '£876 surplus'],
                 ].map(([label, value]) => (
-                  <div key={label} className="rounded-3xl border border-stone-200 bg-white p-4">
+                  <div key={label} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-4">
                     <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">{label}</p>
                     <p className="text-lg font-bold text-stone-950">{value}</p>
                   </div>
@@ -445,7 +445,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {whatChangesAffordability.map((item) => (
-            <div key={item} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
+            <div key={item} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
             </div>
           ))}
@@ -481,7 +481,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           description="Use the free commercial check when you want the rent, costs, opening cash, and downside trading reviewed together. Use the paid file when you want the analysis organised into a report you can print, save, and use in negotiation."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">Free check includes</p>
             <ul className="space-y-3 text-sm text-stone-700 leading-7">
               {[
@@ -535,20 +535,20 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           </TrackedCtaLink>
           <Link
             href="/sample-commercial-viability-file"
-            className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             View sample file
           </Link>
           <Link
             href="/how-it-works"
-            className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             See how it works
           </Link>
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="FAQ"
@@ -577,7 +577,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm text-sm font-medium text-stone-800 hover:border-green-200 hover:text-green-800 transition-colors"
+              className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm font-medium text-stone-800 hover:border-green-200 hover:text-green-800 transition-colors"
             >
               {item.label}
             </Link>
@@ -609,13 +609,13 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             </TrackedCtaLink>
             <Link
               href="/sample-commercial-viability-file"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View sample viability file
             </Link>
             <Link
               href="/how-it-works"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               How it works
             </Link>

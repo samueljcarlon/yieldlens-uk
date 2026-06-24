@@ -35,7 +35,7 @@ const sampleSummary = [
     label: 'Score',
     value: '49/100',
     helper: 'The site needs caution because the opening capital stack is weak.',
-    tone: 'bg-white border-stone-200 text-stone-950',
+    tone: 'bg-[#fffaf0] border-stone-200 text-stone-950',
   },
   {
     label: 'Opening shortfall',
@@ -47,7 +47,7 @@ const sampleSummary = [
     label: 'Rent burden',
     value: '20.0%',
     helper: 'Rent takes a high share of expected monthly revenue.',
-    tone: 'bg-white border-stone-200 text-stone-950',
+    tone: 'bg-[#fffaf0] border-stone-200 text-stone-950',
   },
 ];
 
@@ -295,7 +295,7 @@ export default function SampleCommercialViabilityFilePage() {
                 </Link>
               </div>
             </div>
-            <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900 shadow-[0_24px_64px_rgba(15,23,42,0.18)]`}>
+            <div className={`${surfaceCardClass} bg-[#fffaf0] p-5 sm:p-6 text-stone-900 shadow-[0_24px_64px_rgba(15,23,42,0.18)]`}>
               <div className="flex items-start justify-between gap-4 mb-5">
                 <div>
                   <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-1">
@@ -338,7 +338,7 @@ export default function SampleCommercialViabilityFilePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {sampleSummary.map((item) => (
-            <div key={item.label} className="bg-white border rounded-3xl p-5 shadow-sm">
+            <div key={item.label} className="bg-[#fffaf0] border rounded-3xl p-5 shadow-sm">
               <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
               <p className="text-2xl font-bold mt-2 text-stone-900">{item.value}</p>
               <p className="text-sm text-stone-600 leading-6 mt-2">{item.helper}</p>
@@ -347,7 +347,7 @@ export default function SampleCommercialViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Decision-support visuals"
@@ -355,13 +355,13 @@ export default function SampleCommercialViabilityFilePage() {
             description="The sample mirrors the paid file’s visual language: rent burden, break-even gap, opening capital stack, and downside survival."
           />
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
-            <div className="rounded-3xl border border-stone-200 bg-white shadow-sm p-1">
+            <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-sm p-1">
               <RentBurdenGauge rentBurdenPercentage={20} />
             </div>
-            <div className="rounded-3xl border border-stone-200 bg-white shadow-sm p-1">
+            <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-sm p-1">
               <BreakEvenComparison breakEvenCustomersPerDay={45.2} expectedCustomersPerDay={80} />
             </div>
-            <div className="rounded-3xl border border-stone-200 bg-white shadow-sm p-1">
+            <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-sm p-1">
               <OpeningCashWaterfall
                 startingCash={90000}
                 fitOutBudget={50000}
@@ -373,7 +373,7 @@ export default function SampleCommercialViabilityFilePage() {
                 cashAfterOpening={9000}
               />
             </div>
-            <div className="rounded-3xl border border-stone-200 bg-white shadow-sm p-1">
+            <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-sm p-1">
               <DownsideSurvivalCard
                 downsideRevenuePercentage={60}
                 downsideMonthlyRevenue={14976}
@@ -388,7 +388,7 @@ export default function SampleCommercialViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Site snapshot"
@@ -412,7 +412,7 @@ export default function SampleCommercialViabilityFilePage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {keyMetrics.map((item) => (
-            <div key={item.label} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm">
+            <div key={item.label} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm">
               <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
               <p className="text-2xl font-bold mt-2 text-stone-900">{item.value}</p>
             </div>
@@ -420,7 +420,7 @@ export default function SampleCommercialViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Upfront cash and survival"
@@ -445,21 +445,21 @@ export default function SampleCommercialViabilityFilePage() {
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {improvementPoints.map((item) => (
-            <div key={item} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
+            <div key={item} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Stress-test scenarios"
             title="How the site behaves under weaker trading or improved lease terms."
           />
           <div className="overflow-x-auto rounded-3xl border border-stone-200">
-            <table className="w-full border-collapse text-sm bg-white">
+            <table className="w-full border-collapse text-sm bg-[#fffaf0]">
               <thead>
                 <tr className="bg-stone-50 text-left border-b border-stone-200">
                   <th className="py-3 px-4 font-semibold text-stone-700">Scenario</th>
@@ -492,7 +492,7 @@ export default function SampleCommercialViabilityFilePage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {negotiationLevers.map((item) => (
-            <div key={item.title} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm">
+            <div key={item.title} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm">
               <p className="text-sm font-semibold text-stone-900">{item.title}</p>
               <p className="text-sm text-stone-600 leading-7 mt-2">{item.text}</p>
             </div>
@@ -500,7 +500,7 @@ export default function SampleCommercialViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Evidence needed before signing"
@@ -529,7 +529,7 @@ export default function SampleCommercialViabilityFilePage() {
           eyebrow="Ranked actions before committing"
           title="A quick read on what matters most in the sample case."
         />
-        <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-white shadow-sm">
+        <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-sm">
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="bg-stone-50 text-left border-b border-stone-200">
@@ -594,13 +594,13 @@ export default function SampleCommercialViabilityFilePage() {
             </TrackedCtaLink>
             <Link
               href="/viability-file"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               Get your own £49 viability file
             </Link>
             <Link
               href="/how-it-works"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               How it works
             </Link>

@@ -165,7 +165,7 @@ export default function CommercialRentBurdenCalculatorPage() {
               </div>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-lg overflow-hidden shadow-2xl">
+            <div className="bg-[#fffaf0] text-stone-900 rounded-lg overflow-hidden shadow-2xl">
               <div className="px-5 py-4 border-b border-stone-200">
                 <p className="text-xs uppercase tracking-widest text-green-700 font-semibold">
                   Quick rent burden screen
@@ -224,7 +224,7 @@ export default function CommercialRentBurdenCalculatorPage() {
           description="Commercial rent burden shows how much estimated revenue is absorbed by rent before staff, rates, utilities, insurance, stock, tax, and quieter trading periods are considered."
         />
 
-        <div className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm">
+        <div className="bg-[#fffaf0] border border-stone-200 rounded-lg p-6 shadow-sm">
           <p className="text-lg sm:text-2xl font-bold text-stone-900">
             Rent burden = monthly rent ÷ monthly revenue × 100
           </p>
@@ -238,7 +238,7 @@ export default function CommercialRentBurdenCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Interpretation"
@@ -278,7 +278,7 @@ export default function CommercialRentBurdenCalculatorPage() {
           {pressurePoints.map((item) => (
             <div
               key={item.title}
-              className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm"
+              className="bg-[#fffaf0] border border-stone-200 rounded-lg p-6 shadow-sm"
             >
               <h3 className="font-semibold text-stone-900 mb-2">
                 {item.title}
@@ -310,7 +310,7 @@ export default function CommercialRentBurdenCalculatorPage() {
               </p>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-lg p-6 shadow-xl">
+            <div className="bg-[#fffaf0] text-stone-900 rounded-lg p-6 shadow-xl">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
                   'Break-even customers per day',
@@ -347,7 +347,7 @@ export default function CommercialRentBurdenCalculatorPage() {
                   pagePath="/commercial-rent-burden-calculator"
                   ctaLabel="View viability file"
                   pageType="seo_tool"
-                  className="bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+                  className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
                 >
                   View viability file
                 </TrackedCtaLink>
@@ -364,7 +364,7 @@ export default function CommercialRentBurdenCalculatorPage() {
           description="A high rent burden does not automatically mean avoid the site, and a low rent burden does not make the lease safe. It tells you which assumptions deserve closer testing."
         />
 
-        <div className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm">
+        <div className="bg-[#fffaf0] border border-stone-200 rounded-lg p-6 shadow-sm">
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-stone-700">
             {[
               'Can expected revenue realistically support the rent?',
@@ -418,7 +418,7 @@ export default function CommercialRentBurdenCalculatorPage() {
               pagePath="/commercial-rent-burden-calculator"
               ctaLabel="View commercial lease viability guide"
               pageType="seo_tool"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View commercial lease viability guide
             </TrackedCtaLink>

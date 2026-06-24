@@ -183,7 +183,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="The problem it solves"
@@ -235,7 +235,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="The £49 file"
@@ -278,7 +278,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What it does not do"
@@ -316,7 +316,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Example walkthrough"

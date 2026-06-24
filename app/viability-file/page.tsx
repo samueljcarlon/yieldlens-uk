@@ -235,7 +235,7 @@ export default function ViabilityFilePage() {
               </p>
             </div>
 
-            <div className={`${surfaceCardClass} overflow-hidden bg-white text-stone-900 shadow-2xl`}>
+            <div className={`${surfaceCardClass} overflow-hidden bg-[#fffaf0] text-stone-900 shadow-2xl`}>
               <div className="px-5 py-4 border-b border-stone-200">
                 <p className="text-xs uppercase tracking-widest text-green-700 font-semibold">
                   Example commercial file
@@ -293,7 +293,7 @@ export default function ViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Free vs paid"
@@ -324,7 +324,7 @@ export default function ViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
           eyebrow="How the flow works"
@@ -461,14 +461,14 @@ export default function ViabilityFilePage() {
               pagePath="/viability-file"
               ctaLabel="View sample file"
               pageType="product_page"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View sample file
             </TrackedCtaLink>
 
             <Link
               href="/how-it-works"
-              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
+              className="inline-flex items-center justify-center rounded border border-stone-300 bg-[#fffaf0] px-6 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
             >
               How it works
             </Link>

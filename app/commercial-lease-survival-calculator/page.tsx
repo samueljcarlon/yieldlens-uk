@@ -244,7 +244,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
               </div>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-lg overflow-hidden shadow-2xl">
+            <div className="bg-[#fffaf0] text-stone-900 rounded-lg overflow-hidden shadow-2xl">
               <div className="px-5 py-4 border-b border-stone-200">
                 <p className="text-xs uppercase tracking-widest text-green-700 font-semibold">
                   Worked survival screen
@@ -301,7 +301,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
           {formulas.map((item) => (
             <div
               key={item.title}
-              className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm"
+              className="bg-[#fffaf0] border border-stone-200 rounded-lg p-6 shadow-sm"
             >
               <h3 className="font-semibold text-stone-900 mb-3">
                 {item.title}
@@ -319,7 +319,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Six-month test"
@@ -354,7 +354,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
           {upfrontRisks.map((item) => (
             <div
               key={item.title}
-              className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm"
+              className="bg-[#fffaf0] border border-stone-200 rounded-lg p-6 shadow-sm"
             >
               <h3 className="font-semibold text-stone-900 mb-2">
                 {item.title}
@@ -390,7 +390,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
               {fragilityChecks.map((item) => (
                 <div
                   key={item.title}
-                  className="bg-white text-stone-900 border border-white/10 rounded-lg p-5"
+                  className="bg-[#fffaf0] text-stone-900 border border-white/10 rounded-lg p-5"
                 >
                   <h3 className="font-semibold mb-2">{item.title}</h3>
                   <p className="text-sm text-stone-600 leading-6">
@@ -410,7 +410,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
           description="The downside case asks what happens if customer numbers, average spend, or trading ramp-up are weaker than expected. That can turn a comfortable-looking plan into monthly burn."
         />
 
-        <div className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm">
+        <div className="bg-[#fffaf0] border border-stone-200 rounded-lg p-6 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-stone-700">
             {[
               'If downside revenue still covers the monthly cost base, survival depends heavily on cash after opening.',
@@ -428,7 +428,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Connected checks"
@@ -454,7 +454,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
                   pagePath="/commercial-lease-survival-calculator"
                   ctaLabel={item.label}
                   pageType="seo_tool"
-                  className="inline-flex bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+                  className="inline-flex bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
                 >
                   {item.label}
                 </TrackedCtaLink>
@@ -475,7 +475,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
           {fullCheckItems.map((item) => (
             <div
               key={item}
-              className="bg-white border border-stone-200 rounded-lg p-4 text-sm font-medium text-stone-800 shadow-sm"
+              className="bg-[#fffaf0] border border-stone-200 rounded-lg p-4 text-sm font-medium text-stone-800 shadow-sm"
             >
               {item}
             </div>
@@ -500,7 +500,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
             pagePath="/commercial-lease-survival-calculator"
             ctaLabel="View viability file"
             pageType="seo_tool"
-            className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             View viability file
           </TrackedCtaLink>
@@ -541,7 +541,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
               pagePath="/commercial-lease-survival-calculator"
               ctaLabel="View commercial lease viability guide"
               pageType="seo_tool"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View commercial lease viability guide
             </TrackedCtaLink>

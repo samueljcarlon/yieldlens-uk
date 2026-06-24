@@ -176,7 +176,7 @@ export default function BreakEvenCustomersCalculatorPage() {
               </div>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-lg overflow-hidden shadow-2xl">
+            <div className="bg-[#fffaf0] text-stone-900 rounded-lg overflow-hidden shadow-2xl">
               <div className="px-5 py-4 border-b border-stone-200">
                 <p className="text-xs uppercase tracking-widest text-green-700 font-semibold">
                   Quick break-even screen
@@ -250,7 +250,7 @@ export default function BreakEvenCustomersCalculatorPage() {
           description="Break-even customers per day translates the monthly cost base into a practical daily trading target. It asks how many customers are needed each opening day before the site has covered known monthly costs."
         />
 
-        <div className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm">
+        <div className="bg-[#fffaf0] border border-stone-200 rounded-lg p-6 shadow-sm">
           <p className="text-lg sm:text-2xl font-bold text-stone-900">
             Break-even customers per day = monthly cost base ÷ average spend ÷
             opening days per month
@@ -265,7 +265,7 @@ export default function BreakEvenCustomersCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Cost base"
@@ -302,7 +302,7 @@ export default function BreakEvenCustomersCalculatorPage() {
           {riskItems.map((item) => (
             <div
               key={item.title}
-              className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm"
+              className="bg-[#fffaf0] border border-stone-200 rounded-lg p-6 shadow-sm"
             >
               <h3 className="font-semibold text-stone-900 mb-2">
                 {item.title}
@@ -335,7 +335,7 @@ export default function BreakEvenCustomersCalculatorPage() {
               </p>
             </div>
 
-            <div className="bg-white text-stone-900 rounded-lg p-6 shadow-xl">
+            <div className="bg-[#fffaf0] text-stone-900 rounded-lg p-6 shadow-xl">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
                   <p className="text-xs uppercase tracking-wide text-stone-400">
@@ -375,7 +375,7 @@ export default function BreakEvenCustomersCalculatorPage() {
                   pagePath="/break-even-customers-calculator"
                   ctaLabel="View viability guide"
                   pageType="seo_tool"
-                  className="bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+                  className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
                 >
                   View viability guide
                 </TrackedCtaLink>
@@ -392,7 +392,7 @@ export default function BreakEvenCustomersCalculatorPage() {
           description="The daily customer target helps test monthly trading pressure, but it does not show whether the site has enough cash to open, fit out, absorb deposits, or survive a weak start."
         />
 
-        <div className="bg-white border border-stone-200 rounded-lg p-6 shadow-sm">
+        <div className="bg-[#fffaf0] border border-stone-200 rounded-lg p-6 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-stone-700">
             {[
               'Fit-out, furniture, equipment, and signage can use cash before trading starts.',
@@ -410,7 +410,7 @@ export default function BreakEvenCustomersCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Full check"
@@ -447,7 +447,7 @@ export default function BreakEvenCustomersCalculatorPage() {
               pagePath="/break-even-customers-calculator"
               ctaLabel="View viability file"
               pageType="seo_tool"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
             >
               View viability file
             </TrackedCtaLink>
@@ -489,7 +489,7 @@ export default function BreakEvenCustomersCalculatorPage() {
               pagePath="/break-even-customers-calculator"
               ctaLabel="View rent burden calculator"
               pageType="seo_tool"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View rent burden calculator
             </TrackedCtaLink>

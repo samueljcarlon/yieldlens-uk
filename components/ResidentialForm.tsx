@@ -67,10 +67,10 @@ export default function ResidentialForm({ onSubmit }: Props) {
   };
 
   const inputClass =
-    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
+    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-[#fffaf0] shadow-sm';
 
   const errorInputClass =
-    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
+    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-[#fffaf0] shadow-sm';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

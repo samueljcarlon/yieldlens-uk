@@ -3,11 +3,11 @@ import { primaryCtaClass, secondaryCtaClass, surfaceCardClass } from '@/componen
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/85 backdrop-blur-xl supports-[backdrop-filter]:bg-white/75 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-[#fffaf0]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-[#fffaf0]/80 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <span className="text-lg font-semibold text-stone-900 tracking-tight">
-            YieldLens <span className="text-green-700">UK</span>
+            YieldLens <span className="text-[#5b7d58]">UK</span>
           </span>
         </Link>
 

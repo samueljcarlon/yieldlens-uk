@@ -318,7 +318,7 @@ function getCommercialTakeawayQuestions(result: CommercialResult): string[] {
 
 function summaryToneClass(tone: SummaryTone): string {
   const tones = {
-    neutral: 'border-stone-200 bg-white',
+    neutral: 'border-stone-200 bg-[#fffaf0]',
     strong: 'border-green-200 bg-green-50',
     caution: 'border-amber-200 bg-amber-50',
     critical: 'border-red-200 bg-red-50',
@@ -432,7 +432,7 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
   const result = submission.result as CommercialResult;
 
   return (
-    <section className="mb-8 overflow-hidden rounded-[32px] border border-stone-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
+    <section className="mb-8 overflow-hidden rounded-[32px] border border-stone-200 bg-[#fffaf0] shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
       <div className="bg-stone-950 px-6 py-7 text-white sm:px-8 sm:py-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-end">
           <div>
@@ -524,7 +524,7 @@ function CommercialScenarioCard({
   helper: string;
 }) {
   return (
-      <div className="bg-white border border-stone-200 rounded-2xl p-4 shadow-sm">
+      <div className="bg-[#fffaf0] border border-stone-200 rounded-2xl p-4 shadow-sm">
       <p className="text-xs uppercase tracking-wide text-stone-500 font-medium mb-1">
         {label}
       </p>
@@ -544,7 +544,7 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
   const questions = getCommercialTakeawayQuestions(result);
 
   return (
-    <div className="rounded-[32px] border border-stone-200 bg-white p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+    <div className="rounded-[32px] border border-stone-200 bg-[#fffaf0] p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
       <div className="mb-5">
         <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           What the free result tells you
@@ -642,7 +642,7 @@ export default function ResultsPage() {
   if (!submission) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-        <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
+        <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-8 shadow-sm">
           <h1 className="text-2xl font-bold text-stone-900 mb-3">
             No property check found
           </h1>
@@ -668,7 +668,7 @@ export default function ResultsPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
-      <section className="mb-8 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
+      <section className="mb-8 overflow-hidden rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
         <div className="bg-gradient-to-r from-stone-950 to-stone-900 px-6 py-7 text-white sm:px-8 sm:py-8">
           <p className="text-xs uppercase tracking-[0.24em] text-green-300 font-semibold mb-3">
             {isResidential ? 'Residential return check' : 'Commercial site check'}
@@ -755,7 +755,7 @@ export default function ResultsPage() {
         </div>
       )}
 
-      <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+      <div className="mt-8 bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
         <p className="font-semibold text-stone-900 mb-3">Next steps</p>
 
         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
@@ -788,7 +788,7 @@ export default function ResultsPage() {
           {isResidential ? (
             <Link
               href="/report"
-              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
             >
               View report preview →
             </Link>

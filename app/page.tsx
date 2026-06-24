@@ -278,7 +278,7 @@ export default function HomePage() {
                     ? 'bg-green-50 border-green-200'
                     : card.title === 'Downside revenue'
                       ? 'bg-amber-50 border-amber-200'
-                      : 'bg-white'
+                      : 'bg-[#fffaf0]'
                 }`}
               >
                 <div className="mb-3 flex items-center gap-2">
@@ -342,7 +342,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="property-tools" className="bg-white border-y border-stone-200">
+      <section id="property-tools" className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-10">
             <div className="max-w-3xl">
@@ -381,7 +381,7 @@ export default function HomePage() {
                 className={`${surfaceCardClass} p-6 transition-all hover:-translate-y-0.5 ${
                   tool.featured
                     ? 'bg-gradient-to-br from-green-50 via-white to-amber-50 border-green-200 hover:border-green-300 shadow-[0_18px_42px_rgba(15,23,42,0.08)]'
-                    : 'bg-white border-stone-200 hover:border-green-300'
+                    : 'bg-[#fffaf0] border-stone-200 hover:border-green-300'
                 }`}
               >
                 {tool.featured ? (

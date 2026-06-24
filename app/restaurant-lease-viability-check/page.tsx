@@ -227,14 +227,14 @@ export default function RestaurantLeaseViabilityPage() {
             'Service charge and repairs',
             'Long lead time before opening',
           ].map((item) => (
-            <div key={item} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
+            <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Core formula"
@@ -259,7 +259,7 @@ export default function RestaurantLeaseViabilityPage() {
                 </Link>
               </div>
             </div>
-            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Interpretation</p>
               <p className="text-sm text-stone-700 leading-7">
                 This rent burden is healthier on paper than a high-burden site,
@@ -285,7 +285,7 @@ export default function RestaurantLeaseViabilityPage() {
               across 26 opening days, break-even is about 66 covers/day.
             </p>
           </div>
-          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">What it means</p>
             <p className="text-sm text-stone-700 leading-7">
               If expected covers/day is 100, there is headroom on paper, but the
@@ -301,7 +301,7 @@ export default function RestaurantLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Upfront cash and fit-out"
@@ -321,7 +321,7 @@ export default function RestaurantLeaseViabilityPage() {
                 <p>Opening buffer: £25,000</p>
               </div>
             </div>
-            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Why it matters</p>
               <p className="text-sm text-stone-700 leading-7">
                 The opening buffer is positive, but it may still be thin relative
@@ -347,7 +347,7 @@ export default function RestaurantLeaseViabilityPage() {
               <p>Downside monthly position: £4,320 burn</p>
             </div>
           </div>
-          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">Interpretation</p>
             <p className="text-sm text-stone-700 leading-7">
               In this downside case, the site burns cash. With a £25,000 opening
@@ -363,7 +363,7 @@ export default function RestaurantLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Restaurant lease terms that matter"
@@ -394,14 +394,14 @@ export default function RestaurantLeaseViabilityPage() {
           <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-700 leading-7">
               {exampleSummary.map((item) => (
-                <div key={item.label} className="rounded-lg border border-stone-200 bg-white p-4">
+                <div key={item.label} className="rounded-lg border border-stone-200 bg-[#fffaf0] p-4">
                   <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
                   <p className="text-sm font-semibold text-stone-900 mt-1">{item.value}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+          <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">Verdict</p>
             <p className="text-sm text-stone-700 leading-7">
               The rent burden is not the main problem in this example. The bigger
@@ -421,14 +421,14 @@ export default function RestaurantLeaseViabilityPage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {commonMistakes.map((item) => (
-            <div key={item} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
+            <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="How YieldLens helps"
@@ -436,7 +436,7 @@ export default function RestaurantLeaseViabilityPage() {
             description="The free commercial check can be used for restaurants by treating covers/day as customers/day and average spend as spend per cover."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Free check outputs</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-7">
                 {[
@@ -466,7 +466,7 @@ export default function RestaurantLeaseViabilityPage() {
                   'Ranked actions before committing',
                   'Final view',
                 ].map((item) => (
-                  <div key={item} className="rounded-lg border border-stone-200 bg-white p-3">
+                  <div key={item} className="rounded-lg border border-stone-200 bg-[#fffaf0] p-3">
                     {item}
                   </div>
                 ))}
@@ -507,7 +507,7 @@ export default function RestaurantLeaseViabilityPage() {
             <Link
               key={item.title}
               href={item.href}
-              className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm hover:border-stone-300 transition-colors"
+              className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm hover:border-stone-300 transition-colors"
             >
               <p className="text-sm font-semibold text-stone-900">{item.title}</p>
               <p className="text-sm text-stone-700 leading-7 mt-2">{item.text}</p>
@@ -516,7 +516,7 @@ export default function RestaurantLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="FAQ"
@@ -583,7 +583,7 @@ export default function RestaurantLeaseViabilityPage() {
           </Link>
           <Link
             href="/how-it-works"
-            className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             How it works
           </Link>

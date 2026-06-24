@@ -33,7 +33,7 @@ function FormSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 shadow-sm">
+    <section className="rounded-2xl border border-stone-200 bg-[#fffaf0] p-5 sm:p-6 shadow-sm">
       <div className="mb-5">
         <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           {eyebrow}
@@ -172,10 +172,10 @@ export default function CommercialForm({ onSubmit }: Props) {
   };
 
   const inputClass =
-    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
+    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-[#fffaf0] shadow-sm';
 
   const errorInputClass =
-    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
+    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-[#fffaf0] shadow-sm';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

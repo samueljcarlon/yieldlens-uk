@@ -48,7 +48,7 @@ export default function RentBurdenGauge({
     green: 'border-green-700 bg-green-100 text-green-900',
     amber: 'border-amber-700 bg-amber-100 text-amber-950',
     rose: 'border-rose-700 bg-rose-100 text-rose-950',
-    stone: 'border-stone-400 bg-white text-stone-700',
+    stone: 'border-stone-400 bg-[#fffaf0] text-stone-700',
   };
 
   return (

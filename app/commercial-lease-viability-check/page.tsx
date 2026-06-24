@@ -188,13 +188,13 @@ const exampleSummary = [
     label: 'Rent burden',
     value: '20.0%',
     helper: '£5,000 rent against £24,960 estimated monthly revenue.',
-    tone: 'bg-white border-stone-200 text-stone-950',
+    tone: 'bg-[#fffaf0] border-stone-200 text-stone-950',
   },
   {
     label: 'Break-even/day',
     value: '45.2',
     helper: 'Customers per day needed to cover the known monthly cost base.',
-    tone: 'bg-white border-stone-200 text-stone-950',
+    tone: 'bg-[#fffaf0] border-stone-200 text-stone-950',
   },
   {
     label: 'Six-month test',
@@ -273,7 +273,7 @@ export default function CommercialLeaseViabilityPage() {
         eventLabel="Commercial lease viability page viewed"
       />
 
-      <section className="bg-white border-b border-stone-200">
+      <section className="bg-[#fbf7ef] border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
             Commercial lease viability check
@@ -389,7 +389,7 @@ export default function CommercialLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What YieldLens checks"
@@ -430,7 +430,7 @@ export default function CommercialLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Risk flags"
@@ -512,7 +512,7 @@ export default function CommercialLeaseViabilityPage() {
               </TrackedCtaLink>
             </div>
 
-            <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900`}>
+            <div className={`${surfaceCardClass} bg-[#fffaf0] p-5 sm:p-6 text-stone-900`}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                 {exampleSummary.map((item) => (
                   <div
@@ -536,7 +536,7 @@ export default function CommercialLeaseViabilityPage() {
                     Trading assumptions
                   </p>
 
-                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
+                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-[#fffaf0]">
                     {exampleAssumptions.map((item) => (
                       <div
                         key={item.label}
@@ -556,7 +556,7 @@ export default function CommercialLeaseViabilityPage() {
                     Opening cash
                   </p>
 
-                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
+                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-[#fffaf0]">
                     {exampleOpeningCash.map((item) => (
                       <div
                         key={item.label}
@@ -576,7 +576,7 @@ export default function CommercialLeaseViabilityPage() {
                     Downside case
                   </p>
 
-                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
+                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-[#fffaf0]">
                     {exampleDownside.map((item) => (
                       <div
                         key={item.label}

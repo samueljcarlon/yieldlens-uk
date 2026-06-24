@@ -71,7 +71,7 @@ export default function OpeningCashWaterfall({
             className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-sm ${
               index === 0
                 ? 'border-stone-200 bg-stone-50'
-                : 'border-stone-200 bg-white'
+                : 'border-stone-200 bg-[#fffaf0]'
             }`}
           >
             <span className="font-medium text-stone-700">

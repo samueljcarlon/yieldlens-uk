@@ -52,7 +52,7 @@ export default async function PaymentSuccessPage({
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
+      <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-8 shadow-sm">
         <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
           Checkout completed
         </p>
@@ -87,14 +87,14 @@ export default async function PaymentSuccessPage({
 
           <Link
             href="/check?mode=commercial"
-            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
           >
             Run another commercial check
           </Link>
 
           <Link
             href="/"
-            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
           >
             Back to homepage
           </Link>

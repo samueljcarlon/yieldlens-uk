@@ -6,8 +6,8 @@ interface Props {
 }
 
 export default function ModeSelector({ mode, onChange }: Props) {
-  const activeClass = 'bg-stone-950 text-white border-stone-950 shadow-sm';
-  const inactiveClass = 'bg-white text-stone-700 border-stone-200 hover:border-green-600 hover:text-green-700';
+  const activeClass = 'bg-[#5e7f5b] text-white border-[#5e7f5b] shadow-sm';
+  const inactiveClass = 'bg-[#fffaf0] text-stone-700 border-stone-200 hover:border-green-600 hover:text-green-700';
 
   return (
     <div className="inline-flex w-full rounded-2xl border border-stone-200 bg-stone-50 p-1 mb-8 gap-1">

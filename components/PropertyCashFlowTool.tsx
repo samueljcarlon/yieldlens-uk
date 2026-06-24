@@ -110,7 +110,7 @@ function MetricBox({
     positive: 'bg-green-50 border-green-200',
     warning: 'bg-orange-50 border-orange-200',
     danger: 'bg-red-50 border-red-200',
-    neutral: 'bg-white border-stone-200',
+    neutral: 'bg-[#fffaf0] border-stone-200',
   }[tone];
 
   return (
@@ -349,7 +349,7 @@ export default function PropertyCashFlowTool() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-      <div className="lg:col-span-2 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+      <div className="lg:col-span-2 bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
         <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-2">
           Property cash flow calculator
         </p>
@@ -593,7 +593,7 @@ export default function PropertyCashFlowTool() {
           />
         </div>
 
-        <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+        <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
           <p className="font-semibold text-stone-900 mb-4">
             Rent needed to make the numbers work
           </p>
@@ -639,7 +639,7 @@ export default function PropertyCashFlowTool() {
           </p>
         </div>
 
-        <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+        <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
           <p className="font-semibold text-stone-900 mb-4">
             Monthly cost breakdown
           </p>
@@ -710,7 +710,7 @@ export default function PropertyCashFlowTool() {
           </div>
         </div>
 
-        <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+        <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
           <p className="font-semibold text-stone-900 mb-3">
             Risk flags
           </p>

@@ -48,7 +48,7 @@ export default function PricingCards() {
           className={`${surfaceCardClass} p-5 flex flex-col gap-3 ${
             plan.highlight
               ? 'border-green-200 bg-gradient-to-br from-green-50 via-white to-amber-50'
-              : 'border-stone-200 bg-white'
+              : 'border-stone-200 bg-[#fffaf0]'
           }`}
         >
           <div>

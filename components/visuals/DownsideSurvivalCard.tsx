@@ -41,7 +41,7 @@ export default function DownsideSurvivalCard({
   const fail = survivesSixBadMonths === false;
 
   return (
-    <section className="rounded-[28px] border border-stone-200 bg-white p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
+    <section className="rounded-[28px] border border-stone-200 bg-[#fffaf0] p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
       <div className="flex items-start justify-between gap-4 mb-4">
         <div>
           <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 font-semibold mb-1">
@@ -86,12 +86,12 @@ export default function DownsideSurvivalCard({
       </div>
 
       <div className="space-y-3">
-        <div className="flex items-center justify-between rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm">
+        <div className="flex items-center justify-between rounded-2xl border border-stone-200 bg-[#fffaf0] px-4 py-3 text-sm">
           <span className="text-stone-600">Known monthly cost base</span>
           <span className="font-semibold text-stone-950 tabular-nums">{formatCurrency(monthlyCostBase)}</span>
         </div>
 
-        <div className="flex items-center justify-between rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm">
+        <div className="flex items-center justify-between rounded-2xl border border-stone-200 bg-[#fffaf0] px-4 py-3 text-sm">
           <span className="text-stone-600">Downside monthly position</span>
           <span className={`font-semibold tabular-nums ${typeof downsideMonthlyPosition === 'number' && downsideMonthlyPosition < 0 ? 'text-rose-900' : 'text-green-800'}`}>
             {typeof downsideMonthlyPosition === 'number'
@@ -104,7 +104,7 @@ export default function DownsideSurvivalCard({
           </span>
         </div>
 
-        <div className="flex items-center justify-between rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm">
+        <div className="flex items-center justify-between rounded-2xl border border-stone-200 bg-[#fffaf0] px-4 py-3 text-sm">
           <span className="text-stone-600">Monthly burn in downside</span>
           <span className="font-semibold text-stone-950 tabular-nums">
             {typeof monthlyBurnInDownside === 'number' && monthlyBurnInDownside > 0

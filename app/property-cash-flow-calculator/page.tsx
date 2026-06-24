@@ -116,7 +116,7 @@ export default function PropertyCashFlowCalculatorPage() {
     <div>
       <JsonLd data={[faqStructuredData, breadcrumbStructuredData]} />
 
-      <section className="bg-white border-b border-stone-200">
+      <section className="bg-[#fbf7ef] border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
             Property cash flow calculator UK
@@ -142,7 +142,7 @@ export default function PropertyCashFlowCalculatorPage() {
 
             <Link
               href="/buy-to-let-yield-calculator"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               Compare buy-to-let yield
             </Link>
@@ -170,7 +170,7 @@ export default function PropertyCashFlowCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Why cash flow matters"
@@ -222,7 +222,7 @@ export default function PropertyCashFlowCalculatorPage() {
           {riskItems.map((item) => (
             <div
               key={item}
-              className="bg-white border border-stone-200 rounded-xl p-5 text-sm text-stone-700 shadow-sm"
+              className="bg-[#fffaf0] border border-stone-200 rounded-xl p-5 text-sm text-stone-700 shadow-sm"
             >
               {item}
             </div>
@@ -230,7 +230,7 @@ export default function PropertyCashFlowCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[#fbf7ef] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="FAQ"

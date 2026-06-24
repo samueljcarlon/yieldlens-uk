@@ -15,7 +15,7 @@ export default async function PaymentCancelPage({
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
+      <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-8 shadow-sm">
         <p className="text-xs uppercase tracking-widest text-stone-500 font-medium mb-3">
           Checkout not completed
         </p>
@@ -47,14 +47,14 @@ export default async function PaymentCancelPage({
           {thankYouHref ? (
             <Link
               href={thankYouHref}
-              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
             >
               Return to request handoff
             </Link>
           ) : (
             <Link
               href="/commercial-lease-viability-check"
-              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
             >
               Return to commercial lease viability check
             </Link>
@@ -62,7 +62,7 @@ export default async function PaymentCancelPage({
 
           <Link
             href="/"
-            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
           >
             Back to homepage
           </Link>

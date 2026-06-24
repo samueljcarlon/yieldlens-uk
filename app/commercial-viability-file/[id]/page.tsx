@@ -1604,7 +1604,7 @@ export default async function CommercialViabilityFilePage({
               </p>
             </div>
 
-            <div className="rounded-[32px] border border-white/10 bg-white text-stone-900 p-5 sm:p-6 shadow-[0_24px_64px_rgba(15,23,42,0.18)] customer-print-card">
+            <div className="rounded-[32px] border border-white/10 bg-[#fffaf0] text-stone-900 p-5 sm:p-6 shadow-[0_24px_64px_rgba(15,23,42,0.18)] customer-print-card">
               <div className="flex items-start justify-between gap-4 mb-5">
                 <div>
                   <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-1">
@@ -1680,7 +1680,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200 customer-print-section">
+      <section className="bg-[#fbf7ef] border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Decision-support visuals"
@@ -1731,7 +1731,7 @@ export default async function CommercialViabilityFilePage({
           title="The assumptions behind the paid file."
           description="These are the entered inputs the report is built from."
         />
-        <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-white shadow-sm customer-print-card">
+        <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-sm customer-print-card">
           <table className="w-full border-collapse text-sm">
             <tbody>
               {getSiteSnapshotRows(request).map((row, index) => (
@@ -1754,7 +1754,7 @@ export default async function CommercialViabilityFilePage({
             title="The core numbers the file makes easy to review."
             description="This table is the formal read of the model. Positive and negative fields are kept visible rather than hidden in summary cards."
           />
-          <div className="overflow-x-auto rounded-3xl border border-white/10 bg-white text-stone-900 shadow-2xl customer-print-card">
+          <div className="overflow-x-auto rounded-3xl border border-white/10 bg-[#fffaf0] text-stone-900 shadow-2xl customer-print-card">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-stone-50 text-left border-b border-stone-200">
@@ -1815,7 +1815,7 @@ export default async function CommercialViabilityFilePage({
                   </p>
                   <p className="text-sm font-semibold text-stone-950">{item.title}</p>
                 </div>
-                <span className="rounded-full border border-stone-200 bg-white px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
+                <span className="rounded-full border border-stone-200 bg-[#fffaf0] px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
                   {item.tone === 'green' ? 'Strong' : item.tone === 'teal' ? 'Worth investigating' : item.tone === 'amber' ? 'Needs caution' : 'Fragile'}
                 </span>
               </div>
@@ -1833,7 +1833,7 @@ export default async function CommercialViabilityFilePage({
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {getWhatWouldNeedToImprove(request).map((item) => (
-            <div key={item.title} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card">
+            <div key={item.title} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm customer-print-card">
               <p className="text-sm font-semibold text-stone-900">{item.title}</p>
               <p className="text-xs uppercase tracking-wide text-stone-400 mt-2">Current</p>
               <p className="text-sm text-stone-700 mt-1 leading-6">{item.current}</p>
@@ -1846,14 +1846,14 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200 customer-print-section">
+      <section className="bg-[#fbf7ef] border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Stress-test scenarios"
             title="How the site behaves under weaker trading or better lease terms."
           />
           <div className="overflow-x-auto rounded-3xl border border-stone-200 customer-print-card">
-            <table className="w-full border-collapse text-sm bg-white">
+            <table className="w-full border-collapse text-sm bg-[#fffaf0]">
               <thead>
                 <tr className="bg-stone-50 text-left border-b border-stone-200">
                   <th className="py-3 px-4 font-semibold text-stone-700">Scenario</th>
@@ -1896,7 +1896,7 @@ export default async function CommercialViabilityFilePage({
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {getNegotiationLevers(request).map((item) => (
-            <div key={item.title} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card">
+            <div key={item.title} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm customer-print-card">
               <div className="flex items-start justify-between gap-3">
                 <p className="text-sm font-semibold text-stone-900">{item.title}</p>
                 <span className="rounded-full border border-stone-200 bg-stone-50 px-2.5 py-0.5 text-[11px] font-semibold text-stone-600">
@@ -1912,7 +1912,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200 customer-print-section">
+      <section className="bg-[#fbf7ef] border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Evidence needed before signing"
@@ -1953,7 +1953,7 @@ export default async function CommercialViabilityFilePage({
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
           {getChecklistItems(request).map((item) => (
-            <div key={item.label} className="rounded-3xl border border-stone-200 bg-white p-4 shadow-sm customer-print-card">
+            <div key={item.label} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-4 shadow-sm customer-print-card">
               <p className="font-medium text-stone-900">{item.label}</p>
               <p className="text-stone-600 leading-6 mt-1">{item.detail}</p>
             </div>
@@ -1961,7 +1961,7 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200 customer-print-section">
+      <section className="bg-[#fbf7ef] border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Due diligence checklist"
@@ -1992,7 +1992,7 @@ export default async function CommercialViabilityFilePage({
           eyebrow="Ranked actions before committing"
           title="What to tackle first on this file."
         />
-        <div className="overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm customer-print-card">
+        <div className="overflow-hidden rounded-3xl border border-stone-200 bg-[#fffaf0] shadow-sm customer-print-card">
           {getRankedActionItems(request).map((item) => (
             <div key={item.title} className="border-b border-stone-100 last:border-b-0 p-5 break-inside-avoid-page">
               <div className="grid grid-cols-1 lg:grid-cols-[72px_1.1fr_0.9fr_140px] gap-4 items-start">
@@ -2073,7 +2073,7 @@ export default async function CommercialViabilityFilePage({
             </Link>
             <Link
               href="/"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               Back to homepage
             </Link>
