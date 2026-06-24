@@ -4,36 +4,25 @@ export default function Footer() {
   return (
     <footer className="border-t border-stone-200 bg-white mt-16">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_0.8fr] gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.1fr_1fr_1fr_1fr_0.8fr] gap-8">
           <div>
             <p className="font-semibold text-stone-900">
               YieldLens <span className="text-teal-700">UK</span>
             </p>
 
             <p className="text-sm text-stone-500 mt-2 leading-6">
-              Independent UK property pressure-tests for residential and commercial
-              decisions. Indicative decision-support only.
+              YieldLens UK provides indicative property pressure-tests and decision-support
+              analysis only. It is not financial advice, legal advice, tax advice, a
+              valuation, or a substitute for professional due diligence.
             </p>
           </div>
 
           <div>
             <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
-              Commercial tools
+              Commercial
             </p>
 
             <div className="space-y-2 text-sm">
-              <Link href="/commercial-lease-checklist-before-signing" className="block text-stone-500 hover:text-stone-900">
-                Commercial lease checklist before signing
-              </Link>
-
-              <Link href="/restaurant-lease-viability-check" className="block text-stone-500 hover:text-stone-900">
-                Restaurant lease viability check
-              </Link>
-
-              <Link href="/salon-lease-viability-check" className="block text-stone-500 hover:text-stone-900">
-                Salon lease viability check
-              </Link>
-
               <Link href="/commercial-lease-viability-check" className="block text-stone-500 hover:text-stone-900">
                 Commercial lease viability check
               </Link>
@@ -42,8 +31,24 @@ export default function Footer() {
                 Commercial rent affordability calculator
               </Link>
 
+              <Link href="/sample-commercial-viability-file" className="block text-stone-500 hover:text-stone-900">
+                Sample viability file
+              </Link>
+
+              <Link href="/how-it-works" className="block text-stone-500 hover:text-stone-900">
+                How it works
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
+              Commercial calculators
+            </p>
+
+            <div className="space-y-2 text-sm">
               <Link href="/commercial-rent-burden-calculator" className="block text-stone-500 hover:text-stone-900">
-                Commercial rent burden calculator
+                Rent burden calculator
               </Link>
 
               <Link href="/break-even-customers-calculator" className="block text-stone-500 hover:text-stone-900">
@@ -51,22 +56,38 @@ export default function Footer() {
               </Link>
 
               <Link href="/commercial-lease-survival-calculator" className="block text-stone-500 hover:text-stone-900">
-                Commercial lease survival calculator
-              </Link>
-
-              <Link href="/viability-file" className="block text-stone-500 hover:text-stone-900">
-                Viability file
-              </Link>
-
-              <Link href="/how-much-rent-can-a-cafe-afford" className="block text-stone-500 hover:text-stone-900">
-                Cafe rent affordability guide
+                Lease survival calculator
               </Link>
             </div>
           </div>
 
           <div>
             <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
-              Residential tools
+              Commercial guides
+            </p>
+
+            <div className="space-y-2 text-sm">
+              <Link href="/commercial-lease-checklist-before-signing" className="block text-stone-500 hover:text-stone-900">
+                Commercial lease checklist
+              </Link>
+
+              <Link href="/how-much-rent-can-a-cafe-afford" className="block text-stone-500 hover:text-stone-900">
+                Cafe rent affordability
+              </Link>
+
+              <Link href="/restaurant-lease-viability-check" className="block text-stone-500 hover:text-stone-900">
+                Restaurant lease viability
+              </Link>
+
+              <Link href="/salon-lease-viability-check" className="block text-stone-500 hover:text-stone-900">
+                Salon lease viability
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-3">
+              Residential
             </p>
 
             <div className="space-y-2 text-sm">
@@ -92,10 +113,6 @@ export default function Footer() {
             <div className="space-y-2 text-sm">
               <Link href="/check?mode=commercial" className="block text-stone-500 hover:text-stone-900">
                 Commercial check
-              </Link>
-
-              <Link href="/how-it-works" className="block text-stone-500 hover:text-stone-900">
-                How it works
               </Link>
 
               <Link href="/privacy" className="block text-stone-500 hover:text-stone-900">
