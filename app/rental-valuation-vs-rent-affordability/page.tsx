@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
   title: 'Rental Valuation vs Rent Affordability | YieldLens UK',
@@ -75,31 +76,46 @@ const comparisonRows = [
     question: 'Rent affordability',
     answer: 'Checks whether the tenant can reasonably carry the rent.',
     user: 'Tenants, renters, first-time movers',
-    tool: '/rent-affordability-check',
+    tool: {
+      label: 'Rent affordability check',
+      href: '/rent-affordability-check',
+    },
   },
   {
     question: 'Buy-to-let yield',
     answer: 'Checks rental return against purchase price.',
     user: 'Residential investors',
-    tool: '/buy-to-let-yield-calculator',
+    tool: {
+      label: 'Buy-to-let yield calculator',
+      href: '/buy-to-let-yield-calculator',
+    },
   },
   {
     question: 'Property cash flow',
     answer: 'Checks whether rent covers financing and ownership costs.',
     user: 'Residential investors and landlords',
-    tool: '/property-cash-flow-calculator',
+    tool: {
+      label: 'Property cash flow calculator',
+      href: '/property-cash-flow-calculator',
+    },
   },
   {
     question: 'Commercial rent affordability',
     answer: 'Checks whether a business can carry the rent and opening costs.',
     user: 'Cafe, restaurant, salon, retail, and similar operators',
-    tool: '/commercial-rent-affordability-calculator',
+    tool: {
+      label: 'Commercial rent affordability calculator',
+      href: '/commercial-rent-affordability-calculator',
+    },
   },
   {
     question: 'Commercial lease viability',
     answer: 'Checks whether the lease, costs, cash, and downside trading still look workable.',
     user: 'Commercial tenants before committing',
-    tool: '/commercial-lease-viability-check',
+    tool: {
+      label: 'Commercial lease viability check',
+      href: '/commercial-lease-viability-check',
+    },
   },
 ];
 
@@ -203,18 +219,26 @@ export default function RentalValuationVsRentAffordabilityPage() {
                 Rental valuation, rent affordability, cash flow, and commercial lease viability answer different questions. YieldLens helps pressure-test whether the numbers work before you rely on them.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link
+                <TrackedCtaLink
                   href="/check"
                   className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+                  eventName="bridge_page_cta_clicked"
+                  pagePath="/rental-valuation-vs-rent-affordability"
+                  ctaLabel="Run a free check"
+                  pageType="bridge_page"
                 >
                   Run a free check
-                </Link>
-                <Link
+                </TrackedCtaLink>
+                <TrackedCtaLink
                   href="/commercial-rent-affordability-calculator"
                   className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+                  eventName="bridge_page_cta_clicked"
+                  pagePath="/rental-valuation-vs-rent-affordability"
+                  ctaLabel="Commercial rent affordability calculator"
+                  pageType="bridge_page"
                 >
                   Commercial rent affordability calculator
-                </Link>
+                </TrackedCtaLink>
               </div>
               <p className="text-xs text-stone-400 mt-5">
                 YieldLens UK provides indicative property pressure-tests and decision-support analysis only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
@@ -307,12 +331,12 @@ export default function RentalValuationVsRentAffordabilityPage() {
                     <td className="px-4 py-4 text-stone-600 leading-6">{row.answer}</td>
                     <td className="px-4 py-4 text-stone-600 leading-6">{row.user}</td>
                     <td className="px-4 py-4 text-stone-700 leading-6">
-                      {row.tool.startsWith('/') ? (
-                        <Link href={row.tool} className="text-teal-700 font-medium hover:text-teal-800">
-                          {row.tool}
-                        </Link>
-                      ) : (
+                      {typeof row.tool === 'string' ? (
                         row.tool
+                      ) : (
+                        <Link href={row.tool.href} className="text-teal-700 font-medium hover:text-teal-800">
+                          {row.tool.label}
+                        </Link>
                       )}
                     </td>
                   </tr>
@@ -515,24 +539,36 @@ export default function RentalValuationVsRentAffordabilityPage() {
             Use YieldLens to pressure-test whether the rent works in context, from tenant affordability to commercial lease viability.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
-            <Link
+            <TrackedCtaLink
               href="/check"
               className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+              eventName="bridge_page_cta_clicked"
+              pagePath="/rental-valuation-vs-rent-affordability"
+              ctaLabel="Run a free check"
+              pageType="bridge_page"
             >
               Run a free check
-            </Link>
-            <Link
+            </TrackedCtaLink>
+            <TrackedCtaLink
               href="/commercial-rent-affordability-calculator"
               className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+              eventName="bridge_page_cta_clicked"
+              pagePath="/rental-valuation-vs-rent-affordability"
+              ctaLabel="Commercial rent affordability calculator"
+              pageType="bridge_page"
             >
               Commercial rent affordability
-            </Link>
-            <Link
+            </TrackedCtaLink>
+            <TrackedCtaLink
               href="/sample-commercial-viability-file"
               className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+              eventName="bridge_page_cta_clicked"
+              pagePath="/rental-valuation-vs-rent-affordability"
+              ctaLabel="View sample commercial file"
+              pageType="bridge_page"
             >
               View sample commercial file
-            </Link>
+            </TrackedCtaLink>
           </div>
         </div>
       </section>
