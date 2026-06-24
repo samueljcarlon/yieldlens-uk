@@ -6,6 +6,7 @@ import RentBurdenGauge from '@/components/visuals/RentBurdenGauge';
 import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
 import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
 import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
+import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Sample Commercial Viability File | YieldLens UK',
@@ -276,25 +277,25 @@ export default function SampleCommercialViabilityFilePage() {
                   pagePath="/sample-commercial-viability-file"
                   ctaLabel="Start free commercial check"
                   pageType="sample_file"
-                  className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+                  className={primaryCtaClass}
                 >
                   Start free commercial check
                 </TrackedCtaLink>
                 <Link
                   href="/viability-file"
-                  className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+                  className={heroSecondaryCtaClass}
                 >
                   View paid file details
                 </Link>
                 <Link
                   href="/how-it-works"
-                  className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+                  className={heroSecondaryCtaClass}
                 >
                   How it works
                 </Link>
               </div>
             </div>
-            <div className="rounded-[32px] border border-white/10 bg-white p-5 sm:p-6 shadow-[0_24px_64px_rgba(15,23,42,0.18)] text-stone-900">
+            <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900 shadow-[0_24px_64px_rgba(15,23,42,0.18)]`}>
               <div className="flex items-start justify-between gap-4 mb-5">
                 <div>
                   <p className="text-xs uppercase tracking-[0.22em] text-teal-700 font-semibold mb-1">
@@ -313,7 +314,7 @@ export default function SampleCommercialViabilityFilePage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {sampleSummary.map((item) => (
-                  <div key={item.label} className={`rounded-3xl border p-4 shadow-sm ${item.tone}`}>
+                  <div key={item.label} className={`${surfaceCardSoftClass} p-4 ${item.tone}`}>
                     <p className="text-xs uppercase tracking-wide font-semibold mb-1">{item.label}</p>
                     <p className="text-2xl font-bold">{item.value}</p>
                     <p className="text-xs leading-5 mt-2 opacity-80">{item.helper}</p>
@@ -322,7 +323,7 @@ export default function SampleCommercialViabilityFilePage() {
               </div>
             </div>
           </div>
-          <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-stone-300 leading-7">
+          <div className={`${surfaceCardClass} mt-6 bg-white/5 p-4 text-sm text-stone-300 leading-7`}>
             This is a sample decision-support file using fictional and redacted inputs. YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
           </div>
         </div>

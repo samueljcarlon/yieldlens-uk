@@ -3,6 +3,7 @@ import Link from 'next/link';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import VerdictBadge from '@/components/VerdictBadge';
+import { primaryCtaClass, secondaryCtaClass, heroSecondaryCtaClass, surfaceCardClass, surfaceCardSoftClass, disclaimerClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Commercial Lease Pressure Tests | YieldLens UK',
@@ -147,7 +148,7 @@ export default function HomePage() {
                   pagePath="/"
                   ctaLabel="Run commercial site check"
                   pageType="homepage"
-                  className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+                  className={primaryCtaClass}
                 >
                   Run commercial site check
                 </TrackedCtaLink>
@@ -158,7 +159,7 @@ export default function HomePage() {
                   pagePath="/"
                   ctaLabel="View viability file"
                   pageType="homepage"
-                  className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+                  className={heroSecondaryCtaClass}
                 >
                   View viability file
                 </TrackedCtaLink>
@@ -178,16 +179,16 @@ export default function HomePage() {
                 How it works
               </Link>
 
-              <p className="text-xs text-stone-400 mt-5">
+              <p className={`${disclaimerClass} mt-5 text-stone-400`}>
                 YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
               </p>
 
-              <p className="text-xs text-stone-400 mt-3">
+              <p className={`${disclaimerClass} mt-3 text-stone-400`}>
                 Standard commercial viability file is £49 after a commercial report request.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-2xl">
+            <div className={`${surfaceCardClass} overflow-hidden border-white/15 bg-white/5 shadow-2xl`}>
               <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-stone-400 font-medium">
@@ -248,7 +249,7 @@ export default function HomePage() {
             {featureCards.map((card) => (
               <div
                 key={card.title}
-                className="border border-stone-200 bg-stone-50 rounded-2xl p-4 shadow-sm"
+                className={surfaceCardSoftClass + ' p-4'}
               >
                 <p className="font-semibold text-stone-900 mb-2">{card.title}</p>
                 <p className="text-sm text-stone-600 leading-6">{card.desc}</p>
@@ -321,7 +322,7 @@ export default function HomePage() {
               pagePath="/"
               ctaLabel="Run commercial check"
               pageType="homepage"
-              className="bg-teal-700 text-white px-5 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
+              className={primaryCtaClass}
             >
               Run commercial check
             </TrackedCtaLink>
@@ -332,7 +333,7 @@ export default function HomePage() {
               <Link
                 key={tool.title}
                 href={tool.href}
-                className={`border rounded-2xl p-6 shadow-sm transition-colors ${
+                className={`${surfaceCardClass} p-6 transition-colors ${
                   tool.featured
                     ? 'bg-teal-50 border-teal-200 hover:border-teal-300'
                     : 'bg-white border-stone-200 hover:border-teal-300'
@@ -379,7 +380,7 @@ export default function HomePage() {
                 pagePath="/"
                 ctaLabel="View viability file"
                 pageType="homepage"
-                className="bg-stone-950 text-white px-5 py-3 rounded font-medium hover:bg-stone-800 transition-colors text-sm text-center"
+                className={secondaryCtaClass}
               >
                 View viability file
               </TrackedCtaLink>
@@ -390,7 +391,7 @@ export default function HomePage() {
                 pagePath="/"
                 ctaLabel="Run free check first"
                 pageType="homepage"
-                className="bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+                className={secondaryCtaClass}
               >
                 Run free check first
               </TrackedCtaLink>

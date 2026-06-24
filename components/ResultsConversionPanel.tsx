@@ -1,5 +1,7 @@
 'use client';
 
+import { surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
+
 interface ResultsConversionPanelProps {
   mode: 'residential' | 'commercial';
   score: number;
@@ -66,7 +68,7 @@ function PreviewCard({
   body: string;
 }) {
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+    <div className={`${surfaceCardClass} p-4`}>
       <p className="text-[11px] uppercase tracking-[0.2em] text-teal-700 font-semibold mb-2">
         Included in the paid file
       </p>
@@ -89,7 +91,7 @@ export default function ResultsConversionPanel({
   const items = isResidential ? residentialItems : commercialItems;
 
   return (
-    <section className="overflow-hidden rounded-[32px] border border-stone-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
+    <section className={`overflow-hidden ${surfaceCardClass} shadow-[0_18px_50px_rgba(15,23,42,0.08)]`}>
       <div className="bg-stone-950 px-6 py-6 text-white sm:px-7">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-2xl">
@@ -110,7 +112,7 @@ export default function ResultsConversionPanel({
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-4 min-w-full lg:min-w-[260px]">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-4 min-w-full lg:min-w-[260px] shadow-sm">
             <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 mb-1">
               Indicative score
             </p>
@@ -135,7 +137,7 @@ export default function ResultsConversionPanel({
             {(items as string[]).map((item) => (
               <div
                 key={`res-${item}`}
-                className="rounded-2xl border border-stone-200 bg-stone-50 p-4 text-sm leading-6 text-stone-700 shadow-sm"
+                className={`${surfaceCardSoftClass} p-4 text-sm leading-6 text-stone-700`}
               >
                 {item}
               </div>
@@ -150,7 +152,7 @@ export default function ResultsConversionPanel({
         )}
 
         <p className="text-xs text-stone-500 mt-5 leading-5">
-          Use the buttons below to request a fuller viability file, view the printable preview,
+          Use the buttons below to request a fuller viability file, view the sample file,
           or run another check with different assumptions.
         </p>
       </div>

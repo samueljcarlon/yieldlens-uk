@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Submission } from '@/types/property';
 import { logToolEvent } from '@/lib/logToolEvent';
+import { primaryCtaClass } from '@/components/yieldLensUi';
 
 export default function ReportInterestButton({
   submission,
@@ -74,7 +75,7 @@ export default function ReportInterestButton({
         type="button"
         onClick={handleClick}
         disabled={status === 'loading'}
-        className="rounded-2xl bg-teal-700 px-5 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60 text-center"
+        className={`${primaryCtaClass} text-center`}
       >
         {status === 'loading'
           ? 'Saving request...'

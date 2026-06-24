@@ -6,6 +6,7 @@ import ModeSelector from '@/components/ModeSelector';
 import ResidentialForm from '@/components/ResidentialForm';
 import CommercialForm from '@/components/CommercialForm';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
+import { disclaimerClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 import { calculateResidentialResult } from '@/lib/calculations/residential';
 import { calculateCommercialResult } from '@/lib/calculations/commercial';
 import { saveSubmission } from '@/lib/storage';
@@ -123,7 +124,7 @@ function CheckPageContent() {
             </p>
           </div>
 
-          <div className="bg-white border border-stone-200 rounded-2xl p-5 sm:p-6 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
+          <div className={`${surfaceCardClass} p-5 sm:p-6`}>
             <ModeSelector mode={mode} onChange={setMode} />
 
             {mode === 'residential' ? (
@@ -132,7 +133,7 @@ function CheckPageContent() {
               <CommercialForm onSubmit={handleCommercialSubmit} />
             )}
 
-            <p className="text-xs text-stone-500 mt-6 leading-5">
+            <p className={`${disclaimerClass} mt-6`}>
               By submitting this check, you agree to the Privacy Notice and Terms.
               We use your email to save the check and follow up about this submission or report access.
             </p>
@@ -140,7 +141,7 @@ function CheckPageContent() {
         </div>
 
         <aside className="lg:sticky lg:top-24 space-y-4">
-          <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+          <div className={`${surfaceCardClass} p-5`}>
             <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
               Commercial workflow
             </p>
@@ -155,7 +156,7 @@ function CheckPageContent() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-teal-200 bg-teal-50 p-5 shadow-sm">
+          <div className={`${surfaceCardSoftClass} border-teal-200 bg-teal-50 p-5`}>
             <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
               What you get
             </p>
@@ -168,7 +169,7 @@ function CheckPageContent() {
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 text-sm text-stone-600 shadow-sm">
+          <div className={`${surfaceCardSoftClass} p-5 text-sm text-stone-600`}>
             <p className="font-semibold text-stone-900 mb-2">Important disclaimer</p>
 
             <p className="leading-6">
@@ -189,7 +190,7 @@ export default function CheckPage() {
     <Suspense
       fallback={
         <div className="max-w-5xl mx-auto px-4 py-12">
-          <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
+          <div className={`${surfaceCardClass} p-8`}>
             <p className="text-sm text-stone-500">Loading property check...</p>
           </div>
         </div>

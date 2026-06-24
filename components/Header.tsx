@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { primaryCtaClass, secondaryCtaClass, surfaceCardClass } from '@/components/yieldLensUi';
 
 export default function Header() {
   return (
@@ -10,7 +11,7 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-5 text-sm text-stone-600">
+        <nav className="hidden md:flex items-center gap-6 text-sm text-stone-600">
           <Link
             href="/check?mode=commercial"
             className="hover:text-stone-900 transition-colors"
@@ -49,24 +50,24 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           <details className="relative md:hidden">
-            <summary className="list-none cursor-pointer rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm font-medium text-stone-700 shadow-sm">
+            <summary className={`${secondaryCtaClass} list-none cursor-pointer px-3.5 py-2`}>
               Menu
             </summary>
 
-            <div className="absolute right-0 top-[calc(100%+0.5rem)] w-56 rounded-xl border border-stone-200 bg-white p-2 shadow-xl">
-              <Link href="/check?mode=commercial" className="block rounded-lg px-3 py-2 text-sm text-stone-700 hover:bg-stone-50">
+            <div className={`absolute right-0 top-[calc(100%+0.5rem)] w-60 p-2 ${surfaceCardClass}`}>
+              <Link href="/check?mode=commercial" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 Commercial check
               </Link>
-              <Link href="/buy-to-let-yield-calculator" className="block rounded-lg px-3 py-2 text-sm text-stone-700 hover:bg-stone-50">
+              <Link href="/buy-to-let-yield-calculator" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 Buy-to-let
               </Link>
-              <Link href="/property-cash-flow-calculator" className="block rounded-lg px-3 py-2 text-sm text-stone-700 hover:bg-stone-50">
+              <Link href="/property-cash-flow-calculator" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 Cash flow
               </Link>
-              <Link href="/sample-commercial-viability-file" className="block rounded-lg px-3 py-2 text-sm text-stone-700 hover:bg-stone-50">
+              <Link href="/sample-commercial-viability-file" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 Sample file
               </Link>
-              <Link href="/how-it-works" className="block rounded-lg px-3 py-2 text-sm text-stone-700 hover:bg-stone-50">
+              <Link href="/how-it-works" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 How it works
               </Link>
             </div>
@@ -74,7 +75,7 @@ export default function Header() {
 
           <Link
             href="/check?mode=commercial"
-            className="inline-flex items-center justify-center rounded-lg bg-teal-700 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-800 transition-colors shrink-0"
+            className={`${primaryCtaClass} shrink-0 px-4 py-2.5`}
           >
             Run commercial check
           </Link>

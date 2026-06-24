@@ -790,7 +790,7 @@ export default function ResultsPage() {
               href="/report"
               className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400 text-center"
             >
-              View printable preview →
+              View report preview →
             </Link>
           ) : (
             <TrackedCtaLink
@@ -798,10 +798,10 @@ export default function ResultsPage() {
               className="text-sm font-medium text-stone-600 hover:text-stone-900 hover:underline"
               eventName="results_report_preview_clicked"
               pagePath="/results"
-              ctaLabel="View printable preview"
+              ctaLabel="View report preview"
               pageType="results"
             >
-              View printable preview →
+              View report preview →
             </TrackedCtaLink>
           )}
         </div>

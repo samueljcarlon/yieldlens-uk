@@ -1,3 +1,5 @@
+import { surfaceCardClass } from '@/components/yieldLensUi';
+
 interface OpeningCashWaterfallProps {
   startingCash?: number;
   fitOutBudget?: number;
@@ -52,7 +54,7 @@ export default function OpeningCashWaterfall({
   const finalTone = isShortfall ? 'text-rose-950 bg-rose-50 border-rose-200' : 'text-green-950 bg-green-50 border-green-200';
 
   return (
-    <section className="rounded-3xl border border-stone-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+    <section className={`${surfaceCardClass} p-5`}>
       <div className="mb-4">
         <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 font-semibold mb-1">
           Opening cash

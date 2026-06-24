@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Commercial Rent Affordability Calculator | YieldLens UK',
@@ -193,23 +194,23 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                   pagePath="/commercial-rent-affordability-calculator"
                   ctaLabel="Run a free commercial check"
                   pageType="calculator_page"
-                  className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+                  className={primaryCtaClass}
                 >
                   Run a free commercial check
                 </TrackedCtaLink>
                 <Link
                   href="/sample-commercial-viability-file"
-                  className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+                  className={heroSecondaryCtaClass}
                 >
                   View sample viability file
                 </Link>
               </div>
-              <p className="text-xs text-stone-400 mt-5">
+              <p className={`${disclaimerClass} mt-5 text-stone-400`}>
                 YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
               </p>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6 shadow-[0_20px_40px_rgba(15,23,42,0.18)]">
+            <div className={`${surfaceCardClass} bg-white/5 p-5 sm:p-6 shadow-[0_20px_40px_rgba(15,23,42,0.18)]`}>
               <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
                 Commercial rent burden
               </p>

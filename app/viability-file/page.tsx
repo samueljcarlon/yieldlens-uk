@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, secondaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Standard Commercial Viability File | YieldLens UK',
@@ -201,7 +202,7 @@ export default function ViabilityFilePage() {
                   pagePath="/viability-file"
                   ctaLabel="Run a free commercial check first"
                   pageType="product_page"
-                  className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+                  className={primaryCtaClass}
                 >
                   Run a free commercial check first
                 </TrackedCtaLink>
@@ -212,29 +213,29 @@ export default function ViabilityFilePage() {
                   pagePath="/viability-file"
                   ctaLabel="View sample file"
                   pageType="product_page"
-                  className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
-                  >
+                  className={heroSecondaryCtaClass}
+                >
                   View sample file
                 </TrackedCtaLink>
 
                 <Link
                   href="/how-it-works"
-                  className="text-sm font-medium text-teal-300 hover:text-teal-200 self-center sm:self-auto"
+                  className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-teal-200 shadow-sm transition-colors hover:bg-white/10 self-center sm:self-auto"
                 >
                   How it works
                 </Link>
               </div>
 
-              <p className="text-xs text-stone-400 mt-5">
+              <p className={`${disclaimerClass} mt-5 text-stone-400`}>
                 Indicative decision-support only. Not advice, not a valuation, and not a substitute for professional due diligence.
               </p>
 
-              <p className="text-xs text-stone-400 mt-3">
+              <p className={`${disclaimerClass} mt-3 text-stone-400`}>
                 Checkout appears after a commercial report request.
               </p>
             </div>
 
-              <div className="bg-white text-stone-900 rounded-3xl overflow-hidden shadow-2xl">
+            <div className={`${surfaceCardClass} overflow-hidden bg-white text-stone-900 shadow-2xl`}>
               <div className="px-5 py-4 border-b border-stone-200">
                 <p className="text-xs uppercase tracking-widest text-teal-700 font-semibold">
                   Example commercial file
@@ -280,11 +281,11 @@ export default function ViabilityFilePage() {
           description="The paid version turns the free check into a printable decision memo. It keeps the main numbers visible, then adds the interpretation, stress tests, and questions that help with negotiation and due diligence."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {commercialFileItems.map((item) => (
             <div
               key={item}
-              className="bg-white border border-stone-200 rounded-3xl p-5 text-sm font-medium text-stone-800 shadow-sm"
+              className={`${surfaceCardSoftClass} p-5 text-sm font-medium text-stone-800`}
             >
               {item}
             </div>
@@ -300,7 +301,7 @@ export default function ViabilityFilePage() {
             description="The comparison below keeps the offer honest. The free check is the screen. The paid file is the printable pressure-test and action plan."
           />
 
-          <div className="overflow-x-auto">
+          <div className={tableShellClass}>
             <table className="min-w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b border-stone-200 bg-stone-50 text-left">
@@ -335,7 +336,7 @@ export default function ViabilityFilePage() {
             {workflowSteps.map((item) => (
               <div
                 key={item.step}
-                className="bg-stone-50 border border-stone-200 rounded-3xl p-6 shadow-sm"
+                className={`${surfaceCardSoftClass} p-6`}
               >
                 <p className="w-9 h-9 rounded-full bg-teal-700 text-white text-sm font-semibold flex items-center justify-center mb-5">
                   {item.step}
@@ -359,7 +360,7 @@ export default function ViabilityFilePage() {
               pagePath="/viability-file"
               ctaLabel="Run a free commercial check first"
               pageType="product_page"
-              className="bg-teal-700 text-white px-5 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
+              className={primaryCtaClass}
               >
               Run a free commercial check first
             </TrackedCtaLink>
@@ -370,14 +371,14 @@ export default function ViabilityFilePage() {
               pagePath="/viability-file"
               ctaLabel="View sample file"
               pageType="product_page"
-              className="bg-white text-stone-700 border border-stone-300 px-5 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+              className={secondaryCtaClass}
             >
               View sample file
             </TrackedCtaLink>
 
             <Link
               href="/how-it-works"
-              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
+              className={secondaryCtaClass}
             >
               How it works
             </Link>
@@ -386,10 +387,10 @@ export default function ViabilityFilePage() {
       </section>
 
       <section className="max-w-6xl mx-auto px-4 pb-4">
-        <div className="rounded-3xl border border-stone-200 bg-white px-6 py-5 shadow-sm">
-          <p className="text-sm text-stone-700 leading-7">
-            YieldLens also includes residential calculators, but the Standard viability file is currently focused on commercial lease pressure-testing.
-          </p>
+          <div className={`${surfaceCardClass} px-6 py-5`}>
+            <p className="text-sm text-stone-700 leading-7">
+              YieldLens also includes residential calculators, but the Standard viability file is currently focused on commercial lease pressure-testing.
+            </p>
         </div>
       </section>
 

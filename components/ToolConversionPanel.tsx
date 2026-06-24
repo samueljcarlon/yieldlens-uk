@@ -3,6 +3,7 @@
 import { MouseEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { logToolEvent } from '@/lib/logToolEvent';
+import { heroSecondaryCtaClass, primaryCtaClass, surfaceCardClass } from '@/components/yieldLensUi';
 
 interface ToolConversionPanelProps {
   sourceTool: string;
@@ -50,7 +51,7 @@ export default function ToolConversionPanel({
   };
 
   return (
-    <div className="bg-stone-950 text-white rounded-xl p-7 shadow-sm">
+    <div className={`${surfaceCardClass} bg-stone-950 p-7 text-white`}>
       <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
         Next step
       </p>
@@ -67,7 +68,7 @@ export default function ToolConversionPanel({
         <a
           href={primaryHref}
           onClick={(event) => handleClick(event, primaryLabel, primaryHref)}
-          className="bg-teal-600 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-500 text-center"
+          className={primaryCtaClass}
         >
           {clickedLabel === primaryLabel ? 'Opening...' : primaryLabel}
         </a>
@@ -76,7 +77,7 @@ export default function ToolConversionPanel({
           <a
             href={secondaryHref}
             onClick={(event) => handleClick(event, secondaryLabel, secondaryHref)}
-            className="bg-white text-stone-900 px-5 py-2.5 rounded text-sm font-medium hover:bg-stone-100 text-center"
+            className={heroSecondaryCtaClass}
           >
             {clickedLabel === secondaryLabel ? 'Opening...' : secondaryLabel}
           </a>

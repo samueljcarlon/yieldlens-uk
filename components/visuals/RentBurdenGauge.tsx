@@ -1,3 +1,5 @@
+import { surfaceCardClass } from '@/components/yieldLensUi';
+
 interface RentBurdenGaugeProps {
   rentBurdenPercentage: number | null | undefined;
 }
@@ -50,7 +52,7 @@ export default function RentBurdenGauge({
   };
 
   return (
-    <section className="rounded-3xl border border-stone-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+    <section className={`${surfaceCardClass} p-5`}>
       <div className="flex items-start justify-between gap-4 mb-4">
         <div>
           <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 font-semibold mb-1">

@@ -1,3 +1,5 @@
+import { surfaceCardClass } from '@/components/yieldLensUi';
+
 interface Props {
   label: string;
   value: string | number;
@@ -6,7 +8,7 @@ interface Props {
 
 export default function MetricCard({ label, value, helper }: Props) {
   return (
-    <div className="rounded-3xl border border-stone-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+    <div className={`${surfaceCardClass} p-5`}>
       <div className="mb-3 h-1.5 w-14 rounded-full bg-teal-600/20" />
       <p className="text-[11px] uppercase tracking-[0.2em] text-stone-400 font-medium mb-1">
         {label}

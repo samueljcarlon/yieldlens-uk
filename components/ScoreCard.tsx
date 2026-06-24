@@ -1,5 +1,6 @@
 import type { Verdict } from '@/types/property';
 import VerdictBadge from './VerdictBadge';
+import { surfaceCardClass } from '@/components/yieldLensUi';
 
 const ringColour: Record<string, string> = {
   green: 'text-green-700',
@@ -11,7 +12,7 @@ const ringColour: Record<string, string> = {
 
 export default function ScoreCard({ verdict }: { verdict: Verdict }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-3xl border border-stone-200 bg-white p-6 text-center shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+    <div className={`${surfaceCardClass} flex flex-col items-center gap-3 p-6 text-center`}>
       <p className="text-[11px] uppercase tracking-[0.2em] text-stone-400 font-medium">
         Indicative score
       </p>
