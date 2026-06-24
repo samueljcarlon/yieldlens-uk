@@ -122,7 +122,7 @@ function SectionTitle({
 }) {
   return (
     <div className="text-center mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
         {eyebrow}
       </p>
 
@@ -146,7 +146,7 @@ export default function BuyToLetYieldCalculatorPage() {
 
       <section className="bg-white border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
             Buy-to-let yield calculator UK
           </p>
 
@@ -163,7 +163,7 @@ export default function BuyToLetYieldCalculatorPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/check?mode=residential"
-              className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
             >
               Run free buy-to-let check
             </Link>
@@ -291,7 +291,7 @@ export default function BuyToLetYieldCalculatorPage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div>
-            <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
+            <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
               Example pressure test
             </p>
 
@@ -364,9 +364,9 @@ export default function BuyToLetYieldCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-teal-50 border-y border-teal-200">
+      <section className="bg-green-50 border-y border-green-200">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
+          <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
             Start with a quick screen
           </p>
 
@@ -382,7 +382,7 @@ export default function BuyToLetYieldCalculatorPage() {
 
           <Link
             href="/check?mode=residential"
-            className="inline-block bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+            className="inline-block bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
           >
             Run free buy-to-let check
           </Link>

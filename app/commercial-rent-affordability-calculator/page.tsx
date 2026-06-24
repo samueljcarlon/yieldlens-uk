@@ -113,7 +113,7 @@ const exampleCards = [
     label: 'Downside test',
     value: 'Pass',
     helper: 'The weaker case still covers known monthly costs.',
-    tone: 'border-teal-200 bg-teal-50 text-teal-950',
+    tone: 'border-green-200 bg-green-50 text-green-950',
   },
 ];
 
@@ -155,7 +155,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">{eyebrow}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
       {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
     </div>
@@ -178,7 +178,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
                 Commercial rent affordability
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -211,7 +211,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             </div>
 
             <div className={`${surfaceCardClass} bg-white/5 p-5 sm:p-6 shadow-[0_20px_40px_rgba(15,23,42,0.18)]`}>
-              <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
                 Commercial rent burden
               </p>
               <p className="text-2xl font-bold leading-tight text-white">
@@ -249,7 +249,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             <ul className="space-y-3 text-sm text-stone-700 leading-7">
               {quickAnswerBullets.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-teal-600 shrink-0" />
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-green-600 shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -319,7 +319,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
               Use the commercial rent burden calculator when you want a faster rent-only screen. Use the free commercial check when you want rent, customers, costs, opening cash, and downside trading reviewed together.
             </p>
             <div className="mt-5">
-              <Link href="/commercial-rent-burden-calculator" className="text-sm font-medium text-teal-800 hover:text-teal-900">
+              <Link href="/commercial-rent-burden-calculator" className="text-sm font-medium text-green-800 hover:text-green-900">
                 Open the commercial rent burden calculator
               </Link>
             </div>
@@ -351,13 +351,13 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                 ))}
               </div>
             </div>
-            <div className="rounded-3xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.18em] text-teal-900 font-semibold mb-2">Interpretation</p>
-              <p className="text-sm text-teal-950 leading-7">
+            <div className="rounded-3xl border border-green-200 bg-green-50 p-6 shadow-sm">
+              <p className="text-xs uppercase tracking-[0.18em] text-green-900 font-semibold mb-2">Interpretation</p>
+              <p className="text-sm text-green-950 leading-7">
                 There is headroom on paper, but the 80 customers/day assumption needs evidence through footfall counts, competitor observation, and trading assumptions.
               </p>
               <div className="mt-5">
-                <Link href="/break-even-customers-calculator" className="text-sm font-medium text-teal-800 hover:text-teal-900">
+                <Link href="/break-even-customers-calculator" className="text-sm font-medium text-green-800 hover:text-green-900">
                   Open the break-even customers calculator
                 </Link>
               </div>
@@ -427,9 +427,9 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                 ))}
               </div>
             </div>
-            <div className="rounded-3xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.18em] text-teal-900 font-semibold mb-2">Interpretation</p>
-              <p className="text-sm text-teal-950 leading-7">
+            <div className="rounded-3xl border border-green-200 bg-green-50 p-6 shadow-sm">
+              <p className="text-xs uppercase tracking-[0.18em] text-green-900 font-semibold mb-2">Interpretation</p>
+              <p className="text-sm text-green-950 leading-7">
                 The downside month still covers known costs, but the rent burden and opening buffer still need caution.
               </p>
             </div>
@@ -495,7 +495,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                 'Risk flags',
               ].map((item) => (
                 <li key={item} className="flex gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-teal-600 shrink-0" />
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-green-600 shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -529,7 +529,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             pagePath="/commercial-rent-affordability-calculator"
             ctaLabel="Run a free commercial check"
             pageType="calculator_page"
-            className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
+            className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm text-center"
           >
             Run a free commercial check
           </TrackedCtaLink>
@@ -577,7 +577,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm text-sm font-medium text-stone-800 hover:border-teal-200 hover:text-teal-800 transition-colors"
+              className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm text-sm font-medium text-stone-800 hover:border-green-200 hover:text-green-800 transition-colors"
             >
               {item.label}
             </Link>
@@ -587,7 +587,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
 
       <section className="bg-stone-950 text-white">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
+          <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
             Pressure-test the rent before you commit.
           </p>
           <h2 className="text-3xl font-bold text-white mb-4">
@@ -603,7 +603,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
               pagePath="/commercial-rent-affordability-calculator"
               ctaLabel="Run a free commercial check"
               pageType="calculator_page"
-              className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm"
+              className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm"
             >
               Run a free commercial check
             </TrackedCtaLink>

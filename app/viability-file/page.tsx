@@ -147,7 +147,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
         {eyebrow}
       </p>
 
@@ -180,7 +180,7 @@ export default function ViabilityFilePage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
                 Standard commercial viability file
               </p>
 
@@ -220,7 +220,7 @@ export default function ViabilityFilePage() {
 
                 <Link
                   href="/how-it-works"
-                  className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-teal-200 shadow-sm transition-colors hover:bg-white/10 self-center sm:self-auto"
+                  className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-green-200 shadow-sm transition-colors hover:bg-white/10 self-center sm:self-auto"
                 >
                   How it works
                 </Link>
@@ -237,7 +237,7 @@ export default function ViabilityFilePage() {
 
             <div className={`${surfaceCardClass} overflow-hidden bg-white text-stone-900 shadow-2xl`}>
               <div className="px-5 py-4 border-b border-stone-200">
-                <p className="text-xs uppercase tracking-widest text-teal-700 font-semibold">
+                <p className="text-xs uppercase tracking-widest text-green-700 font-semibold">
                   Example commercial file
                 </p>
                 <p className="text-2xl font-bold mt-1">
@@ -338,7 +338,7 @@ export default function ViabilityFilePage() {
                 key={item.step}
                 className={`${surfaceCardSoftClass} p-6`}
               >
-                <p className="w-9 h-9 rounded-full bg-teal-700 text-white text-sm font-semibold flex items-center justify-center mb-5">
+                <p className="w-9 h-9 rounded-full bg-green-700 text-white text-sm font-semibold flex items-center justify-center mb-5">
                   {item.step}
                 </p>
 
@@ -398,7 +398,7 @@ export default function ViabilityFilePage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-8">
             <div>
-              <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
                 Important limits
               </p>
 
@@ -427,9 +427,9 @@ export default function ViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-teal-50 border-y border-teal-200">
+      <section className="bg-green-50 border-y border-green-200">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
+          <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
             Unlock the Standard file from your result
           </p>
 
@@ -450,7 +450,7 @@ export default function ViabilityFilePage() {
               pagePath="/viability-file"
               ctaLabel="Run a free commercial check first"
               pageType="product_page"
-              className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
             >
               Run a free commercial check first
             </TrackedCtaLink>

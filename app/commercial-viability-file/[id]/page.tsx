@@ -120,11 +120,11 @@ function getVerdictToneClasses(verdictLabel: string): {
 
   if (tone === 'teal') {
     return {
-      badge: 'border-teal-200 bg-teal-50 text-teal-900',
-      border: 'border-teal-200',
-      subtle: 'bg-teal-50 text-teal-950',
-      highlight: 'text-teal-800',
-      metric: 'text-teal-900',
+      badge: 'border-green-200 bg-green-50 text-green-900',
+      border: 'border-green-200',
+      subtle: 'bg-green-50 text-green-950',
+      highlight: 'text-green-800',
+      metric: 'text-green-900',
     };
   }
 
@@ -1454,7 +1454,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
         {eyebrow}
       </p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
@@ -1556,7 +1556,7 @@ export default async function CommercialViabilityFilePage({
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 items-start">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
                 Standard commercial viability file
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-5">
@@ -1607,7 +1607,7 @@ export default async function CommercialViabilityFilePage({
             <div className="rounded-[32px] border border-white/10 bg-white text-stone-900 p-5 sm:p-6 shadow-[0_24px_64px_rgba(15,23,42,0.18)] customer-print-card">
               <div className="flex items-start justify-between gap-4 mb-5">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.22em] text-teal-700 font-semibold mb-1">
+                  <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-1">
                     Report cover
                   </p>
                   <p className="text-2xl font-bold text-stone-950">{getCommercialVerdictLabel(request.verdictLabel)}</p>
@@ -1663,7 +1663,7 @@ export default async function CommercialViabilityFilePage({
                 item.tone === 'green'
                   ? 'border-green-200 bg-green-50'
                   : item.tone === 'teal'
-                    ? 'border-teal-200 bg-teal-50'
+                    ? 'border-green-200 bg-green-50'
                     : item.tone === 'amber'
                       ? 'border-amber-200 bg-amber-50'
                       : 'border-rose-200 bg-rose-50'
@@ -1802,7 +1802,7 @@ export default async function CommercialViabilityFilePage({
                 item.tone === 'green'
                   ? 'border-green-200 bg-green-50'
                   : item.tone === 'teal'
-                    ? 'border-teal-200 bg-teal-50'
+                    ? 'border-green-200 bg-green-50'
                     : item.tone === 'amber'
                       ? 'border-amber-200 bg-amber-50'
                       : 'border-rose-200 bg-rose-50'
@@ -2028,7 +2028,7 @@ export default async function CommercialViabilityFilePage({
           />
           <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-4 text-sm">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 customer-print-card">
-              <p className="text-xs uppercase tracking-[0.18em] text-teal-300 font-semibold mb-2">Final view: {assessment.verdict}</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-green-300 font-semibold mb-2">Final view: {assessment.verdict}</p>
               <p className="text-stone-300 leading-7">{assessment.summary}</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -2053,9 +2053,9 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
-      <section className="bg-teal-50 border-y border-teal-200 customer-print-section customer-print-hide">
+      <section className="bg-green-50 border-y border-green-200 customer-print-section customer-print-hide">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
+          <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
             Retest the site
           </p>
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
@@ -2067,7 +2067,7 @@ export default async function CommercialViabilityFilePage({
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/check?mode=commercial"
-              className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
             >
               Run another commercial check
             </Link>

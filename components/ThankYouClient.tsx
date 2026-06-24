@@ -68,7 +68,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
   return (
     <div className="max-w-3xl mx-auto px-4 py-16 text-center">
       <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
-        <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
+        <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
           Request received
         </p>
 
@@ -89,8 +89,8 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
         </p>
 
         {mode === 'commercial' && requestId && (
-          <div className="mt-8 max-w-2xl mx-auto border border-stone-200 rounded-xl bg-teal-50 p-5 text-left">
-            <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+          <div className="mt-8 max-w-2xl mx-auto border border-stone-200 rounded-xl bg-green-50 p-5 text-left">
+            <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-2">
               Secure checkout
             </p>
 
@@ -112,7 +112,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
               type="button"
               onClick={handleProceedToCheckout}
               disabled={checkoutStatus === 'loading'}
-              className="mt-4 inline-flex items-center justify-center bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="mt-4 inline-flex items-center justify-center bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {checkoutStatus === 'loading'
                 ? 'Starting secure checkout...'
@@ -128,7 +128,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href={continueHref}
-            className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
+            className="bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
           >
             {continueLabel}
           </Link>

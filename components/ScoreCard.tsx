@@ -4,7 +4,7 @@ import { surfaceCardClass } from '@/components/yieldLensUi';
 
 const ringColour: Record<string, string> = {
   green: 'text-green-700',
-  teal: 'text-teal-700',
+  teal: 'text-green-700',
   yellow: 'text-amber-700',
   orange: 'text-orange-700',
   red: 'text-rose-700',

@@ -69,7 +69,7 @@ function PreviewCard({
 }) {
   return (
     <div className={`${surfaceCardClass} p-4`}>
-      <p className="text-[11px] uppercase tracking-[0.2em] text-teal-700 font-semibold mb-2">
+      <p className="text-[11px] uppercase tracking-[0.2em] text-green-700 font-semibold mb-2">
         Included in the paid file
       </p>
       <h4 className="text-sm font-semibold text-stone-950 mb-2">
@@ -95,7 +95,7 @@ export default function ResultsConversionPanel({
       <div className="bg-stone-950 px-6 py-6 text-white sm:px-7">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-2xl">
-            <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-teal-300 font-semibold">
+            <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-green-300 font-semibold">
               {isResidential ? 'Residential follow-up' : 'Commercial follow-up'}
             </div>
 

@@ -1,5 +1,5 @@
 export const primaryCtaClass =
-  'inline-flex items-center justify-center rounded-2xl bg-teal-700 px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(13,148,136,0.18)] transition-all hover:bg-teal-800 hover:shadow-[0_16px_34px_rgba(13,148,136,0.24)] disabled:cursor-not-allowed disabled:opacity-60';
+  'inline-flex items-center justify-center rounded-2xl bg-green-800 px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(22,101,52,0.18)] transition-all hover:bg-green-900 hover:shadow-[0_16px_34px_rgba(22,101,52,0.24)] disabled:cursor-not-allowed disabled:opacity-60';
 
 export const secondaryCtaClass =
   'inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-stone-50';
@@ -27,7 +27,7 @@ export const heroBackdropClass =
 export const sectionBandClass = 'bg-white/90 border-y border-stone-200';
 
 export const eyebrowClass =
-  'text-xs font-medium uppercase tracking-[0.22em] text-teal-700';
+  'text-xs font-medium uppercase tracking-[0.22em] text-green-800';
 
 export const sectionHeadingClass = 'text-3xl font-bold text-stone-950';
 

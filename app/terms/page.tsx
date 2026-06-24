@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function TermsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+      <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-2">
         Terms and disclaimer
       </p>
 
@@ -32,11 +32,11 @@ export default function TermsPage() {
 
         <section>
           <h2 className="text-lg font-bold text-stone-900 mb-2">
-            2. Not a formal valuation or advice
+            2. Not a valuation or advice
           </h2>
 
           <p>
-            YieldLens UK is not a formal valuation, RICS valuation, financial
+            YieldLens UK is not a valuation, RICS valuation, financial
             advice, mortgage advice, tax advice, legal advice, investment
             recommendation, or substitute for professional due diligence.
           </p>
@@ -120,13 +120,13 @@ export default function TermsPage() {
           </h2>
 
           <p>
-            For questions, contact: samueljcarlon@gmail.com.
+            For questions, please contact us through the website.
           </p>
         </section>
       </div>
 
       <div className="mt-8">
-        <Link href="/" className="text-sm text-teal-700 font-medium hover:underline">
+        <Link href="/" className="text-sm text-green-700 font-medium hover:underline">
           Back to homepage →
         </Link>
       </div>

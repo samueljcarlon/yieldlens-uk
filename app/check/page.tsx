@@ -109,7 +109,7 @@ function CheckPageContent() {
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 lg:items-start">
         <div>
           <div className="mb-8">
-            <p className="text-xs uppercase tracking-[0.24em] text-teal-700 font-semibold mb-2">
+            <p className="text-xs uppercase tracking-[0.24em] text-green-700 font-semibold mb-2">
               Free property check
             </p>
 
@@ -142,7 +142,7 @@ function CheckPageContent() {
 
         <aside className="lg:sticky lg:top-24 space-y-4">
           <div className={`${surfaceCardClass} p-5`}>
-            <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
               Commercial workflow
             </p>
 
@@ -156,12 +156,12 @@ function CheckPageContent() {
             </p>
           </div>
 
-          <div className={`${surfaceCardSoftClass} border-teal-200 bg-teal-50 p-5`}>
-            <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
+          <div className={`${surfaceCardSoftClass} border-green-200 bg-green-50 p-5`}>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
               What you get
             </p>
 
-            <ul className="space-y-2 text-sm text-teal-950">
+            <ul className="space-y-2 text-sm text-green-950">
               <li>Rent burden and break-even pressure test</li>
               <li>Upfront cash and opening buffer detail</li>
               <li>Downside survival and risk flags</li>

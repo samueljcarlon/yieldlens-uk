@@ -7,7 +7,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <span className="text-lg font-semibold text-stone-900 tracking-tight">
-            YieldLens <span className="text-teal-700">UK</span>
+            YieldLens <span className="text-green-700">UK</span>
           </span>
         </Link>
 
@@ -75,7 +75,7 @@ export default function Header() {
 
           <Link
             href="/check?mode=commercial"
-            className={`${primaryCtaClass} shrink-0 px-4 py-2.5 shadow-[0_12px_30px_rgba(13,148,136,0.20)]`}
+            className={`${primaryCtaClass} shrink-0 px-4 py-2.5 shadow-[0_12px_30px_rgba(22,101,52,0.20)]`}
           >
             Run commercial check
           </Link>

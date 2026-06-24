@@ -87,7 +87,7 @@ export default function OpeningCashWaterfall({
       <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-950 p-4 text-white shadow-[0_16px_34px_rgba(15,23,42,0.12)]">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-teal-300 font-semibold mb-1">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-green-300 font-semibold mb-1">
               Total requirement
             </p>
             <p className="text-lg font-semibold">

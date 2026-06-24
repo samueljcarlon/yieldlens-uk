@@ -39,7 +39,7 @@ export default async function PaymentCancelPage({
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/check?mode=commercial"
-            className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
+            className="bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
           >
             Run another commercial check
           </Link>

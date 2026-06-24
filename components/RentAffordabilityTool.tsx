@@ -267,7 +267,7 @@ export default function RentAffordabilityTool() {
   }
 
   const inputClass =
-    'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500';
+    'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500';
 
   const verdictClass = {
     positive: 'bg-green-50 border-green-200 text-green-900',
@@ -279,7 +279,7 @@ export default function RentAffordabilityTool() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
       <div className="lg:col-span-2 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
-        <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+        <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-2">
           Rent affordability calculator
         </p>
 
@@ -419,13 +419,13 @@ export default function RentAffordabilityTool() {
               type="button"
               onClick={handleCheckAffordability}
               disabled={!result.hasRequiredInputs}
-              className="bg-teal-700 text-white text-sm font-medium px-4 py-2 rounded hover:bg-teal-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="bg-green-700 text-white text-sm font-medium px-4 py-2 rounded hover:bg-green-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Check affordability
             </button>
 
             {eventLogged && (
-              <span className="text-xs text-teal-700 font-medium">
+              <span className="text-xs text-green-700 font-medium">
                 Check calculated
               </span>
             )}

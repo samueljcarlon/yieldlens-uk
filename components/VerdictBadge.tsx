@@ -2,7 +2,7 @@ import type { Verdict } from '@/types/property';
 
 const colourMap: Record<string, string> = {
   green: 'bg-green-50 text-green-800 border-green-200',
-  teal: 'bg-teal-50 text-teal-800 border-teal-200',
+  teal: 'bg-green-50 text-green-800 border-green-200',
   yellow: 'bg-amber-50 text-amber-800 border-amber-200',
   orange: 'bg-orange-50 text-orange-800 border-orange-200',
   red: 'bg-rose-50 text-rose-800 border-rose-200',

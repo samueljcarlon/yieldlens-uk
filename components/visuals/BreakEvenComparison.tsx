@@ -64,7 +64,7 @@ export default function BreakEvenComparison({
             </span>
           </div>
           <div className="h-4 rounded-full bg-stone-100 border border-stone-200 overflow-hidden">
-            <div className="h-full bg-teal-600" style={{ width: `${expectedWidth}%` }} />
+            <div className="h-full bg-green-600" style={{ width: `${expectedWidth}%` }} />
           </div>
         </div>
       </div>

@@ -53,7 +53,7 @@ export default async function PaymentSuccessPage({
   return (
     <div className="max-w-3xl mx-auto px-4 py-16 text-center">
       <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
-        <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
+        <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
           Checkout completed
         </p>
 
@@ -75,12 +75,12 @@ export default async function PaymentSuccessPage({
           {fileHref ? (
             <Link
               href={fileHref}
-              className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
+              className="bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
             >
               View your viability file
             </Link>
           ) : (
-            <span className="inline-flex items-center justify-center bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium opacity-70">
+            <span className="inline-flex items-center justify-center bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium opacity-70">
               View your viability file
             </span>
           )}

@@ -481,11 +481,11 @@ function CommercialCashAndSurvivalModel({
       )}
 
       {!hasDownsideMonthlyBurn(result) && (
-        <div className="bg-teal-50 border border-teal-200 rounded-2xl p-4 mb-4 shadow-sm">
-          <p className="text-sm font-semibold text-teal-900">
+        <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-4 shadow-sm">
+          <p className="text-sm font-semibold text-green-900">
             No monthly burn in downside case
           </p>
-          <p className="text-sm text-teal-800 leading-6 mt-1">
+          <p className="text-sm text-green-800 leading-6 mt-1">
             The downside case does not show monthly burn, but opening cash still matters
             for deposits, fit-out, stock, and early working capital.
           </p>
@@ -709,7 +709,7 @@ export default function ReportPage() {
 
           <Link
             href="/check?mode=commercial"
-            className="inline-block bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
+            className="inline-block bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
           >
             Start a free commercial check
           </Link>
@@ -729,7 +729,7 @@ export default function ReportPage() {
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="print-hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-1">
+          <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-1">
             Viability file preview
           </p>
           <h1 className="text-2xl font-bold text-stone-900">
@@ -760,7 +760,7 @@ export default function ReportPage() {
 
               window.print();
             }}
-            className="bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
+            className="bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
           >
             Print or save as PDF
           </button>
@@ -791,7 +791,7 @@ export default function ReportPage() {
         <header className="border-b border-stone-200 pb-6 mb-8">
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
             <div>
-              <p className="text-xs uppercase tracking-widest text-teal-700 font-semibold mb-2">
+              <p className="text-xs uppercase tracking-widest text-green-700 font-semibold mb-2">
                 YieldLens UK
               </p>
 
@@ -829,7 +829,7 @@ export default function ReportPage() {
                 <span className="text-xl text-stone-400">/100</span>
               </p>
 
-              <p className="text-sm font-semibold text-teal-700 mt-2">
+              <p className="text-sm font-semibold text-green-700 mt-2">
                 {displayedVerdictLabel}
               </p>
             </div>

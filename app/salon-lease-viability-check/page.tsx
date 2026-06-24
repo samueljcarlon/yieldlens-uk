@@ -115,7 +115,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">{eyebrow}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
       {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
     </div>
@@ -138,7 +138,7 @@ export default function SalonLeaseViabilityPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
                 Salon lease viability
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -157,7 +157,7 @@ export default function SalonLeaseViabilityPage() {
                   pagePath="/salon-lease-viability-check"
                   ctaLabel="Run a free salon lease check"
                   pageType="seo_page"
-                  className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+                  className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
                 >
                   Run a free salon lease check
                 </TrackedCtaLink>
@@ -176,7 +176,7 @@ export default function SalonLeaseViabilityPage() {
             </div>
 
             <div className="rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
-              <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
                 Quick answer
               </p>
               <div className="space-y-3 text-sm text-stone-300 leading-7">
@@ -236,7 +236,7 @@ export default function SalonLeaseViabilityPage() {
                 <p>Rent burden: about 9.8%</p>
               </div>
               <div className="mt-4">
-                <Link href="/commercial-rent-burden-calculator" className="text-teal-700 font-medium hover:text-teal-900 text-sm">
+                <Link href="/commercial-rent-burden-calculator" className="text-green-700 font-medium hover:text-green-900 text-sm">
                   Commercial rent burden calculator
                 </Link>
               </div>
@@ -275,7 +275,7 @@ export default function SalonLeaseViabilityPage() {
               availability.
             </p>
             <div className="mt-4">
-              <Link href="/break-even-customers-calculator" className="text-teal-700 font-medium hover:text-teal-900 text-sm">
+              <Link href="/break-even-customers-calculator" className="text-green-700 font-medium hover:text-green-900 text-sm">
                 Break-even customers calculator
               </Link>
             </div>
@@ -338,7 +338,7 @@ export default function SalonLeaseViabilityPage() {
               client acquisition can still create pressure.
             </p>
             <div className="mt-4">
-              <Link href="/commercial-lease-survival-calculator" className="text-teal-700 font-medium hover:text-teal-900 text-sm">
+              <Link href="/commercial-lease-survival-calculator" className="text-green-700 font-medium hover:text-green-900 text-sm">
                 Commercial lease survival calculator
               </Link>
             </div>
@@ -456,22 +456,22 @@ export default function SalonLeaseViabilityPage() {
             </div>
           </div>
           <div className="mt-5 flex flex-wrap gap-4 text-sm">
-            <Link href="/commercial-lease-viability-check" className="text-teal-700 font-medium hover:text-teal-900">
+            <Link href="/commercial-lease-viability-check" className="text-green-700 font-medium hover:text-green-900">
               Commercial lease viability check
             </Link>
-            <Link href="/commercial-lease-checklist-before-signing" className="text-teal-700 font-medium hover:text-teal-900">
+            <Link href="/commercial-lease-checklist-before-signing" className="text-green-700 font-medium hover:text-green-900">
               Commercial lease checklist before signing
             </Link>
-            <Link href="/restaurant-lease-viability-check" className="text-teal-700 font-medium hover:text-teal-900">
+            <Link href="/restaurant-lease-viability-check" className="text-green-700 font-medium hover:text-green-900">
               Restaurant lease viability check
             </Link>
-            <Link href="/how-it-works" className="text-teal-700 font-medium hover:text-teal-900">
+            <Link href="/how-it-works" className="text-green-700 font-medium hover:text-green-900">
               See how YieldLens works
             </Link>
-            <Link href="/sample-commercial-viability-file" className="text-teal-700 font-medium hover:text-teal-900">
+            <Link href="/sample-commercial-viability-file" className="text-green-700 font-medium hover:text-green-900">
               Sample viability file
             </Link>
-            <Link href="/viability-file" className="text-teal-700 font-medium hover:text-teal-900">
+            <Link href="/viability-file" className="text-green-700 font-medium hover:text-green-900">
               Viability file
             </Link>
           </div>
@@ -533,7 +533,7 @@ export default function SalonLeaseViabilityPage() {
             pagePath="/salon-lease-viability-check"
             ctaLabel="Run a free salon lease check"
             pageType="seo_page"
-            className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+            className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
           >
             Run a free salon lease check
           </TrackedCtaLink>
@@ -551,25 +551,25 @@ export default function SalonLeaseViabilityPage() {
           </Link>
         </div>
         <div className="mt-6 flex flex-wrap gap-4 text-sm">
-          <Link href="/commercial-lease-viability-check" className="text-teal-700 font-medium hover:text-teal-900">
+          <Link href="/commercial-lease-viability-check" className="text-green-700 font-medium hover:text-green-900">
             Commercial lease viability check
           </Link>
-          <Link href="/commercial-lease-checklist-before-signing" className="text-teal-700 font-medium hover:text-teal-900">
+          <Link href="/commercial-lease-checklist-before-signing" className="text-green-700 font-medium hover:text-green-900">
             Commercial lease checklist before signing
           </Link>
-          <Link href="/restaurant-lease-viability-check" className="text-teal-700 font-medium hover:text-teal-900">
+          <Link href="/restaurant-lease-viability-check" className="text-green-700 font-medium hover:text-green-900">
             Restaurant lease viability check
           </Link>
-          <Link href="/commercial-rent-burden-calculator" className="text-teal-700 font-medium hover:text-teal-900">
+          <Link href="/commercial-rent-burden-calculator" className="text-green-700 font-medium hover:text-green-900">
             Commercial rent burden calculator
           </Link>
-          <Link href="/break-even-customers-calculator" className="text-teal-700 font-medium hover:text-teal-900">
+          <Link href="/break-even-customers-calculator" className="text-green-700 font-medium hover:text-green-900">
             Break-even customers calculator
           </Link>
-          <Link href="/commercial-lease-survival-calculator" className="text-teal-700 font-medium hover:text-teal-900">
+          <Link href="/commercial-lease-survival-calculator" className="text-green-700 font-medium hover:text-green-900">
             Commercial lease survival calculator
           </Link>
-          <Link href="/viability-file" className="text-teal-700 font-medium hover:text-teal-900">
+          <Link href="/viability-file" className="text-green-700 font-medium hover:text-green-900">
             Viability file
           </Link>
         </div>

@@ -236,7 +236,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
         {eyebrow}
       </p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
@@ -261,7 +261,7 @@ export default function SampleCommercialViabilityFilePage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 items-start">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
                 Sample paid file
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -298,7 +298,7 @@ export default function SampleCommercialViabilityFilePage() {
             <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900 shadow-[0_24px_64px_rgba(15,23,42,0.18)]`}>
               <div className="flex items-start justify-between gap-4 mb-5">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.22em] text-teal-700 font-semibold mb-1">
+                  <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-1">
                     Sample report cover
                   </p>
                   <p className="text-2xl font-bold text-stone-950">Fragile</p>
@@ -513,7 +513,7 @@ export default function SampleCommercialViabilityFilePage() {
                 <ul className="mt-3 space-y-2 text-sm text-stone-700 leading-6">
                   {section.items.map((item) => (
                     <li key={item} className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-teal-600 shrink-0" />
+                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-green-600 shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -570,9 +570,9 @@ export default function SampleCommercialViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-teal-50 border-y border-teal-200">
+      <section className="bg-green-50 border-y border-green-200">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
+          <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
             Next step
           </p>
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
@@ -588,7 +588,7 @@ export default function SampleCommercialViabilityFilePage() {
               pagePath="/sample-commercial-viability-file"
               ctaLabel="Start free commercial check"
               pageType="sample_file"
-              className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
             >
               Start free commercial check
             </TrackedCtaLink>

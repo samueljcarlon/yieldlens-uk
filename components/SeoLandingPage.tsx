@@ -52,7 +52,7 @@ export default function SeoLandingPage({
       <JsonLd data={faqStructuredData} />
       <section className="bg-white border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
             {eyebrow}
           </p>
 
@@ -67,7 +67,7 @@ export default function SeoLandingPage({
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href={primaryHref}
-              className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
             >
               {primaryCta}
             </Link>
@@ -188,7 +188,7 @@ export default function SeoLandingPage({
       </section>
 
       <section className="max-w-4xl mx-auto px-4 py-14">
-        <div className="bg-teal-50 border border-teal-200 rounded-xl p-8 text-center">
+        <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold text-stone-900 mb-3">
             Run the free check before you commit.
           </h2>
@@ -201,7 +201,7 @@ export default function SeoLandingPage({
 
           <Link
             href={primaryHref}
-            className="inline-block bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+            className="inline-block bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
           >
             {primaryCta}
           </Link>

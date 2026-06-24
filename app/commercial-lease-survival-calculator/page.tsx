@@ -179,7 +179,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
         {eyebrow}
       </p>
 
@@ -205,7 +205,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
                 Commercial survival pressure
               </p>
 
@@ -226,7 +226,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
                   pagePath="/commercial-lease-survival-calculator"
                   ctaLabel="Run full commercial lease check"
                   pageType="seo_tool"
-                  className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+                  className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
                 >
                   Run full commercial lease check
                 </TrackedCtaLink>
@@ -246,7 +246,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
 
             <div className="bg-white text-stone-900 rounded-lg overflow-hidden shadow-2xl">
               <div className="px-5 py-4 border-b border-stone-200">
-                <p className="text-xs uppercase tracking-widest text-teal-700 font-semibold">
+                <p className="text-xs uppercase tracking-widest text-green-700 font-semibold">
                   Worked survival screen
                 </p>
                 <p className="text-sm text-stone-500 mt-1">
@@ -260,13 +260,13 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
                   <div
                     key={item.label}
                     className={`p-4 border-b border-stone-200 ${
-                      item.tone === 'positive' ? 'bg-teal-50' : ''
+                      item.tone === 'positive' ? 'bg-green-50' : ''
                     }`}
                   >
                     <p
                       className={`text-xs uppercase tracking-wide font-medium ${
                         item.tone === 'positive'
-                          ? 'text-teal-700'
+                          ? 'text-green-700'
                           : 'text-stone-400'
                       }`}
                     >
@@ -371,7 +371,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-center">
             <div>
-              <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
                 Fragility
               </p>
 
@@ -489,7 +489,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
             pagePath="/commercial-lease-survival-calculator"
             ctaLabel="Run full commercial lease check"
             pageType="seo_tool"
-            className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
+            className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm text-center"
           >
             Run full commercial lease check
           </TrackedCtaLink>
@@ -507,9 +507,9 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-teal-50 border-y border-teal-200">
+      <section className="bg-green-50 border-y border-green-200">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-3">
+          <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
             Next step
           </p>
 
@@ -530,7 +530,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
               pagePath="/commercial-lease-survival-calculator"
               ctaLabel="Run full commercial lease check"
               pageType="seo_tool"
-              className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
             >
               Run full commercial lease check
             </TrackedCtaLink>

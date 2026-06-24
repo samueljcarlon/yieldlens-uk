@@ -175,7 +175,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">{eyebrow}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
       {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
     </div>
@@ -198,7 +198,7 @@ export default function CafeRentAffordabilityPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
                 Cafe rent affordability
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -217,7 +217,7 @@ export default function CafeRentAffordabilityPage() {
                   pagePath="/how-much-rent-can-a-cafe-afford"
                   ctaLabel="Run a free cafe rent check"
                   pageType="seo_page"
-                  className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+                  className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
                 >
                   Run a free cafe rent check
                 </TrackedCtaLink>
@@ -233,7 +233,7 @@ export default function CafeRentAffordabilityPage() {
               </p>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
-              <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
                 Quick answer
               </p>
               <div className="space-y-3 text-sm text-stone-300 leading-7">
@@ -520,7 +520,7 @@ export default function CafeRentAffordabilityPage() {
             pagePath="/how-much-rent-can-a-cafe-afford"
             ctaLabel="Run a free cafe rent check"
             pageType="seo_page"
-            className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm text-center"
+            className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm text-center"
           >
             Run a free cafe rent check
           </TrackedCtaLink>
@@ -616,7 +616,7 @@ export default function CafeRentAffordabilityPage() {
               pagePath="/how-much-rent-can-a-cafe-afford"
               ctaLabel="Run a free cafe rent check"
               pageType="seo_page"
-              className="bg-teal-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-teal-400 transition-colors text-sm text-center"
+              className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
             >
               Run a free cafe rent check
             </TrackedCtaLink>

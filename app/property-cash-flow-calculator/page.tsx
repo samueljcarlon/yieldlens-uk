@@ -94,7 +94,7 @@ function SectionTitle({
 }) {
   return (
     <div className="text-center mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
         {eyebrow}
       </p>
 
@@ -118,7 +118,7 @@ export default function PropertyCashFlowCalculatorPage() {
 
       <section className="bg-white border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
             Property cash flow calculator UK
           </p>
 
@@ -135,7 +135,7 @@ export default function PropertyCashFlowCalculatorPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="#calculator"
-              className="bg-teal-700 text-white px-6 py-3 rounded font-medium hover:bg-teal-800 transition-colors text-sm"
+              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
             >
               Use cash flow calculator
             </a>

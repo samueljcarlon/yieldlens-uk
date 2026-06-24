@@ -4,7 +4,7 @@ import { surfaceCardClass } from '@/components/yieldLensUi';
 const severityStyles: Record<string, string> = {
   high: 'bg-rose-50 border-rose-200 text-rose-900',
   medium: 'bg-amber-50 border-amber-200 text-amber-900',
-  low: 'bg-teal-50 border-teal-100 text-teal-900',
+  low: 'bg-green-50 border-green-100 text-green-900',
   info: 'bg-stone-50 border-stone-200 text-stone-600',
 };
 

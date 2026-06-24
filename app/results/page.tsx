@@ -319,7 +319,7 @@ function getCommercialTakeawayQuestions(result: CommercialResult): string[] {
 function summaryToneClass(tone: SummaryTone): string {
   const tones = {
     neutral: 'border-stone-200 bg-white',
-    strong: 'border-teal-200 bg-teal-50',
+    strong: 'border-green-200 bg-green-50',
     caution: 'border-amber-200 bg-amber-50',
     critical: 'border-red-200 bg-red-50',
   };
@@ -330,7 +330,7 @@ function summaryToneClass(tone: SummaryTone): string {
 function summaryValueClass(tone: SummaryTone): string {
   const tones = {
     neutral: 'text-stone-950',
-    strong: 'text-teal-900',
+    strong: 'text-green-900',
     caution: 'text-amber-950',
     critical: 'text-red-950',
   };
@@ -436,7 +436,7 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
       <div className="bg-stone-950 px-6 py-7 text-white sm:px-8 sm:py-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-end">
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-teal-300 font-semibold mb-3">
+            <p className="text-xs uppercase tracking-[0.24em] text-green-300 font-semibold mb-3">
               Commercial lease pressure-test summary
             </p>
 
@@ -546,7 +546,7 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
   return (
     <div className="rounded-[32px] border border-stone-200 bg-white p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
       <div className="mb-5">
-        <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
+        <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           What the free result tells you
         </p>
 
@@ -653,7 +653,7 @@ export default function ResultsPage() {
 
           <Link
             href="/check?mode=commercial"
-            className="inline-block bg-teal-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-teal-800"
+            className="inline-block bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
           >
             Start a free commercial check
           </Link>
@@ -670,7 +670,7 @@ export default function ResultsPage() {
     <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
       <section className="mb-8 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
         <div className="bg-gradient-to-r from-stone-950 to-stone-900 px-6 py-7 text-white sm:px-8 sm:py-8">
-          <p className="text-xs uppercase tracking-[0.24em] text-teal-300 font-semibold mb-3">
+          <p className="text-xs uppercase tracking-[0.24em] text-green-300 font-semibold mb-3">
             {isResidential ? 'Residential return check' : 'Commercial site check'}
           </p>
 
@@ -710,7 +710,7 @@ export default function ResultsPage() {
             )}
 
             {email && (
-              <span className="bg-teal-500/15 border border-teal-400/30 text-teal-200 px-3 py-1.5 rounded-full">
+              <span className="bg-green-500/15 border border-green-400/30 text-green-200 px-3 py-1.5 rounded-full">
                 Saved for {email}
               </span>
             )}
@@ -765,8 +765,8 @@ export default function ResultsPage() {
         </ol>
       </div>
 
-      <div className="mt-8 bg-teal-50 border border-teal-200 rounded-2xl p-6 sm:p-7 shadow-sm">
-        <p className="text-xs uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
+      <div className="mt-8 bg-green-50 border border-green-200 rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           {isResidential ? 'Full viability file coming soon' : 'Unlock the paid file'}
         </p>
 
@@ -925,7 +925,7 @@ function CommercialMetrics({ result }: { result: CommercialResult }) {
       </div>
 
       <div className="bg-stone-950 text-white rounded-2xl p-6 shadow-[0_16px_30px_rgba(15,23,42,0.16)]">
-        <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-2">
+        <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-2">
           Commercial survival model
         </p>
 

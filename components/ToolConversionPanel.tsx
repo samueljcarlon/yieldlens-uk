@@ -52,7 +52,7 @@ export default function ToolConversionPanel({
 
   return (
     <div className={`${surfaceCardClass} ${heroBackdropClass} p-7 text-white`}>
-      <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
+      <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
         Next step
       </p>
 

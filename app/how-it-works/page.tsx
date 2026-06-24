@@ -93,7 +93,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">{eyebrow}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
       {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
     </div>
@@ -114,7 +114,7 @@ export default function HowItWorksPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-teal-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
                 How it works
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -152,7 +152,7 @@ export default function HowItWorksPage() {
             </div>
 
             <div className={`${surfaceCardClass} bg-white/5 p-5 sm:p-6`}>
-              <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
                 In one line
               </p>
               <p className="text-2xl font-bold leading-tight text-white">
@@ -415,15 +415,15 @@ export default function HowItWorksPage() {
             </Link>
           </div>
           <div className="mt-5 text-sm text-stone-300">
-            <Link href="/commercial-lease-checklist-before-signing" className="text-teal-300 hover:text-teal-200 font-medium">
+            <Link href="/commercial-lease-checklist-before-signing" className="text-green-300 hover:text-green-200 font-medium">
               Commercial lease checklist before signing
             </Link>
             {' '}
-            <Link href="/restaurant-lease-viability-check" className="text-teal-300 hover:text-teal-200 font-medium ml-4">
+            <Link href="/restaurant-lease-viability-check" className="text-green-300 hover:text-green-200 font-medium ml-4">
               Restaurant lease viability check
             </Link>
             {' '}
-            <Link href="/salon-lease-viability-check" className="text-teal-300 hover:text-teal-200 font-medium ml-4">
+            <Link href="/salon-lease-viability-check" className="text-green-300 hover:text-green-200 font-medium ml-4">
               Salon lease viability check
             </Link>
           </div>

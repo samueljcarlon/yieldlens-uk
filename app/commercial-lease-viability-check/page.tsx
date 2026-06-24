@@ -200,7 +200,7 @@ const exampleSummary = [
     label: 'Six-month test',
     value: 'Pass',
     helper: 'No downside monthly burn, but opening cash still matters.',
-    tone: 'bg-teal-50 border-teal-200 text-teal-950',
+    tone: 'bg-green-50 border-green-200 text-green-950',
   },
 ];
 
@@ -244,7 +244,7 @@ function SectionTitle({
 }) {
   return (
     <div className="text-center mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-3">
+      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
         {eyebrow}
       </p>
 
@@ -275,7 +275,7 @@ export default function CommercialLeaseViabilityPage() {
 
       <section className="bg-white border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-teal-700 mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
             Commercial lease viability check
           </p>
 
@@ -333,7 +333,7 @@ export default function CommercialLeaseViabilityPage() {
           </p>
 
           <div className={`${surfaceCardSoftClass} mt-8 mx-auto max-w-2xl p-5 text-left`}>
-            <p className="text-xs uppercase tracking-widest text-teal-700 font-medium">
+            <p className="text-xs uppercase tracking-widest text-green-700 font-medium">
               Standard commercial viability file
             </p>
             <p className="text-3xl font-bold mt-2 text-stone-900">£49</p>
@@ -474,7 +474,7 @@ export default function CommercialLeaseViabilityPage() {
         <div className="max-w-5xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
             <div>
-              <p className="text-xs uppercase tracking-widest text-teal-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
                 Worked example
               </p>
 
@@ -630,7 +630,7 @@ export default function CommercialLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-teal-50 border-y border-teal-200">
+      <section className="bg-green-50 border-y border-green-200">
         <div className="max-w-4xl mx-auto px-4 py-16">
           <ToolConversionPanel
             sourceTool="commercial_lease_page"
@@ -642,7 +642,7 @@ export default function CommercialLeaseViabilityPage() {
             secondaryHref="/viability-file"
           />
           <div className="mt-4 text-center">
-            <Link href="/sample-commercial-viability-file" className="text-sm font-medium text-teal-700 hover:text-teal-800">
+            <Link href="/sample-commercial-viability-file" className="text-sm font-medium text-green-700 hover:text-green-800">
               View sample file
             </Link>
           </div>

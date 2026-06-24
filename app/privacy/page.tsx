@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function PrivacyPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+      <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-2">
         Privacy notice
       </p>
 
@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           </p>
 
           <p className="mt-3">
-            For privacy questions, contact: samueljcarlon@gmail.com.
+            For privacy questions, please contact us through the website.
           </p>
         </section>
 
@@ -152,7 +152,7 @@ export default function PrivacyPage() {
 
           <p>
             You may ask to access, correct, delete, or restrict use of your
-            personal information. You can contact us at samueljcarlon@gmail.com.
+            personal information. Please contact us through the website if you need to make a request.
           </p>
 
           <p className="mt-3">
@@ -174,7 +174,7 @@ export default function PrivacyPage() {
       </div>
 
       <div className="mt-8">
-        <Link href="/" className="text-sm text-teal-700 font-medium hover:underline">
+        <Link href="/" className="text-sm text-green-700 font-medium hover:underline">
           Back to homepage →
         </Link>
       </div>

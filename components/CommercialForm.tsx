@@ -35,7 +35,7 @@ function FormSection({
   return (
     <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 shadow-sm">
       <div className="mb-5">
-        <p className="text-[11px] uppercase tracking-[0.22em] text-teal-700 font-semibold mb-2">
+        <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           {eyebrow}
         </p>
 
@@ -172,31 +172,31 @@ export default function CommercialForm({ onSubmit }: Props) {
   };
 
   const inputClass =
-    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-600 bg-white shadow-sm';
+    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
 
   const errorInputClass =
-    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-600 bg-white shadow-sm';
+    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="rounded-2xl border border-teal-200 bg-teal-50 p-5 sm:p-6 shadow-sm">
-        <p className="text-sm font-semibold text-teal-950 mb-2">
+      <div className="rounded-2xl border border-green-200 bg-green-50 p-5 sm:p-6 shadow-sm">
+        <p className="text-sm font-semibold text-green-950 mb-2">
           Commercial lease pressure-test
         </p>
 
-        <p className="text-sm text-teal-900 leading-6">
+        <p className="text-sm text-green-900 leading-6">
           Enter the assumptions you have today. YieldLens will estimate rent burden,
           break-even customers, opening cash pressure, downside trading, and six-month
           survival before signing.
         </p>
 
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-2 text-[11px] uppercase tracking-[0.2em] text-teal-800">
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-2 text-[11px] uppercase tracking-[0.2em] text-green-800">
           {sectionSteps.map((step, index) => (
             <div
               key={step}
-              className="flex items-center gap-2 rounded-xl border border-teal-200 bg-white/90 px-3 py-2 shadow-sm"
+              className="flex items-center gap-2 rounded-xl border border-green-200 bg-white/90 px-3 py-2 shadow-sm"
             >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-teal-700 text-[10px] font-semibold text-white">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-green-700 text-[10px] font-semibold text-white">
                 {index + 1}
               </span>
               <span className="leading-tight">{step}</span>
@@ -396,7 +396,7 @@ export default function CommercialForm({ onSubmit }: Props) {
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <button
           type="submit"
-          className="w-full sm:w-auto bg-teal-700 text-white px-6 py-3.5 rounded-lg font-semibold hover:bg-teal-800 transition-colors shadow-sm"
+          className="w-full sm:w-auto bg-green-700 text-white px-6 py-3.5 rounded-lg font-semibold hover:bg-green-800 transition-colors shadow-sm"
         >
           Run commercial lease pressure-test
         </button>

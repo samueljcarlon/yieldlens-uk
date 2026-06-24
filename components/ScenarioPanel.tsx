@@ -280,7 +280,7 @@ function ScenarioLayout({
   return (
     <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
       <div className="mb-5">
-        <p className="text-xs uppercase tracking-widest text-teal-700 font-medium mb-2">
+        <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-2">
           Scenario pressure test
         </p>
 
