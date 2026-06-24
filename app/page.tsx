@@ -70,7 +70,7 @@ const howItWorks = [
 const supportingTools = [
   {
     title: 'Commercial lease viability',
-    desc: 'Read how the commercial lease survival model works before running the check.',
+    desc: 'Pressure-test a commercial site, then review the sample memo and methodology if it still looks worth pursuing.',
     href: '/commercial-lease-viability-check',
     cta: 'Explore commercial viability',
     featured: true,
@@ -83,7 +83,7 @@ const supportingTools = [
   },
   {
     title: 'Cafe rent affordability',
-    desc: 'Read the cafe-specific guide to rent burden, break-even customers, opening cash, and lease risk.',
+    desc: 'Use the cafe guide to compare rent burden, break-even customers, opening cash, and the paid memo.',
     href: '/how-much-rent-can-a-cafe-afford',
     cta: 'Read cafe rent guide',
   },

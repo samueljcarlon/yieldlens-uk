@@ -328,6 +328,13 @@ export default function CommercialLeaseViabilityPage() {
             Commercial rent affordability calculator
           </Link>
 
+          <Link
+            href="/how-it-works"
+            className={secondaryCtaClass}
+          >
+            Learn how it works
+          </Link>
+
           <p className={`${disclaimerClass} mt-5 text-stone-400`}>
             YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
           </p>
@@ -644,6 +651,10 @@ export default function CommercialLeaseViabilityPage() {
           <div className="mt-4 text-center">
             <Link href="/sample-commercial-viability-file" className="text-sm font-medium text-green-700 hover:text-green-800">
               View sample file
+            </Link>
+            <span className="mx-3 text-stone-400">·</span>
+            <Link href="/how-it-works" className="text-sm font-medium text-green-700 hover:text-green-800">
+              Learn how it works
             </Link>
           </div>
         </div>
