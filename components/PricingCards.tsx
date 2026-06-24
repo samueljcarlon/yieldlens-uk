@@ -28,7 +28,7 @@ const plans = [
   },
   {
     name: 'Human-reviewed report',
-    price: '£79–£99',
+    price: '£79 to £99',
     description: 'Analyst-reviewed property return report with written commentary.',
     cta: 'Coming soon',
     href: '#',

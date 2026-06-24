@@ -7,10 +7,10 @@ const gbp = (n?: number) =>
   n !== undefined
     ? new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', 
 maximumFractionDigits: 0 }).format(n)
-    : '—';
+    : 'N/A';
 
-const pct = (n?: number) => (n !== undefined ? `${n.toFixed(1)}%` : '—');
-const num = (n?: number) => (n !== undefined ? n.toFixed(1) : '—');
+const pct = (n?: number) => (n !== undefined ? `${n.toFixed(1)}%` : 'N/A');
+const num = (n?: number) => (n !== undefined ? n.toFixed(1) : 'N/A');
 
 export default function ReportPreview({ submission }: { submission: 
 Submission }) {
@@ -29,7 +29,7 @@ Submission }) {
 border-stone-200 rounded-xl space-y-8 text-sm text-stone-700">
       <div className="border-b border-stone-200 pb-6">
         <p className="text-xs text-stone-400 uppercase tracking-widest 
-mb-2">YieldLens UK — Property Return Check</p>
+mb-2">YieldLens UK - Property Return Check</p>
         <h1 className="text-2xl font-bold text-stone-900 mb-1">
           {isRes ? 'Residential Return Check' : 'Commercial Site Check'}
         </h1>
@@ -185,7 +185,7 @@ flags</h2>
           <ul className="space-y-1.5">
             {result.riskFlags.map((f, i) => (
               <li key={i} className="flex gap-2 items-start">
-                <span className="text-stone-400 shrink-0">–</span>
+                <span className="text-stone-400 shrink-0">-</span>
                 <span className="text-stone-600">{f.message}</span>
               </li>
             ))}
@@ -200,7 +200,7 @@ used</h2>
           <ul className="space-y-1 text-stone-500">
             {result.assumptions.map((a, i) => (
               <li key={i} className="flex gap-2 items-start">
-                <span className="shrink-0">–</span>
+                <span className="shrink-0">-</span>
                 <span>{a}</span>
               </li>
             ))}
@@ -236,17 +236,13 @@ text-stone-600">
         </div>
       )}
 
-      <div className="border-t border-stone-200 pt-5 text-xs 
-text-stone-400 space-y-2">
+      <div className="border-t border-stone-200 pt-5 text-xs text-stone-400 space-y-2">
         <p>
-          YieldLens UK provides indicative property return checks and 
-decision-support analysis only.
-          It is not a formal valuation, financial advice, mortgage advice, 
-legal advice, tax advice,
+          YieldLens UK provides indicative property return checks and decision-support analysis only.
+          It is not a valuation, financial advice, mortgage advice, legal advice, tax advice,
           or a substitute for professional due diligence.
         </p>
-        <p>YieldLens UK is an independent UK property analysis 
-tool.</p>
+        <p>YieldLens UK is an independent UK property analysis tool.</p>
       </div>
     </div>
   );

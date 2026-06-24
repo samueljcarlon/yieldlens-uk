@@ -8,14 +8,14 @@ import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
 import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
 
 export const metadata: Metadata = {
-  title: 'Sample Commercial Viability File',
+  title: 'Sample Commercial Viability File | YieldLens UK',
   description:
     'View a sample YieldLens UK Standard commercial viability file for pressure-testing rent burden, break-even customers, upfront cash, downside trading, and lease questions before signing a commercial lease.',
   alternates: {
     canonical: '/sample-commercial-viability-file',
   },
   openGraph: {
-    title: 'Sample Commercial Viability File',
+    title: 'Sample Commercial Viability File | YieldLens UK',
     description:
       'See what the £49 Standard commercial viability file looks like using a redacted sample case before running a free commercial check.',
     url: 'https://yieldlens.co.uk/sample-commercial-viability-file',

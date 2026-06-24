@@ -5,14 +5,14 @@ import TrackedCtaLink from '@/components/TrackedCtaLink';
 import VerdictBadge from '@/components/VerdictBadge';
 
 export const metadata: Metadata = {
-  title: 'YieldLens UK | Commercial Lease Viability Check',
+  title: 'Commercial Lease Pressure Tests | YieldLens UK',
   description:
     'Check whether a commercial site can carry the rent before you sign. YieldLens UK pressure-tests rent burden, break-even customers, upfront cash, downside trading, and lease questions before a commercial commitment.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'YieldLens UK | Commercial Lease Viability Check',
+    title: 'Commercial Lease Pressure Tests | YieldLens UK',
     description:
       'Check whether a commercial site can carry the rent before you sign. YieldLens UK pressure-tests rent burden, break-even customers, upfront cash, downside trading, and lease questions before a commercial commitment.',
     url: 'https://yieldlens.co.uk',

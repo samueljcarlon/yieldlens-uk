@@ -38,7 +38,7 @@ const faqs = [
   {
     question: 'Is this financial advice?',
     answer:
-      'No. YieldLens UK provides indicative decision-support only. It is not financial advice, mortgage advice, tax advice, legal advice, or a formal valuation.',
+      'No. YieldLens UK provides indicative decision-support only. It is not financial advice, mortgage advice, tax advice, legal advice, or a valuation.',
   },
 ];
 
@@ -149,7 +149,7 @@ export default function PropertyCashFlowCalculatorPage() {
           </div>
 
           <p className="text-xs text-stone-400 mt-5">
-            Indicative decision-support only. Not a formal valuation or financial advice.
+            Indicative decision-support only. Not a valuation or financial advice.
           </p>
         </div>
       </section>
