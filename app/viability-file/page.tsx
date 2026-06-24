@@ -3,17 +3,17 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
-import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, secondaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
+import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Standard Commercial Viability File | YieldLens UK',
+  title: 'Standard Commercial Viability File',
   description:
     'Turn a free commercial check into a £49 decision memo covering rent burden, break-even customers, opening cash, downside trading, negotiation levers, and the evidence to verify before committing.',
   alternates: {
     canonical: '/viability-file',
   },
   openGraph: {
-    title: 'Standard Commercial Viability File | YieldLens UK',
+    title: 'Standard Commercial Viability File',
     description:
       'A £49 decision-support file for pressure-testing commercial rent, cash, downside trading, and lease viability before signing.',
     url: 'https://yieldlens.co.uk/viability-file',
@@ -107,7 +107,7 @@ const workflowSteps = [
   {
     step: '3',
     title: 'Unlock the Standard file for £49',
-    text: 'Use the saved result to unlock the fuller viability file or view the sample file.',
+    text: 'Use the saved result to unlock the Standard file or view the sample file.',
   },
 ];
 
@@ -189,10 +189,9 @@ export default function ViabilityFilePage() {
               </h1>
 
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                Get a structured £49 viability file showing rent burden,
-                break-even customers, opening cash, downside trading,
-                negotiation levers, and the evidence to verify before
-                committing.
+                Get a structured £49 viability file that turns the free
+                commercial check into a decision memo for negotiation and due
+                diligence before you sign.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -218,21 +217,12 @@ export default function ViabilityFilePage() {
                   View sample file
                 </TrackedCtaLink>
 
-                <Link
-                  href="/how-it-works"
-                  className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-green-200 shadow-sm transition-colors hover:bg-white/10 self-center sm:self-auto"
-                >
-                  How it works
-                </Link>
               </div>
 
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>
                 Indicative decision-support only. Not advice, not a valuation, and not a substitute for professional due diligence.
               </p>
 
-              <p className={`${disclaimerClass} mt-3 text-stone-400`}>
-                Checkout appears after a commercial report request.
-              </p>
             </div>
 
             <div className={`${surfaceCardClass} overflow-hidden bg-[#fffaf0] text-stone-900 shadow-2xl`}>
@@ -277,8 +267,8 @@ export default function ViabilityFilePage() {
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
           eyebrow="What it can include"
-          title="What the £49 file gives you."
-          description="The paid version turns the free check into a printable decision memo. It keeps the main numbers visible, then adds the interpretation, stress tests, and questions that help with negotiation and due diligence."
+          title="What the £49 file includes"
+          description="The Standard commercial viability file turns the free check into a concise decision memo."
         />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -328,8 +318,8 @@ export default function ViabilityFilePage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
           eyebrow="How the flow works"
-          title="Free check first. Fuller file after there is a saved result."
-          description="The viability file is tied to a specific saved check. That keeps the output grounded in the rent, costs, opening cash, and downside trading assumptions entered for the site. Checkout appears after the commercial report request."
+          title="Three steps from snapshot to memo."
+          description="The file is unlocked from a saved commercial result."
         />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -353,44 +343,6 @@ export default function ViabilityFilePage() {
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <TrackedCtaLink
-              href="/check?mode=commercial"
-              eventName="viability_file_page_cta_clicked"
-              pagePath="/viability-file"
-              ctaLabel="Run a free commercial check first"
-              pageType="product_page"
-              className={primaryCtaClass}
-              >
-              Run a free commercial check first
-            </TrackedCtaLink>
-
-            <TrackedCtaLink
-              href="/sample-commercial-viability-file"
-              eventName="viability_file_page_cta_clicked"
-              pagePath="/viability-file"
-              ctaLabel="View sample file"
-              pageType="product_page"
-              className={secondaryCtaClass}
-            >
-              View sample file
-            </TrackedCtaLink>
-
-            <Link
-              href="/how-it-works"
-              className={secondaryCtaClass}
-            >
-              How it works
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 pb-4">
-          <div className={`${surfaceCardClass} px-6 py-5`}>
-            <p className="text-sm text-stone-700 leading-7">
-              YieldLens also includes residential calculators, but the Standard viability file is currently focused on commercial lease pressure-testing.
-            </p>
         </div>
       </section>
 
@@ -434,13 +386,11 @@ export default function ViabilityFilePage() {
           </p>
 
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
-            Start with the free commercial check, then unlock the fuller file from your result.
+            Start with the free commercial check, then unlock the Standard file from the results page.
           </h2>
 
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
-            The check creates the saved result that powers the file. From the
-            results page, you can unlock the Standard commercial viability file,
-            view the sample file, or rerun the check with different assumptions.
+            The check creates the saved result that powers the file. From the results page, you can unlock the Standard commercial viability file or view the sample file.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -466,12 +416,6 @@ export default function ViabilityFilePage() {
               View sample file
             </TrackedCtaLink>
 
-            <Link
-              href="/how-it-works"
-              className="inline-flex items-center justify-center rounded border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 hover:border-stone-400"
-            >
-              How it works
-            </Link>
           </div>
         </div>
       </section>
