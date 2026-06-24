@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/restaurant-lease-viability-check',
     '/salon-lease-viability-check',
     '/commercial-lease-viability-check',
+    '/commercial-rent-affordability-calculator',
     '/commercial-rent-burden-calculator',
     '/break-even-customers-calculator',
     '/commercial-lease-survival-calculator',

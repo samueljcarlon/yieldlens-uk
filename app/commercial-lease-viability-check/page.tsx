@@ -320,6 +320,13 @@ export default function CommercialLeaseViabilityPage() {
             View sample file
           </Link>
 
+          <Link
+            href="/commercial-rent-affordability-calculator"
+            className="inline-flex mt-3 text-sm font-medium text-teal-700 hover:text-teal-800"
+          >
+            Commercial rent affordability calculator
+          </Link>
+
           <p className="text-xs text-stone-400 mt-5">
             YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
           </p>

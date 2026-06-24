@@ -38,6 +38,10 @@ export default function Footer() {
                 Commercial lease viability check
               </Link>
 
+              <Link href="/commercial-rent-affordability-calculator" className="block text-stone-500 hover:text-stone-900">
+                Commercial rent affordability calculator
+              </Link>
+
               <Link href="/commercial-rent-burden-calculator" className="block text-stone-500 hover:text-stone-900">
                 Commercial rent burden calculator
               </Link>

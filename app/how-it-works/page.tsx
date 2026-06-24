@@ -401,6 +401,12 @@ export default function HowItWorksPage() {
               Learn about the £49 file
             </Link>
             <Link
+              href="/commercial-rent-affordability-calculator"
+              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            >
+              Commercial rent affordability calculator
+            </Link>
+            <Link
               href="/how-much-rent-can-a-cafe-afford"
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
             >
