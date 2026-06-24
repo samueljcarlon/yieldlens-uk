@@ -177,7 +177,7 @@ export default function BuyToLetYieldCalculatorPage() {
           </div>
 
           <p className="text-xs text-stone-400 mt-5">
-            Indicative decision-support only. Not a formal valuation or financial advice.
+            Indicative decision-support only. Not a valuation or financial advice.
           </p>
         </div>
       </section>

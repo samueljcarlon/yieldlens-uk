@@ -133,6 +133,7 @@ const relatedLinks = [
   { href: '/commercial-rent-burden-calculator', label: 'Commercial rent burden calculator' },
   { href: '/break-even-customers-calculator', label: 'Break-even customers calculator' },
   { href: '/commercial-lease-survival-calculator', label: 'Commercial lease survival calculator' },
+  { href: '/rental-valuation-vs-rent-affordability', label: 'Rental valuation vs rent affordability' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/restaurant-lease-viability-check', label: 'Restaurant lease viability check' },
   { href: '/salon-lease-viability-check', label: 'Salon lease viability check' },
