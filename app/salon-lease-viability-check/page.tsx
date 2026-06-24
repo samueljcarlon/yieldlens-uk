@@ -57,6 +57,33 @@ const quickAnswerPoints = [
   '12% rent burden is a healthier screen, 18% is a caution threshold, and above 18% needs stronger evidence or sharper lease terms.',
 ];
 
+const salonOperatorChecks = [
+  {
+    title: 'Chairs or treatment rooms',
+    text: 'A salon can be profitable with the right layout, but the lease only works if the number of chairs or rooms supports the monthly rent and staffing plan.',
+  },
+  {
+    title: 'Treatment duration and utilisation',
+    text: 'Longer treatments improve spend per visit but reduce throughput, so chair utilisation and booking fill matter as much as headline average spend.',
+  },
+  {
+    title: 'Self-employed chair rent',
+    text: 'Where chair rental is part of the model, the rent question changes because the operator may be sharing revenue rather than carrying all of the labour cost directly.',
+  },
+  {
+    title: 'Repeat bookings and no-shows',
+    text: 'A salon often depends on repeat appointments. If rebooking is weak or no-shows are common, the rent has less room to hide.',
+  },
+  {
+    title: 'Utilities and water',
+    text: 'Water, laundry, lighting, drying, and heating can all matter more in a salon than they do in a plain retail unit.',
+  },
+  {
+    title: 'Booking ramp-up and staff productivity',
+    text: 'The first months after opening can be quieter, so the lease has to survive before the appointment book fully fills and staff utilisation improves.',
+  },
+];
+
 const leaseTerms = [
   'Rent-free period',
   'Rent review',
@@ -211,6 +238,22 @@ export default function SalonLeaseViabilityPage() {
           ].map((item) => (
             <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-14 sm:py-16">
+        <SectionTitle
+          eyebrow="Salon operator lens"
+          title="A salon site only works if the chairs, bookings, and treatment flow support the lease."
+          description="For salons, treatment duration, chair utilisation, and repeat bookings often matter as much as the rent itself."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {salonOperatorChecks.map((item) => (
+            <div key={item.title} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm">
+              <p className="font-semibold text-stone-900 mb-2">{item.title}</p>
+              <p className="text-sm text-stone-600 leading-6">{item.text}</p>
             </div>
           ))}
         </div>

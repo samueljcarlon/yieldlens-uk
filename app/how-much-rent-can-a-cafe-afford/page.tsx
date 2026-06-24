@@ -56,6 +56,33 @@ const quickAnswerPoints = [
   'These are YieldLens screening thresholds, not universal industry rules.',
 ];
 
+const cafeOperatorChecks = [
+  {
+    title: 'Morning and lunch peaks',
+    text: 'A cafe often depends on a narrow set of busy hours, so the rent has to work when trade is strong and when the off-peak hours are quieter than planned.',
+  },
+  {
+    title: 'Takeaway versus sit-in mix',
+    text: 'A takeaway-led cafe can turn tables and serve volume differently from a sit-in model, which changes average spend, queue flow, and staffing.',
+  },
+  {
+    title: 'Waste and repeat trade',
+    text: 'Fresh stock, pastry, milk, and prepared food can carry waste if repeat visits are weaker or the daypart mix is less even than expected.',
+  },
+  {
+    title: 'Coffee margin sensitivity',
+    text: 'Small changes in average spend, basket mix, or footfall can shift the whole model because coffee-led trading often relies on volume and repeat visits.',
+  },
+  {
+    title: 'Staffing and equipment',
+    text: 'Barista cover, till cover, seating layout, and coffee kit costs all feed into the real rent question, not just the monthly lease number.',
+  },
+  {
+    title: 'Fit-out and opening cash',
+    text: 'Counters, extraction, seating, signage, and coffee equipment can use cash before the site proves itself, so the opening buffer matters.',
+  },
+];
+
 const leaseTerms = [
   'Rent-free period',
   'Rent review',
@@ -243,6 +270,22 @@ export default function CafeRentAffordabilityPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-14 sm:py-16">
+        <SectionTitle
+          eyebrow="Cafe operator lens"
+          title="The same rent can feel very different once seating, peaks, and waste are part of the picture."
+          description="Cafe economics are driven by a few busy periods, the balance between takeaway and sit-in trade, and the cost of keeping the machine running when the room is not full."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {cafeOperatorChecks.map((item) => (
+            <div key={item.title} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm">
+              <p className="font-semibold text-stone-900 mb-2">{item.title}</p>
+              <p className="text-sm text-stone-600 leading-6">{item.text}</p>
+            </div>
+          ))}
         </div>
       </section>
 

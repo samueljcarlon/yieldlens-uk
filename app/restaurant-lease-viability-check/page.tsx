@@ -57,6 +57,33 @@ const quickAnswerPoints = [
   '12% rent burden is a healthier screen, 18% is a caution threshold, and above 18% needs stronger evidence or sharper lease terms.',
 ];
 
+const restaurantOperatorChecks = [
+  {
+    title: 'Covers per service',
+    text: 'Lunch and dinner demand can look healthy on paper but still fail if the number of covers per service does not justify the kitchen, front-of-house, and delivery overheads.',
+  },
+  {
+    title: 'Gross margin mix',
+    text: 'Wet-led and food-led trading behave differently. Drinks, desserts, lunch specials, and add-ons can change the margin picture more than rent alone.',
+  },
+  {
+    title: 'Kitchen fit-out and extraction',
+    text: 'A restaurant site can need more capital than the rent suggests once extraction, ventilation, gas, refrigeration, prep space, and back-of-house layout are included.',
+  },
+  {
+    title: 'Licensing and planning',
+    text: 'Alcohol, late hours, planning use, and any restrictions on the premises can change whether the concept is even workable at the intended trading pattern.',
+  },
+  {
+    title: 'Utilities and food waste',
+    text: 'Energy, water, and stock waste can move quickly in a restaurant, especially when the menu is broad or early trade is uneven.',
+  },
+  {
+    title: 'Staff rota and daypart revenue',
+    text: 'A site can need different staffing across lunch, dinner, and quieter shoulder hours, so the lease must work across the whole week, not only the busiest night.',
+  },
+];
+
 const leaseTerms = [
   'Rent-free period',
   'Rent review',
@@ -229,6 +256,22 @@ export default function RestaurantLeaseViabilityPage() {
           ].map((item) => (
             <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-14 sm:py-16">
+        <SectionTitle
+          eyebrow="Restaurant operator lens"
+          title="Restaurant rent has to survive more than a single busy service."
+          description="Covers, menu mix, kitchen layout, staffing, and licensing all influence whether the site can keep up once trading starts to vary by daypart."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {restaurantOperatorChecks.map((item) => (
+            <div key={item.title} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm">
+              <p className="font-semibold text-stone-900 mb-2">{item.title}</p>
+              <p className="text-sm text-stone-600 leading-6">{item.text}</p>
             </div>
           ))}
         </div>
