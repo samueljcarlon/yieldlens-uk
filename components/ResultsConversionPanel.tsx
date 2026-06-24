@@ -1,5 +1,13 @@
 'use client';
-import { surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
+import {
+  disclaimerClass,
+  primaryCtaClass,
+  secondaryCtaClass,
+  surfaceCardClass,
+  surfaceCardSoftClass,
+  tableShellClass,
+} from '@/components/yieldLensUi';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 interface ResultsConversionPanelProps {
   mode: 'residential' | 'commercial';
@@ -18,28 +26,28 @@ const residentialItems = [
 
 const commercialItems = [
   {
-    title: 'Stress-test pack',
-    body: 'Base, downside, and cost-up views that keep the free snapshot honest.',
+    title: 'Decision memo',
+    body: 'Turns the free numbers into a printable memo for negotiation and due diligence.',
   },
   {
-    title: 'Negotiation aid',
+    title: 'Stress-test scenarios',
+    body: 'Base, downside, and cost-up views that keep the snapshot honest.',
+  },
+  {
+    title: 'Negotiation levers',
     body: 'Rent, rent-free terms, deposit, break clause, and landlord contribution prompts.',
+  },
+  {
+    title: 'Evidence checklist',
+    body: 'What evidence to collect before heads of terms or signing.',
   },
   {
     title: 'Lease questions',
     body: 'Service charge, repairs, permitted use, rent review, and handover questions.',
   },
   {
-    title: 'Due diligence checklist',
-    body: 'What evidence to collect before heads of terms or signing.',
-  },
-  {
-    title: 'Ranked actions before committing',
-    body: 'A clear list of what to improve first if the numbers are tight.',
-  },
-  {
-    title: 'Final view',
-    body: 'A concise go / renegotiate / pause view for the current assumptions.',
+    title: 'Printable file',
+    body: 'A clean memo you can use when talking to agents, advisers, or landlords.',
   },
 ];
 
@@ -64,6 +72,18 @@ const compareRows = [
   ['Due diligence checklist', 'Not included'],
   ['Ranked action plan', 'Not included'],
   ['Printable memo', 'Not included'],
+];
+
+const paidFileChecklist = [
+  'Decision memo',
+  'Rent burden interpretation',
+  'Break-even customer context',
+  'Opening cash and buffer view',
+  'Six-month downside survival',
+  'Negotiation levers',
+  'Evidence checklist',
+  'Lease questions',
+  'Printable file',
 ];
 
 function getScoreMessage(score: number): string {
@@ -145,8 +165,7 @@ export default function ResultsConversionPanel({
 
             {!isResidential && (
               <p className="text-xs text-stone-400 mt-3 leading-5">
-                The paid file adds stress tests, negotiation levers, lease questions,
-                due diligence, ranked actions, and a cleaner final view.
+                The paid file adds the memo, stress tests, negotiation levers, and due diligence pack.
               </p>
             )}
           </div>
@@ -167,33 +186,77 @@ export default function ResultsConversionPanel({
             </div>
         ) : (
           <div className="space-y-5">
-            <div className={`${tableShellClass}`}>
-              <table className="min-w-full border-collapse text-sm">
-                <thead className="bg-stone-100/90 text-stone-700">
-                  <tr>
-                    <th className="px-4 py-3 text-left font-semibold">What changes</th>
-                    <th className="px-4 py-3 text-left font-semibold">Free result vs Standard file</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {compareRows.map(([label, value], index) => (
-                  <tr key={label} className={index % 2 === 0 ? 'bg-white' : 'bg-stone-50'}>
-                      <td className="px-4 py-3 align-top font-medium text-stone-900 border-t border-stone-200">
-                        {label}
-                      </td>
-                      <td className="px-4 py-3 align-top text-stone-700 border-t border-stone-200">
-                        {value}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className={`${surfaceCardClass} bg-white p-5`}>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-[#5b7d58] font-semibold mb-2">
+                  Free result
+                </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {commercialItems.map((item) => (
-                <PreviewCard key={item.title} title={item.title} body={item.body} />
-              ))}
+                <h3 className="text-lg font-bold text-stone-950 mb-3">
+                  Fast viability snapshot
+                </h3>
+
+                <ul className="space-y-2 text-sm text-stone-700 leading-6">
+                  <li>Score and verdict</li>
+                  <li>Headline rent burden</li>
+                  <li>Break-even customers</li>
+                  <li>Opening cash pressure</li>
+                  <li>Downside flag</li>
+                  <li>Basic next steps</li>
+                </ul>
+              </div>
+
+              <div className={`${surfaceCardClass} bg-[#fffaf0] p-5 shadow-[0_18px_50px_rgba(15,23,42,0.1)]`}>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-[#5b7d58] font-semibold mb-2">
+                      Standard file, £49
+                    </p>
+                    <h3 className="text-lg font-bold text-stone-950">
+                      Commercial decision memo
+                    </h3>
+                  </div>
+                  <div className="rounded-2xl border border-stone-200 bg-white px-3 py-2 text-right shadow-sm">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-stone-500 font-semibold">
+                      Price
+                    </p>
+                    <p className="text-2xl font-bold text-stone-950">£49</p>
+                  </div>
+                </div>
+
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-6">
+                  {paidFileChecklist.map((item) => (
+                    <li key={item} className="flex gap-2 rounded-2xl border border-stone-200 bg-white px-3 py-2 shadow-sm">
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#5e7f5b] shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                  <TrackedCtaLink
+                    href="/report"
+                    className={primaryCtaClass}
+                    eventName="results_report_preview_clicked"
+                    pagePath="/results"
+                    ctaLabel="Unlock the £49 viability file"
+                    pageType="results"
+                  >
+                    Unlock the £49 viability file
+                  </TrackedCtaLink>
+
+                  <TrackedCtaLink
+                    href="/sample-commercial-viability-file"
+                    className={secondaryCtaClass}
+                    eventName="results_report_preview_clicked"
+                    pagePath="/results"
+                    ctaLabel="View sample file"
+                    pageType="results"
+                  >
+                    View sample file
+                  </TrackedCtaLink>
+                </div>
+              </div>
             </div>
 
             <div className={`${surfaceCardSoftClass} bg-white p-5`}>
@@ -210,9 +273,8 @@ export default function ResultsConversionPanel({
                 ))}
               </ul>
 
-              <p className="mt-4 text-xs text-stone-500 leading-5">
-                YieldLens is indicative decision-support only. It is not financial advice,
-                legal advice, tax advice, a valuation, or a substitute for professional due diligence.
+              <p className={`${disclaimerClass} mt-4`}>
+                YieldLens is indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
               </p>
             </div>
           </div>
