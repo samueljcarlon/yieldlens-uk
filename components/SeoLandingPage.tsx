@@ -50,7 +50,7 @@ export default function SeoLandingPage({
   return (
     <div>
       <JsonLd data={faqStructuredData} />
-      <section className="bg-[#fbf7ef] border-b border-stone-200">
+      <section className="bg-stone-50 border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
             {eyebrow}
@@ -75,7 +75,7 @@ export default function SeoLandingPage({
             {secondaryCta && secondaryHref && (
               <Link
                 href={secondaryHref}
-                className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+                className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
               >
                 {secondaryCta}
               </Link>
@@ -102,7 +102,7 @@ export default function SeoLandingPage({
           {useCases.map((useCase) => (
             <div
               key={useCase}
-              className="bg-[#fffaf0] border border-stone-200 rounded-xl p-5 shadow-sm"
+              className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm"
             >
               <p className="text-sm font-medium text-stone-800">{useCase}</p>
             </div>
@@ -110,7 +110,7 @@ export default function SeoLandingPage({
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-stone-50 border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-14">
           <h2 className="text-2xl font-bold text-stone-900 text-center mb-3">
             What the check looks at
@@ -154,7 +154,7 @@ export default function SeoLandingPage({
           {risks.map((risk) => (
             <div
               key={risk}
-              className="bg-[#fffaf0] border border-stone-200 rounded-xl p-4 text-sm text-stone-700"
+              className="bg-white border border-stone-200 rounded-xl p-4 text-sm text-stone-700"
             >
               {risk}
             </div>
@@ -162,7 +162,7 @@ export default function SeoLandingPage({
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-stone-50 border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-14">
           <h2 className="text-2xl font-bold text-stone-900 text-center mb-8">
             Frequently asked questions

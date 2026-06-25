@@ -278,7 +278,7 @@ function ReportMetric({
   helper: string;
 }) {
   return (
-    <div className="border border-stone-200 rounded-lg p-4 bg-[#fffaf0]">
+    <div className="border border-stone-200 rounded-lg p-4 bg-white">
       <p className="text-xs uppercase tracking-wide text-stone-400 font-medium mb-1">
         {label}
       </p>
@@ -324,7 +324,7 @@ function ReportDataTable({
   rows: Array<{ label: string; value: string; note?: string }>;
 }) {
   return (
-    <div className="border border-stone-200 rounded-2xl overflow-hidden bg-[#fffaf0] shadow-sm">
+    <div className="border border-stone-200 rounded-2xl overflow-hidden bg-white shadow-sm">
       {rows.map((row) => (
         <div
           key={row.label}
@@ -586,7 +586,7 @@ function CommercialLeaseQuestions() {
         {questionGroups.map((group) => (
           <div
             key={group.title}
-            className="bg-[#fffaf0] border border-stone-200 rounded-2xl p-4 shadow-sm"
+            className="bg-white border border-stone-200 rounded-2xl p-4 shadow-sm"
           >
             <p className="text-sm font-semibold text-stone-900 mb-3">
               {group.title}
@@ -698,7 +698,7 @@ export default function ReportPage() {
   if (!submission) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-        <div className="bg-[#fffaf0] border border-stone-200 rounded-2xl p-8 shadow-sm">
+        <div className="bg-white border border-stone-200 rounded-2xl p-8 shadow-sm">
           <h1 className="text-2xl font-bold text-stone-900 mb-3">
             No report available
           </h1>
@@ -767,7 +767,7 @@ export default function ReportPage() {
 
           <Link
             href="/results"
-            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
           >
             Back to results
           </Link>
@@ -775,7 +775,7 @@ export default function ReportPage() {
           {!isResidential && (
             <TrackedCtaLink
               href="/check?mode=commercial"
-              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
               eventName="report_run_another_check_clicked"
               pagePath="/report"
               ctaLabel="Run another commercial check"
@@ -787,7 +787,7 @@ export default function ReportPage() {
         </div>
       </div>
 
-      <article className="report-page bg-[#fffaf0] border border-stone-200 rounded-2xl shadow-[0_16px_40px_rgba(15,23,42,0.08)] p-8">
+      <article className="report-page bg-white border border-stone-200 rounded-2xl shadow-[0_16px_40px_rgba(15,23,42,0.08)] p-8">
         <header className="border-b border-stone-200 pb-6 mb-8">
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
             <div>
@@ -937,7 +937,7 @@ export default function ReportPage() {
 
               <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
                 {result.nextSteps.map((step) => (
-                  <li key={step} className="bg-[#fffaf0] border border-stone-200 rounded-2xl p-3 shadow-sm">
+                  <li key={step} className="bg-white border border-stone-200 rounded-2xl p-3 shadow-sm">
                     {step}
                   </li>
                 ))}

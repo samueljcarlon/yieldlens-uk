@@ -14,7 +14,7 @@ export const surfaceCardClass =
   'rounded-[28px] border border-stone-200 bg-white shadow-[0_18px_48px_rgba(15,23,42,0.07)]';
 
 export const surfaceCardSoftClass =
-  'rounded-[28px] border border-stone-200 bg-stone-50 shadow-sm';
+  'rounded-[28px] border border-stone-200 bg-white shadow-sm';
 
 export const tableShellClass =
   'overflow-x-auto rounded-[28px] border border-stone-200 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.05)]';

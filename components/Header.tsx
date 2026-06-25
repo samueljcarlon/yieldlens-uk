@@ -3,7 +3,7 @@ import { primaryCtaClass, secondaryCtaClass, surfaceCardClass } from '@/componen
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/90 backdrop-blur-xl supports-[backdrop-filter]:bg-white/80 shadow-[0_12px_34px_rgba(15,23,42,0.06)]">
+    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/95 backdrop-blur-xl supports-[backdrop-filter]:bg-white/90 shadow-[0_12px_34px_rgba(15,23,42,0.06)]">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <span className="text-lg font-semibold text-stone-900 tracking-tight">
