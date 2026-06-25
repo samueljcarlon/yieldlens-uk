@@ -29,6 +29,11 @@ export default async function PaymentCancelPage({
           the sample file, or run another commercial check.
         </p>
 
+        <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto mt-3">
+          The Standard file is only unlocked after checkout completes. If you
+          want to compare the output first, the sample file is still available.
+        </p>
+
         <p className="text-sm text-stone-500 leading-7 max-w-2xl mx-auto mt-4">
           YieldLens UK provides indicative decision-support only. It is not
           financial advice, legal advice, tax advice, a valuation, or a substitute

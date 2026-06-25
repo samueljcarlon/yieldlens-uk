@@ -28,6 +28,12 @@ export default function TermsPage() {
             yield, cash flow, break-even figures, risk flags, and an indicative
             verdict.
           </p>
+
+          <p className="mt-3">
+            The free commercial check shows the headline pressure points. The
+            Standard commercial viability file is unlocked from a saved
+            commercial result, and can be printed or saved as PDF.
+          </p>
         </section>
 
         <section>
@@ -57,6 +63,12 @@ export default function TermsPage() {
             The output depends on the information you enter. If the purchase
             price, rent, costs, revenue assumptions, or other inputs are wrong,
             incomplete, or optimistic, the result may be misleading.
+          </p>
+
+          <p className="mt-3">
+            The commercial file is tied to the saved result you request it from.
+            If your assumptions change, rerun the free check so the file
+            reflects the latest numbers.
           </p>
         </section>
 
@@ -109,8 +121,9 @@ export default function TermsPage() {
 
           <p>
             YieldLens UK may change, pause, or remove features as the product
-            develops. The current product is an MVP and may contain errors,
-            incomplete assumptions, or limitations.
+            develops. The current product may still contain assumptions and
+            limitations, so users should review the output alongside normal due
+            diligence.
           </p>
         </section>
 
@@ -120,7 +133,9 @@ export default function TermsPage() {
           </h2>
 
           <p>
-            For questions, please contact us through the website.
+            For questions, please contact us through the website. If something
+            looks unclear, ask before paying or signing so the assumptions can be
+            checked again.
           </p>
         </section>
       </div>

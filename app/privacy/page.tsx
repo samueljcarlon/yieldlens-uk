@@ -28,7 +28,10 @@ export default function PrivacyPage() {
           </p>
 
           <p className="mt-3">
-            For privacy questions, please contact us through the website.
+            For privacy questions, please contact us through the website. We
+            use your submission details to calculate the check, save the result,
+            and return the paid file to the saved commercial result where
+            relevant.
           </p>
         </section>
 
@@ -100,8 +103,8 @@ export default function PrivacyPage() {
 
           <p>
             We use service providers to run the product, including hosting and
-            database infrastructure. This currently includes Vercel for hosting
-            and Supabase for database storage.
+            database infrastructure. This currently includes Vercel for hosting,
+            Supabase for database storage, and Stripe for payment processing.
           </p>
 
           <p className="mt-3">

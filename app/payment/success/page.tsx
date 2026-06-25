@@ -63,7 +63,7 @@ export default async function PaymentSuccessPage({
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">
           {isReady
-            ? 'Your payment has been confirmed. Open the file from this page, then print or save it as PDF if you want a memo for negotiation and due diligence.'
+            ? 'Your payment has been confirmed. Open the file from this page, then print or save it as PDF if you want a memo for negotiation and due diligence. If your assumptions change later, rerun the free commercial check and unlock the latest saved result again.'
             : 'Payment received. Your file may take a few seconds to unlock. Refresh this page shortly.'}
         </p>
 

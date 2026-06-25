@@ -203,7 +203,9 @@ export default function ViabilityFilePage() {
                 Get a structured £49 viability file that turns the free
                 commercial check into a decision memo for negotiation and due
                 diligence before you sign. It is unlocked from a saved result,
-                then opens as a memo you can print or save as PDF.
+                then opens as a memo you can print or save as PDF. If your
+                assumptions change, rerun the free commercial check so the file
+                reflects the latest numbers.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">

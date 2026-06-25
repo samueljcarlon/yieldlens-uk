@@ -15,6 +15,11 @@ export default function Footer() {
               analysis only. It is not financial advice, legal advice, tax advice, a
               valuation, or a substitute for professional due diligence.
             </p>
+
+            <p className="text-sm text-stone-500 mt-3 leading-7 max-w-sm">
+              For support, contact us through the website. If the numbers look off,
+              rerun the check with revised assumptions before paying or signing.
+            </p>
           </div>
 
           <div>
