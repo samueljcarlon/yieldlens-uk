@@ -49,6 +49,28 @@ const featureCards = [
   },
 ];
 
+const builtFor = [
+  'Cafes comparing units before signing heads of terms',
+  'Restaurants checking the rent against covers and kitchen cost',
+  'Salons testing chair capacity, bookings, and opening cash',
+  'Small operators deciding whether the lease is worth the next step',
+];
+
+const freeCheckShows = [
+  'Rent burden',
+  'Break-even customers',
+  'Opening cash pressure',
+  'Downside trading',
+  'Six-month survival',
+  'Lease questions to verify',
+];
+
+const whyThisMatters = [
+  'Rent only looks manageable until fit-out, deposit, legal fees, staffing, and utilities are all in the stack.',
+  'A good-looking unit can still be commercially fragile if the opening start is weaker than planned.',
+  'The check is meant to surface those pressure points before the lease becomes expensive to unwind.',
+];
+
 const howItWorks = [
   {
     step: '1',
@@ -167,31 +189,29 @@ export default function HomePage() {
                   Run commercial site check
                 </TrackedCtaLink>
 
-                <TrackedCtaLink
-                  href="/viability-file"
-                  eventName="commercial_home_cta_clicked"
-                  pagePath="/"
-                  ctaLabel="View viability file"
-                  pageType="homepage"
+                <Link
+                  href="/sample-commercial-viability-file"
                   className={heroSecondaryCtaClass}
                 >
-                  View viability file
-                </TrackedCtaLink>
+                  View sample file
+                </Link>
               </div>
 
-              <Link
-                href="/sample-commercial-viability-file"
-                className={`${heroSecondaryCtaClass} mt-4`}
-              >
-                View sample file
-              </Link>
-
-              <Link
-                href="/how-it-works"
-                className={`${heroSecondaryCtaClass} mt-3`}
-              >
-                How it works
-              </Link>
+              <div className="mt-7 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
+                <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+                  Built for
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {builtFor.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-stone-200"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>
                 YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
@@ -199,6 +219,9 @@ export default function HomePage() {
 
               <p className={`${disclaimerClass} mt-3 text-stone-400`}>
                 Standard commercial viability file is £49 after a commercial report request.
+              </p>
+              <p className={`${disclaimerClass} mt-3 text-stone-400`}>
+                The free result shows the pressure points. The Standard file turns them into a structured decision memo for negotiation, evidence checking, and lease questions.
               </p>
             </div>
 
@@ -267,8 +290,60 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="max-w-6xl mx-auto px-4 py-14 sm:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+          <div className={`${surfaceCardClass} p-6`}>
+            <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
+              Free commercial check
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
+              What the free check shows
+            </h2>
+            <p className="text-sm text-stone-600 leading-7 mb-5">
+              The free result gives the headline pressure points so you can decide
+              whether the unit deserves more time, better terms, or a deeper look in
+              the Standard file.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {freeCheckShows.map((item) => (
+                <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] px-4 py-3">
+                  <p className="text-sm font-semibold text-stone-900">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={`${surfaceCardSoftClass} bg-[#fbf7ef] border border-stone-200 p-6`}>
+            <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
+              Why this matters before signing
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
+              A good-looking unit can still be commercially fragile.
+            </h2>
+            <div className="space-y-3 text-sm text-stone-600 leading-7">
+              {whyThisMatters.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-stone-100 border-b border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-8">
+          <div className="max-w-3xl mb-6">
+            <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
+              Proof and next step
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
+              The Standard file turns the snapshot into a decision memo.
+            </h2>
+            <p className="text-sm text-stone-600 leading-7">
+              The free result shows the pressure points. The Standard file turns them
+              into a structured memo for negotiation, evidence checking, and lease
+              questions.
+            </p>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             {featureCards.map((card) => (
               <div
@@ -354,14 +429,14 @@ export default function HomePage() {
                 Commercial is the main wedge. Other checks stay secondary.
               </h2>
 
-              <p className="text-sm text-stone-600 leading-7">
-                YieldLens UK is built around commercial lease viability. The
-                supporting tools remain available for residential rent, yield,
-                and cash flow questions.
-              </p>
-            </div>
+            <p className="text-sm text-stone-600 leading-7">
+              YieldLens UK is built around commercial lease viability. The
+              supporting tools remain available for residential rent, yield,
+              and cash flow questions.
+            </p>
+          </div>
 
-            <TrackedCtaLink
+          <TrackedCtaLink
               href="/check?mode=commercial"
               eventName="commercial_home_cta_clicked"
               pagePath="/"
@@ -422,9 +497,9 @@ export default function HomePage() {
             </h2>
 
             <p className="text-sm text-stone-600 leading-7 mb-6">
-              The free check gives the first signal. The fuller file organises
-              the key metrics, assumptions, risk flags, missing evidence, and
-              next questions before you commit.
+              The free check gives the first signal. The fuller file organises the
+              key metrics, assumptions, risk flags, missing evidence, and next
+              questions before you commit.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
