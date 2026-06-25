@@ -12,8 +12,9 @@ const ringColour: Record<string, string> = {
 
 export default function ScoreCard({ verdict }: { verdict: Verdict }) {
   return (
-    <div className={`${surfaceCardClass} flex flex-col items-center gap-3 p-6 text-center`}>
-      <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--yieldlens-muted)] font-medium">
+    <div className={`${surfaceCardClass} overflow-hidden flex flex-col items-center gap-3 p-6 text-center`}>
+      <div className="h-1.5 w-20 rounded-full bg-gradient-to-r from-[#c8c2b8] via-[var(--yieldlens-caution)] to-[#b8b1a5]" />
+      <p className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-[var(--yieldlens-muted)] font-semibold">
         Indicative score
       </p>
       <p className={`text-6xl font-bold tabular-nums leading-none tracking-tight ${ringColour[verdict.colour] ?? 'text-stone-800'}`}>

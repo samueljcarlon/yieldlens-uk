@@ -391,7 +391,7 @@ function CommercialSummaryCard({
 }) {
   return (
     <div className={`border rounded-2xl p-4 shadow-sm ${summaryToneClass(tone)}`}>
-      <p className="text-[11px] uppercase tracking-wide text-stone-500 font-semibold mb-1">
+      <p className="text-[11px] uppercase tracking-wide text-[var(--yieldlens-muted)] font-semibold mb-1">
         {label}
       </p>
 
@@ -399,7 +399,7 @@ function CommercialSummaryCard({
         {value}
       </p>
 
-      <p className="text-xs text-stone-600 mt-2 leading-5">
+      <p className="text-xs text-[var(--yieldlens-muted)] mt-2 leading-5">
         {helper}
       </p>
     </div>
@@ -428,28 +428,28 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
               into a decision memo for negotiation and due diligence before you sign.
             </p>
 
-            <p className="mt-3 text-sm text-stone-400 leading-6 max-w-3xl">
+            <p className="mt-3 text-sm text-[var(--yieldlens-muted)] leading-6 max-w-3xl">
               {getCommercialResultSummary(result)}
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white">
+              <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
                 Rent burden {formatPercent(result.rentBurdenPercentage)}
               </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white">
+              <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
                 Break-even {formatNumber(result.breakEvenCustomersPerDay)}/day
               </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white">
+              <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
                 {formatOpeningPosition(result)}
               </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white">
+              <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
                 Six-month test {getSixMonthValue(result)}
               </span>
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-5 shadow-sm">
-            <p className="text-[11px] uppercase tracking-wide text-stone-400 font-semibold mb-1">
+          <div className="rounded-3xl border border-white/25 bg-white/0 p-4 sm:p-5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-wide text-[var(--yieldlens-muted)] font-semibold mb-1">
               Verdict
             </p>
 
@@ -461,14 +461,14 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
               {getCommercialVerdictHelper(result)}
             </p>
 
-            <p className="text-xs text-stone-400 mt-3">
+            <p className="text-xs text-[var(--yieldlens-muted)] mt-3">
               Indicative score: {result.score}/100
             </p>
           </div>
         </div>
       </div>
 
-      <div className="border-y border-stone-200 bg-stone-100 px-5 py-5 sm:px-6">
+      <div className="border-y border-stone-200 bg-white px-5 py-5 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-4">
           <div className="rounded-[28px] border border-stone-200 bg-white p-5 shadow-sm">
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-2">
@@ -509,7 +509,7 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
             </div>
           </div>
 
-          <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-5 shadow-sm">
+          <div className="rounded-[28px] border border-stone-200 bg-[var(--yieldlens-panel)] p-5 shadow-sm">
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-2">
               What it does not fully answer yet
             </p>
@@ -521,7 +521,7 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
               <li>Whether the case still feels right after negotiation and due diligence.</li>
             </ul>
 
-            <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 p-4 text-sm text-stone-700 leading-6">
+            <div className="mt-4 rounded-2xl border border-stone-200 bg-[var(--yieldlens-panel)] p-4 text-sm text-stone-700 leading-6">
               The Standard commercial viability file turns this snapshot into a decision memo
               you can use for negotiation and due diligence.
             </div>
@@ -570,7 +570,7 @@ function CommercialScenarioCard({
 }) {
   return (
       <div className="bg-white border border-stone-200 rounded-2xl p-4 shadow-sm">
-      <p className="text-xs uppercase tracking-wide text-stone-500 font-medium mb-1">
+      <p className="text-xs uppercase tracking-wide text-[var(--yieldlens-muted)] font-medium mb-1">
         {label}
       </p>
 
@@ -578,7 +578,7 @@ function CommercialScenarioCard({
         {value}
       </p>
 
-      <p className="text-xs text-stone-600 mt-2 leading-5">
+      <p className="text-xs text-[var(--yieldlens-muted)] mt-2 leading-5">
         {helper}
       </p>
     </div>
@@ -599,7 +599,7 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
           The quick check is useful, but it needs evidence before commitment
         </h2>
 
-        <p className="text-sm text-stone-600 leading-7 max-w-3xl">
+        <p className="text-sm text-[var(--yieldlens-muted)] leading-7 max-w-3xl">
           Use the free result to judge the broad shape of the deal: rent burden, break-even volume,
           opening cash, and downside survival. The paid file is where the lease gets pressure-tested properly.
         </p>
@@ -631,7 +631,7 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
         />
       </div>
 
-      <div className="mt-5 rounded-2xl border border-stone-200 bg-stone-50 p-5">
+      <div className="mt-5 rounded-2xl border border-stone-200 bg-[var(--yieldlens-panel)] p-5">
         <p className="font-semibold text-stone-950 mb-3">
           Questions to verify next
         </p>
@@ -692,7 +692,7 @@ export default function ResultsPage() {
             No property check found
           </h1>
 
-          <p className="text-sm text-stone-500 mb-6">
+          <p className="text-sm text-[var(--yieldlens-muted)] mb-6">
             Run a residential or commercial check first, then your results will appear here.
           </p>
 
@@ -732,8 +732,8 @@ export default function ResultsPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 font-medium mb-1">
+            <div className="rounded-2xl border border-white/25 bg-white/0 p-4">
+              <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--yieldlens-muted)] font-medium mb-1">
                 Saved check
               </p>
 
@@ -744,12 +744,12 @@ export default function ResultsPage() {
           </div>
 
           <div className="mt-5 flex flex-wrap gap-2 text-sm">
-            <span className="bg-white/10 border border-white/10 text-white px-3 py-1.5 rounded-full">
+            <span className="bg-white/0 border border-white/25 text-white px-3 py-1.5 rounded-full">
               {getLocation(submission)}
             </span>
 
             {getAddress(submission) && (
-              <span className="bg-white/10 border border-white/10 text-white px-3 py-1.5 rounded-full">
+              <span className="bg-white/0 border border-white/25 text-white px-3 py-1.5 rounded-full">
                 {getAddress(submission)}
               </span>
             )}
@@ -803,14 +803,14 @@ export default function ResultsPage() {
       <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
         <p className="font-semibold text-stone-900 mb-3">What the £49 file adds</p>
 
-        <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
+        <ol className="space-y-2 text-sm text-[var(--yieldlens-muted)] list-decimal list-inside">
           {result.nextSteps.map((step) => (
             <li key={step}>{step}</li>
           ))}
         </ol>
       </div>
 
-      <div className="mt-8 bg-stone-100 border border-stone-200 rounded-2xl p-6 sm:p-7 shadow-sm">
+      <div className="mt-8 bg-white border border-stone-200 rounded-2xl p-6 sm:p-7 shadow-sm">
         <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           {isResidential ? 'Full viability file coming soon' : 'Unlock the £49 viability file'}
         </p>
@@ -839,14 +839,14 @@ export default function ResultsPage() {
               {isResidential ? (
                 <Link
                   href="/report"
-                  className="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-stone-50"
+                  className="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)]"
                 >
                   Turn this result into a decision memo
                 </Link>
               ) : (
                 <TrackedCtaLink
                   href="/report"
-                  className="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-stone-50"
+                  className="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)]"
                   eventName="results_report_preview_clicked"
                   pagePath="/results"
                   ctaLabel="Get the negotiation and due diligence file"
@@ -857,7 +857,7 @@ export default function ResultsPage() {
               )}
             </div>
 
-            <div className="mt-4 flex flex-wrap gap-3 text-sm text-stone-600">
+            <div className="mt-4 flex flex-wrap gap-3 text-sm text-[var(--yieldlens-muted)]">
               {isResidential ? (
                 <Link href="/check?mode=residential" className="hover:text-stone-900 hover:underline">
                   Run another residential check
@@ -879,13 +879,13 @@ export default function ResultsPage() {
             </div>
 
             {!isResidential && (
-              <p className="mt-4 text-xs text-stone-500 leading-5">
+              <p className="mt-4 text-xs text-[var(--yieldlens-muted)] leading-5">
                 The Standard file is unlocked from this saved result. After payment, open the memo from the success page and print or save it as PDF.
               </p>
             )}
           </div>
 
-          <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-5 shadow-sm">
+          <div className="rounded-[28px] border border-stone-200 bg-[var(--yieldlens-panel)] p-5 shadow-sm">
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-2">
               Sample file proof
             </p>
@@ -897,7 +897,7 @@ export default function ResultsPage() {
 
             <Link
               href="/sample-commercial-viability-file"
-              className="mt-4 inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-stone-50"
+              className="mt-4 inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)]"
             >
               View sample file
             </Link>
@@ -913,8 +913,8 @@ export default function ResultsPage() {
         </div>
       </div>
 
-      <div className="mt-8 bg-stone-100 border border-stone-200 rounded-xl p-5 text-sm text-stone-600">
-        <p className="font-semibold text-stone-800 mb-2">Important disclaimer</p>
+      <div className="mt-8 bg-white border border-stone-200 rounded-xl p-5 text-sm text-[var(--yieldlens-muted)]">
+        <p className="font-semibold text-stone-900 mb-2">Important disclaimer</p>
 
         <p>
           YieldLens UK provides indicative property return checks and decision-support

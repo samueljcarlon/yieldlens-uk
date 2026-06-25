@@ -134,7 +134,7 @@ export default function ResultsConversionPanel({
 
   return (
     <section className={`overflow-hidden ${surfaceCardClass} shadow-[0_18px_50px_rgba(15,23,42,0.08)]`}>
-      <div className="bg-stone-950 px-6 py-6 text-white sm:px-7">
+      <div className="bg-[var(--yieldlens-hero)] px-6 py-6 text-white sm:px-7">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-2xl">
             <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-[#DCCDA8] font-semibold">
@@ -187,7 +187,7 @@ export default function ResultsConversionPanel({
         ) : (
           <div className="space-y-5">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className={`${surfaceCardClass} bg-white p-5`}>
+              <div className={`${surfaceCardClass} bg-[var(--yieldlens-panel)] p-5 border-l-4 border-l-[var(--yieldlens-caution)]`}>
                 <p className="text-[11px] uppercase tracking-[0.2em] text-[#5b7d58] font-semibold mb-2">
                   Free result
                 </p>
@@ -206,7 +206,7 @@ export default function ResultsConversionPanel({
                 </ul>
               </div>
 
-              <div className={`${surfaceCardClass} bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.1)]`}>
+              <div className={`${surfaceCardClass} bg-white p-5 border-l-4 border-l-[var(--yieldlens-primary)] shadow-[0_18px_50px_rgba(15,23,42,0.1)]`}>
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.2em] text-[#5b7d58] font-semibold mb-2">
@@ -226,7 +226,7 @@ export default function ResultsConversionPanel({
 
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-6">
                   {paidFileChecklist.map((item) => (
-                    <li key={item} className="flex gap-2 rounded-2xl border border-stone-200 bg-white px-3 py-2 shadow-sm">
+                    <li key={item} className="flex gap-2 rounded-2xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-2 shadow-sm">
                       <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
                       <span>{item}</span>
                     </li>
@@ -263,7 +263,7 @@ export default function ResultsConversionPanel({
               </div>
             </div>
 
-            <div className={`${surfaceCardSoftClass} bg-white p-5`}>
+            <div className={`${surfaceCardSoftClass} bg-white p-5 border-l-4 border-l-[var(--yieldlens-caution)]`}>
               <p className="text-[11px] uppercase tracking-[0.2em] text-[#5b7d58] font-semibold mb-3">
                 Questions the paid file helps answer
               </p>

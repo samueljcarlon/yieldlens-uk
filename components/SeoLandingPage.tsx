@@ -1,5 +1,13 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import {
+  heroPrimaryCtaClass,
+  heroSecondaryCtaClass,
+  memoBandClass,
+  secondaryCtaClass,
+  surfaceCardClass,
+  surfaceCardSoftClass,
+} from '@/components/yieldLensUi';
 
 interface SeoLandingPageProps {
   eyebrow: string;
@@ -50,7 +58,7 @@ export default function SeoLandingPage({
   return (
     <div>
       <JsonLd data={faqStructuredData} />
-      <section className="bg-stone-50 border-b border-stone-200">
+      <section className="bg-[var(--yieldlens-panel)] border-b border-[var(--yieldlens-border)]">
         <div className="max-w-5xl mx-auto px-4 py-16 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-4">
             {eyebrow}
@@ -60,78 +68,94 @@ export default function SeoLandingPage({
             {title}
           </h1>
 
-          <p className="text-lg text-stone-600 max-w-3xl mx-auto mb-8 leading-8">
+          <p className="text-lg text-[var(--yieldlens-muted)] max-w-3xl mx-auto mb-8 leading-8">
             {description}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href={primaryHref}
-              className="bg-[var(--yieldlens-primary)] text-white px-6 py-3 rounded font-medium hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm"
-            >
-              {primaryCta}
-            </Link>
+            className={heroPrimaryCtaClass}
+          >
+            {primaryCta}
+          </Link>
 
-            {secondaryCta && secondaryHref && (
-              <Link
-                href={secondaryHref}
-                className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
-              >
-                {secondaryCta}
-              </Link>
-            )}
+          {secondaryCta && secondaryHref && (
+            <Link
+              href={secondaryHref}
+              className={secondaryCtaClass}
+            >
+              {secondaryCta}
+            </Link>
+          )}
           </div>
 
-          <p className="text-xs text-stone-400 mt-5">
+          <p className="text-xs text-[var(--yieldlens-muted)] mt-5">
             Indicative decision-support only. Not a valuation or financial advice.
           </p>
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 py-14">
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-5xl mx-auto px-4 py-14">
         <h2 className="text-2xl font-bold text-stone-900 text-center mb-3">
           Who this is for
         </h2>
 
-        <p className="text-sm text-stone-500 text-center max-w-2xl mx-auto mb-8">
+        <p className="text-sm text-[var(--yieldlens-muted)] text-center max-w-2xl mx-auto mb-8">
           Use YieldLens UK when you need a quick, structured pressure test before
           spending more time, money, or emotional energy on a property decision.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {useCases.map((useCase) => (
+          {useCases.map((useCase, index) => (
             <div
               key={useCase}
-              className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm"
+              className={`${surfaceCardClass} border-l-4 p-5 ${
+                index % 4 === 0
+                  ? 'border-l-[var(--yieldlens-caution)]'
+                  : index % 4 === 1
+                    ? 'border-l-[var(--yieldlens-primary)]'
+                    : index % 4 === 2
+                      ? 'border-l-[var(--yieldlens-positive)]'
+                      : 'border-l-[var(--yieldlens-fragile)]'
+              }`}
             >
-              <p className="text-sm font-medium text-stone-800">{useCase}</p>
+              <p className="text-sm font-medium text-stone-900">{useCase}</p>
             </div>
           ))}
         </div>
+        </div>
       </section>
 
-      <section className="bg-white border-y border-stone-200">
+      <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-5xl mx-auto px-4 py-14">
           <h2 className="text-2xl font-bold text-stone-900 text-center mb-3">
             What the check looks at
           </h2>
 
-          <p className="text-sm text-stone-500 text-center max-w-2xl mx-auto mb-8">
+          <p className="text-sm text-[var(--yieldlens-muted)] text-center max-w-2xl mx-auto mb-8">
             The aim is not to produce decorative waffle. The aim is to expose
             whether the numbers survive realistic assumptions.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {metrics.map((metric) => (
+            {metrics.map((metric, index) => (
               <div
                 key={metric.title}
-                className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm"
+                className={`${surfaceCardSoftClass} border-l-4 p-5 ${
+                  index % 3 === 0
+                    ? 'border-l-[var(--yieldlens-caution)]'
+                    : index % 3 === 1
+                      ? 'border-l-[var(--yieldlens-primary)]'
+                      : 'border-l-[var(--yieldlens-fragile)]'
+                }`}
               >
                 <p className="font-semibold text-stone-900 mb-2">
                   {metric.title}
                 </p>
 
-                <p className="text-sm text-stone-600 leading-6">
+                <p className="text-sm text-[var(--yieldlens-muted)] leading-6">
                   {metric.description}
                 </p>
               </div>
@@ -140,29 +164,37 @@ export default function SeoLandingPage({
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 py-14">
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-5xl mx-auto px-4 py-14">
         <h2 className="text-2xl font-bold text-stone-900 text-center mb-3">
           Risks the free check can flag
         </h2>
 
-        <p className="text-sm text-stone-500 text-center max-w-2xl mx-auto mb-8">
+        <p className="text-sm text-[var(--yieldlens-muted)] text-center max-w-2xl mx-auto mb-8">
           A property can look attractive until one or two assumptions move against
           you. The check is designed to make those weak points obvious.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {risks.map((risk) => (
+          {risks.map((risk, index) => (
             <div
               key={risk}
-              className="bg-white border border-stone-200 rounded-xl p-4 text-sm text-stone-700"
+              className={`${surfaceCardClass} border-l-4 p-4 text-sm text-stone-700 ${
+                index % 3 === 0
+                  ? 'border-l-[var(--yieldlens-caution)]'
+                  : index % 3 === 1
+                    ? 'border-l-[var(--yieldlens-primary)]'
+                    : 'border-l-[var(--yieldlens-fragile)]'
+              }`}
             >
               {risk}
             </div>
           ))}
         </div>
+        </div>
       </section>
 
-      <section className="bg-stone-50 border-y border-stone-200">
+      <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-5xl mx-auto px-4 py-14">
           <h2 className="text-2xl font-bold text-stone-900 text-center mb-8">
             Frequently asked questions
@@ -172,13 +204,13 @@ export default function SeoLandingPage({
             {faqs.map((faq) => (
               <div
                 key={faq.question}
-                className="bg-stone-50 border border-stone-200 rounded-xl p-5"
+                className={`${surfaceCardSoftClass} border-l-4 border-l-[var(--yieldlens-caution)] p-5`}
               >
                 <h3 className="font-semibold text-stone-900 mb-2">
                   {faq.question}
                 </h3>
 
-                <p className="text-sm text-stone-600 leading-6">
+                <p className="text-sm text-[var(--yieldlens-muted)] leading-6">
                   {faq.answer}
                 </p>
               </div>
@@ -187,13 +219,13 @@ export default function SeoLandingPage({
         </div>
       </section>
 
-      <section className="max-w-4xl mx-auto px-4 py-14">
-        <div className="bg-white border border-stone-200 rounded-xl p-8 text-center shadow-sm">
-          <h2 className="text-2xl font-bold text-stone-900 mb-3">
+      <section className={`${memoBandClass} mx-4 sm:mx-6 lg:mx-auto lg:max-w-4xl my-14`}>
+        <div className="px-4 sm:px-6 lg:px-8 py-14 text-center">
+          <h2 className="text-2xl font-bold text-white mb-3">
             Run the free check before you commit.
           </h2>
 
-          <p className="text-sm text-stone-700 leading-6 max-w-2xl mx-auto mb-6">
+          <p className="text-sm text-stone-300 leading-6 max-w-2xl mx-auto mb-6">
             The free check gives you the headline metrics, key risks, and a
             scenario pressure test. If the numbers look serious, you can request
             a fuller viability file afterwards.
@@ -201,7 +233,7 @@ export default function SeoLandingPage({
 
           <Link
             href={primaryHref}
-            className="inline-block bg-[var(--yieldlens-primary)] text-white px-6 py-3 rounded font-medium hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm"
+            className={heroPrimaryCtaClass}
           >
             {primaryCta}
           </Link>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import PropertyCashFlowTool from '@/components/PropertyCashFlowTool';
 import ToolConversionPanel from '@/components/ToolConversionPanel';
+import { heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Property Cash Flow Calculator UK | YieldLens UK',
@@ -87,23 +88,25 @@ function SectionTitle({
   eyebrow,
   title,
   description,
+  tone = 'light',
 }: {
   eyebrow: string;
   title: string;
   description?: string;
+  tone?: 'light' | 'dark';
 }) {
+  const isDark = tone === 'dark';
+
   return (
     <div className="text-center mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
+      <p className={`text-xs font-medium uppercase tracking-widest mb-3 ${isDark ? 'text-[#DCCDA8]' : 'text-[var(--yieldlens-caution)]'}`}>
         {eyebrow}
       </p>
-
-      <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
+      <h2 className={`text-2xl sm:text-3xl font-bold mb-3 ${isDark ? 'text-white' : 'text-stone-900'}`}>
         {title}
       </h2>
-
       {description && (
-        <p className="text-sm text-stone-500 max-w-2xl mx-auto leading-6">
+        <p className={`text-sm max-w-2xl mx-auto leading-6 ${isDark ? 'text-stone-300' : 'text-[var(--yieldlens-muted)]'}`}>
           {description}
         </p>
       )}
@@ -111,44 +114,52 @@ function SectionTitle({
   );
 }
 
+function accentClass(index: number) {
+  const accents = [
+    'border-l-[var(--yieldlens-caution)]',
+    'border-l-[var(--yieldlens-primary)]',
+    'border-l-[var(--yieldlens-positive)]',
+    'border-l-[var(--yieldlens-fragile)]',
+    'border-l-[var(--yieldlens-risk)]',
+  ];
+  return accents[index % accents.length];
+}
+
 export default function PropertyCashFlowCalculatorPage() {
   return (
-    <div>
+    <div className="bg-[var(--yieldlens-page)]">
       <JsonLd data={[faqStructuredData, breadcrumbStructuredData]} />
 
-      <section className="bg-stone-50 border-b border-stone-200">
+      <section className="bg-[var(--yieldlens-panel)] border-b border-[var(--yieldlens-border)]">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-4">
             Property cash flow calculator UK
           </p>
-
           <h1 className="text-4xl sm:text-6xl font-bold text-stone-900 leading-tight mb-6">
             Check whether a rental property produces real monthly cash flow.
           </h1>
-
-          <p className="text-lg text-stone-600 max-w-3xl mx-auto mb-8 leading-8">
-            Use YieldLens UK to estimate rental property cash flow after mortgage
-            costs, service charge, ground rent, insurance, maintenance, management
-            fees, void periods, and other monthly costs.
+          <p className="text-lg text-[var(--yieldlens-muted)] max-w-3xl mx-auto mb-8 leading-8">
+            Use YieldLens UK to estimate rental property cash flow after mortgage costs,
+            service charge, ground rent, insurance, maintenance, management fees, void
+            periods, and other monthly costs.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="#calculator"
-              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
+              className="bg-[var(--yieldlens-primary)] text-white px-6 py-3 rounded font-medium hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm"
             >
               Use cash flow calculator
             </a>
-
             <Link
               href="/buy-to-let-yield-calculator"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-white text-stone-700 border border-[var(--yieldlens-border)] px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               Compare buy-to-let yield
             </Link>
           </div>
 
-          <p className="text-xs text-stone-400 mt-5">
+          <p className="text-xs text-[var(--yieldlens-muted)] mt-5">
             Indicative decision-support only. Not a valuation or financial advice.
           </p>
         </div>
@@ -156,7 +167,6 @@ export default function PropertyCashFlowCalculatorPage() {
 
       <section id="calculator" className="max-w-6xl mx-auto px-4 py-16">
         <PropertyCashFlowTool />
-
         <div className="mt-8">
           <ToolConversionPanel
             sourceTool="property_cash_flow"
@@ -170,40 +180,33 @@ export default function PropertyCashFlowCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-stone-50 border-y border-stone-200">
-        <div className="max-w-5xl mx-auto px-4 py-16">
+      <section className="bg-[var(--yieldlens-hero)] text-white border-y border-white/10">
+        <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Why cash flow matters"
             title="A property can have a decent yield and still be a weak cash flow deal."
             description="Cash flow shows whether the rent leaves a real monthly surplus after regular costs. It is the practical reality check behind the headline yield."
+            tone="dark"
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            <div className="bg-stone-50 border border-stone-200 rounded-xl p-6">
-              <p className="text-sm font-semibold text-stone-900 mb-2">
-                Rent is not profit
-              </p>
-              <p className="text-sm text-stone-600 leading-6">
-                Mortgage cost, service charge, ground rent, repairs, management,
-                and voids can remove much of the rental income.
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+              <p className="text-sm font-semibold text-white mb-2">Rent is not profit</p>
+              <p className="text-sm text-stone-300 leading-6">
+                Mortgage cost, service charge, ground rent, repairs, management, and
+                voids can remove much of the rental income.
               </p>
             </div>
-
-            <div className="bg-stone-50 border border-stone-200 rounded-xl p-6">
-              <p className="text-sm font-semibold text-stone-900 mb-2">
-                Thin buffers are fragile
-              </p>
-              <p className="text-sm text-stone-600 leading-6">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+              <p className="text-sm font-semibold text-white mb-2">Thin buffers are fragile</p>
+              <p className="text-sm text-stone-300 leading-6">
                 A property with £20 monthly cash flow can become negative after one
                 repair, higher rates, a service charge increase, or a void period.
               </p>
             </div>
-
-            <div className="bg-stone-50 border border-stone-200 rounded-xl p-6">
-              <p className="text-sm font-semibold text-stone-900 mb-2">
-                Void periods matter
-              </p>
-              <p className="text-sm text-stone-600 leading-6">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+              <p className="text-sm font-semibold text-white mb-2">Void periods matter</p>
+              <p className="text-sm text-stone-300 leading-6">
                 Empty months are easy to ignore in a quick yield calculation, but
                 they can materially change annual returns.
               </p>
@@ -212,17 +215,18 @@ export default function PropertyCashFlowCalculatorPage() {
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 py-16">
+      <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
           eyebrow="Risk flags"
           title="Common cash flow problems the calculator can expose."
+          description="The free check is designed to show where a property could disappoint before you waste time on a poor deal."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {riskItems.map((item) => (
+          {riskItems.map((item, index) => (
             <div
               key={item}
-              className="bg-white border border-stone-200 rounded-xl p-5 text-sm text-stone-700 shadow-sm"
+              className={`bg-white border border-[var(--yieldlens-border)] rounded-2xl p-5 text-sm text-stone-700 shadow-sm border-l-4 ${accentClass(index)}`}
             >
               {item}
             </div>
@@ -230,8 +234,8 @@ export default function PropertyCashFlowCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-stone-50 border-y border-stone-200">
-        <div className="max-w-5xl mx-auto px-4 py-16">
+      <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="FAQ"
             title="Property cash flow calculator questions"
@@ -241,13 +245,14 @@ export default function PropertyCashFlowCalculatorPage() {
             {faqs.map((faq) => (
               <div
                 key={faq.question}
-                className="bg-stone-50 border border-stone-200 rounded-xl p-5"
+                className={`bg-white border border-[var(--yieldlens-border)] rounded-2xl p-5 border-l-4 ${accentClass(
+                  faqs.findIndex((item) => item.question === faq.question)
+                )}`}
               >
                 <h3 className="font-semibold text-stone-900 mb-2">
                   {faq.question}
                 </h3>
-
-                <p className="text-sm text-stone-600 leading-6">
+                <p className="text-sm text-[var(--yieldlens-muted)] leading-6">
                   {faq.answer}
                 </p>
               </div>

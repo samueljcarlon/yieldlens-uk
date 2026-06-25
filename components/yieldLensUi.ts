@@ -27,7 +27,10 @@ export const disclaimerClass = 'text-xs leading-6 text-[var(--yieldlens-muted)]'
 export const heroBackdropClass =
   'relative overflow-hidden rounded-[32px] bg-[var(--yieldlens-hero)] text-white';
 
-export const sectionBandClass = 'bg-[var(--yieldlens-page)] border-y border-[var(--yieldlens-border)]';
+export const sectionBandClass = 'bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]';
+
+export const memoBandClass =
+  'rounded-[32px] border border-white/10 bg-[var(--yieldlens-hero)] text-white shadow-[0_18px_48px_rgba(15,23,42,0.18)]';
 
 export const eyebrowClass =
   'text-xs font-medium uppercase tracking-[0.22em] text-[var(--yieldlens-caution)]';

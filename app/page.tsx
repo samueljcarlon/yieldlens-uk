@@ -147,7 +147,7 @@ export default function HomePage() {
       />
       <section className="relative overflow-hidden bg-stone-950 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.16),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(120,113,108,0.12),transparent_30%)]" />
-        <div className="absolute -left-20 top-16 h-56 w-56 rounded-full bg-white0/10 blur-3xl" />
+        <div className="absolute -left-20 top-16 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl" />
         <div className="relative max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 lg:gap-12 items-center">
@@ -226,7 +226,7 @@ export default function HomePage() {
             </div>
 
             <div className={`${surfaceCardClass} overflow-hidden border-white/15 bg-white/5 shadow-2xl`}>
-              <div className="border-b border-white/10 bg-gradient-to-r from-white0/10 via-white/5 to-amber-400/10 px-5 py-4 flex items-start justify-between gap-4">
+              <div className="border-b border-white/10 bg-gradient-to-r from-white/10 via-white/5 to-amber-400/10 px-5 py-4 flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-stone-400 font-medium">
                     Commercial risk snapshot
@@ -345,10 +345,20 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            {featureCards.map((card) => (
+            {featureCards.map((card, index) => (
               <div
                 key={card.title}
-                className={`${surfaceCardSoftClass} p-4 transition-colors hover:border-[var(--yieldlens-caution)] ${
+                className={`${surfaceCardSoftClass} border-l-4 p-4 transition-colors hover:border-[var(--yieldlens-caution)] ${
+                  index % 5 === 0
+                    ? 'border-l-[var(--yieldlens-caution)]'
+                    : index % 5 === 1
+                      ? 'border-l-[var(--yieldlens-primary)]'
+                      : index % 5 === 2
+                        ? 'border-l-[var(--yieldlens-positive)]'
+                        : index % 5 === 3
+                          ? 'border-l-[var(--yieldlens-fragile)]'
+                          : 'border-l-[var(--yieldlens-risk)]'
+                } ${
                   card.title === 'Rent burden'
                     ? 'bg-white border-[var(--yieldlens-border)]'
                     : card.title === 'Downside revenue'
@@ -449,11 +459,19 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {supportingTools.map((tool) => (
+            {supportingTools.map((tool, index) => (
               <Link
                 key={tool.title}
                 href={tool.href}
-                className={`${surfaceCardClass} p-6 transition-all hover:-translate-y-0.5 ${
+                className={`${surfaceCardClass} border-l-4 p-6 transition-all hover:-translate-y-0.5 ${
+                  index % 4 === 0
+                    ? 'border-l-[var(--yieldlens-caution)]'
+                    : index % 4 === 1
+                      ? 'border-l-[var(--yieldlens-primary)]'
+                      : index % 4 === 2
+                        ? 'border-l-[var(--yieldlens-positive)]'
+                        : 'border-l-[var(--yieldlens-fragile)]'
+                } ${
                   tool.featured
                     ? 'bg-gradient-to-br from-white via-white to-amber-50 border-[var(--yieldlens-border)] hover:border-[var(--yieldlens-caution)] shadow-[0_18px_42px_rgba(15,23,42,0.08)]'
                     : 'bg-white border-stone-200 hover:border-[var(--yieldlens-caution)]'
@@ -532,7 +550,7 @@ export default function HomePage() {
           </div>
 
           <div className="bg-stone-950 text-white rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(15,23,42,0.18)]">
-            <div className="px-6 py-4 border-b border-white/10 bg-gradient-to-r from-white0/10 via-white/5 to-amber-400/10">
+            <div className="px-6 py-4 border-b border-white/10 bg-gradient-to-r from-white/10 via-white/5 to-amber-400/10">
               <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium">
                 Commercial viability file
               </p>

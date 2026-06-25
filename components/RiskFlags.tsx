@@ -2,9 +2,9 @@ import type { RiskFlag } from '@/types/property';
 import { surfaceCardClass } from '@/components/yieldLensUi';
 
 const severityStyles: Record<string, string> = {
-  high: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-risk)]',
-  medium: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-caution)]',
-  low: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-positive)]',
+  high: 'bg-[#f7efed] border-[var(--yieldlens-risk)] text-[var(--yieldlens-risk)]',
+  medium: 'bg-[#f7f2ea] border-[var(--yieldlens-caution)] text-[var(--yieldlens-caution)]',
+  low: 'bg-[#f3f7f4] border-[var(--yieldlens-positive)] text-[var(--yieldlens-positive)]',
   info: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-muted)]',
 };
 
@@ -27,12 +27,12 @@ export default function RiskFlags({ flags }: { flags: RiskFlag[] }) {
         {flags.map((flag, i) => (
           <li
             key={i}
-            className={`flex items-start gap-3 border rounded-2xl px-4 py-3 text-sm shadow-sm ${severityStyles[flag.severity]}`}
+            className={`flex items-start gap-3 rounded-2xl border-l-4 border px-4 py-3 text-sm shadow-sm ${severityStyles[flag.severity]}`}
           >
-            <span className="font-semibold shrink-0 uppercase tracking-wide text-[11px]">
+            <span className="mt-0.5 inline-flex shrink-0 rounded-full border border-current/20 bg-white/60 px-2 py-0.5 font-semibold uppercase tracking-wide text-[10px]">
               {severityLabel[flag.severity]}
             </span>
-            <span>{flag.message}</span>
+            <span className="leading-6">{flag.message}</span>
           </li>
         ))}
       </ul>

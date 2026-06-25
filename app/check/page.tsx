@@ -31,7 +31,7 @@ export default function CheckPage({
             : 'Run an indicative property pressure-test'}
         </h1>
 
-        <p className="text-sm sm:text-base text-stone-600 max-w-2xl leading-7">
+        <p className="text-sm sm:text-base text-[var(--yieldlens-muted)] max-w-2xl leading-7">
           {commercialMode
             ? 'Pressure-test rent, revenue, costs, opening cash, and downside trading before signing a commercial lease.'
             : 'Choose residential or commercial, enter the key numbers, and get a yield estimate, risk flags, and clear verdict.'}
@@ -42,7 +42,7 @@ export default function CheckPage({
             {commercialHighlights.map((item) => (
               <div
                 key={item}
-                className={`${surfaceCardSoftClass} bg-stone-50/80 border border-stone-200 px-4 py-3`}
+                className={`${surfaceCardSoftClass} bg-[var(--yieldlens-panel)]/80 border border-stone-200 px-4 py-3`}
               >
                 <p className="text-sm font-semibold text-stone-900">{item}</p>
               </div>
@@ -63,7 +63,7 @@ export default function CheckPage({
             Enter your commercial unit assumptions below.
           </p>
 
-          <p className="text-sm text-stone-600 leading-6 mb-4 max-w-2xl">
+          <p className="text-sm text-[var(--yieldlens-muted)] leading-6 mb-4 max-w-2xl">
             Use cautious assumptions. You can rerun the check with different rent,
             revenue, and cost scenarios.
           </p>
@@ -81,13 +81,13 @@ export default function CheckPage({
               Use commercial mode when the lease is the decision
             </h2>
 
-            <p className="text-sm text-stone-600 leading-6">
+            <p className="text-sm text-[var(--yieldlens-muted)] leading-6">
               The commercial check pressure-tests rent burden, break-even customers,
               opening cash, downside trading, and lease questions before you commit.
             </p>
           </div>
 
-          <div className={`${surfaceCardSoftClass} bg-stone-50 p-5`}>
+          <div className={`${surfaceCardSoftClass} bg-[var(--yieldlens-panel)] p-5`}>
             <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-semibold mb-2">
               What you get
             </p>
@@ -99,7 +99,7 @@ export default function CheckPage({
             </ul>
           </div>
 
-          <div className={`${surfaceCardSoftClass} p-5 text-sm text-stone-600`}>
+          <div className={`${surfaceCardSoftClass} p-5 text-sm text-[var(--yieldlens-muted)]`}>
             <p className="font-semibold text-stone-900 mb-2">Important disclaimer</p>
 
             <p className="leading-6">
@@ -118,7 +118,7 @@ export default function CheckPage({
             JavaScript is required for the interactive check.
           </p>
 
-          <p className="text-sm text-stone-600 leading-6">
+          <p className="text-sm text-[var(--yieldlens-muted)] leading-6">
             The commercial lease viability check measures rent burden, break-even
             customers, opening cash pressure, downside trading, six-month survival,
             and lease questions to verify before signing.

@@ -8,18 +8,18 @@ interface Props {
 
 export default function MetricCard({ label, value, helper }: Props) {
   return (
-    <div className={`${surfaceCardClass} p-5`}>
-      <div className="mb-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-[#d7d2c8] via-[#a6722c] to-[#b7b0a2]" />
-      <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--yieldlens-muted)] font-medium mb-1">
+    <div className={`${surfaceCardClass} overflow-hidden p-5`}>
+      <div className="mb-4 h-1.5 w-20 rounded-full bg-gradient-to-r from-[#c8c2b8] via-[var(--yieldlens-caution)] to-[#b8b1a5]" />
+      <div className="inline-flex rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--yieldlens-caution)]">
         {label}
-      </p>
+      </div>
 
-      <p className="text-2xl font-bold text-[var(--yieldlens-primary)] tabular-nums leading-none tracking-tight">
+      <p className="mt-4 text-2xl font-bold text-[var(--yieldlens-primary)] tabular-nums leading-none tracking-tight">
         {value}
       </p>
 
       {helper && (
-        <p className="text-xs text-[var(--yieldlens-muted)] mt-3 leading-5">
+        <p className="mt-3 rounded-2xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-2 text-xs text-[var(--yieldlens-muted)] leading-5">
           {helper}
         </p>
       )}

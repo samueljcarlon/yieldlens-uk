@@ -260,7 +260,7 @@ function SectionTitle({
 
 export default function SampleCommercialViabilityFilePage() {
   return (
-    <div className="bg-stone-50 text-stone-900">
+    <div className="bg-[var(--yieldlens-page)] text-stone-900">
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/sample-commercial-viability-file"
@@ -334,8 +334,16 @@ export default function SampleCommercialViabilityFilePage() {
               </div>
             </div>
           </div>
-          <div className={`${surfaceCardClass} mt-6 bg-white/5 p-4 text-sm text-stone-300 leading-7`}>
-            This is a sample decision-support file using fictional and redacted inputs. YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
+          <div className={`${surfaceCardClass} mt-6 border-white/10 bg-[var(--yieldlens-hero)] p-4 text-sm text-stone-300 leading-7`}>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#DCCDA8] font-semibold mb-2">
+              Final view
+            </p>
+            <p>
+              This is a sample decision-support file using fictional and redacted inputs.
+              YieldLens UK provides indicative decision-support only. It is not a valuation,
+              financial advice, mortgage advice, legal advice, tax advice, or a substitute
+              for professional due diligence.
+            </p>
           </div>
         </div>
       </section>
@@ -358,7 +366,7 @@ export default function SampleCommercialViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-stone-100 border-y border-stone-200">
+      <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Decision-support visuals"
@@ -399,7 +407,7 @@ export default function SampleCommercialViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-stone-100 border-y border-stone-200">
+      <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Site snapshot"
@@ -524,7 +532,7 @@ export default function SampleCommercialViabilityFilePage() {
                 <ul className="mt-3 space-y-2 text-sm text-stone-700 leading-6">
                   {section.items.map((item) => (
                     <li key={item} className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-green-600 shrink-0" />
+                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -581,24 +589,28 @@ export default function SampleCommercialViabilityFilePage() {
         </div>
       </section>
 
-      <section className="bg-stone-950 text-white">
+      <section className="bg-[var(--yieldlens-hero)] text-white">
         <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="Final view"
-            title="Pause unless the opening capital position improves."
-            description="The model does not fail because the downside month burns cash; it fails because upfront cash needed exceeds available starting cash."
-          />
+          <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-3">
+            Final view
+          </p>
+          <h2 className="text-3xl font-bold text-white mb-4 max-w-2xl">
+            Pause unless the opening capital position improves.
+          </h2>
           <div className="max-w-3xl text-stone-300 leading-7 text-sm space-y-3">
             <p>
-              The priority is to renegotiate fit-out, deposit, rent-free terms,
-              landlord contribution, or increase available starting cash before
-              treating the site as viable.
+              The model does not fail because the downside month burns cash; it fails because
+              upfront cash needed exceeds available starting cash.
+            </p>
+            <p>
+              The priority is to renegotiate fit-out, deposit, rent-free terms, landlord
+              contribution, or increase available starting cash before treating the site as viable.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="bg-stone-100 border-y border-stone-200">
+      <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
             Next step
