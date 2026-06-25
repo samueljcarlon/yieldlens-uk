@@ -59,8 +59,13 @@ export default function CheckPage({
 
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 lg:items-start">
         <div className={`${surfaceCardClass} p-5 sm:p-6`}>
-          <p className="text-sm font-semibold text-stone-900 mb-4">
+          <p className="text-sm font-semibold text-stone-900 mb-2">
             Enter your commercial unit assumptions below.
+          </p>
+
+          <p className="text-sm text-stone-600 leading-6 mb-4 max-w-2xl">
+            Use cautious assumptions. You can rerun the check with different rent,
+            revenue, and cost scenarios.
           </p>
 
           <CheckPageClient initialMode={initialMode} />

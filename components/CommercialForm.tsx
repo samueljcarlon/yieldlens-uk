@@ -98,7 +98,7 @@ export default function CommercialForm({ onSubmit }: Props) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const sectionSteps = [
     'Site and rent',
-    'Trading assumptions',
+    'Revenue assumptions',
     'Monthly operating costs',
     'Opening cash and setup costs',
     'Downside case',
@@ -185,14 +185,14 @@ export default function CommercialForm({ onSubmit }: Props) {
         </p>
 
         <p className="text-sm text-green-900 leading-6">
-          Enter the assumptions you have today. YieldLens will estimate rent burden,
-          break-even customers, opening cash pressure, downside trading, and six-month
-          survival before signing.
+          Enter cautious assumptions you have today. You can rerun the check with
+          different rent, revenue, and cost scenarios to see how the lease pressure
+          changes.
         </p>
 
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-2 text-[11px] uppercase tracking-[0.2em] text-green-800">
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 text-[11px] uppercase tracking-[0.2em] text-green-800">
           {sectionSteps.map((step, index) => (
-          <div
+            <div
               key={step}
               className="flex items-center gap-2 rounded-xl border border-stone-200 bg-white px-3 py-2 shadow-sm"
             >
@@ -240,7 +240,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Annual rent (£)"
           required
-          helper="Use annual rent before VAT if that is how the lease is quoted."
+          helper="Use annual rent before VAT. If the lease is quoted monthly, multiply by 12 first."
           error={errors.annualRent}
         >
           <input type="text" inputMode="numeric" className={errors.annualRent ? errorInputClass : inputClass} placeholder="e.g. 60000" {...field('annualRent')} />
@@ -264,7 +264,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Expected customers per day"
           required
-          helper="Use a realistic day, not a best-case launch week."
+          helper="Use a realistic normal day, not a best-case launch week."
           error={errors.expectedCustomersPerDay}
         >
           <input type="text" inputMode="numeric" className={errors.expectedCustomersPerDay ? errorInputClass : inputClass} placeholder="e.g. 80" {...field('expectedCustomersPerDay')} />
@@ -273,7 +273,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Opening days per month"
           required
-          helper="For example, 26 if trading six days per week."
+          helper="Count trading days only. For example, 26 if you trade six days per week."
           error={errors.openingDaysPerMonth}
         >
           <input type="text" inputMode="numeric" className={errors.openingDaysPerMonth ? errorInputClass : inputClass} placeholder="e.g. 26" {...field('openingDaysPerMonth')} />
@@ -294,7 +294,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         </FieldBlock>
 
         <FieldBlock
-          label="Monthly utilities and other costs (£)"
+          label="Monthly utilities, service charge, and other costs (£)"
           optional
           helper="Add utilities, insurance, software, licences, service charge, and routine costs."
         >
@@ -318,7 +318,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Fit-out budget (£)"
           optional
-          helper="One-off cost before opening, including works, fixtures, and initial setup."
+          helper="One-off cost before opening, including works, fixtures, equipment, and initial setup."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 50000" {...field('fitOutBudget')} />
         </FieldBlock>
@@ -398,7 +398,7 @@ export default function CommercialForm({ onSubmit }: Props) {
           type="submit"
           className="w-full sm:w-auto bg-green-700 text-white px-6 py-3.5 rounded-lg font-semibold hover:bg-green-800 transition-colors shadow-sm"
         >
-          Run commercial lease pressure-test
+          Run commercial viability check
         </button>
 
         <p className="text-xs text-stone-500 leading-5 max-w-xl">
