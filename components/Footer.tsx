@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.1fr_1fr_1fr_1fr_0.8fr] gap-8">
           <div>
             <p className="font-semibold text-stone-950">
-              YieldLens <span className="text-[#5b7d58]">UK</span>
+              YieldLens <span className="text-[var(--yieldlens-caution)]">UK</span>
             </p>
 
             <p className="text-sm text-stone-500 mt-3 leading-7 max-w-sm">

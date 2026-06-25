@@ -67,7 +67,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-8 shadow-sm">
+      <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
         <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
           Request received
         </p>
@@ -136,7 +136,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
           {mode === 'commercial' && (
             <Link
               href="/commercial-lease-viability-check"
-              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
             >
               View commercial lease viability check
             </Link>
@@ -144,7 +144,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
 
           <Link
             href="/"
-            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
           >
             Back to homepage
           </Link>

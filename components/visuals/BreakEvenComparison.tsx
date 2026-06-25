@@ -33,7 +33,7 @@ export default function BreakEvenComparison({
       : 'Not available';
 
   return (
-    <section className="rounded-[28px] border border-stone-200 bg-[#fffaf0] p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
+    <section className="rounded-[28px] border border-stone-200 bg-white p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)]">
       <div className="mb-4">
         <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 font-semibold mb-1">
           Daily volume

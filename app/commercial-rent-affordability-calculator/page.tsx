@@ -3,7 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
-import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
+import { disclaimerClass, heroSecondaryCtaClass, heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Commercial Rent Affordability Calculator | YieldLens UK',
@@ -101,7 +101,7 @@ const exampleCards = [
     label: 'Break-even/day',
     value: '45.2',
     helper: 'Customers needed per day to cover the monthly cost base.',
-    tone: 'border-stone-200 bg-[#fffaf0] text-stone-950',
+    tone: 'border-stone-200 bg-white text-stone-950',
   },
   {
     label: 'Opening buffer',
@@ -113,7 +113,7 @@ const exampleCards = [
     label: 'Downside test',
     value: 'Pass',
     helper: 'The weaker case still covers known monthly costs.',
-    tone: 'border-green-200 bg-green-50 text-green-950',
+    tone: 'border-[var(--yieldlens-border)] bg-white text-[var(--yieldlens-primary)]',
   },
 ];
 
@@ -155,7 +155,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">{eyebrow}</p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
       {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
     </div>
@@ -178,7 +178,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
                 Commercial rent affordability
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -194,7 +194,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                   pagePath="/commercial-rent-affordability-calculator"
                   ctaLabel="Run a free commercial check"
                   pageType="calculator_page"
-                  className={primaryCtaClass}
+                  className={heroPrimaryCtaClass}
                 >
                   Run a free commercial check
                 </TrackedCtaLink>
@@ -211,7 +211,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             </div>
 
             <div className={`${surfaceCardClass} bg-white/5 p-5 sm:p-6 shadow-[0_20px_40px_rgba(15,23,42,0.18)]`}>
-              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 Commercial rent burden
               </p>
               <p className="text-2xl font-bold leading-tight text-white">
@@ -222,7 +222,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
               </p>
               <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
-                  { label: '12%', value: 'Healthier', tone: 'bg-green-50 text-green-950 border-green-200' },
+                  { label: '12%', value: 'Healthier', tone: 'bg-white text-[var(--yieldlens-primary)] border-[var(--yieldlens-border)]' },
                   { label: '18%', value: 'Caution', tone: 'bg-amber-50 text-amber-950 border-amber-200' },
                   { label: '20%+', value: 'Pressure', tone: 'bg-orange-50 text-orange-950 border-orange-200' },
                 ].map((item) => (
@@ -244,7 +244,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           description="Use 12% as a healthier screening level and 18% as a caution threshold. Those are indicative YieldLens screening thresholds, not universal rules."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-4">The business is more likely to carry the rent when:</p>
             <ul className="space-y-3 text-sm text-stone-700 leading-7">
               {quickAnswerBullets.map((item) => (
@@ -260,14 +260,14 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             <p className="text-sm text-stone-700 leading-7">
               Search results often mix rent affordability queries with rental valuation queries. YieldLens is focused on the tenant side of the question. It helps you work out whether the business can carry the rent before you sign, rather than estimating what the market rent should be.
             </p>
-            <div className="mt-5 rounded-3xl border border-stone-200 bg-[#fffaf0] p-4 text-sm text-stone-700 leading-7">
+            <div className="mt-5 rounded-3xl border border-stone-200 bg-white p-4 text-sm text-stone-700 leading-7">
               A site can be fairly priced in the market and still be unaffordable for a specific business.
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Commercial rent affordability vs rental valuation"
@@ -292,7 +292,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           description="Rent burden = monthly rent / expected monthly revenue. The lower the burden, the more room the business has for staffing, rates, utilities, stock, and quieter trading."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-          <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               {[
                 ['Annual rent', '£60,000'],
@@ -319,7 +319,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
               Use the commercial rent burden calculator when you want a faster rent-only screen. Use the free commercial check when you want rent, customers, costs, opening cash, and downside trading reviewed together.
             </p>
             <div className="mt-5">
-              <Link href="/commercial-rent-burden-calculator" className="text-sm font-medium text-green-800 hover:text-green-900">
+              <Link href="/commercial-rent-burden-calculator" className="text-sm font-medium text-[var(--yieldlens-primary)] hover:text-[var(--yieldlens-primary)]">
                 Open the commercial rent burden calculator
               </Link>
             </div>
@@ -327,7 +327,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Break-even customers/day"
@@ -344,20 +344,20 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                   ['Break-even customers/day', '45.2'],
                   ['Expected customers/day', '80'],
                 ].map(([label, value]) => (
-                  <div key={label} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-4">
+                  <div key={label} className="rounded-3xl border border-stone-200 bg-white p-4">
                     <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">{label}</p>
                     <p className="text-lg font-bold text-stone-950">{value}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="rounded-3xl border border-green-200 bg-green-50 p-6 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.18em] text-green-900 font-semibold mb-2">Interpretation</p>
-              <p className="text-sm text-green-950 leading-7">
+            <div className="rounded-3xl border border-[var(--yieldlens-border)] bg-white p-6 shadow-sm">
+              <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-primary)] font-semibold mb-2">Interpretation</p>
+              <p className="text-sm text-[var(--yieldlens-primary)] leading-7">
                 There is headroom on paper, but the 80 customers/day assumption needs evidence through footfall counts, competitor observation, and trading assumptions.
               </p>
               <div className="mt-5">
-                <Link href="/break-even-customers-calculator" className="text-sm font-medium text-green-800 hover:text-green-900">
+                <Link href="/break-even-customers-calculator" className="text-sm font-medium text-[var(--yieldlens-primary)] hover:text-[var(--yieldlens-primary)]">
                   Open the break-even customers calculator
                 </Link>
               </div>
@@ -373,7 +373,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           description="A business can look affordable on operating numbers and still fail because fit-out, deposit, fees, stock, and setup costs leave too little cash after opening."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-          <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               {[
                 ['Starting cash', '£90,000'],
@@ -404,7 +404,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Downside trading"
@@ -420,16 +420,16 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                   ['Monthly cost base', '£14,100'],
                   ['Downside monthly position', '£876 surplus'],
                 ].map(([label, value]) => (
-                  <div key={label} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-4">
+                  <div key={label} className="rounded-3xl border border-stone-200 bg-white p-4">
                     <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">{label}</p>
                     <p className="text-lg font-bold text-stone-950">{value}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="rounded-3xl border border-green-200 bg-green-50 p-6 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.18em] text-green-900 font-semibold mb-2">Interpretation</p>
-              <p className="text-sm text-green-950 leading-7">
+            <div className="rounded-3xl border border-[var(--yieldlens-border)] bg-white p-6 shadow-sm">
+              <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-primary)] font-semibold mb-2">Interpretation</p>
+              <p className="text-sm text-[var(--yieldlens-primary)] leading-7">
                 The downside month still covers known costs, but the rent burden and opening buffer still need caution.
               </p>
             </div>
@@ -445,7 +445,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {whatChangesAffordability.map((item) => (
-            <div key={item} className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
+            <div key={item} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
             </div>
           ))}
@@ -481,7 +481,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           description="Use the free commercial check when you want the rent, costs, opening cash, and downside trading reviewed together. Use the paid file when you want the analysis organised into a report you can print, save, and use in negotiation."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">Free check includes</p>
             <ul className="space-y-3 text-sm text-stone-700 leading-7">
               {[
@@ -529,26 +529,26 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             pagePath="/commercial-rent-affordability-calculator"
             ctaLabel="Run a free commercial check"
             pageType="calculator_page"
-            className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm text-center"
+            className="bg-[var(--yieldlens-primary)] text-white px-6 py-3 rounded font-medium hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center"
           >
             Run a free commercial check
           </TrackedCtaLink>
           <Link
             href="/sample-commercial-viability-file"
-            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             View sample file
           </Link>
           <Link
             href="/how-it-works"
-            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             See how it works
           </Link>
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="FAQ"
@@ -577,7 +577,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-3xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm font-medium text-stone-800 hover:border-green-200 hover:text-green-800 transition-colors"
+              className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm text-sm font-medium text-stone-800 hover:border-[var(--yieldlens-border)] hover:text-[var(--yieldlens-primary)] transition-colors"
             >
               {item.label}
             </Link>
@@ -587,7 +587,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
 
       <section className="bg-stone-950 text-white">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+          <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
             Pressure-test the rent before you commit.
           </p>
           <h2 className="text-3xl font-bold text-white mb-4">
@@ -603,19 +603,19 @@ export default function CommercialRentAffordabilityCalculatorPage() {
               pagePath="/commercial-rent-affordability-calculator"
               ctaLabel="Run a free commercial check"
               pageType="calculator_page"
-              className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm"
+              className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm"
             >
               Run a free commercial check
             </TrackedCtaLink>
             <Link
               href="/sample-commercial-viability-file"
-              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               View sample viability file
             </Link>
             <Link
               href="/how-it-works"
-              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               How it works
             </Link>

@@ -111,7 +111,7 @@ function PreviewCard({
 }) {
   return (
     <div className={`${surfaceCardClass} p-4`}>
-      <p className="text-[11px] uppercase tracking-[0.2em] text-green-700 font-semibold mb-2">
+      <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] font-semibold mb-2">
         Included in the paid file
       </p>
       <h4 className="text-sm font-semibold text-stone-950 mb-2">
@@ -137,7 +137,7 @@ export default function ResultsConversionPanel({
       <div className="bg-stone-950 px-6 py-6 text-white sm:px-7">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-2xl">
-            <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-green-200 font-semibold">
+            <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-[#DCCDA8] font-semibold">
               {isResidential ? 'Residential follow-up' : 'Commercial follow-up'}
             </div>
 
@@ -206,7 +206,7 @@ export default function ResultsConversionPanel({
                 </ul>
               </div>
 
-              <div className={`${surfaceCardClass} bg-[#fffaf0] p-5 shadow-[0_18px_50px_rgba(15,23,42,0.1)]`}>
+              <div className={`${surfaceCardClass} bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.1)]`}>
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.2em] text-[#5b7d58] font-semibold mb-2">
@@ -227,7 +227,7 @@ export default function ResultsConversionPanel({
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-6">
                   {paidFileChecklist.map((item) => (
                     <li key={item} className="flex gap-2 rounded-2xl border border-stone-200 bg-white px-3 py-2 shadow-sm">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#5e7f5b] shrink-0" />
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -271,7 +271,7 @@ export default function ResultsConversionPanel({
               <ul className="space-y-2 text-sm text-stone-700 leading-6">
                 {commercialQuestions.map((question) => (
                   <li key={question} className="flex gap-2">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#5e7f5b] shrink-0" />
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
                     <span>{question}</span>
                   </li>
                 ))}

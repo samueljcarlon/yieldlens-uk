@@ -107,10 +107,10 @@ function MetricBox({
   tone?: VerdictTone;
 }) {
   const toneClass = {
-    positive: 'bg-green-50 border-green-200',
-    warning: 'bg-orange-50 border-orange-200',
-    danger: 'bg-red-50 border-red-200',
-    neutral: 'bg-white border-stone-200',
+    positive: 'bg-white border-[var(--yieldlens-border)]',
+    warning: 'bg-white border-[var(--yieldlens-border)]',
+    danger: 'bg-white border-[var(--yieldlens-border)]',
+    neutral: 'bg-white border-[var(--yieldlens-border)]',
   }[tone];
 
   return (
@@ -334,10 +334,10 @@ export default function PropertyCashFlowTool() {
     'w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500';
 
   const verdictClass = {
-    positive: 'bg-green-50 border-green-200 text-green-900',
-    warning: 'bg-orange-50 border-orange-200 text-orange-900',
-    danger: 'bg-red-50 border-red-200 text-red-900',
-    neutral: 'bg-stone-50 border-stone-200 text-stone-900',
+    positive: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-positive)]',
+    warning: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-caution)]',
+    danger: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-risk)]',
+    neutral: 'bg-white border-[var(--yieldlens-border)] text-stone-900',
   }[result.verdict.tone];
 
   const cashFlowTone =
@@ -350,7 +350,7 @@ export default function PropertyCashFlowTool() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
       <div className="lg:col-span-2 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
-        <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-2">
+        <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-2">
           Property cash flow calculator
         </p>
 
@@ -535,13 +535,13 @@ export default function PropertyCashFlowTool() {
               type="button"
               onClick={handleCalculateCashFlow}
               disabled={!result.hasRequiredInputs}
-              className="bg-green-700 text-white text-sm font-medium px-4 py-2 rounded hover:bg-green-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="bg-[var(--yieldlens-primary)] text-white text-sm font-medium px-4 py-2 rounded hover:bg-[var(--yieldlens-primary-hover)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Calculate cash flow
             </button>
 
             {eventLogged && (
-              <span className="text-xs text-green-700 font-medium">
+              <span className="text-xs text-[var(--yieldlens-positive)] font-medium">
                 Calculation logged
               </span>
             )}

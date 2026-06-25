@@ -3,7 +3,7 @@ import Link from 'next/link';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import VerdictBadge from '@/components/VerdictBadge';
-import { primaryCtaClass, secondaryCtaClass, heroSecondaryCtaClass, surfaceCardClass, surfaceCardSoftClass, disclaimerClass } from '@/components/yieldLensUi';
+import { primaryCtaClass, secondaryCtaClass, heroPrimaryCtaClass, heroSecondaryCtaClass, surfaceCardClass, surfaceCardSoftClass, disclaimerClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Commercial Lease Pressure Tests | YieldLens UK',
@@ -147,12 +147,12 @@ export default function HomePage() {
       />
       <section className="relative overflow-hidden bg-stone-950 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.16),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(120,113,108,0.12),transparent_30%)]" />
-        <div className="absolute -left-20 top-16 h-56 w-56 rounded-full bg-green-500/10 blur-3xl" />
+        <div className="absolute -left-20 top-16 h-56 w-56 rounded-full bg-white0/10 blur-3xl" />
         <div className="absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl" />
         <div className="relative max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
                 Commercial lease survival model
               </p>
 
@@ -184,10 +184,10 @@ export default function HomePage() {
                   pagePath="/"
                   ctaLabel="Run commercial site check"
                   pageType="homepage"
-                  className={primaryCtaClass}
-                >
-                  Run commercial site check
-                </TrackedCtaLink>
+                className={heroPrimaryCtaClass}
+              >
+                Run commercial site check
+              </TrackedCtaLink>
 
                 <Link
                   href="/sample-commercial-viability-file"
@@ -198,7 +198,7 @@ export default function HomePage() {
               </div>
 
               <div className="mt-7 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
-                <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+                <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                   Built for
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -226,7 +226,7 @@ export default function HomePage() {
             </div>
 
             <div className={`${surfaceCardClass} overflow-hidden border-white/15 bg-white/5 shadow-2xl`}>
-              <div className="border-b border-white/10 bg-gradient-to-r from-green-500/10 via-white/5 to-amber-400/10 px-5 py-4 flex items-start justify-between gap-4">
+              <div className="border-b border-white/10 bg-gradient-to-r from-white0/10 via-white/5 to-amber-400/10 px-5 py-4 flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-stone-400 font-medium">
                     Commercial risk snapshot
@@ -248,9 +248,9 @@ export default function HomePage() {
                   <p className="text-xs uppercase tracking-wide text-stone-400">
                     Rent burden
                   </p>
-                  <p className="text-2xl font-bold mt-1 text-green-300">20%</p>
+                  <p className="text-2xl font-bold mt-1 text-[#DCCDA8]">20%</p>
                   <div className="mt-3 h-1.5 rounded-full bg-white/10 overflow-hidden">
-                    <div className="h-full w-5/6 rounded-full bg-gradient-to-r from-green-400 via-green-500 to-amber-400" />
+                    <div className="h-full w-5/6 rounded-full bg-gradient-to-r from-green-400 via-white to-amber-400" />
                   </div>
                 </div>
 
@@ -274,7 +274,7 @@ export default function HomePage() {
                   <p className="text-xs uppercase tracking-wide text-stone-400">
                     Six-month test
                   </p>
-                  <p className="text-2xl font-bold mt-1 text-green-300">Pass</p>
+                  <p className="text-2xl font-bold mt-1 text-[#DCCDA8]">Pass</p>
                   <p className="mt-3 text-xs text-stone-400">The downside month still needs a buffer, not confidence alone.</p>
                 </div>
               </div>
@@ -293,7 +293,7 @@ export default function HomePage() {
       <section className="max-w-6xl mx-auto px-4 py-14 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
           <div className={`${surfaceCardClass} p-6`}>
-            <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
+            <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
               Free commercial check
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
@@ -306,15 +306,15 @@ export default function HomePage() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {freeCheckShows.map((item) => (
-                <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] px-4 py-3">
+                <div key={item} className="rounded-xl border border-stone-200 bg-white px-4 py-3">
                   <p className="text-sm font-semibold text-stone-900">{item}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className={`${surfaceCardSoftClass} bg-[#fbf7ef] border border-stone-200 p-6`}>
-            <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
+          <div className={`${surfaceCardSoftClass} bg-[#F4F3F1] border border-stone-200 p-6`}>
+            <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
               Why this matters before signing
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
@@ -332,7 +332,7 @@ export default function HomePage() {
       <section className="bg-stone-100 border-b border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="max-w-3xl mb-6">
-            <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
+            <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
               Proof and next step
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
@@ -348,9 +348,9 @@ export default function HomePage() {
             {featureCards.map((card) => (
               <div
                 key={card.title}
-                className={`${surfaceCardSoftClass} p-4 transition-colors hover:border-green-300 ${
+                className={`${surfaceCardSoftClass} p-4 transition-colors hover:border-[var(--yieldlens-caution)] ${
                   card.title === 'Rent burden'
-                    ? 'bg-white border-green-200'
+                    ? 'bg-white border-[var(--yieldlens-border)]'
                     : card.title === 'Downside revenue'
                       ? 'bg-amber-50 border-amber-200'
                       : 'bg-white'
@@ -360,7 +360,7 @@ export default function HomePage() {
                   <span
                     className={`h-2 w-2 rounded-full ${
                       card.title === 'Rent burden'
-                        ? 'bg-green-500'
+                        ? 'bg-[var(--yieldlens-primary)]'
                         : card.title === 'Downside revenue'
                           ? 'bg-amber-500'
                           : 'bg-stone-400'
@@ -381,7 +381,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden max-w-6xl mx-auto px-4 py-16">
         <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
         <div className="max-w-3xl mb-10">
-          <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
+          <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
             How it works
           </p>
 
@@ -401,7 +401,7 @@ export default function HomePage() {
               key={item.step}
               className={`${surfaceCardClass} p-6 transition-shadow hover:shadow-[0_18px_44px_rgba(15,23,42,0.08)]`}
             >
-              <p className="w-9 h-9 rounded-full bg-green-700 text-white text-sm font-semibold flex items-center justify-center mb-5">
+              <p className="w-9 h-9 rounded-full bg-[var(--yieldlens-primary)] text-white text-sm font-semibold flex items-center justify-center mb-5">
                 {item.step}
               </p>
 
@@ -421,7 +421,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-10">
             <div className="max-w-3xl">
-              <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
+              <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
                 Property tools
               </p>
 
@@ -455,12 +455,12 @@ export default function HomePage() {
                 href={tool.href}
                 className={`${surfaceCardClass} p-6 transition-all hover:-translate-y-0.5 ${
                   tool.featured
-                    ? 'bg-gradient-to-br from-green-50 via-white to-amber-50 border-green-200 hover:border-green-300 shadow-[0_18px_42px_rgba(15,23,42,0.08)]'
-                    : 'bg-white border-stone-200 hover:border-green-300'
+                    ? 'bg-gradient-to-br from-white via-white to-amber-50 border-[var(--yieldlens-border)] hover:border-[var(--yieldlens-caution)] shadow-[0_18px_42px_rgba(15,23,42,0.08)]'
+                    : 'bg-white border-stone-200 hover:border-[var(--yieldlens-caution)]'
                 }`}
               >
                 {tool.featured ? (
-                  <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
+                  <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
                     Main product
                   </p>
                 ) : (
@@ -476,7 +476,7 @@ export default function HomePage() {
                   {tool.desc}
                 </p>
 
-                <span className="text-sm text-green-700 font-medium">
+                <span className="text-sm text-[var(--yieldlens-caution)] font-medium">
                   {tool.cta} →
                 </span>
               </Link>
@@ -488,7 +488,7 @@ export default function HomePage() {
       <section className="max-w-6xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
           <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
+            <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
               Viability file
             </p>
 
@@ -532,8 +532,8 @@ export default function HomePage() {
           </div>
 
           <div className="bg-stone-950 text-white rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(15,23,42,0.18)]">
-            <div className="px-6 py-4 border-b border-white/10 bg-gradient-to-r from-green-500/10 via-white/5 to-amber-400/10">
-              <p className="text-xs uppercase tracking-widest text-green-300 font-medium">
+            <div className="px-6 py-4 border-b border-white/10 bg-gradient-to-r from-white0/10 via-white/5 to-amber-400/10">
+              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium">
                 Commercial viability file
               </p>
             </div>

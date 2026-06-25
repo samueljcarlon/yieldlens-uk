@@ -7,7 +7,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <span className="text-lg font-semibold text-stone-900 tracking-tight">
-            YieldLens <span className="text-[#5b7d58]">UK</span>
+            YieldLens <span className="text-[var(--yieldlens-caution)]">UK</span>
           </span>
         </Link>
 

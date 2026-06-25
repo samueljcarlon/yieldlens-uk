@@ -123,7 +123,7 @@ export default function RentAffordabilityCheckPage() {
     <div>
       <JsonLd data={[faqStructuredData, breadcrumbStructuredData]} />
 
-      <section className="bg-[#fbf7ef] border-b border-stone-200">
+      <section className="bg-[#F4F3F1] border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
             Rent affordability calculator UK
@@ -149,7 +149,7 @@ export default function RentAffordabilityCheckPage() {
 
             <Link
               href="/property-cash-flow-calculator"
-              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               Compare property cash flow tool
             </Link>
@@ -177,7 +177,7 @@ export default function RentAffordabilityCheckPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Why rent affordability matters"
@@ -227,7 +227,7 @@ export default function RentAffordabilityCheckPage() {
           {useCases.map((item) => (
             <div
               key={item}
-              className="bg-[#fffaf0] border border-stone-200 rounded-xl p-5 text-sm font-medium text-stone-800 shadow-sm"
+              className="bg-white border border-stone-200 rounded-xl p-5 text-sm font-medium text-stone-800 shadow-sm"
             >
               {item}
             </div>
@@ -235,7 +235,7 @@ export default function RentAffordabilityCheckPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Risk flags"
@@ -265,7 +265,7 @@ export default function RentAffordabilityCheckPage() {
           {faqs.map((faq) => (
             <div
               key={faq.question}
-              className="bg-[#fffaf0] border border-stone-200 rounded-xl p-5 shadow-sm"
+              className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm"
             >
               <h3 className="font-semibold text-stone-900 mb-2">
                 {faq.question}

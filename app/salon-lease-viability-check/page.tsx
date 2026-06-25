@@ -142,7 +142,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">{eyebrow}</p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
       {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
     </div>
@@ -165,7 +165,7 @@ export default function SalonLeaseViabilityPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
                 Salon lease viability
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -184,7 +184,7 @@ export default function SalonLeaseViabilityPage() {
                   pagePath="/salon-lease-viability-check"
                   ctaLabel="Run a free salon lease check"
                   pageType="seo_page"
-                  className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
+                  className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center"
                 >
                   Run a free salon lease check
                 </TrackedCtaLink>
@@ -203,7 +203,7 @@ export default function SalonLeaseViabilityPage() {
             </div>
 
             <div className="rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
-              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 Quick answer
               </p>
               <div className="space-y-3 text-sm text-stone-300 leading-7">
@@ -236,7 +236,7 @@ export default function SalonLeaseViabilityPage() {
             'Permitted use',
             'Opening period before appointments stabilise',
           ].map((item) => (
-            <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
+            <div key={item} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
             </div>
           ))}
@@ -251,7 +251,7 @@ export default function SalonLeaseViabilityPage() {
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {salonOperatorChecks.map((item) => (
-            <div key={item.title} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm">
+            <div key={item.title} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
               <p className="font-semibold text-stone-900 mb-2">{item.title}</p>
               <p className="text-sm text-stone-600 leading-6">{item.text}</p>
             </div>
@@ -259,7 +259,7 @@ export default function SalonLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Core formula"
@@ -279,12 +279,12 @@ export default function SalonLeaseViabilityPage() {
                 <p>Rent burden: about 9.8%</p>
               </div>
               <div className="mt-4">
-                <Link href="/commercial-rent-burden-calculator" className="text-green-700 font-medium hover:text-green-900 text-sm">
+                <Link href="/commercial-rent-burden-calculator" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)] text-sm">
                   Commercial rent burden calculator
                 </Link>
               </div>
             </div>
-            <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Interpretation</p>
               <p className="text-sm text-stone-700 leading-7">
                 This rent burden looks workable on paper, but capacity, staffing,
@@ -309,7 +309,7 @@ export default function SalonLeaseViabilityPage() {
               across 26 opening days, break-even is about 20 clients/day.
             </p>
           </div>
-          <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">What it means</p>
             <p className="text-sm text-stone-700 leading-7">
               If expected clients/day is 35, there is headroom on paper, but the
@@ -318,7 +318,7 @@ export default function SalonLeaseViabilityPage() {
               availability.
             </p>
             <div className="mt-4">
-              <Link href="/break-even-customers-calculator" className="text-green-700 font-medium hover:text-green-900 text-sm">
+              <Link href="/break-even-customers-calculator" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)] text-sm">
                 Break-even customers calculator
               </Link>
             </div>
@@ -326,7 +326,7 @@ export default function SalonLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Upfront cash and fit-out"
@@ -346,7 +346,7 @@ export default function SalonLeaseViabilityPage() {
                 <p>Opening buffer: £10,000</p>
               </div>
             </div>
-            <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Why it matters</p>
               <p className="text-sm text-stone-700 leading-7">
                 The opening buffer is positive, but thin if fit-out overruns,
@@ -373,7 +373,7 @@ export default function SalonLeaseViabilityPage() {
               <p>Downside monthly position: £1,070 surplus</p>
             </div>
           </div>
-          <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">Interpretation</p>
             <p className="text-sm text-stone-700 leading-7">
               In this downside case, the salon still covers known costs, but the
@@ -381,7 +381,7 @@ export default function SalonLeaseViabilityPage() {
               client acquisition can still create pressure.
             </p>
             <div className="mt-4">
-              <Link href="/commercial-lease-survival-calculator" className="text-green-700 font-medium hover:text-green-900 text-sm">
+              <Link href="/commercial-lease-survival-calculator" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)] text-sm">
                 Commercial lease survival calculator
               </Link>
             </div>
@@ -389,7 +389,7 @@ export default function SalonLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Salon lease terms that matter"
@@ -420,14 +420,14 @@ export default function SalonLeaseViabilityPage() {
           <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-700 leading-7">
               {exampleSummary.map((item) => (
-                <div key={item.label} className="rounded-lg border border-stone-200 bg-[#fffaf0] p-4">
+                <div key={item.label} className="rounded-lg border border-stone-200 bg-white p-4">
                   <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
                   <p className="text-sm font-semibold text-stone-900 mt-1">{item.value}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">Verdict</p>
             <p className="text-sm text-stone-700 leading-7">
               The rent burden looks workable in this example, but the opening
@@ -446,14 +446,14 @@ export default function SalonLeaseViabilityPage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {commonMistakes.map((item) => (
-            <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
+            <div key={item} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="How YieldLens helps"
@@ -461,7 +461,7 @@ export default function SalonLeaseViabilityPage() {
             description="The free commercial check can be used for salons by treating clients/day as customers/day and average spend as spend per client."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Free check outputs</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-7">
                 {[
@@ -491,7 +491,7 @@ export default function SalonLeaseViabilityPage() {
                   'Ranked actions before committing',
                   'Final view',
                 ].map((item) => (
-                  <div key={item} className="rounded-lg border border-stone-200 bg-[#fffaf0] p-3">
+                  <div key={item} className="rounded-lg border border-stone-200 bg-white p-3">
                     {item}
                   </div>
                 ))}
@@ -499,29 +499,29 @@ export default function SalonLeaseViabilityPage() {
             </div>
           </div>
           <div className="mt-5 flex flex-wrap gap-4 text-sm">
-            <Link href="/commercial-lease-viability-check" className="text-green-700 font-medium hover:text-green-900">
+            <Link href="/commercial-lease-viability-check" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
               Commercial lease viability check
             </Link>
-            <Link href="/commercial-lease-checklist-before-signing" className="text-green-700 font-medium hover:text-green-900">
+            <Link href="/commercial-lease-checklist-before-signing" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
               Commercial lease checklist before signing
             </Link>
-            <Link href="/restaurant-lease-viability-check" className="text-green-700 font-medium hover:text-green-900">
+            <Link href="/restaurant-lease-viability-check" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
               Restaurant lease viability check
             </Link>
-            <Link href="/how-it-works" className="text-green-700 font-medium hover:text-green-900">
+            <Link href="/how-it-works" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
               See how YieldLens works
             </Link>
-            <Link href="/sample-commercial-viability-file" className="text-green-700 font-medium hover:text-green-900">
+            <Link href="/sample-commercial-viability-file" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
               Sample viability file
             </Link>
-            <Link href="/viability-file" className="text-green-700 font-medium hover:text-green-900">
+            <Link href="/viability-file" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
               Viability file
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="FAQ"
@@ -576,7 +576,7 @@ export default function SalonLeaseViabilityPage() {
             pagePath="/salon-lease-viability-check"
             ctaLabel="Run a free salon lease check"
             pageType="seo_page"
-            className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
+            className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center"
           >
             Run a free salon lease check
           </TrackedCtaLink>
@@ -588,31 +588,31 @@ export default function SalonLeaseViabilityPage() {
           </Link>
           <Link
             href="/how-it-works"
-            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             How it works
           </Link>
         </div>
         <div className="mt-6 flex flex-wrap gap-4 text-sm">
-          <Link href="/commercial-lease-viability-check" className="text-green-700 font-medium hover:text-green-900">
+          <Link href="/commercial-lease-viability-check" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
             Commercial lease viability check
           </Link>
-          <Link href="/commercial-lease-checklist-before-signing" className="text-green-700 font-medium hover:text-green-900">
+          <Link href="/commercial-lease-checklist-before-signing" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
             Commercial lease checklist before signing
           </Link>
-          <Link href="/restaurant-lease-viability-check" className="text-green-700 font-medium hover:text-green-900">
+          <Link href="/restaurant-lease-viability-check" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
             Restaurant lease viability check
           </Link>
-          <Link href="/commercial-rent-burden-calculator" className="text-green-700 font-medium hover:text-green-900">
+          <Link href="/commercial-rent-burden-calculator" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
             Commercial rent burden calculator
           </Link>
-          <Link href="/break-even-customers-calculator" className="text-green-700 font-medium hover:text-green-900">
+          <Link href="/break-even-customers-calculator" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
             Break-even customers calculator
           </Link>
-          <Link href="/commercial-lease-survival-calculator" className="text-green-700 font-medium hover:text-green-900">
+          <Link href="/commercial-lease-survival-calculator" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
             Commercial lease survival calculator
           </Link>
-          <Link href="/viability-file" className="text-green-700 font-medium hover:text-green-900">
+          <Link href="/viability-file" className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
             Viability file
           </Link>
         </div>

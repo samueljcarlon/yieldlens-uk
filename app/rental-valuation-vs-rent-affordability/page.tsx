@@ -3,7 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
-import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
+import { disclaimerClass, heroSecondaryCtaClass, heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Rental Valuation vs Rent Affordability | YieldLens UK',
@@ -187,7 +187,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">{eyebrow}</p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
       {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
     </div>
@@ -210,7 +210,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
                 Rental valuation vs rent affordability
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -222,7 +222,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check"
-                  className={primaryCtaClass}
+                  className={heroPrimaryCtaClass}
                   eventName="bridge_page_cta_clicked"
                   pagePath="/rental-valuation-vs-rent-affordability"
                   ctaLabel="Run a free check"
@@ -247,7 +247,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
             </div>
 
             <div className={`${surfaceCardClass} bg-white/5 p-5 sm:p-6`}>
-              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 Core distinction
               </p>
               <p className="text-2xl font-bold leading-tight text-white">
@@ -258,15 +258,15 @@ export default function RentalValuationVsRentAffordabilityPage() {
               </p>
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
                 <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-4`}>
-                  <p className="text-xs uppercase tracking-widest text-green-300 mb-1">Valuation</p>
+                  <p className="text-xs uppercase tracking-widest text-[#DCCDA8] mb-1">Valuation</p>
                   <p className="text-stone-200">What rent might the market support?</p>
                 </div>
                 <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-4`}>
-                  <p className="text-xs uppercase tracking-widest text-green-300 mb-1">Affordability</p>
+                  <p className="text-xs uppercase tracking-widest text-[#DCCDA8] mb-1">Affordability</p>
                   <p className="text-stone-200">Can the user or business carry that rent?</p>
                 </div>
                 <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-4`}>
-                  <p className="text-xs uppercase tracking-widest text-green-300 mb-1">Viability</p>
+                  <p className="text-xs uppercase tracking-widest text-[#DCCDA8] mb-1">Viability</p>
                   <p className="text-stone-200">Does the deal still work after costs and downside trading?</p>
                 </div>
               </div>
@@ -294,7 +294,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
           </div>
 
           <div className={`${surfaceCardClass} bg-stone-950 p-6 text-white`}>
-            <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+            <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
               When to use this page
             </p>
             <p className="text-lg font-semibold leading-8">
@@ -307,7 +307,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Comparison table"
@@ -335,7 +335,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
                       {typeof row.tool === 'string' ? (
                         row.tool
                       ) : (
-                        <Link href={row.tool.href} className="text-green-700 font-medium hover:text-green-800">
+                        <Link href={row.tool.href} className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
                           {row.tool.label}
                         </Link>
                       )}
@@ -376,7 +376,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Examples"
@@ -396,11 +396,11 @@ export default function RentalValuationVsRentAffordabilityPage() {
                 The rent may look reasonable, but the decision still depends on cash flow, costs, voids, and financing.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
-                <Link href="/property-cash-flow-calculator" className="text-sm font-medium text-green-700 hover:text-green-800">
+                <Link href="/property-cash-flow-calculator" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
                   Property cash flow calculator
                 </Link>
                 <span className="text-stone-300">·</span>
-                <Link href="/buy-to-let-yield-calculator" className="text-sm font-medium text-green-700 hover:text-green-800">
+                <Link href="/buy-to-let-yield-calculator" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
                   Buy-to-let yield calculator
                 </Link>
               </div>
@@ -417,7 +417,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
                 A market-normal rent can still be stretched if income, deposits, or other commitments leave too little buffer.
               </p>
               <div className="mt-5">
-                <Link href="/rent-affordability-check" className="text-sm font-medium text-green-700 hover:text-green-800">
+                <Link href="/rent-affordability-check" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
                   Rent affordability check
                 </Link>
               </div>
@@ -434,11 +434,11 @@ export default function RentalValuationVsRentAffordabilityPage() {
                 The rent may be a market rent, but the business still needs to test rent burden, break-even customers, upfront cash, downside trading, and lease terms.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
-                <Link href="/commercial-rent-affordability-calculator" className="text-sm font-medium text-green-700 hover:text-green-800">
+                <Link href="/commercial-rent-affordability-calculator" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
                   Commercial rent affordability calculator
                 </Link>
                 <span className="text-stone-300">·</span>
-                <Link href="/commercial-lease-viability-check" className="text-sm font-medium text-green-700 hover:text-green-800">
+                <Link href="/commercial-lease-viability-check" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
                   Commercial lease viability check
                 </Link>
               </div>
@@ -487,7 +487,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Which tool should you use?"
@@ -501,7 +501,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
                 <p className="text-sm font-semibold text-stone-900 mb-2">{card.title}</p>
                 <p className="text-sm text-stone-600 leading-7">{card.text}</p>
                 <div className="mt-4">
-                  <Link href={card.href} className="text-sm font-medium text-green-700 hover:text-green-800">
+                  <Link href={card.href} className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
                     {card.href}
                   </Link>
                 </div>
@@ -530,7 +530,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
 
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16">
-          <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
             Final step
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">
@@ -542,7 +542,7 @@ export default function RentalValuationVsRentAffordabilityPage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <TrackedCtaLink
               href="/check"
-              className={primaryCtaClass}
+              className={heroPrimaryCtaClass}
               eventName="bridge_page_cta_clicked"
               pagePath="/rental-valuation-vs-rent-affordability"
               ctaLabel="Run a free check"

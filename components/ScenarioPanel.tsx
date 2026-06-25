@@ -62,7 +62,7 @@ function ScenarioCard({
   tone?: 'neutral' | 'warning' | 'danger' | 'positive';
 }) {
   const toneClass = {
-    neutral: 'bg-[#fffaf0] border-stone-200',
+    neutral: 'bg-white border-stone-200',
     warning: 'bg-orange-50 border-orange-200',
     danger: 'bg-red-50 border-red-200',
     positive: 'bg-green-50 border-green-200',
@@ -278,7 +278,7 @@ function ScenarioLayout({
   questions: string[];
 }) {
   return (
-    <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
+    <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
       <div className="mb-5">
         <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-2">
           Scenario pressure test

@@ -5,7 +5,7 @@ import TrackedCtaLink from '@/components/TrackedCtaLink';
 import {
   disclaimerClass,
   heroSecondaryCtaClass,
-  primaryCtaClass,
+  heroPrimaryCtaClass,
   secondaryCtaClass,
   surfaceCardClass,
   surfaceCardSoftClass,
@@ -137,7 +137,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">{eyebrow}</p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
       {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
     </div>
@@ -159,7 +159,7 @@ export default function HowItWorksPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
                 How it works
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -175,7 +175,7 @@ export default function HowItWorksPage() {
                   pagePath="/how-it-works"
                   ctaLabel="Run a free commercial check"
                   pageType="trust_page"
-                  className={primaryCtaClass}
+                  className={heroPrimaryCtaClass}
                 >
                   Run a free commercial check
                 </TrackedCtaLink>
@@ -189,7 +189,7 @@ export default function HowItWorksPage() {
             </div>
 
             <div className={`${surfaceCardClass} bg-white/5 p-5 sm:p-6`}>
-              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 In one line
               </p>
               <p className="text-2xl font-bold leading-tight text-white">
@@ -233,7 +233,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What the free commercial check does"
@@ -243,7 +243,7 @@ export default function HowItWorksPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {freeCheckMetrics.map((item) => (
               <div key={item.label} className={`${surfaceCardClass} p-5`}>
-                <p className="text-xs uppercase tracking-[0.18em] text-green-700 font-semibold mb-2">{item.label}</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-caution)] font-semibold mb-2">{item.label}</p>
                 <p className="text-sm text-stone-700 leading-7">{item.detail}</p>
               </div>
             ))}
@@ -271,7 +271,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What the £49 Standard file adds"
@@ -330,7 +330,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What users should verify before signing"
@@ -379,7 +379,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What YieldLens does not do"
@@ -416,7 +416,7 @@ export default function HowItWorksPage() {
               pagePath="/how-it-works"
               ctaLabel="Run a free commercial check"
               pageType="trust_page"
-              className={primaryCtaClass}
+              className={heroPrimaryCtaClass}
             >
               Run a free commercial check
             </TrackedCtaLink>

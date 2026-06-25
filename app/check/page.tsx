@@ -21,7 +21,7 @@ export default function CheckPage({
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
       <div className="mb-8 max-w-3xl">
-        <p className="text-xs uppercase tracking-[0.24em] text-green-700 font-semibold mb-2">
+        <p className="text-xs uppercase tracking-[0.24em] text-[var(--yieldlens-caution)] font-semibold mb-2">
           Free property check
         </p>
 
@@ -73,7 +73,7 @@ export default function CheckPage({
 
         <aside className="lg:sticky lg:top-24 space-y-4">
           <div className={`${surfaceCardClass} p-5`}>
-            <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-semibold mb-2">
               Commercial workflow
             </p>
 
@@ -88,11 +88,11 @@ export default function CheckPage({
           </div>
 
           <div className={`${surfaceCardSoftClass} bg-stone-50 p-5`}>
-            <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-semibold mb-2">
               What you get
             </p>
 
-            <ul className="space-y-2 text-sm text-green-950">
+            <ul className="space-y-2 text-sm text-[var(--yieldlens-primary)]">
               {commercialHighlights.map((item) => (
                 <li key={`what-you-get-${item}`}>{item}</li>
               ))}

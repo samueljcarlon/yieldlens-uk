@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import ToolConversionPanel from '@/components/ToolConversionPanel';
-import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, secondaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
+import { disclaimerClass, heroSecondaryCtaClass, heroPrimaryCtaClass, secondaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Commercial Lease Viability Check | YieldLens UK',
@@ -188,19 +188,19 @@ const exampleSummary = [
     label: 'Rent burden',
     value: '20.0%',
     helper: '£5,000 rent against £24,960 estimated monthly revenue.',
-    tone: 'bg-[#fffaf0] border-stone-200 text-stone-950',
+    tone: 'bg-white border-stone-200 text-stone-950',
   },
   {
     label: 'Break-even/day',
     value: '45.2',
     helper: 'Customers per day needed to cover the known monthly cost base.',
-    tone: 'bg-[#fffaf0] border-stone-200 text-stone-950',
+    tone: 'bg-white border-stone-200 text-stone-950',
   },
   {
     label: 'Six-month test',
     value: 'Pass',
     helper: 'No downside monthly burn, but opening cash still matters.',
-    tone: 'bg-green-50 border-green-200 text-green-950',
+    tone: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-primary)]',
   },
 ];
 
@@ -244,7 +244,7 @@ function SectionTitle({
 }) {
   return (
     <div className="text-center mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
         {eyebrow}
       </p>
 
@@ -273,9 +273,9 @@ export default function CommercialLeaseViabilityPage() {
         eventLabel="Commercial lease viability page viewed"
       />
 
-      <section className="bg-[#fbf7ef] border-b border-stone-200">
+      <section className="bg-[#F4F3F1] border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-4">
             Commercial lease viability check
           </p>
 
@@ -297,7 +297,7 @@ export default function CommercialLeaseViabilityPage() {
               pagePath="/commercial-lease-viability-check"
               ctaLabel="Start free commercial check"
               pageType="commercial_landing"
-              className={primaryCtaClass}
+              className={heroPrimaryCtaClass}
             >
               Start free commercial check
             </TrackedCtaLink>
@@ -347,7 +347,7 @@ export default function CommercialLeaseViabilityPage() {
           </p>
 
           <div className={`${surfaceCardSoftClass} mt-8 mx-auto max-w-2xl p-5 text-left`}>
-            <p className="text-xs uppercase tracking-widest text-green-700 font-medium">
+            <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium">
               Standard commercial viability file
             </p>
             <p className="text-3xl font-bold mt-2 text-stone-900">£49</p>
@@ -403,7 +403,7 @@ export default function CommercialLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What YieldLens checks"
@@ -444,7 +444,7 @@ export default function CommercialLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Risk flags"
@@ -488,7 +488,7 @@ export default function CommercialLeaseViabilityPage() {
         <div className="max-w-5xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
             <div>
-              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 Worked example
               </p>
 
@@ -520,13 +520,13 @@ export default function CommercialLeaseViabilityPage() {
                 pagePath="/commercial-lease-viability-check"
                 ctaLabel="Run your commercial lease check"
                 pageType="commercial_landing"
-              className={`${primaryCtaClass} mt-6`}
+              className={`${heroPrimaryCtaClass} mt-6`}
               >
                 Run your commercial lease check
               </TrackedCtaLink>
             </div>
 
-            <div className={`${surfaceCardClass} bg-[#fffaf0] p-5 sm:p-6 text-stone-900`}>
+            <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900`}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                 {exampleSummary.map((item) => (
                   <div
@@ -550,7 +550,7 @@ export default function CommercialLeaseViabilityPage() {
                     Trading assumptions
                   </p>
 
-                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-[#fffaf0]">
+                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
                     {exampleAssumptions.map((item) => (
                       <div
                         key={item.label}
@@ -570,7 +570,7 @@ export default function CommercialLeaseViabilityPage() {
                     Opening cash
                   </p>
 
-                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-[#fffaf0]">
+                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
                     {exampleOpeningCash.map((item) => (
                       <div
                         key={item.label}
@@ -590,7 +590,7 @@ export default function CommercialLeaseViabilityPage() {
                     Downside case
                   </p>
 
-                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-[#fffaf0]">
+                  <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
                     {exampleDownside.map((item) => (
                       <div
                         key={item.label}
@@ -644,7 +644,7 @@ export default function CommercialLeaseViabilityPage() {
         </div>
       </section>
 
-      <section className="bg-green-50 border-y border-green-200">
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-4xl mx-auto px-4 py-16">
           <ToolConversionPanel
             sourceTool="commercial_lease_page"
@@ -656,11 +656,11 @@ export default function CommercialLeaseViabilityPage() {
             secondaryHref="/viability-file"
           />
           <div className="mt-4 text-center">
-            <Link href="/sample-commercial-viability-file" className="text-sm font-medium text-green-700 hover:text-green-800">
+            <Link href="/sample-commercial-viability-file" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
               View sample file
             </Link>
             <span className="mx-3 text-stone-400">·</span>
-            <Link href="/how-it-works" className="text-sm font-medium text-green-700 hover:text-green-800">
+            <Link href="/how-it-works" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
               Learn how it works
             </Link>
           </div>

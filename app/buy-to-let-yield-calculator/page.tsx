@@ -144,7 +144,7 @@ export default function BuyToLetYieldCalculatorPage() {
     <div>
       <JsonLd data={[faqStructuredData, breadcrumbStructuredData]} />
 
-      <section className="bg-[#fbf7ef] border-b border-stone-200">
+      <section className="bg-[#F4F3F1] border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-4">
             Buy-to-let yield calculator UK
@@ -170,7 +170,7 @@ export default function BuyToLetYieldCalculatorPage() {
 
             <Link
               href="/property-cash-flow-calculator"
-              className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
               Compare cash flow calculator
             </Link>
@@ -190,7 +190,7 @@ export default function BuyToLetYieldCalculatorPage() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
+          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-2">
               Yield is the headline
             </p>
@@ -200,7 +200,7 @@ export default function BuyToLetYieldCalculatorPage() {
             </p>
           </div>
 
-          <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
+          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-2">
               Cash flow is the reality check
             </p>
@@ -210,7 +210,7 @@ export default function BuyToLetYieldCalculatorPage() {
             </p>
           </div>
 
-          <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
+          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-2">
               Downside risk matters
             </p>
@@ -222,7 +222,7 @@ export default function BuyToLetYieldCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What the check includes"
@@ -260,7 +260,7 @@ export default function BuyToLetYieldCalculatorPage() {
           {riskItems.map((item) => (
             <div
               key={item}
-              className="bg-[#fffaf0] border border-stone-200 rounded-xl p-5 text-sm text-stone-700 shadow-sm"
+              className="bg-white border border-stone-200 rounded-xl p-5 text-sm text-stone-700 shadow-sm"
             >
               {item}
             </div>
@@ -268,7 +268,7 @@ export default function BuyToLetYieldCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Before buying"
@@ -279,7 +279,7 @@ export default function BuyToLetYieldCalculatorPage() {
           <div className="bg-stone-50 border border-stone-200 rounded-xl p-6">
             <ol className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-stone-700 list-decimal list-inside">
               {checklist.map((item) => (
-                <li key={item} className="bg-[#fffaf0] border border-stone-200 rounded-lg p-3">
+                <li key={item} className="bg-white border border-stone-200 rounded-lg p-3">
                   {item}
                 </li>
               ))}
@@ -306,7 +306,7 @@ export default function BuyToLetYieldCalculatorPage() {
             </p>
           </div>
 
-          <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm">
+          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
                 <p className="text-xs uppercase tracking-wide text-stone-400">
@@ -338,7 +338,7 @@ export default function BuyToLetYieldCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-5xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="FAQ"

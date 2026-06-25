@@ -47,13 +47,13 @@ export default function PricingCards() {
           key={plan.name}
           className={`${surfaceCardClass} p-5 flex flex-col gap-3 ${
             plan.highlight
-              ? 'border-green-200 bg-gradient-to-br from-green-50 via-white to-amber-50'
-              : 'border-stone-200 bg-[#fffaf0]'
+              ? 'border-[var(--yieldlens-border)] bg-white'
+              : 'border-stone-200 bg-white'
           }`}
         >
           <div>
             <p className="font-semibold text-stone-900">{plan.name}</p>
-            <p className="text-2xl font-bold text-green-700 mt-1 tracking-tight">{plan.price}</p>
+            <p className="text-2xl font-bold text-[var(--yieldlens-primary)] mt-1 tracking-tight">{plan.price}</p>
           </div>
 
           <p className="text-sm text-stone-600 flex-1">{plan.description}</p>

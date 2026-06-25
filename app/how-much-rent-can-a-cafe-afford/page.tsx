@@ -202,7 +202,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">{eyebrow}</p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
       {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
     </div>
@@ -225,7 +225,7 @@ export default function CafeRentAffordabilityPage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
                 Cafe rent affordability
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -244,7 +244,7 @@ export default function CafeRentAffordabilityPage() {
                   pagePath="/how-much-rent-can-a-cafe-afford"
                   ctaLabel="Run a free cafe rent check"
                   pageType="seo_page"
-                  className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
+                  className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center"
                 >
                   Run a free cafe rent check
                 </TrackedCtaLink>
@@ -260,7 +260,7 @@ export default function CafeRentAffordabilityPage() {
               </p>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
-              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 Quick answer
               </p>
               <div className="space-y-3 text-sm text-stone-300 leading-7">
@@ -281,7 +281,7 @@ export default function CafeRentAffordabilityPage() {
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {cafeOperatorChecks.map((item) => (
-            <div key={item.title} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm">
+            <div key={item.title} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
               <p className="font-semibold text-stone-900 mb-2">{item.title}</p>
               <p className="text-sm text-stone-600 leading-6">{item.text}</p>
             </div>
@@ -296,7 +296,7 @@ export default function CafeRentAffordabilityPage() {
           description="That makes the rent question easier to judge because it compares the lease with the income the site is expected to generate."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-4">Worked example</p>
             <div className="space-y-3 text-sm text-stone-700 leading-7">
               <p>Annual rent: £60,000</p>
@@ -321,7 +321,7 @@ export default function CafeRentAffordabilityPage() {
                 { label: 'Caution', value: '18%' },
                 { label: 'High pressure', value: 'Above 18%' },
               ].map((item) => (
-                <div key={item.label} className="rounded-lg border border-stone-200 bg-[#fffaf0] p-4">
+                <div key={item.label} className="rounded-lg border border-stone-200 bg-white p-4">
                   <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
                   <p className="text-lg font-bold text-stone-900 mt-1">{item.value}</p>
                 </div>
@@ -331,7 +331,7 @@ export default function CafeRentAffordabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Break-even customers"
@@ -346,7 +346,7 @@ export default function CafeRentAffordabilityPage() {
                 £12 across 26 opening days, break-even is about 45 customers/day.
               </p>
             </div>
-            <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">What it means</p>
               <p className="text-sm text-stone-700 leading-7">
                 If expected customers/day is 80, the site has headroom on paper,
@@ -365,7 +365,7 @@ export default function CafeRentAffordabilityPage() {
           description="Fit-out, deposit, legal fees, opening stock, launch costs, and starting cash all matter because they can drain cash before the site starts trading."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-700 leading-7">
               <p>Fit-out: £50,000</p>
               <p>Rent deposit: £15,000</p>
@@ -388,7 +388,7 @@ export default function CafeRentAffordabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Downside trading"
@@ -404,7 +404,7 @@ export default function CafeRentAffordabilityPage() {
                 <p>Downside monthly position: £876 surplus</p>
               </div>
             </div>
-            <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Interpretation</p>
               <p className="text-sm text-stone-700 leading-7">
                 The downside month still covers known costs, but the opening buffer
@@ -424,14 +424,14 @@ export default function CafeRentAffordabilityPage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {leaseTerms.map((item) => (
-            <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm text-sm text-stone-700 leading-7">
+            <div key={item} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
               {item}
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Worked example"
@@ -442,14 +442,14 @@ export default function CafeRentAffordabilityPage() {
             <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-700 leading-7">
                 {exampleSummary.map((item) => (
-                  <div key={item.label} className="rounded-lg border border-stone-200 bg-[#fffaf0] p-4">
+                  <div key={item.label} className="rounded-lg border border-stone-200 bg-white p-4">
                     <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
                     <p className="text-sm font-semibold text-stone-900 mt-1">{item.value}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">Verdict</p>
               <p className="text-sm text-stone-700 leading-7">
                 This site is not automatically unworkable, but the rent burden is
@@ -469,14 +469,14 @@ export default function CafeRentAffordabilityPage() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {commonMistakes.map((item) => (
-            <div key={item} className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 text-sm text-stone-700 leading-7 shadow-sm">
+            <div key={item} className="rounded-xl border border-stone-200 bg-white p-5 text-sm text-stone-700 leading-7 shadow-sm">
               {item}
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="What to check before signing"
@@ -503,7 +503,7 @@ export default function CafeRentAffordabilityPage() {
             <Link
               key={item.title}
               href={item.href}
-              className="rounded-xl border border-stone-200 bg-[#fffaf0] p-5 shadow-sm hover:border-stone-300 transition-colors"
+              className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm hover:border-stone-300 transition-colors"
             >
               <p className="text-sm font-semibold text-stone-900">{item.title}</p>
               <p className="text-sm text-stone-700 leading-7 mt-2">{item.text}</p>
@@ -519,7 +519,7 @@ export default function CafeRentAffordabilityPage() {
           description="The free commercial check produces the key metrics. The £49 file adds deeper analysis and action items."
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-stone-200 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold text-stone-900 mb-3">Free check outputs</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-7">
               {[
@@ -549,7 +549,7 @@ export default function CafeRentAffordabilityPage() {
                 'Ranked actions',
                 'Final view',
               ].map((item) => (
-                <div key={item} className="rounded-lg border border-stone-200 bg-[#fffaf0] p-3">
+                <div key={item} className="rounded-lg border border-stone-200 bg-white p-3">
                   {item}
                 </div>
               ))}
@@ -563,26 +563,26 @@ export default function CafeRentAffordabilityPage() {
             pagePath="/how-much-rent-can-a-cafe-afford"
             ctaLabel="Run a free cafe rent check"
             pageType="seo_page"
-            className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm text-center"
+            className="bg-[var(--yieldlens-primary)] text-white px-6 py-3 rounded font-medium hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center"
           >
             Run a free cafe rent check
           </TrackedCtaLink>
           <Link
             href="/sample-commercial-viability-file"
-            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             View sample file
           </Link>
           <Link
             href="/how-it-works"
-            className="bg-[#fffaf0] text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
+            className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm text-center"
           >
             See how YieldLens works
           </Link>
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Related tools"
@@ -604,7 +604,7 @@ export default function CafeRentAffordabilityPage() {
         </div>
       </section>
 
-      <section className="bg-[#fbf7ef] border-y border-stone-200">
+      <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="FAQ"
@@ -659,7 +659,7 @@ export default function CafeRentAffordabilityPage() {
               pagePath="/how-much-rent-can-a-cafe-afford"
               ctaLabel="Run a free cafe rent check"
               pageType="seo_page"
-              className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
+              className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center"
             >
               Run a free cafe rent check
             </TrackedCtaLink>

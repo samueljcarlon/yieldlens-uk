@@ -2,10 +2,10 @@ import type { RiskFlag } from '@/types/property';
 import { surfaceCardClass } from '@/components/yieldLensUi';
 
 const severityStyles: Record<string, string> = {
-  high: 'bg-rose-50 border-rose-200 text-rose-900',
-  medium: 'bg-amber-50 border-amber-200 text-amber-900',
-  low: 'bg-green-50 border-green-100 text-[#5e7f5b]',
-  info: 'bg-stone-50 border-stone-200 text-stone-600',
+  high: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-risk)]',
+  medium: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-caution)]',
+  low: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-positive)]',
+  info: 'bg-white border-[var(--yieldlens-border)] text-[var(--yieldlens-muted)]',
 };
 
 const severityLabel: Record<string, string> = {
@@ -20,7 +20,7 @@ export default function RiskFlags({ flags }: { flags: RiskFlag[] }) {
 
   return (
     <div className={`${surfaceCardClass} p-5`}>
-      <h3 className="text-[11px] uppercase tracking-[0.2em] text-stone-500 font-semibold mb-3">
+      <h3 className="text-[11px] uppercase tracking-[0.2em] text-[var(--yieldlens-muted)] font-semibold mb-3">
         Risk flags
       </h3>
       <ul className="space-y-2">

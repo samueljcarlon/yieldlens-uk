@@ -3,7 +3,7 @@
 import { MouseEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { logToolEvent } from '@/lib/logToolEvent';
-import { heroSecondaryCtaClass, heroBackdropClass, primaryCtaClass, surfaceCardClass } from '@/components/yieldLensUi';
+import { heroSecondaryCtaClass, heroBackdropClass, heroPrimaryCtaClass, surfaceCardClass } from '@/components/yieldLensUi';
 
 interface ToolConversionPanelProps {
   sourceTool: string;
@@ -52,7 +52,7 @@ export default function ToolConversionPanel({
 
   return (
     <div className={`${surfaceCardClass} ${heroBackdropClass} p-7 text-white`}>
-      <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+      <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
         Next step
       </p>
 
@@ -68,7 +68,7 @@ export default function ToolConversionPanel({
         <a
           href={primaryHref}
           onClick={(event) => handleClick(event, primaryLabel, primaryHref)}
-          className={primaryCtaClass}
+          className={heroPrimaryCtaClass}
         >
           {clickedLabel === primaryLabel ? 'Opening...' : primaryLabel}
         </a>

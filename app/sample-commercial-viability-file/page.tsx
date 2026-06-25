@@ -6,7 +6,7 @@ import RentBurdenGauge from '@/components/visuals/RentBurdenGauge';
 import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
 import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
 import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
-import { disclaimerClass, heroSecondaryCtaClass, primaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
+import { disclaimerClass, heroSecondaryCtaClass, heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Sample Commercial Viability File | YieldLens UK',
@@ -247,7 +247,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
         {eyebrow}
       </p>
       <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
@@ -272,7 +272,7 @@ export default function SampleCommercialViabilityFilePage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 items-start">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
                 Sample paid file
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
@@ -288,7 +288,7 @@ export default function SampleCommercialViabilityFilePage() {
                   pagePath="/sample-commercial-viability-file"
                   ctaLabel="Start free commercial check"
                   pageType="sample_file"
-                  className={primaryCtaClass}
+                  className={heroPrimaryCtaClass}
                 >
                   Start free commercial check
                 </TrackedCtaLink>
@@ -306,10 +306,10 @@ export default function SampleCommercialViabilityFilePage() {
                 </Link>
               </div>
             </div>
-            <div className={`${surfaceCardClass} bg-[#fffaf0] p-5 sm:p-6 text-stone-900 shadow-[0_24px_64px_rgba(15,23,42,0.16)]`}>
+            <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900 shadow-[0_24px_64px_rgba(15,23,42,0.16)]`}>
               <div className="flex items-start justify-between gap-4 mb-5">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-1">
+                  <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-semibold mb-1">
                     Sample report cover
                   </p>
                   <p className="text-2xl font-bold text-stone-950">Fragile</p>
@@ -600,7 +600,7 @@ export default function SampleCommercialViabilityFilePage() {
 
       <section className="bg-stone-100 border-y border-stone-200">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
+          <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
             Next step
           </p>
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
@@ -616,7 +616,7 @@ export default function SampleCommercialViabilityFilePage() {
               pagePath="/sample-commercial-viability-file"
               ctaLabel="Start free commercial check"
               pageType="sample_file"
-              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
+              className="bg-[var(--yieldlens-primary)] text-white px-6 py-3 rounded font-medium hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm"
             >
               Start free commercial check
             </TrackedCtaLink>

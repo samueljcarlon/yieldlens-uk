@@ -15,7 +15,7 @@ export default function TermsPage() {
         Last updated: 8 June 2026
       </p>
 
-      <div className="bg-[#fffaf0] border border-stone-200 rounded-xl p-6 shadow-sm space-y-8 text-sm text-stone-700 leading-7">
+      <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm space-y-8 text-sm text-stone-700 leading-7">
         <section>
           <h2 className="text-lg font-bold text-stone-900 mb-2">
             1. What YieldLens UK provides
