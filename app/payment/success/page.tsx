@@ -71,6 +71,14 @@ export default async function PaymentSuccessPage({
           YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
         </p>
 
+        <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto mt-4">
+          Need help opening the file or checking the saved result? Use the{' '}
+          <Link href="/contact" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
+            contact page
+          </Link>
+          .
+        </p>
+
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           {fileHref ? (
             <Link

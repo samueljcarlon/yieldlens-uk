@@ -1,4 +1,5 @@
 import Link from 'next/link';
+const supportHref = '/contact';
 
 function SectionTitle({
   eyebrow,
@@ -41,8 +42,8 @@ export default function PrivacyPage() {
             commercial property.
           </p>
           <p className="mt-3">
-            If you need help with privacy, support, or the payment flow, please
-            contact us through the website.
+            If you need help with privacy, support, or the payment flow, use
+            the contact page or email hello@yieldlens.co.uk.
           </p>
         </section>
 
@@ -135,8 +136,8 @@ export default function PrivacyPage() {
           <SectionTitle eyebrow="8. Your rights" title="Access, correction, and deletion" />
           <p className="mt-3">
             You may ask to access, correct, delete, or restrict use of your
-            personal information. Please contact us through the website if you
-            need to make a request.
+            personal information. Please use the contact page if you need to
+            make a request.
           </p>
           <p className="mt-3">
             You can also raise concerns with the UK Information Commissioner’s
@@ -154,9 +155,14 @@ export default function PrivacyPage() {
       </div>
 
       <div className="mt-8">
-        <Link href="/" className="text-sm text-[var(--yieldlens-caution)] font-medium hover:underline">
-          Back to homepage →
-        </Link>
+        <div className="flex flex-wrap gap-4 text-sm font-medium">
+          <Link href={supportHref} className="text-[var(--yieldlens-caution)] hover:underline">
+            Contact
+          </Link>
+          <Link href="/" className="text-[var(--yieldlens-caution)] hover:underline">
+            Back to homepage
+          </Link>
+        </div>
       </div>
     </div>
   );

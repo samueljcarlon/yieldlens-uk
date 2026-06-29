@@ -40,6 +40,15 @@ export default async function PaymentCancelPage({
           substitute for professional due diligence.
         </p>
 
+        <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto mt-4">
+          If you need support with checkout, the saved result, or the sample
+          file, use the{' '}
+          <Link href="/contact" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
+            contact page
+          </Link>
+          .
+        </p>
+
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/check?mode=commercial"

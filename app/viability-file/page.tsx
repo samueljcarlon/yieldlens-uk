@@ -504,6 +504,15 @@ export default function ViabilityFilePage() {
             </TrackedCtaLink>
 
           </div>
+
+          <p className="mt-4 text-sm text-stone-700 leading-7 max-w-2xl mx-auto">
+            If you need help with access after payment or a saved result, use
+            the{' '}
+            <Link href="/contact" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
+              contact page
+            </Link>
+            .
+          </p>
         </div>
       </section>
     </div>

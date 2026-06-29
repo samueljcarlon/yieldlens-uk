@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 const linkClass = 'block text-sm text-stone-300 transition-colors hover:text-white';
+const supportHref = 'mailto:hello@yieldlens.co.uk?subject=YieldLens%20support';
 
 export default function Footer() {
   return (
@@ -20,9 +21,12 @@ export default function Footer() {
             </p>
 
             <p className="mt-4 max-w-sm text-sm leading-7 text-stone-400">
-              For support, contact us through the website. If the numbers look
-              off, rerun the check with revised assumptions before paying or
-              signing.
+              For support, email{' '}
+              <a href={supportHref} className="underline decoration-white/30 underline-offset-4 hover:decoration-white">
+                hello@yieldlens.co.uk
+              </a>
+              . If the numbers look off, rerun the check with revised
+              assumptions before paying or signing.
             </p>
           </div>
 
@@ -40,6 +44,9 @@ export default function Footer() {
               </Link>
               <Link href="/viability-file" className={linkClass}>
                 £49 commercial viability file
+              </Link>
+              <Link href="/contact" className={linkClass}>
+                Contact
               </Link>
               <Link href="/how-it-works" className={linkClass}>
                 How it works
@@ -98,6 +105,9 @@ export default function Footer() {
               <Link href="/about" className={linkClass}>
                 About
               </Link>
+              <Link href="/contact" className={linkClass}>
+                Contact
+              </Link>
               <Link href="/buy-to-let-yield-calculator" className={linkClass}>
                 Buy-to-let yield calculator
               </Link>
@@ -120,6 +130,15 @@ export default function Footer() {
             decision-support analysis only. It is not financial advice, legal
             advice, tax advice, a valuation, or a substitute for professional
             due diligence.
+          </p>
+
+          <p className="mt-2">
+            Questions about the product, access after payment, or privacy? Use
+            the contact page or email{' '}
+            <a href={supportHref} className="underline decoration-white/30 underline-offset-4 hover:decoration-white">
+              hello@yieldlens.co.uk
+            </a>
+            .
           </p>
 
           <p className="mt-2">

@@ -188,6 +188,14 @@ export default function AboutPage() {
                   View sample viability file
                 </Link>
               </div>
+              <p className="mt-4 text-sm text-stone-300 leading-7">
+                Need help with the product, access after payment, or privacy?
+                Use the{' '}
+                <Link href="/contact" className="text-[#DCCDA8] font-medium hover:underline">
+                  contact page
+                </Link>
+                .
+              </p>
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>
                 YieldLens UK provides indicative decision-support only. It is
                 not a valuation, financial advice, mortgage advice, legal

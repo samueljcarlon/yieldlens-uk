@@ -1,4 +1,5 @@
 import Link from 'next/link';
+const supportHref = '/contact';
 
 function SectionTitle({
   eyebrow,
@@ -134,17 +135,27 @@ export default function TermsPage() {
         <section>
           <SectionTitle eyebrow="9. Contact" title="Questions and support" />
           <p className="mt-3">
-            For questions, please contact us through the website. If something
-            looks unclear, ask before paying or signing so the assumptions can be
-            checked again.
+            For questions, use the contact page or email hello@yieldlens.co.uk.
+            If something looks unclear, ask before paying or signing so the
+            assumptions can be checked again.
+          </p>
+          <p className="mt-3">
+            For paid-file access issues, include the page you were using and a
+            short description of the problem. Please do not send card details or
+            other sensitive payment information by email.
           </p>
         </section>
       </div>
 
       <div className="mt-8">
-        <Link href="/" className="text-sm text-[var(--yieldlens-caution)] font-medium hover:underline">
-          Back to homepage →
-        </Link>
+        <div className="flex flex-wrap gap-4 text-sm font-medium">
+          <Link href={supportHref} className="text-[var(--yieldlens-caution)] hover:underline">
+            Contact
+          </Link>
+          <Link href="/" className="text-[var(--yieldlens-caution)] hover:underline">
+            Back to homepage
+          </Link>
+        </div>
       </div>
     </div>
   );

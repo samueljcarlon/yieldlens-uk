@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     '',
     '/check',
+    '/contact',
     '/privacy',
     '/terms',
     '/commercial-lease-checklist-before-signing',
