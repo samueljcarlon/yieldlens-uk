@@ -64,4 +64,55 @@ main > section {
     color: inherit;
     text-decoration: none;
   }
+
+  .print-memo {
+    background: white !important;
+    color: #111827 !important;
+  }
+
+  .print-memo section,
+  .print-memo .customer-print-section {
+    background: white !important;
+    color: #111827 !important;
+  }
+
+  .print-memo .customer-print-hide {
+    display: none !important;
+  }
+
+  .print-memo .customer-print-card,
+  .print-memo .print-memo-card {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    background: white !important;
+    color: #111827 !important;
+  }
+
+  .print-memo [class*='bg-stone-950'],
+  .print-memo [class*='bg-stone-900'],
+  .print-memo [class*='bg-stone-800'],
+  .print-memo [class*='bg-[var(--yieldlens-hero)]'],
+  .print-memo [class*='bg-[var(--yieldlens-panel)]'],
+  .print-memo [class*='bg-white/5'],
+  .print-memo [class*='bg-white/6'],
+  .print-memo [class*='bg-white/10'],
+  .print-memo [class*='bg-white/15'] {
+    background: white !important;
+  }
+
+  .print-memo [class*='text-stone-300'],
+  .print-memo [class*='text-stone-400'],
+  .print-memo [class*='text-white'] {
+    color: #111827 !important;
+  }
+
+  .print-memo [class*='border-white/'],
+  .print-memo [class*='border-stone-900'] {
+    border-color: #d1d5db !important;
+  }
+
+  .print-memo * {
+    color: #111827 !important;
+  }
 }

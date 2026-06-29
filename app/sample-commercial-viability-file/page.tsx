@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import PrintSaveButton from '@/components/PrintSaveButton';
 import RentBurdenGauge from '@/components/visuals/RentBurdenGauge';
 import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
 import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
@@ -260,7 +261,7 @@ function SectionTitle({
 
 export default function SampleCommercialViabilityFilePage() {
   return (
-    <div className="bg-[var(--yieldlens-page)] text-stone-900">
+    <div className="bg-[var(--yieldlens-page)] text-stone-900 print-memo">
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/sample-commercial-viability-file"
@@ -648,6 +649,7 @@ export default function SampleCommercialViabilityFilePage() {
             >
               How it works
             </Link>
+            <PrintSaveButton className="print-hidden bg-white text-stone-900 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm" />
           </div>
         </div>
       </section>

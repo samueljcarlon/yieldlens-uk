@@ -1514,7 +1514,7 @@ export default async function CommercialViabilityFilePage({
   });
 
   return (
-    <div className="bg-stone-50 text-stone-900">
+    <div className="bg-stone-50 text-stone-900 print-memo">
       <FunnelEventTracker
         eventName="paid_file_opened"
         pagePath="/commercial-viability-file/[id]"
