@@ -38,6 +38,12 @@ export default function CheckPage({
         </p>
 
         {commercialMode ? (
+          <p className="mt-3 text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-semibold">
+            Step 1 of 1: commercial rent check. Takes around 2 minutes.
+          </p>
+        ) : null}
+
+        {commercialMode ? (
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {commercialHighlights.map((item) => (
               <div
@@ -100,13 +106,14 @@ export default function CheckPage({
           </div>
 
           <div className={`${surfaceCardSoftClass} p-5 text-sm text-[var(--yieldlens-muted)]`}>
-            <p className="font-semibold text-stone-900 mb-2">Important disclaimer</p>
+            <p className="font-semibold text-stone-900 mb-2">
+              Assumption-led, not black-box certainty
+            </p>
 
             <p className="leading-6">
               YieldLens UK provides indicative property pressure-tests and
-              decision-support analysis only. It is not financial advice, legal
-              advice, tax advice, a valuation, or a substitute for professional due
-              diligence.
+              decision-support analysis only. The result is only as useful as the
+              assumptions entered.
             </p>
           </div>
         </aside>

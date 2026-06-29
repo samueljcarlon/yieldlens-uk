@@ -7,6 +7,10 @@ interface Props {
   onSubmit: (input: CommercialInput) => void;
 }
 
+function isBlank(value: string): boolean {
+  return value.trim() === '';
+}
+
 function parseNum(val: string): number | undefined {
   const n = parseFloat((val || '').replace(/,/g, ''));
   return Number.isNaN(n) ? undefined : n;
@@ -19,6 +23,11 @@ function requireNum(val: string): number {
 
 function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function isValidNumber(value: string): boolean {
+  if (isBlank(value)) return false;
+  return !Number.isNaN(parseFloat(value.replace(/,/g, '')));
 }
 
 function FormSection({
@@ -117,20 +126,32 @@ export default function CommercialForm({ onSubmit }: Props) {
   const validate = (): boolean => {
     const nextErrors: Record<string, string> = {};
 
-    if (!form.annualRent || Number.isNaN(parseFloat(form.annualRent))) {
+    if (isBlank(form.annualRent)) {
       nextErrors.annualRent = 'Annual rent is required.';
+    } else if (!isValidNumber(form.annualRent)) {
+      nextErrors.annualRent = 'Enter a number for annual rent.';
     }
 
-    if (!form.averageSpendPerCustomer || Number.isNaN(parseFloat(form.averageSpendPerCustomer))) {
+    if (isBlank(form.averageSpendPerCustomer)) {
       nextErrors.averageSpendPerCustomer = 'Average spend per customer is required.';
+    } else if (!isValidNumber(form.averageSpendPerCustomer)) {
+      nextErrors.averageSpendPerCustomer = 'Enter a number for average spend per customer.';
     }
 
-    if (!form.expectedCustomersPerDay || Number.isNaN(parseFloat(form.expectedCustomersPerDay))) {
+    if (isBlank(form.expectedCustomersPerDay)) {
       nextErrors.expectedCustomersPerDay = 'Expected customers per day is required.';
+    } else if (!isValidNumber(form.expectedCustomersPerDay)) {
+      nextErrors.expectedCustomersPerDay = 'Enter a number for expected customers per day.';
     }
 
-    if (!form.openingDaysPerMonth || Number.isNaN(parseFloat(form.openingDaysPerMonth))) {
+    if (isBlank(form.openingDaysPerMonth)) {
       nextErrors.openingDaysPerMonth = 'Opening days per month is required.';
+    } else if (!isValidNumber(form.openingDaysPerMonth)) {
+      nextErrors.openingDaysPerMonth = 'Enter a number for opening days per month.';
+    }
+
+    if (!isBlank(form.downsideRevenuePercentage) && !isValidNumber(form.downsideRevenuePercentage)) {
+      nextErrors.downsideRevenuePercentage = 'Enter a number or leave this blank.';
     }
 
     if (!form.email || !isValidEmail(form.email)) {
@@ -181,7 +202,7 @@ export default function CommercialForm({ onSubmit }: Props) {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 sm:p-6 shadow-sm">
         <p className="text-sm font-semibold text-green-950 mb-2">
-          Commercial lease pressure-test
+          Commercial rent check
         </p>
 
         <p className="text-sm text-green-900 leading-6">
@@ -189,6 +210,15 @@ export default function CommercialForm({ onSubmit }: Props) {
           different rent, revenue, and cost scenarios to see how the lease pressure
           changes.
         </p>
+
+        <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.2em] text-green-800">
+          <span className="rounded-full border border-stone-200 bg-white px-3 py-2 shadow-sm">
+            Step 1 of 1
+          </span>
+          <span className="rounded-full border border-stone-200 bg-white px-3 py-2 shadow-sm">
+            Takes around 2 minutes
+          </span>
+        </div>
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 text-[11px] uppercase tracking-[0.2em] text-green-800">
           {sectionSteps.map((step, index) => (
@@ -222,7 +252,11 @@ export default function CommercialForm({ onSubmit }: Props) {
           <input type="url" className={inputClass} placeholder="https://rightmove.co.uk/..." {...field('listingUrl')} />
         </FieldBlock>
 
-        <FieldBlock label="Business type" helper="Used to label the check and frame the commercial assumptions.">
+        <FieldBlock
+          label="Business type"
+          optional
+          helper="Used to label the check and frame the commercial assumptions."
+        >
           <select className={inputClass} {...field('businessType')}>
             <option value="">Select type</option>
             <option>Cafe</option>
@@ -240,7 +274,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Annual rent (£)"
           required
-          helper="Use annual rent before VAT. If the lease is quoted monthly, multiply by 12 first."
+          helper="Use annual rent before VAT. If the lease is quoted monthly, multiply by 12 first. Example: 60000."
           error={errors.annualRent}
         >
           <input type="text" inputMode="numeric" className={errors.annualRent ? errorInputClass : inputClass} placeholder="e.g. 60000" {...field('annualRent')} />
@@ -255,7 +289,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Average spend per customer (£)"
           required
-          helper="Typical transaction value, before any optimistic upside case."
+          helper="Typical transaction value, before any optimistic upside case. Example: 12."
           error={errors.averageSpendPerCustomer}
         >
           <input type="text" inputMode="numeric" className={errors.averageSpendPerCustomer ? errorInputClass : inputClass} placeholder="e.g. 12" {...field('averageSpendPerCustomer')} />
@@ -264,7 +298,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Expected customers per day"
           required
-          helper="Use a realistic normal day, not a best-case launch week."
+          helper="Use a realistic normal day, not a best-case launch week. Example: 80."
           error={errors.expectedCustomersPerDay}
         >
           <input type="text" inputMode="numeric" className={errors.expectedCustomersPerDay ? errorInputClass : inputClass} placeholder="e.g. 80" {...field('expectedCustomersPerDay')} />
@@ -288,7 +322,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Monthly staff costs (£)"
           optional
-          helper="Include wages, employer costs, and regular contractor cover where known."
+          helper="Include wages, employer costs, and regular contractor cover where known. Example: 7000."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 7000" {...field('monthlyStaffCosts')} />
         </FieldBlock>
@@ -296,7 +330,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Monthly utilities, service charge, and other costs (£)"
           optional
-          helper="Add utilities, insurance, software, licences, service charge, and routine costs."
+          helper="Add utilities, insurance, software, licences, service charge, and routine costs. Example: 1200."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 1200" {...field('monthlyUtilitiesAndOtherCosts')} />
         </FieldBlock>
@@ -304,7 +338,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Monthly business rates (£)"
           optional
-          helper="Use the best monthly estimate you have, even if rates still need confirming."
+          helper="Use the best monthly estimate you have, even if rates still need confirming. Example: 900."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 900" {...field('monthlyBusinessRates')} />
         </FieldBlock>
@@ -318,7 +352,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Fit-out budget (£)"
           optional
-          helper="One-off cost before opening, including works, fixtures, equipment, and initial setup."
+          helper="One-off cost before opening, including works, fixtures, equipment, and initial setup. Example: 50000."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 50000" {...field('fitOutBudget')} />
         </FieldBlock>
@@ -326,7 +360,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Rent deposit (£)"
           optional
-          helper="Include the cash deposit requested by the landlord or agent."
+          helper="Include the cash deposit requested by the landlord or agent. Example: 15000."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 15000" {...field('rentDeposit')} />
         </FieldBlock>
@@ -334,7 +368,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Legal and professional fees (£)"
           optional
-          helper="Include solicitors, surveyors, licence checks, or other professional costs."
+          helper="Include solicitors, surveyors, licence checks, or other professional costs. Example: 3000."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 3000" {...field('legalFees')} />
         </FieldBlock>
@@ -342,7 +376,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Opening stock (£)"
           optional
-          helper="Stock, consumables, launch inventory, or first trading supplies."
+          helper="Stock, consumables, launch inventory, or first trading supplies. Example: 8000."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 8000" {...field('openingStock')} />
         </FieldBlock>
@@ -350,7 +384,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Other setup costs (£)"
           optional
-          helper="Anything else paid before opening, such as signage, deposits, or launch costs."
+          helper="Anything else paid before opening, such as signage, deposits, or launch costs. Example: 5000."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 5000" {...field('otherSetupCosts')} />
         </FieldBlock>
@@ -358,7 +392,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Available starting cash (£)"
           optional
-          helper="Cash available before paying fit-out, deposit, fees, and setup costs."
+          helper="Cash available before paying fit-out, deposit, fees, and setup costs. Example: 90000."
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="e.g. 90000" {...field('startingCash')} />
         </FieldBlock>
@@ -373,6 +407,7 @@ export default function CommercialForm({ onSubmit }: Props) {
           label="Downside revenue case (%)"
           optional
           helper="Leave blank to use the default 60% downside revenue assumption."
+          error={errors.downsideRevenuePercentage}
         >
           <input type="text" inputMode="numeric" className={inputClass} placeholder="60" {...field('downsideRevenuePercentage')} />
         </FieldBlock>
@@ -398,12 +433,12 @@ export default function CommercialForm({ onSubmit }: Props) {
           type="submit"
           className="w-full sm:w-auto min-h-[48px] bg-green-700 px-6 py-3.5 text-base font-semibold text-white transition-colors shadow-sm hover:bg-green-800"
         >
-          Run commercial viability check
+          See viability snapshot
         </button>
 
         <p className="text-xs text-stone-500 leading-5 max-w-xl">
-          Indicative decision-support only. The output depends on the assumptions
-          you enter and should be checked before signing.
+          Use estimates if you are still comparing sites. The result is only as
+          useful as the assumptions entered.
         </p>
       </div>
     </form>
