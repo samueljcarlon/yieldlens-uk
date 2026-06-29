@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type {
+  CommercialInput,
   CommercialResult,
   ResidentialResult,
   Submission,
@@ -15,6 +16,7 @@ import ReportInterestButton from '@/components/ReportInterestButton';
 import ScenarioPanel from '@/components/ScenarioPanel';
 import ResultsConversionPanel from '@/components/ResultsConversionPanel';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import { primaryCtaClass } from '@/components/yieldLensUi';
 import { logToolEvent } from '@/lib/logToolEvent';
 import RentBurdenGauge from '@/components/visuals/RentBurdenGauge';
 import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
@@ -296,6 +298,121 @@ function getCommercialResultSummary(result: CommercialResult): string {
   return 'The free result is a useful snapshot, but it still needs evidence around demand, costs, and lease terms.';
 }
 
+function getCommercialResultReason(result: CommercialResult): string {
+  if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
+    return 'The main reason is the opening cash stack: upfront costs appear higher than the starting cash.';
+  }
+
+  if (result.survivesSixBadMonths === false) {
+    return 'The main reason is downside trading: the site does not comfortably survive a weaker opening period.';
+  }
+
+  if (
+    hasNumber(result.breakEvenCustomersPerDay) &&
+    hasNumber(result.expectedCustomersPerDay) &&
+    result.breakEvenCustomersPerDay > result.expectedCustomersPerDay
+  ) {
+    return 'The main reason is daily trade: the break-even customer target is above the submitted expectation.';
+  }
+
+  if (hasThinOpeningBuffer(result)) {
+    return 'The main reason is the opening buffer: the deal looks positive, but there is not much cash room after opening.';
+  }
+
+  if (hasNumber(result.rentBurdenPercentage) && result.rentBurdenPercentage >= 18) {
+    return 'The main reason is rent pressure: rent is taking a large share of the submitted revenue.';
+  }
+
+  return 'The main reason is assumption quality: the case looks workable, but the free check still needs evidence.';
+}
+
+function getCommercialResultDrivers(result: CommercialResult): string[] {
+  const drivers: string[] = [];
+
+  if (hasNumber(result.rentBurdenPercentage)) {
+    drivers.push(
+      result.rentBurdenPercentage >= 18
+        ? 'Rent burden is elevated against the submitted revenue.'
+        : result.rentBurdenPercentage >= 12
+          ? 'Rent burden is worth watching and may need better terms.'
+          : 'Rent burden looks lighter against the submitted revenue.'
+    );
+  }
+
+  if (
+    hasNumber(result.breakEvenCustomersPerDay) &&
+    hasNumber(result.expectedCustomersPerDay)
+  ) {
+    drivers.push(
+      result.breakEvenCustomersPerDay > result.expectedCustomersPerDay
+        ? 'Break-even customers are above the expected daily trade.'
+        : 'Break-even customers sit within the submitted daily trade assumption.'
+    );
+  }
+
+  if (hasNumber(result.availableCashAfterOpening)) {
+    drivers.push(
+      result.availableCashAfterOpening < 0
+        ? 'Opening cash is short of the upfront cost stack.'
+        : hasThinOpeningBuffer(result)
+          ? 'Opening cash is positive, but the buffer is thin.'
+          : 'Opening cash looks stronger under the submitted assumptions.'
+    );
+  }
+
+  if (result.survivesSixBadMonths === false) {
+    drivers.push('Downside trading does not comfortably survive six weak months.');
+  } else if (result.survivesSixBadMonths === true) {
+    drivers.push('Downside trading still survives six weak months.');
+  }
+
+  if (hasNumber(result.monthlyBurnInDownside) && result.monthlyBurnInDownside > 0) {
+    drivers.push('Downside trading creates monthly burn, so the cash runway matters.');
+  }
+
+  return drivers.slice(0, 4);
+}
+
+function getCommercialAssumptions(submission: Submission): Array<{ label: string; value: string; helper: string }> {
+  const result = submission.result as CommercialResult;
+  const input = submission.input as CommercialInput;
+
+  return [
+    {
+      label: 'Monthly rent',
+      value: formatCurrency(result.monthlyRent),
+      helper: 'Annual rent divided by 12',
+    },
+    {
+      label: 'Expected monthly revenue',
+      value: formatCurrency(result.estimatedMonthlyRevenue),
+      helper: 'Based on the submitted spend, volume, and opening days',
+    },
+    {
+      label: 'Setup or fit-out cost',
+      value: formatCurrency(result.upfrontCashNeeded),
+      helper: 'Fit-out, deposit, fees, stock, and setup costs',
+    },
+    {
+      label: 'Starting cash',
+      value: formatCurrency(input.startingCash),
+      helper: 'Cash available before opening costs are paid',
+    },
+    {
+      label: 'Key lease costs',
+      value:
+        [
+          input.monthlyBusinessRates !== undefined ? `Rates ${formatCurrency(input.monthlyBusinessRates)}` : null,
+          input.monthlyUtilitiesAndOtherCosts !== undefined ? `Utilities ${formatCurrency(input.monthlyUtilitiesAndOtherCosts)}` : null,
+          input.monthlyStaffCosts !== undefined ? `Staff ${formatCurrency(input.monthlyStaffCosts)}` : null,
+        ]
+          .filter((value): value is string => typeof value === 'string')
+          .join(' · ') || 'Not available',
+      helper: 'Shown only where those inputs were entered',
+    },
+  ];
+}
+
 function getCommercialTakeawayQuestions(result: CommercialResult): string[] {
   if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
     return [
@@ -408,11 +525,15 @@ function CommercialSummaryCard({
 
 function CommercialPressureSummary({ submission }: { submission: Submission }) {
   const result = submission.result as CommercialResult;
+  const resultSummary = getCommercialResultSummary(result);
+  const resultReason = getCommercialResultReason(result);
+  const resultDrivers = getCommercialResultDrivers(result);
+  const assumptions = getCommercialAssumptions(submission);
 
   return (
     <section className="mb-8 overflow-hidden rounded-[32px] border border-stone-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
       <div className="bg-stone-950 px-6 py-7 text-white sm:px-8 sm:py-8">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-end">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
           <div>
             <p className="text-xs uppercase tracking-[0.24em] text-green-300 font-semibold mb-3">
               Commercial lease pressure-test summary
@@ -428,8 +549,8 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
               into a decision memo for negotiation and due diligence before you sign.
             </p>
 
-            <p className="mt-3 text-sm text-[var(--yieldlens-muted)] leading-6 max-w-3xl">
-              {getCommercialResultSummary(result)}
+            <p className="mt-3 text-sm text-stone-200 leading-6 max-w-3xl">
+              {resultSummary}
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
@@ -445,6 +566,26 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
               <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
                 Six-month test {getSixMonthValue(result)}
               </span>
+            </div>
+
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <TrackedCtaLink
+                href="/report"
+                className={`${primaryCtaClass} w-full sm:w-auto`}
+                eventName="results_report_preview_clicked"
+                pagePath="/results"
+                ctaLabel="Unlock the £49 Standard file"
+                pageType="results"
+              >
+                Unlock the £49 Standard file
+              </TrackedCtaLink>
+
+              <Link
+                href="/check?mode=commercial"
+                className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-white/20 bg-white/0 px-5 py-3 text-sm font-medium text-white shadow-sm transition-all hover:border-white/40 hover:bg-white/10"
+              >
+                Edit assumptions or run another check
+              </Link>
             </div>
           </div>
 
@@ -464,6 +605,31 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
             <p className="text-xs text-[var(--yieldlens-muted)] mt-3">
               Indicative score: {result.score}/100
             </p>
+
+            <div className="mt-4 rounded-2xl border border-white/15 bg-white/5 p-4">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-[#DCCDA8] font-semibold mb-2">
+                Main reason
+              </p>
+              <p className="text-sm text-stone-200 leading-6">
+                {resultReason}
+              </p>
+            </div>
+
+            {resultDrivers.length > 0 && (
+              <div className="mt-4 rounded-2xl border border-white/15 bg-white/5 p-4">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-[#DCCDA8] font-semibold mb-2">
+                  What is driving this result
+                </p>
+                <ul className="space-y-2 text-sm text-stone-200 leading-6">
+                  {resultDrivers.map((driver) => (
+                    <li key={driver} className="flex gap-2">
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#DCCDA8] shrink-0" />
+                      <span>{driver}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -511,20 +677,27 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
 
           <div className="rounded-[28px] border border-stone-200 bg-[var(--yieldlens-panel)] p-5 shadow-sm">
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-2">
-              What it does not fully answer yet
+              Assumptions in this check
             </p>
 
-            <ul className="space-y-3 text-sm text-stone-700 leading-6">
-              <li>Whether the lease terms can be improved before signing.</li>
-              <li>Whether footfall, spend, and cost assumptions are properly evidenced.</li>
-              <li>Whether repair, service charge, break clause, and use terms are acceptable.</li>
-              <li>Whether the case still feels right after negotiation and due diligence.</li>
-            </ul>
-
-            <div className="mt-4 rounded-2xl border border-stone-200 bg-[var(--yieldlens-panel)] p-4 text-sm text-stone-700 leading-6">
-              The Standard commercial viability file turns this snapshot into a decision memo
-              you can use for negotiation and due diligence.
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {assumptions.map((item) => (
+                <div key={item.label} className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--yieldlens-muted)] font-semibold mb-1">
+                    {item.label}
+                  </p>
+                  <p className="text-lg font-bold text-stone-950 leading-tight">{item.value}</p>
+                  <p className="mt-2 text-xs text-[var(--yieldlens-muted)] leading-5">
+                    {item.helper}
+                  </p>
+                </div>
+              ))}
             </div>
+
+            <p className="mt-4 text-sm text-stone-700 leading-6">
+              The result depends on the assumptions entered. Use this as a pressure
+              check, not as a valuation or a commitment to sign.
+            </p>
           </div>
         </div>
       </div>
@@ -633,7 +806,7 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
 
       <div className="mt-5 rounded-2xl border border-stone-200 bg-[var(--yieldlens-panel)] p-5">
         <p className="font-semibold text-stone-950 mb-3">
-          Questions to verify next
+          What to check before relying on this
         </p>
 
         <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
@@ -723,6 +896,7 @@ export default function ResultsPage() {
 
   const isResidential = submission.mode === 'residential';
   const result = submission.result;
+  const commercialResultSummary = isResidential ? undefined : getCommercialResultSummary(result as CommercialResult);
   const email = getEmail(submission);
 
   return (
@@ -923,6 +1097,7 @@ export default function ResultsPage() {
             mode={submission.mode}
             score={submission.score}
             verdictLabel={submission.verdict.label}
+            resultSummary={commercialResultSummary}
           />
         </div>
       </div>

@@ -13,6 +13,7 @@ interface ResultsConversionPanelProps {
   mode: 'residential' | 'commercial';
   score: number;
   verdictLabel: string;
+  resultSummary?: string;
 }
 
 const residentialItems = [
@@ -128,6 +129,7 @@ export default function ResultsConversionPanel({
   mode,
   score,
   verdictLabel,
+  resultSummary,
 }: ResultsConversionPanelProps) {
   const isResidential = mode === 'residential';
   const items = isResidential ? residentialItems : commercialItems;
@@ -144,13 +146,13 @@ export default function ResultsConversionPanel({
             <h2 className="text-2xl font-bold leading-tight mb-3">
               {isResidential
                 ? 'A fuller viability file can pressure-test the property properly.'
-                : 'Unlock the Standard commercial viability file to turn the snapshot into a decision memo.'}
+                : 'Unlock the £49 Standard file to turn the snapshot into a decision memo.'}
             </h2>
 
             <p className="text-sm text-stone-300 leading-7">
               Your quick check returned <span className="font-semibold text-white">{verdictLabel}</span>.
-              {' '}
-              {getScoreMessage(score)} The free result gives the snapshot; the paid file adds the negotiation and due diligence pack.
+              {resultSummary ? ` ${resultSummary} ` : ' '}
+              {getScoreMessage(score)} The free result gives the snapshot; the Standard file adds the negotiation and due diligence pack.
             </p>
           </div>
 
@@ -165,7 +167,7 @@ export default function ResultsConversionPanel({
 
             {!isResidential && (
               <p className="text-xs text-stone-400 mt-3 leading-5">
-                The paid file adds the memo, stress tests, negotiation levers, and due diligence pack.
+                The Standard file adds the memo, stress tests, negotiation levers, and due diligence pack.
               </p>
             )}
           </div>
@@ -210,7 +212,7 @@ export default function ResultsConversionPanel({
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.2em] text-[#5b7d58] font-semibold mb-2">
-                      Standard file, £49
+                      £49 Standard file
                     </p>
                     <h3 className="text-lg font-bold text-stone-950">
                       Commercial decision memo
@@ -239,10 +241,10 @@ export default function ResultsConversionPanel({
                     className={`${primaryCtaClass} w-full sm:w-auto`}
                     eventName="results_report_preview_clicked"
                     pagePath="/results"
-                    ctaLabel="Unlock the £49 viability file"
+                    ctaLabel="Unlock the £49 Standard file"
                     pageType="results"
                   >
-                    Unlock the £49 viability file
+                    Unlock the £49 Standard file
                   </TrackedCtaLink>
 
                   <TrackedCtaLink
@@ -258,7 +260,8 @@ export default function ResultsConversionPanel({
                 </div>
 
                 <p className="mt-4 text-xs text-stone-600 leading-5">
-                  After payment, the saved result opens as the memo. You can print it or save it as PDF.
+                  After payment, the saved result opens as the memo. You can print
+                  it or save it as PDF.
                 </p>
               </div>
             </div>
@@ -278,7 +281,9 @@ export default function ResultsConversionPanel({
               </ul>
 
               <p className={`${disclaimerClass} mt-4`}>
-                YieldLens is indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
+                YieldLens is indicative decision-support only. It is not financial
+                advice, legal advice, tax advice, a valuation, or a substitute for
+                professional due diligence.
               </p>
             </div>
           </div>
