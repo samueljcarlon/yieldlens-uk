@@ -6,16 +6,16 @@ import VerdictBadge from '@/components/VerdictBadge';
 import { primaryCtaClass, secondaryCtaClass, heroPrimaryCtaClass, heroSecondaryCtaClass, surfaceCardClass, surfaceCardSoftClass, disclaimerClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Pressure Tests | YieldLens UK',
+  title: 'Commercial Lease Viability Check | YieldLens UK',
   description:
-    'Check whether a commercial site can carry the rent before you sign. YieldLens UK pressure-tests rent burden, break-even customers, upfront cash, downside trading, and lease questions before a commercial commitment.',
+    'Free commercial check first, then optional £49 Standard commercial viability file. YieldLens UK pressure-tests rent burden, break-even customers, opening cash, downside trading, and lease questions before signing a lease.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Commercial Lease Pressure Tests | YieldLens UK',
+    title: 'Commercial Lease Viability Check | YieldLens UK',
     description:
-      'Check whether a commercial site can carry the rent before you sign. YieldLens UK pressure-tests rent burden, break-even customers, upfront cash, downside trading, and lease questions before a commercial commitment.',
+      'Free commercial check first, then optional £49 Standard commercial viability file. YieldLens UK pressure-tests rent burden, break-even customers, opening cash, downside trading, and lease questions before signing a lease.',
     url: 'https://yieldlens.co.uk',
   },
 };
@@ -29,31 +29,31 @@ const exampleVerdict = {
 const featureCards = [
   {
     title: 'Rent burden',
-    desc: 'Compare monthly rent with expected monthly revenue before the lease becomes a fixed obligation.',
+    desc: 'See whether monthly rent leaves enough room for staff, stock, service charge, and quieter weeks.',
   },
   {
     title: 'Break-even customers',
-    desc: 'Estimate how many customers per day are needed to cover rent and known operating costs.',
+    desc: 'Turn rent and costs into a daily customer target that can be checked against real trade.',
   },
   {
     title: 'Upfront cash needed',
-    desc: 'Add fit-out, deposit, legal fees, opening stock, and setup costs before judging the site.',
+    desc: 'Add fit-out, deposit, legal fees, stock, and setup costs before judging the site.',
   },
   {
     title: 'Downside revenue',
-    desc: 'Test whether the site still works when revenue is weaker than expected.',
+    desc: 'Test whether the site still works when opening trade is slower than expected.',
   },
   {
     title: 'Six-month survival',
-    desc: 'Check whether cash after opening can cover a difficult early trading period.',
+    desc: 'Check whether the opening cash buffer can handle a difficult early trading period.',
   },
 ];
 
 const builtFor = [
-  'Cafes comparing units before signing heads of terms',
-  'Restaurants checking the rent against covers and kitchen cost',
-  'Salons testing chair capacity, bookings, and opening cash',
-  'Small operators deciding whether the lease is worth the next step',
+  'Cafes before heads of terms',
+  'Restaurants checking rent and covers',
+  'Salons testing bookings and cash',
+  'Small operators comparing units',
 ];
 
 const freeCheckShows = [
@@ -153,17 +153,22 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 lg:gap-12 items-center">
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
-                Commercial lease survival model
+                Commercial lease viability check
               </p>
 
-              <h1 className="text-3xl sm:text-6xl font-bold leading-tight mb-6">
-                Check whether a commercial site can carry the rent before you sign.
+              <h1 className="text-3xl sm:text-6xl font-bold leading-tight mb-6 max-w-3xl">
+                Can this commercial site carry the rent before I sign?
               </h1>
 
-              <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
+              <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-6 leading-8">
+                Free commercial check first. Optional £49 Standard commercial
+                viability file if the site deserves deeper scrutiny.
+              </p>
+
+              <p className="text-sm sm:text-base text-stone-300 max-w-2xl mb-8 leading-7">
                 YieldLens UK pressure-tests rent burden, break-even customers,
-                upfront cash, downside trading, and lease questions before a
-                commercial commitment.
+                opening cash, downside trading, and lease questions before
+                signing a commercial lease.
               </p>
 
               <div className="flex flex-wrap gap-2 mb-8">
@@ -182,24 +187,24 @@ export default function HomePage() {
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
                   pagePath="/"
-                  ctaLabel="Run commercial site check"
+                  ctaLabel="Run a free commercial check"
                   pageType="homepage"
                 className={heroPrimaryCtaClass}
               >
-                Run commercial site check
+                Run a free commercial check
               </TrackedCtaLink>
 
                 <Link
                   href="/sample-commercial-viability-file"
                   className={heroSecondaryCtaClass}
                 >
-                  View sample file
+                  View sample viability file
                 </Link>
               </div>
 
               <div className="mt-7 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
                 <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
-                  Built for
+                  Who it is for
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {builtFor.map((item) => (
@@ -218,19 +223,17 @@ export default function HomePage() {
                   Illustrative use
                 </p>
                 <p className="text-sm text-stone-200 leading-7">
-                  Compare a promising unit against rent, fit-out, cash buffer, and weak-start risk before signing.
+                  A unit can look attractive on footfall but still be fragile if
+                  rent burden, fit-out, deposit, and weak opening months leave too
+                  little cash buffer.
                 </p>
               </div>
 
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>
-                YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
-              </p>
-
-              <p className={`${disclaimerClass} mt-3 text-stone-400`}>
-                Standard commercial viability file is £49 after a commercial report request.
-              </p>
-              <p className={`${disclaimerClass} mt-3 text-stone-400`}>
-                The free result shows the pressure points. The Standard file turns them into a structured decision memo for negotiation, evidence checking, and lease questions.
+                YieldLens UK provides indicative decision-support only. It is not
+                financial advice, legal advice, tax advice, a valuation, or a
+                substitute for professional due diligence. The Standard commercial
+                viability file is £49 and opens from the saved result.
               </p>
             </div>
 
@@ -238,7 +241,7 @@ export default function HomePage() {
               <div className="border-b border-white/10 bg-gradient-to-r from-white/10 via-white/5 to-amber-400/10 px-5 py-4 flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-stone-400 font-medium">
-                    Commercial risk snapshot
+                    Free commercial check
                   </p>
                   <p className="text-3xl font-bold mt-1 tracking-tight">
                     67<span className="text-lg text-stone-400">/100</span>
@@ -554,7 +557,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-xs text-stone-500 mt-4">
-              The standard commercial viability file is £49 and appears after a commercial report request.
+              The Standard commercial viability file is £49 and opens from the saved result.
             </p>
           </div>
 
