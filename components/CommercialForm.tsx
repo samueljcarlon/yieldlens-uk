@@ -172,10 +172,10 @@ export default function CommercialForm({ onSubmit }: Props) {
   };
 
   const inputClass =
-    'w-full border border-stone-300 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
+    'w-full min-h-[48px] border border-stone-300 rounded-lg px-3 py-3 text-[16px] leading-6 focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
 
   const errorInputClass =
-    'w-full border border-red-400 rounded-lg px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
+    'w-full min-h-[48px] border border-red-400 rounded-lg px-3 py-3 text-[16px] leading-6 focus:outline-none focus:ring-2 focus:ring-green-600 bg-white shadow-sm';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -396,7 +396,7 @@ export default function CommercialForm({ onSubmit }: Props) {
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <button
           type="submit"
-          className="w-full sm:w-auto bg-green-700 text-white px-6 py-3.5 rounded-lg font-semibold hover:bg-green-800 transition-colors shadow-sm"
+          className="w-full sm:w-auto min-h-[48px] bg-green-700 px-6 py-3.5 text-base font-semibold text-white transition-colors shadow-sm hover:bg-green-800"
         >
           Run commercial viability check
         </button>

@@ -217,6 +217,38 @@ function SectionTitle({
   );
 }
 
+function ComparisonRowCard({
+  label,
+  freeValue,
+  paidValue,
+}: {
+  label: string;
+  freeValue: string;
+  paidValue: string;
+}) {
+  return (
+    <div className={`${surfaceCardSoftClass} p-4`}>
+      <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-caution)] font-semibold mb-2">
+        {label}
+      </p>
+      <div className="grid grid-cols-1 gap-3 text-sm leading-6">
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">
+            Free check
+          </p>
+          <p className="text-stone-700">{freeValue}</p>
+        </div>
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">
+            Standard file
+          </p>
+          <p className="text-stone-700">{paidValue}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ViabilityFilePage() {
   return (
     <div className="bg-stone-50">
@@ -242,7 +274,7 @@ export default function ViabilityFilePage() {
                 Turn a commercial lease check into a decision memo before you sign.
               </h1>
 
-              <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
+              <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 Get a structured £49 viability file that turns the free
                 commercial check into a decision memo for negotiation and due
                 diligence before you sign. It is unlocked from a saved result,
@@ -399,7 +431,18 @@ export default function ViabilityFilePage() {
             description="The comparison below keeps the offer honest. The free check is the screen. The paid file is the printable pressure-test and action plan."
           />
 
-          <div className={tableShellClass}>
+          <div className="grid gap-3 md:hidden">
+            {compareRows.map(([label, freeValue, paidValue]) => (
+              <ComparisonRowCard
+                key={label}
+                label={label}
+                freeValue={freeValue}
+                paidValue={paidValue}
+              />
+            ))}
+          </div>
+
+          <div className={`${tableShellClass} hidden md:block`}>
             <table className="min-w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b border-stone-200 bg-stone-50 text-left">
@@ -508,7 +551,7 @@ export default function ViabilityFilePage() {
               pagePath="/viability-file"
               ctaLabel="Run a free commercial check first"
               pageType="product_page"
-              className="bg-[#5e7f5b] text-white px-6 py-3 rounded font-medium hover:bg-[#4f6d4c] transition-colors text-sm"
+              className="w-full sm:w-auto min-h-[48px] bg-[#5e7f5b] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#4f6d4c]"
             >
               Run a free commercial check first
             </TrackedCtaLink>
@@ -519,7 +562,7 @@ export default function ViabilityFilePage() {
               pagePath="/viability-file"
               ctaLabel="View sample file"
               pageType="product_page"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="w-full sm:w-auto min-h-[48px] border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400"
             >
               View sample file
             </TrackedCtaLink>

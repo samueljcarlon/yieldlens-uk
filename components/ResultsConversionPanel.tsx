@@ -154,7 +154,7 @@ export default function ResultsConversionPanel({
             </p>
           </div>
 
-          <div className="rounded-[28px] border border-white/10 bg-white/5 p-4 min-w-full lg:min-w-[260px] shadow-sm">
+          <div className="w-full rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-sm lg:min-w-[260px] lg:w-auto">
             <p className="text-[11px] uppercase tracking-[0.22em] text-stone-400 mb-1">
               Indicative score
             </p>
@@ -236,7 +236,7 @@ export default function ResultsConversionPanel({
                 <div className="mt-4 flex flex-col sm:flex-row gap-3">
                   <TrackedCtaLink
                     href="/report"
-                    className={primaryCtaClass}
+                    className={`${primaryCtaClass} w-full sm:w-auto`}
                     eventName="results_report_preview_clicked"
                     pagePath="/results"
                     ctaLabel="Unlock the £49 viability file"
@@ -247,7 +247,7 @@ export default function ResultsConversionPanel({
 
                   <TrackedCtaLink
                     href="/sample-commercial-viability-file"
-                    className={secondaryCtaClass}
+                    className={`${secondaryCtaClass} w-full sm:w-auto`}
                     eventName="results_report_preview_clicked"
                     pagePath="/results"
                     ctaLabel="View sample file"

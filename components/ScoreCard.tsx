@@ -17,7 +17,7 @@ export default function ScoreCard({ verdict }: { verdict: Verdict }) {
       <p className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-[var(--yieldlens-muted)] font-semibold">
         Indicative score
       </p>
-      <p className={`text-6xl font-bold tabular-nums leading-none tracking-tight ${ringColour[verdict.colour] ?? 'text-stone-800'}`}>
+      <p className={`text-5xl font-bold tabular-nums leading-none tracking-tight sm:text-6xl ${ringColour[verdict.colour] ?? 'text-stone-800'}`}>
         {verdict.score}
         <span className="text-2xl text-[var(--yieldlens-muted)] font-normal">/100</span>
       </p>

@@ -259,6 +259,59 @@ function SectionTitle({
   );
 }
 
+function ScenarioSummaryCard({
+  label,
+  revenue,
+  position,
+  breakEven,
+  interpretation,
+}: {
+  label: string;
+  revenue: string;
+  position: string;
+  breakEven: string;
+  interpretation: string;
+}) {
+  return (
+    <div className={`${surfaceCardSoftClass} p-4`}>
+      <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-caution)] font-semibold mb-2">
+        {label}
+      </p>
+      <div className="space-y-2 text-sm leading-6 text-stone-700">
+        <p><span className="font-semibold text-stone-900">Monthly revenue:</span> {revenue}</p>
+        <p><span className="font-semibold text-stone-900">Monthly position:</span> {position}</p>
+        <p><span className="font-semibold text-stone-900">Break-even/day:</span> {breakEven}</p>
+        <p>{interpretation}</p>
+      </div>
+    </div>
+  );
+}
+
+function DecisionMatrixCard({
+  area,
+  current,
+  improve,
+  priority,
+}: {
+  area: string;
+  current: string;
+  improve: string;
+  priority: string;
+}) {
+  return (
+    <div className={`${surfaceCardSoftClass} p-4`}>
+      <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-caution)] font-semibold mb-2">
+        {area}
+      </p>
+      <div className="space-y-2 text-sm leading-6 text-stone-700">
+        <p><span className="font-semibold text-stone-900">Current signal:</span> {current}</p>
+        <p><span className="font-semibold text-stone-900">What would improve it:</span> {improve}</p>
+        <p><span className="font-semibold text-stone-900">Priority:</span> {priority}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function SampleCommercialViabilityFilePage() {
   return (
     <div className="bg-[var(--yieldlens-page)] text-stone-900 print-memo">
@@ -279,7 +332,7 @@ export default function SampleCommercialViabilityFilePage() {
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
                 Sample Standard commercial viability file
               </h1>
-              <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
+              <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 See the kind of analysis included in the £49 paid file after a free commercial check.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
@@ -335,7 +388,7 @@ export default function SampleCommercialViabilityFilePage() {
               </div>
             </div>
           </div>
-          <div className={`${surfaceCardClass} mt-6 border-white/10 bg-[var(--yieldlens-hero)] p-4 text-sm text-stone-200 leading-7`}>
+          <div className={`${surfaceCardClass} mt-6 border-white/10 bg-[var(--yieldlens-hero)] p-4 text-sm text-stone-100 leading-7`}>
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#DCCDA8] font-semibold mb-2">
               Final view
             </p>
@@ -378,7 +431,44 @@ export default function SampleCommercialViabilityFilePage() {
             title="The fast read before the written detail."
             description="The sample mirrors the paid file’s visual language: rent burden, break-even gap, opening capital stack, and downside survival."
           />
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 gap-3 xl:hidden">
+            <ScenarioSummaryCard
+              label="Base case"
+              revenue="£24,960"
+              position="£10,860 surplus"
+              breakEven="45.2"
+              interpretation="Current assumptions are workable month to month, but the opening shortfall remains the main issue."
+            />
+            <ScenarioSummaryCard
+              label="Revenue down 20%"
+              revenue="£19,968"
+              position="£5,868 surplus"
+              breakEven="56.5"
+              interpretation="Trading is weaker, but the site still covers the cost base on these inputs."
+            />
+            <ScenarioSummaryCard
+              label="Revenue down 40%"
+              revenue="£14,976"
+              position="£876 surplus"
+              breakEven="75.4"
+              interpretation="The downside case still covers operating costs, which is why the opening capital stack matters more than monthly burn."
+            />
+            <ScenarioSummaryCard
+              label="Costs up 15%"
+              revenue="£24,960"
+              position="£8,745 surplus"
+              breakEven="52.1"
+              interpretation="Higher costs narrow the margin and make trading assumptions more fragile."
+            />
+            <ScenarioSummaryCard
+              label="Rent reduced 10%"
+              revenue="£24,960"
+              position="£11,360 surplus"
+              breakEven="43.3"
+              interpretation="A lower rent improves the operating margin and eases break-even pressure."
+            />
+          </div>
+          <div className="hidden xl:grid grid-cols-1 xl:grid-cols-2 gap-5">
             <div className="rounded-3xl border border-stone-200 bg-white shadow-sm p-1">
               <RentBurdenGauge rentBurdenPercentage={20} />
             </div>
@@ -482,7 +572,20 @@ export default function SampleCommercialViabilityFilePage() {
             eyebrow="Stress-test scenarios"
             title="How the site behaves under weaker trading or improved lease terms."
           />
-          <div className="overflow-x-auto rounded-3xl border border-stone-200">
+          <div className="grid gap-3 md:hidden">
+            {stressScenarios.map((row) => (
+              <ScenarioSummaryCard
+                key={row.label}
+                label={row.label}
+                revenue={row.revenue}
+                position={row.position}
+                breakEven={row.breakEven}
+                interpretation={row.interpretation}
+              />
+            ))}
+          </div>
+
+          <div className="hidden md:block overflow-x-auto rounded-3xl border border-stone-200">
             <table className="w-full border-collapse text-sm bg-white">
               <thead>
                 <tr className="bg-stone-50 text-left border-b border-stone-200">
@@ -553,7 +656,18 @@ export default function SampleCommercialViabilityFilePage() {
           eyebrow="Ranked actions before committing"
           title="A quick read on what matters most in the sample case."
         />
-        <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-white shadow-sm">
+        <div className="grid gap-3 md:hidden">
+          {decisionMatrix.map((row) => (
+            <DecisionMatrixCard
+              key={row.area}
+              area={row.area}
+              current={row.current}
+              improve={row.improve}
+              priority={row.priority}
+            />
+          ))}
+        </div>
+        <div className="hidden md:block overflow-x-auto rounded-3xl border border-stone-200 bg-white shadow-sm">
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="bg-stone-50 text-left border-b border-stone-200">
@@ -633,23 +747,23 @@ export default function SampleCommercialViabilityFilePage() {
               pagePath="/sample-commercial-viability-file"
               ctaLabel="Start free commercial check"
               pageType="sample_file"
-              className="bg-[var(--yieldlens-primary)] text-white px-6 py-3 rounded font-medium hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm"
+              className="w-full sm:w-auto min-h-[48px] bg-[var(--yieldlens-primary)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--yieldlens-primary-hover)]"
             >
               Start free commercial check
             </TrackedCtaLink>
             <Link
               href="/viability-file"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="w-full sm:w-auto min-h-[48px] border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400"
             >
               Get your own £49 viability file
             </Link>
             <Link
               href="/how-it-works"
-              className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
+              className="w-full sm:w-auto min-h-[48px] border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400"
             >
               How it works
             </Link>
-            <PrintSaveButton className="print-hidden bg-white text-stone-900 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm" />
+            <PrintSaveButton className="print-hidden w-full sm:w-auto min-h-[48px] border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-900 transition-colors hover:border-stone-400" />
           </div>
         </div>
       </section>

@@ -14,7 +14,7 @@ export default function MetricCard({ label, value, helper }: Props) {
         {label}
       </div>
 
-      <p className="mt-4 text-2xl font-bold text-[var(--yieldlens-primary)] tabular-nums leading-none tracking-tight">
+      <p className="mt-4 text-xl font-bold text-[var(--yieldlens-primary)] tabular-nums leading-none tracking-tight sm:text-2xl">
         {value}
       </p>
 

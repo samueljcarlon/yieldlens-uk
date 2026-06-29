@@ -224,7 +224,7 @@ export default function HowItWorksPage() {
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
                 How YieldLens UK works
               </h1>
-              <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
+              <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 Commercial lease pressure-testing before you sign. YieldLens UK turns rent,
                 revenue, costs, opening cash, and downside assumptions into an indicative
                 viability view before a lease becomes expensive to unwind.

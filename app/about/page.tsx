@@ -179,7 +179,7 @@ export default function AboutPage() {
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
                 About YieldLens UK
               </h1>
-              <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
+              <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 Independent commercial rent and lease viability decision-support.
                 YieldLens UK helps operators pressure-test whether a commercial
                 site can carry the rent before they sign.

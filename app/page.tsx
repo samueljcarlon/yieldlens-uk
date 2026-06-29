@@ -149,18 +149,18 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.16),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(120,113,108,0.12),transparent_30%)]" />
         <div className="absolute -left-20 top-16 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl" />
-        <div className="relative max-w-6xl mx-auto px-4 py-16 sm:py-20">
+        <div className="relative max-w-6xl mx-auto px-4 py-14 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 lg:gap-12 items-center">
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
                 Commercial lease survival model
               </p>
 
-              <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
+              <h1 className="text-3xl sm:text-6xl font-bold leading-tight mb-6">
                 Check whether a commercial site can carry the rent before you sign.
               </h1>
 
-              <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
+              <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 YieldLens UK pressure-tests rent burden, break-even customers,
                 upfront cash, downside trading, and lease questions before a
                 commercial commitment.
@@ -213,7 +213,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
+              <div className="mt-4 hidden rounded-2xl border border-white/10 bg-white/5 p-4 sm:block sm:p-5">
                 <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-2">
                   Illustrative use
                 </p>

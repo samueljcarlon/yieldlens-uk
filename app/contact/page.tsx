@@ -83,7 +83,7 @@ export default function ContactPage() {
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
                 Contact YieldLens UK
               </h1>
-              <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
+              <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 For product questions, access after payment, privacy queries, or
                 report corrections, email YieldLens UK at{' '}
                 <a className="underline decoration-white/30 underline-offset-4 hover:decoration-white" href={mailtoHref()}>

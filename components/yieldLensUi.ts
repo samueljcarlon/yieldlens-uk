@@ -5,10 +5,10 @@ export const secondaryCtaClass =
   'inline-flex items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-[var(--yieldlens-caution)] hover:bg-[#F7F6F3]';
 
 export const heroSecondaryCtaClass =
-  'inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white shadow-[0_10px_24px_rgba(0,0,0,0.16)] transition-all hover:border-white/30 hover:bg-white/10';
+  'inline-flex w-full items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white shadow-[0_10px_24px_rgba(0,0,0,0.16)] transition-all hover:border-white/30 hover:bg-white/10 sm:w-auto';
 
 export const heroPrimaryCtaClass =
-  'inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white px-5 py-3 text-sm font-semibold text-[var(--yieldlens-primary)] shadow-[0_12px_28px_rgba(0,0,0,0.16)] transition-all hover:border-white/25 hover:bg-[#F7F6F3] hover:shadow-[0_16px_34px_rgba(0,0,0,0.20)] disabled:cursor-not-allowed disabled:opacity-60';
+  'inline-flex w-full items-center justify-center rounded-2xl border border-white/15 bg-white px-5 py-3 text-sm font-semibold text-[var(--yieldlens-primary)] shadow-[0_12px_28px_rgba(0,0,0,0.16)] transition-all hover:border-white/25 hover:bg-[#F7F6F3] hover:shadow-[0_16px_34px_rgba(0,0,0,0.20)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto';
 
 export const subtleCtaClass =
   'inline-flex items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-[var(--yieldlens-caution)] hover:bg-[#E6E3DC]';

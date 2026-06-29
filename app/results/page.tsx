@@ -732,7 +732,7 @@ export default function ResultsPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/25 bg-white/0 p-4">
+            <div className="w-full rounded-2xl border border-white/25 bg-white/0 p-4 lg:w-auto lg:min-w-[290px]">
               <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--yieldlens-muted)] font-medium mb-1">
                 Saved check
               </p>
@@ -839,14 +839,14 @@ export default function ResultsPage() {
               {isResidential ? (
                 <Link
                   href="/report"
-                  className="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)]"
+                  className="inline-flex w-full items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)] sm:w-auto"
                 >
                   Turn this result into a decision memo
                 </Link>
               ) : (
                 <TrackedCtaLink
                   href="/report"
-                  className="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)]"
+                  className="inline-flex w-full items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)] sm:w-auto"
                   eventName="results_report_preview_clicked"
                   pagePath="/results"
                   ctaLabel="Get the negotiation and due diligence file"
@@ -866,7 +866,7 @@ export default function ResultsPage() {
                 <>
                   <TrackedCtaLink
                     href="/check?mode=commercial"
-                    className="hover:text-stone-900 hover:underline"
+                    className="w-full hover:text-stone-900 hover:underline sm:w-auto"
                     eventName="results_run_another_check_clicked"
                     pagePath="/results"
                     ctaLabel="Run another commercial check"
@@ -897,7 +897,7 @@ export default function ResultsPage() {
 
             <Link
               href="/sample-commercial-viability-file"
-              className="mt-4 inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)]"
+              className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)] sm:w-auto"
             >
               View sample file
             </Link>

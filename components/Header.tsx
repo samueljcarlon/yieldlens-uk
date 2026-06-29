@@ -61,7 +61,7 @@ export default function Header() {
               Menu
             </summary>
 
-            <div className={`absolute right-0 top-[calc(100%+0.5rem)] w-60 p-2 ${surfaceCardClass} shadow-[0_18px_44px_rgba(15,23,42,0.10)]`}>
+            <div className={`absolute right-0 top-[calc(100%+0.5rem)] w-[min(18rem,calc(100vw-1rem))] max-h-[calc(100vh-6rem)] overflow-y-auto p-2 ${surfaceCardClass} shadow-[0_18px_44px_rgba(15,23,42,0.10)]`}>
               <Link href="/check?mode=commercial" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 Commercial check
               </Link>
