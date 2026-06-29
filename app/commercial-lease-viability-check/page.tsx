@@ -562,11 +562,23 @@ export default function CommercialLeaseViabilityPage() {
                         <p className="text-xs text-[var(--yieldlens-muted)]">{item.label}</p>
                         <p className="text-xs font-semibold text-stone-900 text-right">
                           {item.value}
-                        </p>
-                      </div>
-                    ))}
+                    </p>
                   </div>
+                ))}
+              </div>
+
+              <div className="rounded-3xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] p-4">
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-caution)] font-semibold mb-2">
+                  What this makes you ask
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-6">
+                  <p>Can the landlord support a rent-free period or contribution?</p>
+                  <p>Is the service charge capped or still an estimate?</p>
+                  <p>What evidence supports the expected footfall and spend?</p>
+                  <p>What happens if opening is delayed or fit-out changes?</p>
                 </div>
+              </div>
+            </div>
 
                 <div>
                   <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-muted)] font-semibold mb-3">

@@ -334,7 +334,7 @@ export default function SampleCommercialViabilityFilePage() {
               </div>
             </div>
           </div>
-          <div className={`${surfaceCardClass} mt-6 border-white/10 bg-[var(--yieldlens-hero)] p-4 text-sm text-stone-300 leading-7`}>
+          <div className={`${surfaceCardClass} mt-6 border-white/10 bg-[var(--yieldlens-hero)] p-4 text-sm text-stone-200 leading-7`}>
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#DCCDA8] font-semibold mb-2">
               Final view
             </p>
@@ -343,6 +343,10 @@ export default function SampleCommercialViabilityFilePage() {
               YieldLens UK provides indicative decision-support only. It is not a valuation,
               financial advice, mortgage advice, legal advice, tax advice, or a substitute
               for professional due diligence.
+            </p>
+            <p className="mt-3">
+              The practical questions are rent-free time, landlord contribution, staged fit-out,
+              and whether the opening trade evidence is strong enough to justify the lease.
             </p>
           </div>
         </div>

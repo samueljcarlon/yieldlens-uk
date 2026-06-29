@@ -71,6 +71,28 @@ const proofBlocks = [
   },
 ];
 
+const illustrativeExample = [
+  {
+    title: 'Before negotiation',
+    points: [
+      'High rent burden',
+      'Thin opening buffer',
+      'Demanding break-even customers',
+      'Weak downside survival',
+    ],
+  },
+  {
+    title: 'Possible improvements',
+    points: [
+      'Rent-free period',
+      'Lower deposit',
+      'Staged fit-out',
+      'Landlord contribution',
+      'Better revenue evidence',
+    ],
+  },
+];
+
 const survivalMetrics = [
   {
     label: 'Rent burden',
@@ -308,6 +330,40 @@ export default function ViabilityFilePage() {
               <div key={item.title} className={`${surfaceCardSoftClass} p-5`}>
                 <p className="text-sm font-semibold text-stone-900">{item.title}</p>
                 <p className="mt-2 text-sm text-stone-700 leading-7">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Illustrative example"
+            title="A fictional cafe lease becomes easier to judge once the levers are visible."
+            description="This is not a real case. It shows the kind of pressure-test the paid memo is built to organise."
+          />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {illustrativeExample.map((item, index) => (
+              <div
+                key={item.title}
+                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 ${
+                  index === 0
+                    ? 'border-t-[var(--yieldlens-fragile)]'
+                    : 'border-t-[var(--yieldlens-positive)]'
+                }`}
+              >
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-caution)] font-semibold mb-3">
+                  {item.title}
+                </p>
+                <ul className="space-y-2 text-sm text-stone-700 leading-7">
+                  {item.points.map((point) => (
+                    <li key={point} className="flex gap-2">
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>

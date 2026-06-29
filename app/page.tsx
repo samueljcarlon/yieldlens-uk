@@ -213,6 +213,15 @@ export default function HomePage() {
                 </div>
               </div>
 
+              <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
+                <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-2">
+                  Illustrative use
+                </p>
+                <p className="text-sm text-stone-200 leading-7">
+                  Compare a promising unit against rent, fit-out, cash buffer, and weak-start risk before signing.
+                </p>
+              </div>
+
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>
                 YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
               </p>

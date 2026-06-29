@@ -103,27 +103,27 @@ const proofPoints = [
 ];
 
 const exampleJourney = [
-  'A cafe operator is comparing a unit with strong expected trade but high rent.',
-  'YieldLens flags high rent burden, demanding break-even customers, and a thin opening cash buffer.',
-  'The next checks are rent-free period, deposit terms, fit-out quotes, service charge, and actual footfall.',
+  'A fictional cafe operator is comparing a unit with strong footfall but a rent level that looks heavy once the full cost stack is included.',
+  'YieldLens points to a high rent burden, a break-even target that needs checking against real footfall, and an opening cash buffer that looks thin after launch costs.',
+  'That pushes the operator to ask about rent-free time, landlord contribution, fit-out scope, service charge, and evidence for demand before signing.',
 ];
 
 const beforeAfterPoints = [
   {
-    title: 'Lower rent',
-    text: 'Usually lowers rent burden and gives the business more breathing room for staff, stock, and slower early trade.',
+    title: 'Before: high rent burden',
+    text: 'Rent absorbs too much of the monthly revenue, leaving less room for staff, stock, service charge, and quieter weeks.',
   },
   {
-    title: 'Rent-free period',
-    text: 'Usually improves opening cash pressure by keeping more cash in the business at launch.',
+    title: 'Before: demanding break-even target',
+    text: 'The daily customer target only becomes useful when it is compared with seating, opening hours, and realistic trade patterns.',
   },
   {
-    title: 'Landlord contribution',
-    text: 'Usually reduces upfront cash needed for fit-out, stock, and other launch costs.',
+    title: 'After: better opening terms',
+    text: 'A rent-free period, lower deposit, or landlord contribution can improve the opening buffer and make launch pressure easier to carry.',
   },
   {
-    title: 'Break clause',
-    text: 'Usually reduces downside exposure if trading never improves after launch.',
+    title: 'After: stronger negotiation position',
+    text: 'A break clause and clearer evidence for demand turn the result into a better conversation before signing.',
   },
 ];
 
@@ -437,9 +437,9 @@ export default function HowItWorksPage() {
       <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Example journey"
-            title="A fictional cafe example shows the path from snapshot to memo."
-            description="The example is fictional and redacted so the structure can be seen without exposing a real tenant or property."
+            eyebrow="Illustrative example"
+            title="A fictional cafe example shows how the questions sharpen."
+            description="The example is fictional and redacted so the reasoning path can be seen without exposing a real tenant or property."
           />
           <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6">
             <div className={`${surfaceCardSoftClass} border-l-4 border-l-[var(--yieldlens-caution)] p-5`}>

@@ -402,7 +402,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                 A redacted cafe example with numbers that are easy to pressure-test.
               </h2>
               <p className="text-sm text-stone-300 leading-7 max-w-2xl">
-                This is a fictional redacted example, not a real address or live case. It shows how the screen works when rent looks high but the downside case still needs judgement.
+                This is a fictional redacted example, not a real address or live case. It shows how the screen works when rent looks high but service charge, staffing, and opening cash still need to be counted together.
               </p>
               <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-stone-300 leading-7">
                 Indicative view: needs caution. The rent is high enough to demand stronger evidence on customers, spend, opening cash, and lease terms.
