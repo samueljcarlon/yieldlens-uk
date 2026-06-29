@@ -12,37 +12,48 @@ const siteStructuredData = [
     name: 'YieldLens UK',
     url: 'https://yieldlens.co.uk',
     description:
-      'YieldLens UK helps users pressure-test UK residential and commercial property decisions before committing.',
+      'Independent UK commercial lease viability and rent affordability decision-support, with selected residential property checks.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'YieldLens UK',
+    url: 'https://yieldlens.co.uk',
+    description:
+      'Independent UK commercial lease viability and rent affordability decision-support.',
+    email: 'hello@yieldlens.co.uk',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: 'hello@yieldlens.co.uk',
+      areaServed: 'GB',
+      availableLanguage: 'en-GB',
+    },
   },
   {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'YieldLens UK',
     url: 'https://yieldlens.co.uk',
-    applicationCategory: 'FinanceApplication',
+    applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
     description:
-      'A UK property viability tool for checking yield, cash flow, break-even risk, downside scenarios, and property decision risk.',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'GBP',
-    },
+      'Independent UK commercial lease viability and rent affordability decision-support with a free commercial check and optional £49 Standard commercial viability file.',
   },
 ];
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://yieldlens.co.uk'),
   title: {
-    default: 'YieldLens UK | Property Return and Viability Checks',
+    default: 'YieldLens UK | Commercial Lease Viability and Rent Affordability',
     template: '%s | YieldLens UK',
   },
   description:
-    'YieldLens UK helps users pressure-test UK residential and commercial property decisions with yield, cash flow, break-even, risk flags, and scenario checks.',
+    'Independent UK commercial lease viability and rent affordability decision-support, with selected residential property checks.',
   openGraph: {
     title: 'YieldLens UK',
     description:
-      'Pressure-test UK residential and commercial property decisions before you commit.',
+      'Independent UK commercial lease viability and rent affordability decision-support, with selected residential property checks.',
     url: 'https://yieldlens.co.uk',
     siteName: 'YieldLens UK',
     type: 'website',

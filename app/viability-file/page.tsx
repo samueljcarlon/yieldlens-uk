@@ -20,6 +20,26 @@ export const metadata: Metadata = {
   },
 };
 
+const productStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Standard commercial viability file',
+  description:
+    'A £49 decision-support file that organises the saved commercial result, stress-test interpretation, negotiation levers, evidence checklist, lease questions, and printable memo before signing a commercial lease.',
+  brand: {
+    '@type': 'Brand',
+    name: 'YieldLens UK',
+  },
+  category: 'Decision-support file',
+  offers: {
+    '@type': 'Offer',
+    price: '49',
+    priceCurrency: 'GBP',
+    availability: 'https://schema.org/OnlineOnly',
+    url: 'https://yieldlens.co.uk/viability-file',
+  },
+};
+
 const faqStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -200,6 +220,7 @@ function SectionTitle({
 export default function ViabilityFilePage() {
   return (
     <div className="bg-stone-50">
+      <JsonLd data={productStructuredData} />
       <JsonLd data={faqStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"

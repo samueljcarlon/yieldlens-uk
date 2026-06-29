@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import {
@@ -26,6 +27,15 @@ export const metadata: Metadata = {
       'Independent commercial rent and lease viability decision-support for cafes, restaurants, salons, retailers, and first-time tenants.',
     url: 'https://yieldlens.co.uk/about',
   },
+};
+
+const aboutStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About YieldLens UK',
+  url: 'https://yieldlens.co.uk/about',
+  description:
+    'Independent commercial rent and lease viability decision-support for cafes, restaurants, salons, retailers, and first-time tenants.',
 };
 
 const whoItIsFor = [
@@ -150,6 +160,7 @@ function accentClass(index: number) {
 export default function AboutPage() {
   return (
     <div className="bg-[var(--yieldlens-page)] text-stone-900">
+      <JsonLd data={aboutStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/about"
