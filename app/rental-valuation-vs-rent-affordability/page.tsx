@@ -3,53 +3,64 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
-import { disclaimerClass, heroSecondaryCtaClass, heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
+import {
+  disclaimerClass,
+  heroBackdropClass,
+  heroPrimaryCtaClass,
+  heroSecondaryCtaClass,
+  memoBandClass,
+  sectionBandClass,
+  sectionHeadingClass,
+  surfaceCardClass,
+  surfaceCardSoftClass,
+  supportingTextClass,
+} from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
   title: 'Rental Valuation vs Rent Affordability | YieldLens UK',
   description:
-    'Understand the difference between rental valuation, rent affordability, cash flow, and commercial rent viability before relying on a rent figure.',
+    'Understand the difference between estimated rental value, rent affordability, and commercial lease viability before relying on a rent figure.',
   alternates: {
     canonical: '/rental-valuation-vs-rent-affordability',
   },
   openGraph: {
     title: 'Rental Valuation vs Rent Affordability | YieldLens UK',
     description:
-      'Understand the difference between rental valuation, rent affordability, cash flow, and commercial rent viability before relying on a rent figure.',
+      'Understand the difference between estimated rental value, rent affordability, and commercial lease viability before relying on a rent figure.',
     url: 'https://yieldlens.co.uk/rental-valuation-vs-rent-affordability',
   },
 };
 
 const faqItems = [
   {
-    question: 'Does YieldLens provide rental valuations?',
+    question: 'Does YieldLens provide a rental valuation?',
     answer:
-      'No. YieldLens UK does not provide a valuation. It pressure-tests whether the entered rent and costs work for the tenant or business model.',
+      'No. YieldLens UK does not provide a valuation or a formal market rent figure. It helps pressure-test whether a rent estimate still works after costs, voids, and cash flow are included.',
   },
   {
     question: 'What is a rental valuation?',
     answer:
-      'A rental valuation estimates what rent a property might achieve in the market based on comparable evidence and valuation judgment.',
+      'A rental valuation is an estimate of what rent a property might achieve in the market, based on comparable evidence and professional judgment.',
   },
   {
-    question: 'What is the difference between valuation and affordability?',
+    question: 'What is rent affordability?',
     answer:
-      'A valuation asks what the market might pay. An affordability check asks whether the tenant, business, or ownership structure can carry that rent in practice.',
+      'Rent affordability asks whether the rent still fits the budget after costs, voids, finance, and other real monthly pressures are included.',
   },
   {
-    question: 'Can a market rent still be unaffordable?',
+    question: 'Why does this matter for commercial units?',
     answer:
-      'Yes. A rent can be normal for the area and still be too heavy for the tenant once cash flow, costs, setup cash, or downside trading are considered.',
+      'A commercial rent can look reasonable on paper and still be too heavy for a cafe, restaurant, salon, or retailer once fit-out, staffing, deposits, service charge, and a slower opening period are included.',
   },
   {
-    question: 'Which YieldLens tool should I use?',
+    question: 'Which YieldLens page should I use?',
     answer:
-      'Use the residential affordability check for tenant affordability, the buy-to-let yield and cash flow tools for residential property, and the commercial affordability or viability tools for business premises.',
+      'Use this bridge page if you are comparing rent terms or trying to understand the difference between valuation and affordability. For commercial units, run the commercial lease viability check. For residential affordability, use the rent affordability check or cash flow tools.',
   },
   {
     question: 'Should I still speak to a professional?',
     answer:
-      'Yes. YieldLens structures the numbers and questions, but it does not replace an agent, solicitor, accountant, surveyor, or other professional due diligence.',
+      'Yes. YieldLens structures the numbers and questions, but it does not replace an agent, valuer, surveyor, solicitor, accountant, or other due diligence.',
   },
 ];
 
@@ -66,113 +77,84 @@ const faqStructuredData = {
   })),
 };
 
-const comparisonRows = [
+const comparisonCards = [
   {
-    question: 'Rental valuation',
-    answer: 'Estimates what rent the property might achieve in the market.',
-    user: 'Owners, agents, valuers, landlords',
-    tool: 'YieldLens does not provide a valuation.',
+    title: 'Rental valuation',
+    eyebrow: 'What it asks',
+    summary: 'What rent might be achievable in the market.',
+    points: ['Comparable evidence', 'Valuer or agent judgment', 'Likely market rent'],
+    note: 'Useful when you already need a rent estimate.',
   },
   {
-    question: 'Rent affordability',
-    answer: 'Checks whether the tenant can reasonably carry the rent.',
-    user: 'Tenants, renters, first-time movers',
-    tool: {
-      label: 'Rent affordability check',
-      href: '/rent-affordability-check',
-    },
-  },
-  {
-    question: 'Buy-to-let yield',
-    answer: 'Checks rental return against purchase price.',
-    user: 'Residential investors',
-    tool: {
-      label: 'Buy-to-let yield calculator',
-      href: '/buy-to-let-yield-calculator',
-    },
-  },
-  {
-    question: 'Property cash flow',
-    answer: 'Checks whether rent covers financing and ownership costs.',
-    user: 'Residential investors and landlords',
-    tool: {
-      label: 'Property cash flow calculator',
-      href: '/property-cash-flow-calculator',
-    },
-  },
-  {
-    question: 'Commercial rent affordability',
-    answer: 'Checks whether a business can carry the rent and opening costs.',
-    user: 'Cafe, restaurant, salon, retail, and similar operators',
-    tool: {
-      label: 'Commercial rent affordability calculator',
-      href: '/commercial-rent-affordability-calculator',
-    },
-  },
-  {
-    question: 'Commercial lease viability',
-    answer: 'Checks whether the lease, costs, cash, and downside trading still look workable.',
-    user: 'Commercial tenants before committing',
-    tool: {
-      label: 'Commercial lease viability check',
-      href: '/commercial-lease-viability-check',
-    },
-  },
-];
-
-const residentialExamplePoints = [
-  'Expected rent: £1,800/month',
-  'Mortgage and ownership costs: £1,550/month',
-  'Monthly cash flow: £250',
-  'Gross yield still depends on the purchase price',
-];
-
-const tenantExamplePoints = [
-  'Monthly rent: £1,800',
-  'Monthly income: £4,800',
-  'Rent-to-income ratio: 37.5%',
-  'A market-normal rent can still be stretched for the tenant',
-];
-
-const commercialExamplePoints = [
-  'Annual rent: £60,000',
-  'Monthly rent: £5,000',
-  'Expected monthly revenue: £24,960',
-  'Rent burden: 20.0%',
-  'Break-even customers/day: 45.2',
-  'Opening buffer: £9,000',
-];
-
-const toolCards = [
-  {
-    title: 'Residential tenant affordability',
-    text: 'Check whether monthly rent fits income and regular costs.',
-    href: '/rent-affordability-check',
-  },
-  {
-    title: 'Residential buy-to-let return',
-    text: 'Screen yield and cash flow on a rental property purchase.',
-    href: '/buy-to-let-yield-calculator',
-  },
-  {
-    title: 'Residential property cash flow',
-    text: 'Check whether ownership costs still leave a monthly surplus.',
-    href: '/property-cash-flow-calculator',
-  },
-  {
-    title: 'Commercial rent affordability',
-    text: 'Check whether a business can carry the rent before signing.',
-    href: '/commercial-rent-affordability-calculator',
+    title: 'Rent affordability',
+    eyebrow: 'What it asks',
+    summary: 'Whether the rent still works after costs, voids, and finance.',
+    points: ['Cash flow after costs', 'Rent burden', 'Budget pressure'],
+    note: 'Useful when you need to know if the figure is workable.',
   },
   {
     title: 'Commercial lease viability',
-    text: 'Check rent burden, break-even, opening cash, and downside trading.',
-    href: '/commercial-lease-viability-check',
+    eyebrow: 'What it asks',
+    summary: 'Whether the site, lease, and trading assumptions can carry the rent.',
+    points: ['Opening cash stack', 'Break-even customers', 'Downside survival'],
+    note: 'This is the core YieldLens commercial check.',
+  },
+];
+
+const commercialChecks = [
+  'Rent can look normal and still be too heavy after staffing and stock.',
+  'Fit-out, deposit, legal costs, and service charge can drain opening cash.',
+  'A weak opening period can make the lease fragile even if the market rent is sensible.',
+  'The real question is whether the business can carry the lease before you sign.',
+];
+
+const practicalChecks = [
+  'Comparable rents',
+  'Local demand',
+  'Void periods',
+  'Service charge',
+  'Ground rent where relevant',
+  'Management costs',
+  'Maintenance',
+  'Finance costs',
+  'Business rates for commercial',
+  'Fit-out and setup costs for commercial',
+  'Lease terms for commercial',
+];
+
+const commercialLinks = [
+  {
+    title: 'Commercial rent affordability calculator',
+    text: 'Check whether a business can carry the rent after costs and trading pressure are added.',
+    href: '/commercial-rent-affordability-calculator',
   },
   {
-    title: 'Sample commercial file',
-    text: 'See the paid file structure before unlocking it.',
+    title: 'Commercial lease viability check',
+    text: 'Pressure-test the lease, opening cash, and downside trading before signing.',
+    href: '/check?mode=commercial',
+  },
+  {
+    title: 'Sample commercial viability file',
+    text: 'See the structure of the £49 decision memo before paying.',
     href: '/sample-commercial-viability-file',
+  },
+];
+
+const residentialLinks = [
+  {
+    title: 'Rent affordability check',
+    text: 'Check whether a rent estimate still fits the rest of the monthly budget.',
+    href: '/rent-affordability-check',
+  },
+  {
+    title: 'Property cash flow calculator',
+    text: 'Check whether rent covers financing and ownership costs.',
+    href: '/property-cash-flow-calculator',
+  },
+  {
+    title: 'Buy-to-let yield calculator',
+    text: 'Screen the return on a residential rental property purchase.',
+    href: '/buy-to-let-yield-calculator',
   },
 ];
 
@@ -180,23 +162,47 @@ function SectionTitle({
   eyebrow,
   title,
   description,
+  tone = 'light',
 }: {
   eyebrow: string;
   title: string;
   description?: string;
+  tone?: 'light' | 'dark';
 }) {
+  const isDark = tone === 'dark';
   return (
-    <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">{eyebrow}</p>
-      <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
-      {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
+    <div className="max-w-3xl mb-10">
+      <p className={`text-xs font-medium uppercase tracking-[0.22em] mb-3 ${isDark ? 'text-[#D6C7A2]' : 'text-[var(--yieldlens-caution)]'}`}>
+        {eyebrow}
+      </p>
+      <h2 className={`${sectionHeadingClass} ${isDark ? '!text-white' : ''} mb-3`}>
+        {title}
+      </h2>
+      {description && (
+        <p className={`${supportingTextClass} ${isDark ? '!text-stone-300' : ''}`}>
+          {description}
+        </p>
+      )}
     </div>
+  );
+}
+
+function CardBulletList({ items, dark = false }: { items: string[]; dark?: boolean }) {
+  return (
+    <ul className={`space-y-2 text-sm leading-6 ${dark ? 'text-stone-300' : 'text-[var(--yieldlens-muted)]'}`}>
+      {items.map((item) => (
+        <li key={item} className="flex gap-2">
+          <span className={`mt-2 h-1.5 w-1.5 rounded-full ${dark ? 'bg-[#D6C7A2]' : 'bg-[var(--yieldlens-caution)]'} shrink-0`} />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
 export default function RentalValuationVsRentAffordabilityPage() {
   return (
-    <div className="bg-stone-50 text-stone-900">
+    <div className="bg-[var(--yieldlens-page)] text-stone-900">
       <JsonLd data={faqStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"
@@ -206,33 +212,136 @@ export default function RentalValuationVsRentAffordabilityPage() {
         eventLabel="Rental valuation vs rent affordability viewed"
       />
 
-      <section className="bg-stone-950 text-white">
-        <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center">
+      <section className={`${heroBackdropClass} mx-4 sm:mx-6 lg:mx-auto lg:max-w-6xl mt-4`}>
+        <div className="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_38%)]" />
+          <div className="relative grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#D6C7A2] mb-4">
                 Rental valuation vs rent affordability
               </p>
-              <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
-                A rent figure is not the same as a rent decision.
+              <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
+                Rental valuation vs rent affordability
               </h1>
-              <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                Rental valuation, rent affordability, cash flow, and commercial lease viability answer different questions. YieldLens helps pressure-test whether the numbers work before you rely on them.
+              <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
+                A rental valuation asks what rent might be achievable. A rent affordability check asks whether the rent still works after costs, voids, and finance.
               </p>
+              <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
+                For commercial units, the real question is whether the business can carry the lease before you sign. That is where YieldLens focuses.
+              </p>
+
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
-                  href="/check"
+                  href="/check?mode=commercial"
                   className={heroPrimaryCtaClass}
                   eventName="bridge_page_cta_clicked"
                   pagePath="/rental-valuation-vs-rent-affordability"
-                  ctaLabel="Run a free check"
+                  ctaLabel="Run a free commercial check"
                   pageType="bridge_page"
                 >
-                  Run a free check
+                  Run a free commercial check
                 </TrackedCtaLink>
                 <TrackedCtaLink
-                  href="/commercial-rent-affordability-calculator"
+                  href="/sample-commercial-viability-file"
                   className={heroSecondaryCtaClass}
+                  eventName="bridge_page_cta_clicked"
+                  pagePath="/rental-valuation-vs-rent-affordability"
+                  ctaLabel="View sample viability file"
+                  pageType="bridge_page"
+                >
+                  View sample viability file
+                </TrackedCtaLink>
+              </div>
+
+              <p className={`${disclaimerClass} mt-5 text-stone-400 max-w-2xl`}>
+                YieldLens provides indicative decision-support only. It is not financial advice, legal advice, tax advice, mortgage advice, a valuation, a RICS valuation, or a substitute for professional due diligence.
+              </p>
+            </div>
+
+            <div className={`${surfaceCardClass} bg-white/95 p-5 sm:p-6 text-stone-900 shadow-[0_18px_48px_rgba(15,23,42,0.10)]`}>
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] mb-3">
+                Decision map
+              </p>
+              <div className="space-y-4">
+                <div className="rounded-2xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] p-4">
+                  <p className="text-sm font-semibold text-stone-900 mb-1">Rental valuation</p>
+                  <p className="text-sm text-[var(--yieldlens-muted)] leading-6">
+                    What rent might the market support?
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-[var(--yieldlens-border)] bg-white p-4">
+                  <p className="text-sm font-semibold text-stone-900 mb-1">Rent affordability</p>
+                  <p className="text-sm text-[var(--yieldlens-muted)] leading-6">
+                    Does the rent still fit after costs and finance?
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] p-4">
+                  <p className="text-sm font-semibold text-stone-900 mb-1">Commercial lease viability</p>
+                  <p className="text-sm text-[var(--yieldlens-muted)] leading-6">
+                    Can the site, lease, and opening cash stack survive in practice?
+                  </p>
+                </div>
+              </div>
+              <p className="mt-5 text-sm text-[var(--yieldlens-muted)] leading-7">
+                YieldLens is not a valuation tool. It helps you pressure-test the rent figure after you already have an estimate to work with.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={`${sectionBandClass} mt-8`}>
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Three different questions"
+            title="The same rent figure can mean three very different things."
+            description="A valuation estimates the number. Affordability checks the budget. Commercial viability checks whether the lease can survive real trading pressure."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {comparisonCards.map((card, index) => (
+              <div
+                key={card.title}
+                className={`${surfaceCardClass} border-t-4 p-5 sm:p-6 ${
+                  index === 0
+                    ? 'border-t-[var(--yieldlens-caution)]'
+                    : index === 1
+                      ? 'border-t-[var(--yieldlens-primary)]'
+                      : 'border-t-[var(--yieldlens-positive)]'
+                }`}
+              >
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                  {card.eyebrow}
+                </p>
+                <h3 className="text-xl font-semibold text-stone-900 mb-3">{card.title}</h3>
+                <p className="text-sm text-stone-700 leading-6 mb-4">{card.summary}</p>
+                <CardBulletList items={card.points} />
+                <p className="mt-4 text-sm font-medium text-stone-900">{card.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--yieldlens-hero)] text-white border-y border-white/10">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Commercial bridge"
+            title="For commercial units, affordability matters before you sign."
+            description="A commercial rent may look reasonable on paper and still be too heavy for a cafe, restaurant, salon, or retailer once fit-out, staffing, deposit, service charge, stock, utilities, and a slower opening period are included."
+            tone="dark"
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 items-start">
+            <div className="space-y-4">
+              <div className="rounded-[24px] border border-white/10 bg-white/6 p-5 sm:p-6">
+                <CardBulletList items={commercialChecks} dark />
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <TrackedCtaLink
+                  href="/commercial-rent-affordability-calculator"
+                  className={heroPrimaryCtaClass}
                   eventName="bridge_page_cta_clicked"
                   pagePath="/rental-valuation-vs-rent-affordability"
                   ctaLabel="Commercial rent affordability calculator"
@@ -240,337 +349,208 @@ export default function RentalValuationVsRentAffordabilityPage() {
                 >
                   Commercial rent affordability calculator
                 </TrackedCtaLink>
-              </div>
-              <p className={`${disclaimerClass} mt-5 text-stone-400`}>
-                YieldLens UK provides indicative property pressure-tests and decision-support analysis only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
-              </p>
-            </div>
-
-            <div className={`${surfaceCardClass} bg-white/5 p-5 sm:p-6`}>
-              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
-                Core distinction
-              </p>
-              <p className="text-2xl font-bold leading-tight text-white">
-                A valuation estimates market rent. A pressure test asks whether the rent works for the person or business.
-              </p>
-              <p className="mt-4 text-sm text-stone-300 leading-7">
-                That difference matters when the market rent feels normal, but the tenant affordability, cash flow, opening cash, or downside trading still makes the decision fragile.
-              </p>
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-                <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-4`}>
-                  <p className="text-xs uppercase tracking-widest text-[#DCCDA8] mb-1">Valuation</p>
-                  <p className="text-stone-200">What rent might the market support?</p>
-                </div>
-                <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-4`}>
-                  <p className="text-xs uppercase tracking-widest text-[#DCCDA8] mb-1">Affordability</p>
-                  <p className="text-stone-200">Can the user or business carry that rent?</p>
-                </div>
-                <div className={`${surfaceCardSoftClass} bg-white/5 border-white/10 p-4`}>
-                  <p className="text-xs uppercase tracking-widest text-[#DCCDA8] mb-1">Viability</p>
-                  <p className="text-stone-200">Does the deal still work after costs and downside trading?</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Quick answer"
-          title="The same rent figure can mean different things to different people."
-          description="A rental valuation estimates market rent. A rent affordability check asks whether a tenant can carry that rent. A buy-to-let check asks whether rent covers ownership costs. A commercial viability check asks whether the business can survive the lease."
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <div className={`${surfaceCardClass} p-6`}>
-            <ul className="space-y-3 text-sm text-stone-700 leading-7">
-              <li>A rental valuation estimates market rent.</li>
-              <li>A rent affordability check asks whether a tenant can carry the rent.</li>
-              <li>A buy-to-let cash flow check asks whether rent covers mortgage and ownership costs.</li>
-              <li>A commercial rent viability check asks whether a business can carry rent, setup cash, and downside trading.</li>
-              <li>YieldLens does not provide a valuation.</li>
-            </ul>
-          </div>
-
-          <div className={`${surfaceCardClass} bg-stone-950 p-6 text-white`}>
-            <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
-              When to use this page
-            </p>
-            <p className="text-lg font-semibold leading-8">
-              Use this page if you searched for rent valuation but actually need to know whether the rent makes sense for the tenant, landlord, investor, or business model.
-            </p>
-            <p className="mt-4 text-sm text-stone-300 leading-7">
-              YieldLens helps pressure-test assumptions, then points you to the right residential or commercial tool.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#F4F3F1] border-y border-stone-200">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="Comparison table"
-            title="Different questions need different tools."
-            description="The same rent figure can be useful for market comparison, affordability screening, cash-flow analysis, or lease viability. The table below shows which YieldLens tool fits each job."
-          />
-
-          <div className={tableShellClass}>
-            <table className="min-w-full text-sm">
-              <thead className="bg-stone-50 text-stone-700">
-                <tr>
-                  <th className="px-4 py-4 text-left font-semibold">Question</th>
-                  <th className="px-4 py-4 text-left font-semibold">What it answers</th>
-                  <th className="px-4 py-4 text-left font-semibold">Who uses it</th>
-                  <th className="px-4 py-4 text-left font-semibold">YieldLens tool</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-200">
-                {comparisonRows.map((row) => (
-                  <tr key={row.question} className="align-top">
-                    <td className="px-4 py-4 font-medium text-stone-900">{row.question}</td>
-                    <td className="px-4 py-4 text-stone-600 leading-6">{row.answer}</td>
-                    <td className="px-4 py-4 text-stone-600 leading-6">{row.user}</td>
-                    <td className="px-4 py-4 text-stone-700 leading-6">
-                      {typeof row.tool === 'string' ? (
-                        row.tool
-                      ) : (
-                        <Link href={row.tool.href} className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]">
-                          {row.tool.label}
-                        </Link>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Why valuation alone is not enough"
-          title="A rent can look normal in the market and still be the wrong decision."
-          description="The market figure is only one part of the question. The user still needs to check affordability, cash flow, opening costs, and the lease terms that can change the real burden."
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className={`${surfaceCardClass} p-6`}>
-            <p className="text-sm font-semibold text-stone-900 mb-3">When it goes wrong</p>
-            <ul className="space-y-3 text-sm text-stone-600 leading-7">
-              <li>The tenant cannot afford the rent after other costs are included.</li>
-              <li>The landlord assumes a rent figure that ignores practical affordability.</li>
-              <li>The investor ignores mortgage cost, service charge, repairs, voids, or tax.</li>
-              <li>The commercial tenant ignores staff, rates, utilities, fit-out, deposit, and downside trading.</li>
-              <li>The lease terms create hidden pressure that does not show up in a headline rent figure.</li>
-            </ul>
-          </div>
-
-          <div className={`${surfaceCardClass} bg-stone-950 p-6 text-white`}>
-            <p className="text-sm font-semibold text-white mb-3">What YieldLens does instead</p>
-            <p className="text-sm text-stone-300 leading-7">
-              YieldLens turns the entered assumptions into a pressure test. That means rent burden, affordability, cash flow, and downside trading are checked before the user relies on the figure.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#F4F3F1] border-y border-stone-200">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="Examples"
-            title="The same figure can tell a different story depending on the use case."
-            description="These fictional examples show why a rent figure alone is not enough to make a decision."
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            <div className={`${surfaceCardSoftClass} p-6`}>
-              <p className="text-sm font-semibold text-stone-900 mb-3">Residential example</p>
-              <ul className="space-y-2 text-sm text-stone-600 leading-7">
-                {residentialExamplePoints.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-              <p className="mt-4 text-sm text-stone-700 leading-7">
-                The rent may look reasonable, but the decision still depends on cash flow, costs, voids, and financing.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <Link href="/property-cash-flow-calculator" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
-                  Property cash flow calculator
-                </Link>
-                <span className="text-stone-300">·</span>
-                <Link href="/buy-to-let-yield-calculator" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
-                  Buy-to-let yield calculator
-                </Link>
-              </div>
-            </div>
-
-            <div className={`${surfaceCardSoftClass} p-6`}>
-              <p className="text-sm font-semibold text-stone-900 mb-3">Tenant affordability example</p>
-              <ul className="space-y-2 text-sm text-stone-600 leading-7">
-                {tenantExamplePoints.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-              <p className="mt-4 text-sm text-stone-700 leading-7">
-                A market-normal rent can still be stretched if income, deposits, or other commitments leave too little buffer.
-              </p>
-              <div className="mt-5">
-                <Link href="/rent-affordability-check" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
-                  Rent affordability check
-                </Link>
-              </div>
-            </div>
-
-            <div className={`${surfaceCardSoftClass} p-6`}>
-              <p className="text-sm font-semibold text-stone-900 mb-3">Commercial example</p>
-              <ul className="space-y-2 text-sm text-stone-600 leading-7">
-                {commercialExamplePoints.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-              <p className="mt-4 text-sm text-stone-700 leading-7">
-                The rent may be a market rent, but the business still needs to test rent burden, break-even customers, upfront cash, downside trading, and lease terms.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <Link href="/commercial-rent-affordability-calculator" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
-                  Commercial rent affordability calculator
-                </Link>
-                <span className="text-stone-300">·</span>
-                <Link href="/commercial-lease-viability-check" className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
+                <TrackedCtaLink
+                  href="/check?mode=commercial"
+                  className={heroSecondaryCtaClass}
+                  eventName="bridge_page_cta_clicked"
+                  pagePath="/rental-valuation-vs-rent-affordability"
+                  ctaLabel="Commercial lease viability check"
+                  pageType="bridge_page"
+                >
                   Commercial lease viability check
-                </Link>
+                </TrackedCtaLink>
+              </div>
+            </div>
+
+            <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900`}>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                Related tools
+              </p>
+              <div className="space-y-3">
+                {commercialLinks.map((link) => (
+                  <Link
+                    key={link.title}
+                    href={link.href}
+                    className="block rounded-2xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] p-4 transition-all hover:border-[var(--yieldlens-caution)] hover:shadow-sm"
+                  >
+                    <p className="font-semibold text-stone-900 mb-1">{link.title}</p>
+                    <p className="text-sm text-[var(--yieldlens-muted)] leading-6">{link.text}</p>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="What it can and cannot do"
-          title="Use the right tool for the question."
-          description="YieldLens is designed to structure the numbers and the questions. It is not designed to replace specialist advice or specialist valuation work."
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className={`${surfaceCardClass} p-6`}>
-            <p className="text-sm font-semibold text-stone-900 mb-3">Can</p>
-            <ul className="space-y-2 text-sm text-stone-600 leading-7">
-              <li>Structure rent and cash-flow assumptions</li>
-              <li>Calculate affordability ratios</li>
-              <li>Estimate gross yield</li>
-              <li>Estimate cash flow</li>
-              <li>Pressure-test commercial rent burden</li>
-              <li>Calculate break-even customers/day</li>
-              <li>Test opening cash and downside trading</li>
-              <li>Organise questions before due diligence</li>
-            </ul>
-          </div>
-
-          <div className={`${surfaceCardClass} bg-stone-950 p-6 text-white`}>
-            <p className="text-sm font-semibold text-white mb-3">Cannot</p>
-            <ul className="space-y-2 text-sm text-stone-300 leading-7">
-              <li>Value a property</li>
-              <li>Verify market rent</li>
-              <li>Inspect a property</li>
-              <li>Review lease documents</li>
-              <li>Give financial advice</li>
-              <li>Give legal advice</li>
-              <li>Replace professional due diligence</li>
-            </ul>
-            <p className="mt-4 text-xs text-stone-400 leading-6">
-              YieldLens UK provides indicative property pressure-tests and decision-support analysis only. It is not financial advice, legal advice, tax advice, a valuation, or a substitute for professional due diligence.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#F4F3F1] border-y border-stone-200">
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Which tool should you use?"
-            title="Choose the question, then use the matching tool."
-            description="These cards point users to the most relevant YieldLens page without making them guess which calculator is appropriate."
+            eyebrow="Residential bridge"
+            title="For residential checks, keep the affordability test separate from valuation."
+            description="If you are looking at a home or a rental property, the useful next step is usually affordability, cash flow, or yield. Commercial lease pressure belongs in a separate decision path."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-            {toolCards.map((card) => (
-              <div key={card.title} className={`${surfaceCardSoftClass} p-6`}>
-                <p className="text-sm font-semibold text-stone-900 mb-2">{card.title}</p>
-                <p className="text-sm text-stone-600 leading-7">{card.text}</p>
-                <div className="mt-4">
-                  <Link href={card.href} className="text-sm font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
-                    {card.href}
-                  </Link>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {residentialLinks.map((link, index) => (
+              <div
+                key={link.title}
+                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 ${
+                  index === 0
+                    ? 'border-t-[var(--yieldlens-caution)]'
+                    : index === 1
+                      ? 'border-t-[var(--yieldlens-primary)]'
+                      : 'border-t-[var(--yieldlens-positive)]'
+                }`}
+              >
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                  Residential check
+                </p>
+                <h3 className="text-lg font-semibold text-stone-900 mb-2">{link.title}</h3>
+                <p className="text-sm text-[var(--yieldlens-muted)] leading-6 mb-4">{link.text}</p>
+                <Link
+                  href={link.href}
+                  className="text-sm font-semibold text-[var(--yieldlens-primary)] hover:text-[var(--yieldlens-caution)]"
+                >
+                  Open tool
+                </Link>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="FAQ"
-          title="Common questions about rental valuation and affordability."
-          description="Short answers that keep the distinction clear and point users to the right YieldLens tool."
-        />
+      <section className={`${sectionBandClass}`}>
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="What to verify"
+            title="Before relying on a rent estimate, check the evidence behind it."
+            description="A rent figure is only useful if the supporting assumptions are sensible. The weaker the evidence, the more care you need before relying on the number."
+          />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {faqItems.map((item) => (
-            <div key={item.question} className={`${surfaceCardClass} p-6`}>
-              <p className="text-sm font-semibold text-stone-900 mb-3">{item.question}</p>
-              <p className="text-sm text-stone-600 leading-7">{item.answer}</p>
-            </div>
-          ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {practicalChecks.map((item, index) => (
+              <div
+                key={item}
+                className={`${surfaceCardClass} border-t-4 p-4 sm:p-5 ${
+                  index % 3 === 0
+                    ? 'border-t-[var(--yieldlens-caution)]'
+                    : index % 3 === 1
+                      ? 'border-t-[var(--yieldlens-positive)]'
+                      : 'border-t-[var(--yieldlens-fragile)]'
+                }`}
+              >
+                <p className="text-sm font-medium text-stone-900">{item}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-stone-950 text-white">
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
-          <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
-            Final step
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-positive)]`}>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                What YieldLens does
+              </p>
+              <CardBulletList
+                items={[
+                  'Pressures-test rent assumptions against costs and cash flow.',
+                  'Highlights weak assumptions before you rely on the figure.',
+                  'Helps you ask sharper questions about the deal or lease.',
+                  'Turns the result into a clearer commercial decision path.',
+                ]}
+              />
+            </div>
+
+            <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                What YieldLens does not do
+              </p>
+              <CardBulletList
+                items={[
+                  'Provide a valuation or formal market rent figure.',
+                  'Replace professional due diligence or legal review.',
+                  'Replace tax, finance, or valuation advice.',
+                  'Decide whether you should sign a lease or commit to the property.',
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Frequently asked questions"
+            title="Quick answers for users comparing valuation, affordability, and viability."
+            description="These are the most common questions when people search for rental valuation or rent affordability terms."
+          />
+
+          <div className="space-y-4">
+            {faqItems.map((faq, index) => (
+              <div
+                key={faq.question}
+                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 ${
+                  index % 3 === 0
+                    ? 'border-t-[var(--yieldlens-caution)]'
+                    : index % 3 === 1
+                      ? 'border-t-[var(--yieldlens-primary)]'
+                      : 'border-t-[var(--yieldlens-fragile)]'
+                }`}
+              >
+                <h3 className="text-lg font-semibold text-stone-900 mb-2">{faq.question}</h3>
+                <p className="text-sm text-[var(--yieldlens-muted)] leading-7">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`${memoBandClass} mx-4 sm:mx-6 lg:mx-auto lg:max-w-5xl my-14`}>
+        <div className="px-4 sm:px-6 lg:px-8 py-14 text-center">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#D6C7A2] mb-4">
+            Next step
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">
-            Do not stop at the rent figure.
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+            If the rent matters commercially, run the check before you commit.
           </h2>
-          <p className="text-stone-300 max-w-3xl leading-8 mb-8">
-            Use YieldLens to pressure-test whether the rent works in context, from tenant affordability to commercial lease viability.
+          <p className="text-sm text-stone-300 leading-7 max-w-2xl mx-auto mb-6">
+            The commercial lease viability check shows whether the rent, opening cash, and downside trading still look workable. If you are checking a rental property instead, use the residential tools below.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <TrackedCtaLink
-              href="/check"
+              href="/check?mode=commercial"
               className={heroPrimaryCtaClass}
               eventName="bridge_page_cta_clicked"
               pagePath="/rental-valuation-vs-rent-affordability"
-              ctaLabel="Run a free check"
+              ctaLabel="Run a free commercial check"
               pageType="bridge_page"
             >
-              Run a free check
-            </TrackedCtaLink>
-            <TrackedCtaLink
-              href="/commercial-rent-affordability-calculator"
-              className={heroSecondaryCtaClass}
-              eventName="bridge_page_cta_clicked"
-              pagePath="/rental-valuation-vs-rent-affordability"
-              ctaLabel="Commercial rent affordability calculator"
-              pageType="bridge_page"
-            >
-              Commercial rent affordability
+              Run a free commercial check
             </TrackedCtaLink>
             <TrackedCtaLink
               href="/sample-commercial-viability-file"
               className={heroSecondaryCtaClass}
               eventName="bridge_page_cta_clicked"
               pagePath="/rental-valuation-vs-rent-affordability"
-              ctaLabel="View sample commercial file"
+              ctaLabel="View sample viability file"
               pageType="bridge_page"
             >
-              View sample commercial file
+              View sample viability file
             </TrackedCtaLink>
+            <Link
+              href="/rent-affordability-check"
+              className="inline-flex items-center justify-center px-1 py-3 text-sm font-semibold text-white/80 hover:text-white"
+            >
+              Check residential cash flow
+            </Link>
           </div>
+          <p className={`${disclaimerClass} mt-5 text-stone-400`}>
+            YieldLens provides indicative decision-support only. It is not financial advice, legal advice, tax advice, mortgage advice, a valuation, a RICS valuation, or a substitute for professional due diligence.
+          </p>
         </div>
       </section>
     </div>
