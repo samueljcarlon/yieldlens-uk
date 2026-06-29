@@ -514,6 +514,9 @@ export default function HowItWorksPage() {
             <Link href="/sample-commercial-viability-file" className={heroSecondaryCtaClass}>
               View sample file
             </Link>
+            <Link href="/about" className={secondaryCtaClass}>
+              About YieldLens
+            </Link>
             <Link href="/viability-file" className={secondaryCtaClass}>
               Learn about the £49 file
             </Link>

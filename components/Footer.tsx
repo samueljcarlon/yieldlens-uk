@@ -95,6 +95,9 @@ export default function Footer() {
               <Link href="/check?mode=commercial" className={linkClass}>
                 Commercial check
               </Link>
+              <Link href="/about" className={linkClass}>
+                About
+              </Link>
               <Link href="/buy-to-let-yield-calculator" className={linkClass}>
                 Buy-to-let yield calculator
               </Link>
