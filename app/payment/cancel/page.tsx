@@ -14,9 +14,9 @@ export default async function PaymentCancelPage({
     : null;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
-        <p className="text-xs uppercase tracking-widest text-stone-500 font-medium mb-3">
+    <div className="max-w-3xl mx-auto px-4 py-16">
+      <div className="bg-white border border-[var(--yieldlens-border)] rounded-2xl p-8 shadow-sm text-center">
+        <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
           Checkout not completed
         </p>
 
@@ -36,14 +36,14 @@ export default async function PaymentCancelPage({
 
         <p className="text-sm text-stone-500 leading-7 max-w-2xl mx-auto mt-4">
           YieldLens UK provides indicative decision-support only. It is not
-          financial advice, legal advice, tax advice, a valuation, or a substitute
-          for professional due diligence.
+          financial advice, legal advice, tax advice, a valuation, or a
+          substitute for professional due diligence.
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/check?mode=commercial"
-            className="bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
+            className="bg-[var(--yieldlens-primary)] text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-[var(--yieldlens-primary-hover)]"
           >
             Run another commercial check
           </Link>
@@ -51,14 +51,14 @@ export default async function PaymentCancelPage({
           {thankYouHref ? (
             <Link
               href={thankYouHref}
-              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+              className="bg-white text-stone-700 border border-[var(--yieldlens-border)] px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
             >
               Return to saved result
             </Link>
           ) : (
             <Link
               href="/commercial-lease-viability-check"
-              className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+              className="bg-white text-stone-700 border border-[var(--yieldlens-border)] px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
             >
               Return to commercial lease viability check
             </Link>
@@ -66,14 +66,14 @@ export default async function PaymentCancelPage({
 
           <Link
             href="/sample-commercial-viability-file"
-            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+            className="bg-white text-stone-700 border border-[var(--yieldlens-border)] px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
           >
             View sample file
           </Link>
 
           <Link
             href="/"
-            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+            className="bg-white text-stone-700 border border-[var(--yieldlens-border)] px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
           >
             Back to homepage
           </Link>

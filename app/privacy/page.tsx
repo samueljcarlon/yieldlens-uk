@@ -1,9 +1,26 @@
 import Link from 'next/link';
 
+function SectionTitle({
+  eyebrow,
+  title,
+}: {
+  eyebrow: string;
+  title: string;
+}) {
+  return (
+    <div>
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-2">
+        {eyebrow}
+      </p>
+      <h2 className="text-lg font-bold text-stone-900">{title}</h2>
+    </div>
+  );
+}
+
 export default function PrivacyPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-2">
+      <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-2">
         Privacy notice
       </p>
 
@@ -15,45 +32,35 @@ export default function PrivacyPage() {
         Last updated: 8 June 2026
       </p>
 
-      <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm space-y-8 text-sm text-stone-700 leading-7">
+      <div className="bg-white border border-[var(--yieldlens-border)] rounded-2xl p-6 shadow-sm space-y-8 text-sm text-stone-700 leading-7">
         <section>
-          <h2 className="text-lg font-bold text-stone-900 mb-2">
-            1. Who we are
-          </h2>
-
-          <p>
-            YieldLens UK is an independent UK property analysis tool. It provides
-            indicative property return checks and decision-support analysis for
-            residential and commercial property.
-          </p>
-
+          <SectionTitle eyebrow="1. Who we are" title="YieldLens UK" />
           <p className="mt-3">
-            For privacy questions, please contact us through the website. We
-            use your submission details to calculate the check, save the result,
-            and return the paid file to the saved commercial result where
-            relevant.
+            YieldLens UK is an independent UK property decision-support tool. It
+            provides indicative property pressure-tests for residential and
+            commercial property.
+          </p>
+          <p className="mt-3">
+            If you need help with privacy, support, or the payment flow, please
+            contact us through the website.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-stone-900 mb-2">
-            2. What information we collect
-          </h2>
-
-          <p>
-            When you submit a property check, we may collect the information you
-            enter into the form, including:
+          <SectionTitle eyebrow="2. What information we collect" title="The information you enter" />
+          <p className="mt-3">
+            When you use the check or request the Standard commercial viability
+            file, we may collect the information you enter into the form or
+            payment handoff, including:
           </p>
-
           <ul className="list-disc list-inside mt-3 space-y-1">
             <li>email address</li>
             <li>property address or postcode</li>
             <li>listing URL, if provided</li>
-            <li>residential or commercial property assumptions</li>
-            <li>purchase price, rent, cost, revenue, and break-even inputs</li>
+            <li>residential or commercial assumptions</li>
+            <li>purchase price, rent, revenue, costs, and break-even inputs</li>
             <li>the calculated score, verdict, risk flags, and report output</li>
           </ul>
-
           <p className="mt-3">
             We also use browser storage to show your latest check and report
             preview on your own device.
@@ -61,52 +68,36 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-stone-900 mb-2">
-            3. Why we use your information
-          </h2>
-
-          <p>
-            We use the information to provide the property check, calculate your
-            results, save your submission, display your report preview, improve
-            the product, and follow up about the submitted check or future report
-            access.
+          <SectionTitle eyebrow="3. Why we use it" title="How the information is used" />
+          <p className="mt-3">
+            We use the information to calculate the check, save your result,
+            display the report preview, return the Standard file to the saved
+            commercial result, and improve the product.
           </p>
-
           <p className="mt-3">
             We do not sell your personal information.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-stone-900 mb-2">
-            4. Lawful basis
-          </h2>
-
-          <p>
-            For MVP operation, we process your information because it is necessary
-            to provide the check you request and to take steps linked to that
-            request. Where we contact you about your submitted check or early
-            report access, we rely on your request and the context in which you
-            provided your email.
-          </p>
-
+          <SectionTitle eyebrow="4. Payment" title="Stripe handles payment processing" />
           <p className="mt-3">
-            If YieldLens UK later sends wider marketing emails, we will add a
-            clearer opt-in or unsubscribe mechanism before doing so.
+            Payments are handled through Stripe. When you complete checkout, we
+            use the payment status to unlock the Standard file tied to the saved
+            commercial result.
+          </p>
+          <p className="mt-3">
+            After payment, you can open the file, print it, or save it as PDF.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-stone-900 mb-2">
-            5. Who we share information with
-          </h2>
-
-          <p>
+          <SectionTitle eyebrow="5. Who we share information with" title="Service providers" />
+          <p className="mt-3">
             We use service providers to run the product, including hosting and
             database infrastructure. This currently includes Vercel for hosting,
             Supabase for database storage, and Stripe for payment processing.
           </p>
-
           <p className="mt-3">
             We may also disclose information if required by law, regulation, or
             to protect the security of the service.
@@ -114,11 +105,8 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-stone-900 mb-2">
-            6. How long we keep information
-          </h2>
-
-          <p>
+          <SectionTitle eyebrow="6. How long we keep it" title="Retention" />
+          <p className="mt-3">
             During MVP testing, we expect to keep submitted checks for up to 12
             months unless deletion is requested earlier. This period may change
             as the product develops.
@@ -126,38 +114,30 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-stone-900 mb-2">
-            7. Analytics, cookies, and browser storage
-          </h2>
-
-          <p>
+          <SectionTitle eyebrow="7. Analytics and browser storage" title="Usage data" />
+          <p className="mt-3">
             YieldLens UK uses Vercel Web Analytics to understand basic website
             usage, such as page views, referrers, devices, browsers, and general
-            location information. Vercel Web Analytics is designed to work without
-            third-party cookies and uses anonymised data.
+            location information. Vercel Web Analytics is designed to work
+            without third-party cookies and uses anonymised data.
           </p>
-
           <p className="mt-3">
             The app also uses browser storage to remember your latest check and
             show your results, report preview, and local admin data on your own
             device.
           </p>
-
           <p className="mt-3">
             YieldLens UK does not currently use advertising cookies.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-stone-900 mb-2">
-            8. Your rights
-          </h2>
-
-          <p>
+          <SectionTitle eyebrow="8. Your rights" title="Access, correction, and deletion" />
+          <p className="mt-3">
             You may ask to access, correct, delete, or restrict use of your
-            personal information. Please contact us through the website if you need to make a request.
+            personal information. Please contact us through the website if you
+            need to make a request.
           </p>
-
           <p className="mt-3">
             You can also raise concerns with the UK Information Commissioner’s
             Office if you are unhappy with how your information is handled.
@@ -165,11 +145,8 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-stone-900 mb-2">
-            9. Changes to this notice
-          </h2>
-
-          <p>
+          <SectionTitle eyebrow="9. Changes" title="Updates to this notice" />
+          <p className="mt-3">
             We may update this Privacy Notice as YieldLens UK develops. The date
             above shows when this version was last updated.
           </p>
@@ -177,7 +154,7 @@ export default function PrivacyPage() {
       </div>
 
       <div className="mt-8">
-        <Link href="/" className="text-sm text-green-700 font-medium hover:underline">
+        <Link href="/" className="text-sm text-[var(--yieldlens-caution)] font-medium hover:underline">
           Back to homepage →
         </Link>
       </div>

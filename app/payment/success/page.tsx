@@ -51,9 +51,9 @@ export default async function PaymentSuccessPage({
     : null;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
-        <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
+    <div className="max-w-3xl mx-auto px-4 py-16">
+      <div className="bg-white border border-[var(--yieldlens-border)] rounded-2xl p-8 shadow-sm text-center">
+        <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
           Checkout completed
         </p>
 
@@ -63,7 +63,7 @@ export default async function PaymentSuccessPage({
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">
           {isReady
-            ? 'Your payment has been confirmed. Open the file from this page, then print or save it as PDF if you want a memo for negotiation and due diligence. If your assumptions change later, rerun the free commercial check and unlock the latest saved result again.'
+            ? 'Open the Standard file from this page. You can print it or save it as PDF for negotiation and due diligence. If your assumptions change later, rerun the free commercial check and unlock the latest saved result again.'
             : 'Payment received. Your file may take a few seconds to unlock. Refresh this page shortly.'}
         </p>
 
@@ -75,26 +75,33 @@ export default async function PaymentSuccessPage({
           {fileHref ? (
             <Link
               href={fileHref}
-              className="bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
+              className="bg-[var(--yieldlens-primary)] text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-[var(--yieldlens-primary-hover)]"
             >
               Open your viability file
             </Link>
           ) : (
-            <span className="inline-flex items-center justify-center bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium opacity-70">
+            <span className="inline-flex items-center justify-center bg-[var(--yieldlens-primary)] text-white px-5 py-2.5 rounded text-sm font-medium opacity-70">
               Open your viability file
             </span>
           )}
 
           <Link
             href="/check?mode=commercial"
-            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+            className="bg-white text-stone-700 border border-[var(--yieldlens-border)] px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
           >
             Run another commercial check
           </Link>
 
           <Link
+            href="/sample-commercial-viability-file"
+            className="bg-white text-stone-700 border border-[var(--yieldlens-border)] px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+          >
+            View sample file
+          </Link>
+
+          <Link
             href="/"
-            className="bg-white text-stone-700 border border-stone-300 px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
+            className="bg-white text-stone-700 border border-[var(--yieldlens-border)] px-5 py-2.5 rounded text-sm font-medium hover:border-stone-400"
           >
             Back to homepage
           </Link>
