@@ -1,170 +1,174 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
+import JsonLd from '@/components/JsonLd';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import {
+  disclaimerClass,
+  heroBackdropClass,
+  heroPrimaryCtaClass,
+  heroSecondaryCtaClass,
+  memoBandClass,
+  sectionBandClass,
+  sectionHeadingClass,
+  secondaryCtaClass,
+  surfaceCardClass,
+  surfaceCardSoftClass,
+  supportingTextClass,
+} from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Checklist Before Signing | YieldLens UK',
+  title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks',
   description:
-    'Use this commercial lease checklist to review rent burden, break-even customers, upfront cash, service charge, rent review, repairing obligations, break clauses, and due diligence before committing.',
+    'Check rent, service charge, business rates, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
   alternates: {
-    canonical: 'https://yieldlens.co.uk/commercial-lease-checklist-before-signing',
+    canonical: '/commercial-lease-checklist-before-signing',
   },
   openGraph: {
-    title: 'Commercial Lease Checklist Before Signing | YieldLens UK',
+    title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks | YieldLens UK',
     description:
-      'Review rent burden, break-even customers, upfront cash, lease terms, and due diligence before signing a commercial lease.',
+      'Check rent, service charge, business rates, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
     url: 'https://yieldlens.co.uk/commercial-lease-checklist-before-signing',
   },
 };
 
-const quickChecklistItems = [
-  'Rent burden',
-  'Break-even customers or sales',
-  'Staffing and known monthly costs',
-  'Business rates',
-  'Utilities and insurance',
-  'Service charge',
-  'Fit-out and setup costs',
-  'Rent deposit',
-  'Rent-free period',
-  'Break clause',
-  'Rent review',
-  'Repairing obligations',
-  'Permitted use',
-  'Planning and licensing',
-  'Downside trading',
-  'Cash buffer after opening',
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What should I check before signing a commercial lease?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Start with rent burden, break-even customers or sales, opening cash, downside trading, service charge, rent review, repairing obligations, break clauses, and permitted use. Then ask a solicitor to review the legal terms.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I sign a lease based only on rent?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Rent is only one part of the risk. Fit-out, deposit, staffing, rates, utilities, and lease clauses can change the real economics materially.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is rent burden?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It is monthly rent divided by expected monthly revenue. YieldLens uses 12% as a healthier screen and 18% as a caution threshold. Those are YieldLens screening thresholds, not universal rules.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can YieldLens review my lease?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'YieldLens does not review legal documents. It helps you structure the commercial numbers and questions before you commit to a lease.',
+      },
+    },
+  ],
+};
+
+const checklistSections = [
+  {
+    title: 'Rent and affordability',
+    items: [
+      'Annual and monthly rent',
+      'Rent as share of expected revenue',
+      'Rent review terms',
+      'Rent-free period',
+      'Deposit',
+      'Service charge',
+      'Business rates',
+    ],
+  },
+  {
+    title: 'Setup and opening cash',
+    items: [
+      'Fit-out quotes',
+      'Equipment',
+      'Legal and professional fees',
+      'Launch stock',
+      'Utilities',
+      'Insurance',
+      'Cash buffer after opening',
+    ],
+  },
+  {
+    title: 'Trading assumptions',
+    items: [
+      'Realistic revenue',
+      'Customers per day',
+      'Average spend',
+      'Seasonality',
+      'Opening hours',
+      'Staffing pattern',
+      'Supplier costs',
+    ],
+  },
+  {
+    title: 'Lease terms',
+    items: [
+      'Break clause',
+      'Repair obligations',
+      'Permitted use',
+      'Assignment and subletting',
+      'Personal guarantees if relevant',
+      'Opening delays',
+      'Landlord works',
+    ],
+  },
+  {
+    title: 'Evidence to gather',
+    items: [
+      'Comparable rents',
+      'Footfall',
+      'Local competition',
+      'Contractor quotes',
+      'Service charge history',
+      'Rates estimate',
+      'Licensing or planning requirements',
+    ],
+  },
 ];
 
-const leaseTerms = [
+const questionGroups = [
   {
-    title: 'Rent-free period',
-    ask: 'How long is the rent-free period, and does it cover the period when fit-out and launch costs are highest?',
-    why: 'A rent-free period can protect opening cash when the site is not trading at full strength.',
+    title: 'Rent and cash',
+    text: 'What happens if fit-out delays opening? Is the rent-free period long enough? Can the opening cash buffer survive deposits, stock, and setup costs?',
   },
   {
-    title: 'Rent review',
-    ask: 'How often is rent reviewed, and is the review formula linked to inflation, open market rent, or another mechanism?',
-    why: 'A borderline site can become much more expensive if rent steps up faster than trading improves.',
+    title: 'Lease terms',
+    text: 'Is service charge capped or variable? Who pays for repairs? Can rent increase at review? Is there a break clause? Are landlord works documented?',
   },
-  {
-    title: 'Service charge',
-    ask: 'What does the service charge cover, and is there a cap or estimate that limits surprise costs?',
-    why: 'Extra service charge can narrow the margin quickly when rent burden is already high.',
-  },
-  {
-    title: 'Break clause',
-    ask: 'Is there a break clause, when can it be used, and what conditions must be met for it to work?',
-    why: 'A break clause can limit downside if the site underperforms after opening.',
-  },
-  {
-    title: 'Repairing obligations',
-    ask: 'Is the tenant responsible for internal only repairs, full repairing, or a more limited schedule of responsibility?',
-    why: 'Repairing obligations can create hidden cost exposure that is easy to miss from headline rent alone.',
-  },
-  {
-    title: 'Deposit terms',
-    ask: 'How much deposit is required, when is it held, and on what terms can it be returned?',
-    why: 'A larger deposit reduces opening cash and can make the first months feel tighter than expected.',
-  },
-  {
-    title: 'Permitted use',
-    ask: 'Does the lease allow the business model you actually plan to run, including food, drink, takeaway, or retail activity?',
-    why: 'If permitted use is too narrow, the site may not support the full business plan.',
-  },
-  {
-    title: 'Assignment and subletting',
-    ask: 'Can the lease be assigned or sublet if the site later needs to be sold or restructured?',
-    why: 'A flexible lease can reduce the downside if plans change.',
-  },
-  {
-    title: 'Handover condition',
-    ask: 'What condition will the unit be in on handover, and who is responsible for making it usable?',
-    why: 'Handover condition affects fit-out cost, delay risk, and opening cash.',
-  },
-  {
-    title: 'Planning and licensing',
-    ask: 'Are planning permission, licensing, or other consents needed for the intended use?',
-    why: 'A lease can look fine commercially but still fail if the use cannot be operated as planned.',
-  },
-  {
-    title: 'Nearby restrictions',
-    ask: 'Are there exclusivity rights, non-compete clauses, or nearby restrictions that change the trading opportunity?',
-    why: 'Local restrictions can materially affect footfall, trade mix, and the value of the site.',
-  },
-];
-
-const evidenceSections = [
   {
     title: 'Trading evidence',
-    items: [
-      'Footfall counts at different times of day',
-      'Competitor observations',
-      'Average spend evidence',
-      'Trading-hour assumptions',
-      'Local demand indicators',
-    ],
-  },
-  {
-    title: 'Cost evidence',
-    items: [
-      'Business rates bill or estimate',
-      'Utility estimate',
-      'Service charge estimate',
-      'Insurance quote',
-      'Fit-out quotes',
-      'Legal fee estimate',
-    ],
-  },
-  {
-    title: 'Lease and legal evidence',
-    items: [
-      'Draft lease or heads of terms',
-      'Rent review wording',
-      'Break clause wording',
-      'Repairing obligations',
-      'Permitted use',
-      'Planning or licensing confirmation if relevant',
-    ],
+    text: 'What evidence supports expected trade? Are footfall, competitor demand, customer volume, and average spend realistic for the unit?',
   },
 ];
 
-const relatedPages = [
-  {
-    title: 'Restaurant lease viability check',
-    href: '/restaurant-lease-viability-check',
-    text: 'Use the restaurant page when the site is a dining concept rather than a simpler cafe or retail unit.',
-  },
-  {
-    title: 'Salon lease viability check',
-    href: '/salon-lease-viability-check',
-    text: 'Use the salon page when treatment capacity and chair use drive the numbers.',
-  },
+const bridgeLinks = [
   {
     title: 'Commercial lease viability check',
     href: '/commercial-lease-viability-check',
-    text: 'Read the core commercial lease pressure-test before you run the check.',
+    text: 'Pressure-test whether the site can carry the rent before you sign.',
+  },
+  {
+    title: 'Commercial rent affordability calculator',
+    href: '/commercial-rent-affordability-calculator',
+    text: 'Check whether the business can afford the rent and operating costs.',
   },
   {
     title: 'Commercial rent burden calculator',
     href: '/commercial-rent-burden-calculator',
-    text: 'See how monthly rent compares with expected revenue.',
-  },
-  {
-    title: 'Break-even customers calculator',
-    href: '/break-even-customers-calculator',
-    text: 'Convert rent and costs into a daily customer target.',
+    text: 'See how much of expected revenue rent is absorbing.',
   },
   {
     title: 'Commercial lease survival calculator',
     href: '/commercial-lease-survival-calculator',
-    text: 'Check whether the site can survive weaker trading and opening pressure.',
-  },
-  {
-    title: 'How it works',
-    href: '/how-it-works',
-    text: 'Learn how the free check, paid file, and sample report fit together.',
+    text: 'Check whether the site can survive a weak opening period.',
   },
   {
     title: 'Sample commercial viability file',
@@ -175,6 +179,11 @@ const relatedPages = [
     title: 'Viability file',
     href: '/viability-file',
     text: 'Read what the paid Standard commercial viability file includes.',
+  },
+  {
+    title: 'How it works',
+    href: '/how-it-works',
+    text: 'Learn how the free check, paid file, and sample report fit together.',
   },
 ];
 
@@ -200,14 +209,6 @@ const faqItems = [
     a: 'Repairing obligations can create hidden costs and responsibility for damage or upkeep that are not obvious from the headline rent.',
   },
   {
-    q: 'Should I get a solicitor before signing a commercial lease?',
-    a: 'Yes. YieldLens can help with the commercial pressure-test, but a solicitor should review the lease and related legal documents before you commit.',
-  },
-  {
-    q: 'Can YieldLens review my lease?',
-    a: 'YieldLens does not review legal documents. It helps you structure the commercial numbers and questions before you commit to a lease.',
-  },
-  {
     q: 'Can YieldLens tell me whether to sign?',
     a: 'No. YieldLens UK provides indicative decision-support only. It helps you pressure-test the numbers and questions, but it does not tell you to sign or not sign.',
   },
@@ -223,17 +224,33 @@ function SectionTitle({
   description?: string;
 }) {
   return (
-    <div className="mb-10">
-      <p className="text-xs font-medium uppercase tracking-widest text-green-700 mb-3">{eyebrow}</p>
-      <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">{title}</h2>
-      {description && <p className="text-sm text-stone-600 max-w-3xl leading-7">{description}</p>}
+    <div className="max-w-3xl mb-10">
+      <p className="text-xs font-medium uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] mb-3">
+        {eyebrow}
+      </p>
+      <h2 className={`${sectionHeadingClass} mb-3`}>{title}</h2>
+      {description && <p className={`${supportingTextClass}`}>{description}</p>}
     </div>
+  );
+}
+
+function BulletList({ items }: { items: string[] }) {
+  return (
+    <ul className="space-y-2 text-sm leading-6 text-[var(--yieldlens-muted)]">
+      {items.map((item) => (
+        <li key={item} className="flex gap-2">
+          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
 export default function CommercialLeaseChecklistPage() {
   return (
-    <div className="bg-stone-50 text-stone-900">
+    <div className="bg-[var(--yieldlens-page)] text-stone-900">
+      <JsonLd data={faqStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/commercial-lease-checklist-before-signing"
@@ -241,452 +258,389 @@ export default function CommercialLeaseChecklistPage() {
         mode="commercial"
         eventLabel="Commercial lease checklist viewed"
       />
-      <section className="bg-stone-950 text-white">
-        <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 lg:gap-12 items-center">
+
+      <section className={`${heroBackdropClass} mx-4 sm:mx-6 lg:mx-auto lg:max-w-6xl mt-4`}>
+        <div className="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.07),transparent_36%)]" />
+          <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_0.95fr] gap-10 lg:gap-12 items-center">
             <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-green-300 mb-4">
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#D6C7A2] mb-4">
                 Commercial lease checklist
               </p>
-              <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
+              <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
                 Commercial lease checklist before signing
               </h1>
-              <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                Before committing to a commercial lease, check whether the site
-                can carry the rent, opening costs, downside trading, and lease
-                obligations. A low headline rent can still become expensive if
-                the numbers and lease terms are not pressure-tested.
+              <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
+                What should I check before signing a commercial lease? Cover both lease terms and commercial affordability. A unit can look attractive but become fragile once rent, service charge, business rates, fit-out, deposit, stock, staffing, and weak early trade are included.
+              </p>
+              <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
+                This page gives a practical pre-signing checklist, then points you towards the free commercial check and the £49 Standard file if you want a structured decision memo.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
                   pagePath="/commercial-lease-checklist-before-signing"
-                  ctaLabel="Run a free commercial lease check"
+                  ctaLabel="Run a free commercial check"
                   pageType="seo_page"
-                  className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
+                  className={heroPrimaryCtaClass}
                 >
-                  Run a free commercial lease check
+                  Run a free commercial check
                 </TrackedCtaLink>
-                <Link
+                <TrackedCtaLink
                   href="/sample-commercial-viability-file"
-                  className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center"
+                  eventName="commercial_home_cta_clicked"
+                  pagePath="/commercial-lease-checklist-before-signing"
+                  ctaLabel="View sample viability file"
+                  pageType="seo_page"
+                  className={heroSecondaryCtaClass}
                 >
                   View sample viability file
+                </TrackedCtaLink>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-300">
+                <Link href="/commercial-lease-viability-check" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial lease viability check
+                </Link>
+                <Link href="/commercial-rent-affordability-calculator" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial rent affordability calculator
+                </Link>
+                <Link href="/how-it-works" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  How it works
                 </Link>
               </div>
-              <p className="text-xs text-stone-400 mt-5">
-                YieldLens UK provides indicative decision-support only. It is not
-                a valuation, financial advice, mortgage advice, legal advice,
-                tax advice, or a substitute for professional due diligence.
+              <p className={`${disclaimerClass} mt-5 text-stone-400`}>
+                YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, a RICS valuation, or a substitute for professional due diligence.
               </p>
             </div>
 
-            <div className="rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
-              <p className="text-xs uppercase tracking-widest text-green-300 font-medium mb-3">
+            <div className={`${surfaceCardClass} bg-white/95 p-5 sm:p-6 shadow-[0_18px_48px_rgba(15,23,42,0.10)]`}>
+              <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-medium mb-3">
                 Quick answer
               </p>
-              <div className="space-y-3 text-sm text-stone-300 leading-7">
-                {quickChecklistItems.map((item) => (
-                  <p key={item}>{item}</p>
-                ))}
+              <BulletList
+                items={[
+                  'Check whether the site can carry the rent.',
+                  'Verify whether opening cash is enough after fit-out and deposits.',
+                  'Test whether the lease still works if trade starts slowly.',
+                  'Ask whether the lease terms create hidden cost pressure.',
+                ]}
+              />
+              <div className="mt-5 rounded-3xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] p-4 text-sm text-[var(--yieldlens-muted)] leading-7">
+                A checklist is most useful when it includes both lease wording and affordability pressure. Numbers without lease terms, or lease terms without numbers, miss the real risk.
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Why the checklist matters"
-          title="Commercial lease mistakes are expensive because rent is only one part of the risk."
-          description="Tenants often focus on the headline rent and miss the wider economics that make a site workable or fragile."
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            'Fit-out costs can drain cash before trading starts.',
-            'Service charge can narrow the margin after the site opens.',
-            'Repairing obligations can create hidden cost exposure.',
-            'Rent reviews can make a borderline site worse later.',
-            'Weak trading can expose a site that only works in the base case.',
-            'A lack of break clause can trap a tenant in a weak site.',
-          ].map((item) => (
-            <div key={item} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm text-sm text-stone-700 leading-7">
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-[#F4F3F1] border-y border-stone-200">
+      <section className={`${sectionBandClass} mt-8`}>
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Check the rent burden"
-            title="Rent burden is monthly rent divided by expected monthly revenue."
-            description="Use it as an early screen, not as a final answer."
+            eyebrow="Why the checklist matters"
+            title="Commercial lease mistakes are expensive because the lease is only one part of the risk."
+            description="The headline rent is easy to focus on. The weaker point is often the full cost stack and the lease obligations that sit around it."
           />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
-              <p className="text-sm font-semibold text-stone-900 mb-3">Screening thresholds</p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {[
-                  { label: 'Healthier', value: '12%' },
-                  { label: 'Caution', value: '18%' },
-                  { label: 'High pressure', value: 'Above 18%' },
-                ].map((item) => (
-                  <div key={item.label} className="rounded-lg border border-stone-200 bg-white p-4">
-                    <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
-                    <p className="text-lg font-bold text-stone-900 mt-1">{item.value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold text-stone-900 mb-3">Worked example</p>
-              <div className="space-y-3 text-sm text-stone-700 leading-7">
-                <p>Annual rent: £60,000</p>
-                <p>Monthly rent: £5,000</p>
-                <p>Expected monthly revenue: £24,960</p>
-                <p>Rent burden: about 20%</p>
-              </div>
-              <p className="mt-4 text-sm text-stone-700 leading-7">
-                Twenty percent is high enough to require stronger evidence, not
-                just optimism.
-              </p>
-              <div className="mt-4 flex flex-wrap gap-3 text-sm">
-                <Link href="/commercial-rent-burden-calculator" className="text-green-700 font-medium hover:text-green-900">
-                  Commercial rent burden calculator
-                </Link>
-                <Link href="/how-much-rent-can-a-cafe-afford" className="text-green-700 font-medium hover:text-green-900">
-                  Cafe rent affordability guide
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Check break-even customers or sales"
-          title="Convert the lease into a customer target."
-          description="A lease can look affordable until fixed costs become a daily customer requirement."
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
-            <p className="text-sm font-semibold text-stone-900 mb-3">Break-even example</p>
-            <p className="text-sm text-stone-700 leading-7">
-              If the known monthly cost base is £14,100 and average spend is £12
-              across 26 opening days, break-even is about 45 customers/day.
-            </p>
-          </div>
-          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-semibold text-stone-900 mb-3">What it means</p>
-            <p className="text-sm text-stone-700 leading-7">
-              If expected customers/day is 80, the site has room on paper, but
-              the footfall assumption still needs evidence.
-            </p>
-            <div className="mt-4">
-              <Link href="/break-even-customers-calculator" className="text-green-700 font-medium hover:text-green-900 text-sm">
-                Break-even customers calculator
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#F4F3F1] border-y border-stone-200">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="Check upfront cash before opening"
-            title="A cafe can fail on opening cash even if monthly rent looks manageable."
-            description="Fit-out, deposit, legal fees, opening stock, signage, launch marketing, and starting cash all matter because they can drain cash before the site begins trading."
-          />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-700 leading-7">
-                <p>Fit-out: £50,000</p>
-                <p>Rent deposit: £15,000</p>
-                <p>Legal fees: £3,000</p>
-                <p>Opening stock: £8,000</p>
-                <p>Other setup: £5,000</p>
-                <p>Starting cash: £90,000</p>
-                <p>Upfront cash needed: £81,000</p>
-                <p>Opening buffer: £9,000</p>
-              </div>
-            </div>
-            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold text-stone-900 mb-3">Why it matters</p>
-              <p className="text-sm text-stone-700 leading-7">
-                A £9,000 buffer is thin if fit-out overruns, trading starts slowly,
-                or lease costs are higher than expected. The monthly rent may be
-                manageable, but the opening cash stack still needs room to breathe.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Check downside trading"
-          title="Do not only test the base case."
-          description="The lease should still make sense if revenue is weaker than expected."
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
-            <div className="space-y-3 text-sm text-stone-700 leading-7">
-              <p>Base revenue: £24,960</p>
-              <p>60% downside revenue: £14,976</p>
-              <p>Known cost base: £14,100</p>
-              <p>Downside monthly position: £876 surplus</p>
-            </div>
-          </div>
-          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-semibold text-stone-900 mb-3">Interpretation</p>
-            <p className="text-sm text-stone-700 leading-7">
-              The downside month still covers known costs, but that does not
-              remove the need to check opening buffer and lease terms.
-            </p>
-            <div className="mt-4">
-              <Link href="/commercial-lease-survival-calculator" className="text-green-700 font-medium hover:text-green-900 text-sm">
-                Commercial lease survival calculator
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#F4F3F1] border-y border-stone-200">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="Lease terms to check"
-            title="Ask the lease questions before the numbers become a commitment."
-            description="Use this as a commercial review list, then ask your solicitor to review the legal wording."
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {leaseTerms.map((item) => (
-              <div key={item.title} className="rounded-xl border border-stone-200 bg-stone-50 p-5 shadow-sm">
-                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
-                <p className="text-sm text-stone-700 leading-7 mt-3">
-                  <span className="font-medium text-stone-900">Ask:</span> {item.ask}
-                </p>
-                <p className="text-sm text-stone-700 leading-7 mt-2">
-                  <span className="font-medium text-stone-900">Why it matters:</span> {item.why}
-                </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              'Fit-out costs can drain cash before trading starts.',
+              'Service charge can narrow the margin after the site opens.',
+              'Repairing obligations can create hidden cost exposure.',
+              'Rent reviews can make a borderline site worse later.',
+              'Weak trading can expose a site that only works in the base case.',
+              'A lack of break clause can trap a tenant in a weak site.',
+            ].map((item, index) => (
+              <div
+                key={item}
+                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 text-sm text-stone-700 leading-7 ${
+                  index === 0
+                    ? 'border-t-[var(--yieldlens-positive)]'
+                    : index === 1
+                      ? 'border-t-[var(--yieldlens-caution)]'
+                      : index === 2
+                        ? 'border-t-[var(--yieldlens-fragile)]'
+                        : index === 3
+                          ? 'border-t-[var(--yieldlens-risk)]'
+                          : index === 4
+                            ? 'border-t-[var(--yieldlens-primary)]'
+                            : 'border-t-[var(--yieldlens-caution)]'
+                }`}
+              >
+                {item}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Evidence to collect before committing"
-          title="Collect the evidence that makes the checklist real."
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {evidenceSections.map((group) => (
-            <div key={group.title} className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold text-stone-900 mb-3">{group.title}</p>
-              <div className="space-y-3 text-sm text-stone-700 leading-7">
-                {group.items.map((item) => (
-                  <div key={item} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Checklist sections"
+            title="What should the commercial lease checklist cover?"
+            description="A useful checklist should cover affordability, setup cash, trading assumptions, lease terms, and the evidence behind them."
+          />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {checklistSections.map((section, index) => (
+              <div
+                key={section.title}
+                className={`${surfaceCardClass} border-t-4 p-5 sm:p-6 ${
+                  index === 0
+                    ? 'border-t-[var(--yieldlens-caution)]'
+                    : index === 1
+                      ? 'border-t-[var(--yieldlens-primary)]'
+                      : index === 2
+                        ? 'border-t-[var(--yieldlens-positive)]'
+                        : index === 3
+                          ? 'border-t-[var(--yieldlens-fragile)]'
+                          : 'border-t-[var(--yieldlens-risk)]'
+                }`}
+              >
+                <h3 className="text-lg font-semibold text-stone-900 mb-3">{section.title}</h3>
+                <BulletList items={section.items} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`${sectionBandClass}`}>
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Questions to ask"
+            title="Ask the questions that turn the checklist into a real decision."
+            description="These are the questions that should be answered before rent, fit-out, and legal costs become sunk."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {questionGroups.map((group, index) => (
+              <div
+                key={group.title}
+                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 ${
+                  index === 0
+                    ? 'border-t-[var(--yieldlens-positive)]'
+                    : index === 1
+                      ? 'border-t-[var(--yieldlens-caution)]'
+                      : 'border-t-[var(--yieldlens-fragile)]'
+                }`}
+              >
+                <h3 className="text-lg font-semibold text-stone-900 mb-2">{group.title}</h3>
+                <p className="text-sm text-[var(--yieldlens-muted)] leading-7">{group.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Evidence to gather"
+            title="Collect the evidence that makes the checklist real."
+            description="A checklist is stronger when it is tied to actual figures, quotes, and trading evidence."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                title: 'Trading evidence',
+                items: ['Footfall', 'Local competition', 'Customer demand', 'Trading hours', 'Average spend'],
+              },
+              {
+                title: 'Cost evidence',
+                items: ['Service charge history', 'Rates estimate', 'Supplier quotes', 'Contractor quotes', 'Utility estimate'],
+              },
+              {
+                title: 'Lease evidence',
+                items: ['Draft lease', 'Break clause wording', 'Repair obligations', 'Permitted use', 'Licensing or planning requirements'],
+              },
+            ].map((group, index) => (
+              <div
+                key={group.title}
+                className={`${surfaceCardClass} border-t-4 p-5 sm:p-6 ${
+                  index === 0
+                    ? 'border-t-[var(--yieldlens-caution)]'
+                    : index === 1
+                      ? 'border-t-[var(--yieldlens-primary)]'
+                      : 'border-t-[var(--yieldlens-positive)]'
+                }`}
+              >
+                <h3 className="text-lg font-semibold text-stone-900 mb-3">{group.title}</h3>
+                <div className="space-y-2">
+                  {group.items.map((item) => (
+                    <div key={item} className={`${surfaceCardSoftClass} p-3 text-sm text-[var(--yieldlens-muted)]`}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`${sectionBandClass}`}>
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="How YieldLens helps"
+            title="Use YieldLens to pressure-test the numbers before signing."
+            description="The free check gives a viability snapshot. The £49 Standard file turns the result into a decision memo with negotiation levers, evidence checklist, and lease questions."
+          />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-positive)]`}>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                Free check
+              </p>
+              <BulletList
+                items={[
+                  'Rent burden, break-even customers, opening cash, downside trading, and six-month survival.',
+                  'A fast viability snapshot before you commit.',
+                  'Helpful when you need to know whether the site deserves deeper work.',
+                ]}
+              />
+            </div>
+
+            <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                Standard file
+              </p>
+              <BulletList
+                items={[
+                  'Stress-test interpretation, negotiation levers, evidence checklist, and lease questions.',
+                  'A printable commercial decision memo tied to the saved result.',
+                  'Useful when the numbers need to become a decision path before signing.',
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={`${sectionBandClass}`}>
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 items-start">
+            <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-caution)]`}>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                Related pages
+              </p>
+              <div className="grid grid-cols-1 gap-3">
+                {bridgeLinks.map((link, index) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`${surfaceCardSoftClass} border-t-4 p-4 transition-all hover:border-t-[var(--yieldlens-caution)] hover:shadow-sm ${
+                      index === 0
+                        ? 'border-t-[var(--yieldlens-positive)]'
+                        : index === 1
+                          ? 'border-t-[var(--yieldlens-primary)]'
+                          : index === 2
+                            ? 'border-t-[var(--yieldlens-fragile)]'
+                            : index === 3
+                              ? 'border-t-[var(--yieldlens-risk)]'
+                              : index === 4
+                                ? 'border-t-[var(--yieldlens-caution)]'
+                                : index === 5
+                                  ? 'border-t-[var(--yieldlens-primary)]'
+                                  : 'border-t-[var(--yieldlens-positive)]'
+                    }`}
+                  >
+                    <p className="font-semibold text-stone-900 mb-1">{link.title}</p>
+                    <p className="text-sm text-[var(--yieldlens-muted)] leading-6">{link.text}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-positive)]`}>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                What to verify before signing
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  'What happens if fit-out delays opening?',
+                  'Is service charge capped or variable?',
+                  'Who pays for repairs?',
+                  'Can rent increase at review?',
+                  'Is there a break clause?',
+                  'Are landlord works documented?',
+                  'What evidence supports expected trade?',
+                  'Can the site survive a weak opening period?',
+                ].map((item, index) => (
+                  <div
+                    key={item}
+                    className={`${surfaceCardSoftClass} border-t-4 p-4 text-sm font-medium text-stone-800 ${
+                      index === 0
+                        ? 'border-t-[var(--yieldlens-caution)]'
+                        : index === 1
+                          ? 'border-t-[var(--yieldlens-primary)]'
+                          : index === 2
+                            ? 'border-t-[var(--yieldlens-fragile)]'
+                            : index === 3
+                              ? 'border-t-[var(--yieldlens-risk)]'
+                              : index === 4
+                                ? 'border-t-[var(--yieldlens-positive)]'
+                                : index === 5
+                                  ? 'border-t-[var(--yieldlens-caution)]'
+                                  : index === 6
+                                    ? 'border-t-[var(--yieldlens-primary)]'
+                                    : 'border-t-[var(--yieldlens-positive)]'
+                    }`}
+                  >
                     {item}
                   </div>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-[#F4F3F1] border-y border-stone-200">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="Related pages"
-            title="Use the checklist alongside the restaurant and cafe pages."
-            description="These pages keep the same pressure-test framing but break the problem into simpler parts."
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {relatedPages.map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className="rounded-xl border border-stone-200 bg-stone-50 p-5 shadow-sm hover:border-stone-300 transition-colors"
-              >
-                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
-                <p className="text-sm text-stone-700 leading-7 mt-2">{item.text}</p>
-              </Link>
-            ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-[#F4F3F1] border-y border-stone-200">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="Worked example"
-            title="Redacted high street site"
-            description="This example is fictional and redacted. It shows the shape of the affordability question without exposing a real tenant or address."
-          />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-700 leading-7">
-                {[
-                  ['Business type', 'Cafe'],
-                  ['Address', 'Redacted high street site'],
-                  ['Postcode', 'NW6 sample'],
-                  ['Annual rent', '£60,000'],
-                  ['Expected customers/day', '80'],
-                  ['Average spend', '£12'],
-                  ['Opening days/month', '26'],
-                  ['Monthly revenue', '£24,960'],
-                  ['Rent burden', '20%'],
-                  ['Break-even', 'about 45 customers/day'],
-                  ['Opening buffer', '£9,000'],
-                  ['Downside monthly position', '£876 surplus'],
-                ].map(([label, value]) => (
-                  <div key={label} className="rounded-lg border border-stone-200 bg-white p-4">
-                    <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{label}</p>
-                    <p className="text-sm font-semibold text-stone-900 mt-1">{value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold text-stone-900 mb-3">Verdict</p>
-              <p className="text-sm text-stone-700 leading-7">
-                This is not automatically unworkable, but the rent burden is high
-                and the opening buffer is thin. It needs footfall evidence,
-                confirmed fit-out costs, and sharper lease terms before the
-                numbers feel comfortable.
-              </p>
-            </div>
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+          <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-medium mb-3">
+            Pressure-test the lease before the numbers become a commitment.
+          </p>
+          <h2 className="text-3xl font-bold text-stone-900 mb-4">
+            Run a free commercial check, then decide whether the site deserves deeper work.
+          </h2>
+          <p className="text-sm text-[var(--yieldlens-muted)] leading-7 max-w-2xl mx-auto mb-8">
+            YieldLens is built to help you judge the rent, setup costs, lease terms, and opening cash before a commercial lease becomes expensive to unwind.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <TrackedCtaLink
+              href="/check?mode=commercial"
+              eventName="commercial_home_cta_clicked"
+              pagePath="/commercial-lease-checklist-before-signing"
+              ctaLabel="Run a free commercial check"
+              pageType="seo_page"
+              className={heroPrimaryCtaClass}
+            >
+              Run a free commercial check
+            </TrackedCtaLink>
+            <TrackedCtaLink
+              href="/sample-commercial-viability-file"
+              eventName="commercial_home_cta_clicked"
+              pagePath="/commercial-lease-checklist-before-signing"
+              ctaLabel="View sample viability file"
+              pageType="seo_page"
+              className={heroSecondaryCtaClass}
+            >
+              View sample viability file
+            </TrackedCtaLink>
+            <Link
+              href="/how-it-works"
+              className={secondaryCtaClass}
+            >
+              How it works
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="How YieldLens helps"
-          title="Turn the checklist into numbers you can challenge."
-          description="The free commercial check produces the core metrics. The £49 file adds deeper analysis and action items."
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-semibold text-stone-900 mb-3">Free check outputs</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-7">
-              {[
-                'Rent burden',
-                'Break-even customers/day',
-                'Upfront cash needed',
-                'Cash after opening',
-                'Downside monthly position',
-                'Six-month survival test',
-                'Risk flags',
-              ].map((item) => (
-                <div key={item} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
-            <p className="text-sm font-semibold text-stone-900 mb-3">£49 file adds</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-stone-700 leading-7">
-              {[
-                'Stress-test scenarios',
-                'Negotiation levers',
-                'Evidence needed',
-                'Lease questions',
-                'Due diligence checklist',
-                'Ranked actions',
-                'Final view',
-              ].map((item) => (
-                <div key={item} className="rounded-lg border border-stone-200 bg-white p-3">
-                  {item}
-                </div>
-              ))}
-            </div>
-            <div className="mt-4 flex flex-wrap gap-3 text-sm">
-              <Link href="/viability-file" className="text-green-700 font-medium hover:text-green-900">
-                Learn about the £49 file
-              </Link>
-              <Link href="/how-it-works" className="text-green-700 font-medium hover:text-green-900">
-                See how YieldLens works
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#F4F3F1] border-y border-stone-200">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <SectionTitle
-            eyebrow="FAQ"
-            title="Commercial lease checklist questions"
-            description="Short answers for people trying to decide whether a site is worth a deeper look."
-          />
-          <div className="grid grid-cols-1 gap-4">
-            {faqItems.map((item) => (
-              <div key={item.q} className="rounded-xl border border-stone-200 bg-stone-50 p-5 shadow-sm">
-                <p className="text-sm font-semibold text-stone-900">{item.q}</p>
-                <p className="text-sm text-stone-700 leading-7 mt-3">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle
-          eyebrow="Pressure-test the lease numbers before you commit."
-          title="Check the lease numbers before you commit."
-        />
-        <div className="flex flex-col sm:flex-row gap-3">
-          <TrackedCtaLink
-            href="/check?mode=commercial"
-            eventName="commercial_home_cta_clicked"
-            pagePath="/commercial-lease-checklist-before-signing"
-            ctaLabel="Run a free commercial lease check"
-            pageType="seo_page"
-            className="bg-green-500 text-stone-950 px-6 py-3 rounded font-semibold hover:bg-green-400 transition-colors text-sm text-center"
-          >
-            Run a free commercial lease check
-          </TrackedCtaLink>
-          <Link
-            href="/sample-commercial-viability-file"
-            className="bg-stone-900 text-white px-6 py-3 rounded font-medium hover:bg-stone-800 transition-colors text-sm text-center"
-          >
-            View sample viability file
-          </Link>
-          <Link
-            href="/how-it-works"
-            className="bg-white border border-stone-300 text-stone-900 px-6 py-3 rounded font-medium hover:bg-stone-50 transition-colors text-sm text-center"
-          >
-            How it works
-          </Link>
-        </div>
-        <div className="mt-6 flex flex-wrap gap-4 text-sm">
-          <Link href="/commercial-lease-viability-check" className="text-green-700 font-medium hover:text-green-900">
-            Commercial lease viability check
-          </Link>
-          <Link href="/commercial-rent-burden-calculator" className="text-green-700 font-medium hover:text-green-900">
-            Commercial rent burden calculator
-          </Link>
-          <Link href="/break-even-customers-calculator" className="text-green-700 font-medium hover:text-green-900">
-            Break-even customers calculator
-          </Link>
-          <Link href="/commercial-lease-survival-calculator" className="text-green-700 font-medium hover:text-green-900">
-            Commercial lease survival calculator
-          </Link>
-          <Link href="/how-much-rent-can-a-cafe-afford" className="text-green-700 font-medium hover:text-green-900">
-            How much rent can a cafe afford?
-          </Link>
-          <Link href="/viability-file" className="text-green-700 font-medium hover:text-green-900">
-            Viability file
-          </Link>
+      <section className={`${memoBandClass} mx-4 sm:mx-6 lg:mx-auto lg:max-w-5xl my-14`}>
+        <div className="px-4 sm:px-6 lg:px-8 py-8 text-sm text-stone-300 leading-7 text-center">
+          <p className="font-semibold text-[#D6C7A2] mb-2">Important disclaimer</p>
+          <p className={disclaimerClass}>
+            YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, a RICS valuation, or a substitute for professional due diligence.
+          </p>
         </div>
       </section>
     </div>
