@@ -46,6 +46,13 @@ export default function Header() {
           >
             How it works
           </Link>
+
+          <Link
+            href="/about"
+            className="hover:text-stone-900 transition-colors"
+          >
+            About
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -69,6 +76,9 @@ export default function Header() {
               </Link>
               <Link href="/how-it-works" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 How it works
+              </Link>
+              <Link href="/about" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
+                About
               </Link>
             </div>
           </details>

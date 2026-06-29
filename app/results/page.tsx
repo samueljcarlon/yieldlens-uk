@@ -812,18 +812,18 @@ export default function ResultsPage() {
 
       <div className="mt-8 bg-white border border-stone-200 rounded-2xl p-6 sm:p-7 shadow-sm">
         <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
-          {isResidential ? 'Full viability file coming soon' : 'Unlock the £49 viability file'}
+          {isResidential ? 'Commercial file for commercial checks only' : 'Unlock the £49 viability file'}
         </p>
 
         <h2 className="text-xl font-bold text-stone-900 mb-2">
           {isResidential
-            ? 'Want the full viability file for this property?'
+            ? 'The commercial viability file is not available for this residential result.'
             : 'Turn this result into a decision memo for negotiation and due diligence.'}
         </h2>
 
         <p className="text-sm text-stone-700 leading-7 max-w-3xl">
           {isResidential
-            ? 'Your check has been saved. The next product step is a fuller viability file with a cleaner property snapshot, downside cases, assumptions, and a more detailed verdict.'
+            ? 'Your residential check has been saved. Use the residential tools and cash flow pages to keep pressure-testing the property, or run the commercial check if you are assessing a lease decision.'
             : 'The Standard commercial viability file adds stress tests, negotiation levers, lease questions, due diligence prompts, ranked actions, and a clearer final view before you commit. It is unlocked from this saved result, then opens as a memo you can print or save as PDF.'}
         </p>
 
