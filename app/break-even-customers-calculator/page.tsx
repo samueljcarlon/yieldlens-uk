@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import FaqSection from '@/components/FaqSection';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import {
   disclaimerClass,
@@ -60,8 +61,39 @@ const faqStructuredData = {
         text: 'No. Break-even customers are a useful screen, but lease viability also needs rent burden, upfront cash, fit-out risk, downside revenue, monthly burn, and survival runway.',
       },
     },
+    {
+      '@type': 'Question',
+      name: 'How can I reduce the break-even pressure?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Lower rent, longer rent-free periods, lower fixed costs, better margins, stronger repeat trade, staged staffing, or staged fit-out can all help.',
+      },
+    },
   ],
 };
+
+const faqItems = [
+  {
+    question: 'What is a break-even customers calculation?',
+    answer:
+      'It estimates how many customers per day a commercial site needs to cover its monthly cost base using the rent, operating costs, average spend, and opening days you enter.',
+  },
+  {
+    question: 'Why convert rent and costs into customers per day?',
+    answer:
+      'A monthly cost base is easier to judge when it becomes a daily trading target. That makes optimistic sales assumptions easier to challenge before signing.',
+  },
+  {
+    question: 'What affects the break-even customer target?',
+    answer:
+      'Rent, service charge, business rates, staff costs, utilities, cost of sales, opening hours, average spend, and how many days the site actually trades all change the target.',
+  },
+  {
+    question: 'How can I reduce the break-even pressure?',
+    answer:
+      'Lower rent, longer rent-free periods, lower fixed costs, better margins, stronger repeat trade, staged staffing, or staged fit-out can all help.',
+  },
+];
 
 const whatToInclude = [
   {
@@ -559,6 +591,14 @@ export default function BreakEvenCustomersCalculatorPage() {
           </div>
         </div>
       </section>
+
+      <FaqSection
+        eyebrow="Frequently asked questions"
+        title="Break-even customers FAQs"
+        description="Practical answers for operators turning rent and cost pressure into a daily customer target."
+        faqs={faqItems}
+        sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
+      />
 
       <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
+import FaqSection from '@/components/FaqSection';
 import JsonLd from '@/components/JsonLd';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import {
@@ -592,6 +593,14 @@ export default function CommercialLeaseChecklistPage() {
           </div>
         </div>
       </section>
+
+      <FaqSection
+        eyebrow="Frequently asked questions"
+        title="Commercial lease checklist FAQs"
+        description="Practical answers for operators who need to pressure-test a unit before heads of terms become a commitment."
+        faqs={faqItems.map((item) => ({ question: item.q, answer: item.a }))}
+        sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
+      />
 
       <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">

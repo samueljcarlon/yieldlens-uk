@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import FaqSection from '@/components/FaqSection';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import {
   disclaimerClass,
@@ -60,8 +61,39 @@ const faqStructuredData = {
         text: 'No. Survival runway is an indicative decision-support screen. Lease decisions should also test rent burden, break-even customers, lease terms, evidence quality, fit-out risk, and professional due diligence.',
       },
     },
+    {
+      '@type': 'Question',
+      name: 'What improves lease survival?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Better survival often comes from a rent-free period, lower deposit, landlord contribution, staged fit-out, phased staffing, a break clause, or a stronger opening cash buffer.',
+      },
+    },
   ],
 };
+
+const faqItems = [
+  {
+    question: 'What is a commercial lease survival check?',
+    answer:
+      'It is an indicative pressure test of whether the business has enough cash after fit-out, deposits, opening costs, and monthly costs to survive a weaker-than-planned start.',
+  },
+  {
+    question: 'Why do weak opening months matter?',
+    answer:
+      'A site can look workable in the base case but become fragile if launch trade is slower, opening is delayed, or the rent-free period is too short.',
+  },
+  {
+    question: 'What improves lease survival?',
+    answer:
+      'Better survival often comes from a rent-free period, lower deposit, landlord contribution, staged fit-out, phased staffing, a break clause, or a stronger opening cash buffer.',
+  },
+  {
+    question: 'How should I use a downside trading result?',
+    answer:
+      'Use it to see whether the business can absorb weaker trade and still protect enough cash to keep operating while the site proves itself.',
+  },
+];
 
 const survivalBlocks = [
   {
@@ -550,6 +582,14 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
           </div>
         </div>
       </section>
+
+      <FaqSection
+        eyebrow="Frequently asked questions"
+        title="Commercial lease survival FAQs"
+        description="Practical answers for operators checking whether the opening cash stack can survive a weak start."
+        faqs={faqItems}
+        sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
+      />
 
       <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">

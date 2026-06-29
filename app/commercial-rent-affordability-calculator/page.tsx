@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
+import FaqSection from '@/components/FaqSection';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import {
   disclaimerClass,
@@ -584,6 +585,14 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           </div>
         </div>
       </section>
+
+      <FaqSection
+        eyebrow="Frequently asked questions"
+        title="Common questions about commercial rent affordability."
+        description="Practical answers for operators who need a clearer view of rent, cash flow, and lease pressure before signing."
+        faqs={faqItems}
+        sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
+      />
 
       <section className="bg-[var(--yieldlens-hero)] text-white border-y border-white/10">
         <div className="max-w-4xl mx-auto px-4 py-12 text-center">

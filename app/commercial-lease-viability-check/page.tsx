@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import FaqSection from '@/components/FaqSection';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import ToolConversionPanel from '@/components/ToolConversionPanel';
@@ -736,6 +737,14 @@ export default function CommercialLeaseViabilityPage() {
           </div>
         </div>
       </section>
+
+      <FaqSection
+        eyebrow="Frequently asked questions"
+        title="Commercial lease viability FAQs"
+        description="Practical answers for operators checking whether a site can carry the lease before they sign."
+        faqs={faqs}
+        sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
+      />
 
       <section className="bg-stone-950 text-white border-y border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-16">

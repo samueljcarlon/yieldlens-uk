@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import FaqSection from '@/components/FaqSection';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import {
   disclaimerClass,
@@ -59,8 +60,39 @@ const faqStructuredData = {
         text: 'No. Rent burden is one screening metric. A lease decision should also test break-even customers, staff costs, rates, utilities, fit-out, opening cash, downside revenue, and survival runway.',
       },
     },
+    {
+      '@type': 'Question',
+      name: 'How is rent burden different from market rent?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Market rent is about what the unit might achieve in the market. Rent burden is about what the business can actually carry once the rest of the cost base is included.',
+      },
+    },
   ],
 };
+
+const faqItems = [
+  {
+    question: 'What is commercial rent burden?',
+    answer:
+      'Commercial rent burden is monthly rent divided by estimated monthly revenue, multiplied by 100. It shows how much expected revenue is absorbed by rent before other costs are considered.',
+  },
+  {
+    question: 'How is rent burden different from market rent?',
+    answer:
+      'Market rent is about what the unit might achieve in the market. Rent burden is about what the business can actually carry once the rest of the cost base is included.',
+  },
+  {
+    question: 'When is rent burden a warning sign?',
+    answer:
+      'There is no universal rule, but a heavier burden needs stronger evidence and better margins. If rent absorbs too much revenue, the site needs deeper checks before you rely on it.',
+  },
+  {
+    question: 'What else should I check alongside rent burden?',
+    answer:
+      'Break-even customers, staff costs, rates, utilities, fit-out, opening cash, downside revenue, and lease terms all need to be checked as well.',
+  },
+];
 
 const interpretationBands = [
   {
@@ -327,6 +359,14 @@ export default function CommercialRentBurdenCalculatorPage() {
           </div>
         </div>
       </section>
+
+      <FaqSection
+        eyebrow="Frequently asked questions"
+        title="Commercial rent burden FAQs"
+        description="Practical answers for operators checking whether rent is absorbing too much of the business case."
+        faqs={faqItems}
+        sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
+      />
 
       <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
