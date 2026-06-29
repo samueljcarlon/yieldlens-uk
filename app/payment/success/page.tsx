@@ -64,7 +64,7 @@ export default async function PaymentSuccessPage({
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">
           {isReady
             ? 'Open the Standard file from this page. You can print it or save it as PDF for negotiation and due diligence. If your assumptions change later, rerun the free commercial check and unlock the latest saved result again.'
-            : 'Payment received. Your file may take a few seconds to unlock. Refresh this page shortly.'}
+            : 'Payment received. Your file may take a few seconds to unlock. Refresh this page shortly, then open the file from this page. If access does not appear, wait a moment and contact support.'}
         </p>
 
         <p className="text-sm text-stone-500 leading-7 max-w-2xl mx-auto mt-4">

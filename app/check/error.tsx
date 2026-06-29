@@ -1,0 +1,57 @@
+'use client';
+
+import Link from 'next/link';
+import { useEffect } from 'react';
+
+export default function Error({
+  error,
+  unstable_retry,
+}: {
+  error: Error & { digest?: string };
+  unstable_retry: () => void;
+}) {
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
+      <div className="rounded-3xl border border-[var(--yieldlens-border)] bg-white p-8 sm:p-10 shadow-sm">
+        <p className="text-xs uppercase tracking-[0.24em] text-[var(--yieldlens-caution)] font-semibold mb-3">
+          Check issue
+        </p>
+
+        <h1 className="text-3xl sm:text-4xl font-bold text-stone-950 mb-4">
+          We could not load the commercial check.
+        </h1>
+
+        <p className="text-sm sm:text-base text-[var(--yieldlens-muted)] leading-7 max-w-2xl">
+          Try again to reload the form, or start a new commercial check if you
+          need to reopen the page.
+        </p>
+
+        <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <button
+            type="button"
+            onClick={() => unstable_retry()}
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition-all hover:border-[var(--yieldlens-primary-hover)] hover:bg-[var(--yieldlens-primary-hover)]"
+          >
+            Try again
+          </button>
+          <Link
+            href="/check?mode=commercial"
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-[var(--yieldlens-caution)] hover:bg-[#F7F6F3]"
+          >
+            Open commercial check
+          </Link>
+          <Link
+            href="/sample-commercial-viability-file"
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)]"
+          >
+            View sample viability file
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { notFound, redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import type { ReportRequest } from '@/lib/reportRequests';
@@ -1465,6 +1465,67 @@ function SectionTitle({
   );
 }
 
+function AccessHelpState() {
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-16">
+      <div className="rounded-3xl border border-[var(--yieldlens-border)] bg-white p-8 sm:p-10 shadow-sm">
+        <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-semibold mb-3">
+          Access issue
+        </p>
+
+        <h1 className="text-3xl sm:text-4xl font-bold text-stone-950 mb-4">
+          We could not open this commercial viability file.
+        </h1>
+
+        <p className="text-sm sm:text-base text-[var(--yieldlens-muted)] leading-7 max-w-2xl">
+          This usually means the saved result is unavailable, the access link is
+          incomplete, or the file has not been unlocked yet. If you have just
+          completed checkout, wait a short moment and reopen the success page.
+        </p>
+
+        <p className="text-sm text-stone-600 leading-7 max-w-2xl mt-4">
+          If you still cannot open the file, use the contact page and include a
+          short description of what happened. Do not send payment card details or
+          other sensitive information by email.
+        </p>
+
+        <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <Link
+            href="/check?mode=commercial"
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition-all hover:border-[var(--yieldlens-primary-hover)] hover:bg-[var(--yieldlens-primary-hover)]"
+          >
+            Run a free commercial check
+          </Link>
+          <Link
+            href="/sample-commercial-viability-file"
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-[var(--yieldlens-caution)] hover:bg-[#F7F6F3]"
+          >
+            View sample viability file
+          </Link>
+          <Link
+            href="/how-it-works"
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-[var(--yieldlens-caution)] hover:bg-[#F7F6F3]"
+          >
+            Read how it works
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)]"
+          >
+            Contact support
+          </Link>
+        </div>
+
+        <p className="mt-6 text-sm text-stone-500 leading-6 max-w-2xl">
+          YieldLens UK provides indicative decision-support only. It is not
+          financial advice, legal advice, tax advice, a valuation, or a substitute
+          for professional due diligence.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default async function CommercialViabilityFilePage({
   params,
   searchParams,
@@ -1480,7 +1541,7 @@ export default async function CommercialViabilityFilePage({
     : routeSearchParams.token ?? '';
 
   if (!reportRequestId) {
-    notFound();
+    return <AccessHelpState />;
   }
 
   if (token) {
@@ -1492,14 +1553,14 @@ export default async function CommercialViabilityFilePage({
   const request = await getPaidCustomerReport(reportRequestId);
 
   if (!request) {
-    notFound();
+    return <AccessHelpState />;
   }
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get(getCustomerAccessCookieName(reportRequestId))?.value ?? '';
 
   if (!accessToken || accessToken !== request.customerAccessToken) {
-    notFound();
+    return <AccessHelpState />;
   }
 
   const context = getCommercialContext(request);

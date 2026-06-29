@@ -686,22 +686,36 @@ export default function ResultsPage() {
 
   if (!submission) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-        <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
-          <h1 className="text-2xl font-bold text-stone-900 mb-3">
-            No property check found
-          </h1>
-
-          <p className="text-sm text-[var(--yieldlens-muted)] mb-6">
-            Run a residential or commercial check first, then your results will appear here.
+      <div className="max-w-3xl mx-auto px-4 py-16">
+        <div className="bg-white border border-stone-200 rounded-2xl p-8 sm:p-10 shadow-sm">
+          <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-semibold mb-3">
+            No commercial check found
           </p>
 
-          <Link
-            href="/check?mode=commercial"
-            className="inline-block bg-green-700 text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-green-800"
-          >
-            Start a free commercial check
-          </Link>
+          <h1 className="text-3xl font-bold text-stone-900 mb-4">
+            Run a free commercial check to see your results.
+          </h1>
+
+          <p className="text-sm sm:text-base text-[var(--yieldlens-muted)] leading-7 max-w-2xl">
+            The results page usually appears after you complete the free check.
+            If you landed here directly, start again from the commercial check
+            and the saved result will appear once the form is submitted.
+          </p>
+
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <Link
+              href="/check?mode=commercial"
+              className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition-all hover:border-[var(--yieldlens-primary-hover)] hover:bg-[var(--yieldlens-primary-hover)]"
+            >
+              Run a free commercial check
+            </Link>
+            <Link
+              href="/sample-commercial-viability-file"
+              className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-[var(--yieldlens-border)] bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-[var(--yieldlens-caution)] hover:bg-[#F7F6F3]"
+            >
+              View sample viability file
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -852,7 +866,7 @@ export default function ResultsPage() {
                   ctaLabel="Get the negotiation and due diligence file"
                   pageType="results"
                 >
-                  Get the negotiation and due diligence file
+                  Unlock the £49 viability file
                 </TrackedCtaLink>
               )}
             </div>

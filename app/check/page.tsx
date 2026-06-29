@@ -15,7 +15,7 @@ export default function CheckPage({
 }: {
   searchParams?: { mode?: string | string[] };
 }) {
-  const initialMode = searchParams?.mode === 'commercial' ? 'commercial' : 'residential';
+  const initialMode = searchParams?.mode === 'residential' ? 'residential' : 'commercial';
   const commercialMode = initialMode === 'commercial';
 
   return (

@@ -21,12 +21,12 @@ export default async function PaymentCancelPage({
         </p>
 
         <h1 className="text-3xl font-bold text-stone-900 mb-4">
-          You can return to the saved result or sample file when ready.
+          Checkout was not completed.
         </h1>
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">
-          No payment was taken. You can return to the saved result handoff, view
-          the sample file, or run another commercial check.
+          No payment was taken. You can return to the saved result handoff,
+          view the sample file, or run another commercial check when ready.
         </p>
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto mt-3">
