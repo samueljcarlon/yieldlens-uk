@@ -18,14 +18,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Rent Affordability Calculator | Can the Site Carry the Rent?',
+  title: 'Commercial Rent Affordability Calculator | Can the Business Carry the Rent?',
   description:
     'Check whether a business can carry the rent by pressure-testing revenue, operating costs, opening cash, and downside trading before signing a commercial lease.',
   alternates: {
     canonical: '/commercial-rent-affordability-calculator',
   },
   openGraph: {
-    title: 'Commercial Rent Affordability Calculator | Can the Site Carry the Rent? | YieldLens UK',
+    title: 'Commercial Rent Affordability Calculator | Can the Business Carry the Rent? | YieldLens UK',
     description:
       'Check whether a business can carry the rent by pressure-testing revenue, operating costs, opening cash, and downside trading before signing a commercial lease.',
     url: 'https://yieldlens.co.uk/commercial-rent-affordability-calculator',

@@ -17,14 +17,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Rent Burden Calculator | Can the Site Carry the Rent?',
+  title: 'Commercial Rent Burden Calculator | Rent as Share of Revenue',
   description:
     'See commercial rent as a share of revenue, judge rent pressure, and pressure-test whether a cafe, salon, restaurant, or shop can carry the lease before signing.',
   alternates: {
     canonical: '/commercial-rent-burden-calculator',
   },
   openGraph: {
-    title: 'Commercial Rent Burden Calculator | Can the Site Carry the Rent? | YieldLens UK',
+    title: 'Commercial Rent Burden Calculator | Rent as Share of Revenue | YieldLens UK',
     description:
       'See commercial rent as a share of revenue, judge rent pressure, and pressure-test whether a commercial lease can carry the rent before signing.',
     url: 'https://yieldlens.co.uk/commercial-rent-burden-calculator',
