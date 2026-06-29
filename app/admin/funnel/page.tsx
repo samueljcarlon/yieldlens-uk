@@ -4,7 +4,38 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { getRemoteToolEvents, type ToolEvent } from '@/lib/toolEvents';
 
-type DateRange = 'today' | '7d' | '30d' | 'all';
+type DateRange = '24h' | '7d' | '30d' | 'all';
+
+type FunnelStageKey =
+  | 'inbound_page_view'
+  | 'commercial_check_started'
+  | 'commercial_check_submitted'
+  | 'results_viability_file_requested_clicked'
+  | 'checkout_started'
+  | 'payment_completed'
+  | 'paid_file_opened';
+
+type StageSnapshot = {
+  key: FunnelStageKey;
+  label: string;
+  helper: string;
+  count: number;
+  rate: string;
+};
+
+type RangeSnapshot = {
+  key: Exclude<DateRange, 'all'>;
+  label: string;
+  pageViews: number;
+  commercialCtaClicks: number;
+  checkStarts: number;
+  submissions: number;
+  paidCtaClicks: number;
+  checkoutStarts: number;
+  paymentsCompleted: number;
+  paidFilesOpened: number;
+  stageCards: StageSnapshot[];
+};
 
 const inboundPages = [
   { path: '/how-it-works', label: 'How it works' },
@@ -87,6 +118,8 @@ const ctaEventNames = new Set([
   'conversion_cta_clicked',
 ]);
 
+const rangeOptions: Exclude<DateRange, 'all'>[] = ['24h', '7d', '30d'];
+
 function formatDate(value: string): string {
   return new Date(value).toLocaleString('en-GB', {
     day: 'numeric',
@@ -101,16 +134,16 @@ function toDateRange(range: DateRange): Date | null {
   if (range === 'all') return null;
 
   const now = new Date();
-  const start = new Date(now);
 
-  if (range === 'today') {
-    start.setHours(0, 0, 0, 0);
-    return start;
+  if (range === '24h') {
+    return new Date(now.getTime() - 24 * 60 * 60 * 1000);
   }
 
-  start.setDate(start.getDate() - 6);
-  start.setHours(0, 0, 0, 0);
-  return start;
+  if (range === '7d') {
+    return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  }
+
+  return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 }
 
 function getMetadataObject(event: ToolEvent): Record<string, unknown> {
@@ -133,6 +166,14 @@ function getPathMeta(event: ToolEvent, keys: string[]): string {
   }
 
   return event.pagePath ?? 'unknown';
+}
+
+function getFirstTouchPath(event: ToolEvent): string {
+  return getPathMeta(event, ['first_page_path', 'source_page', 'current_page_path', 'page_path']);
+}
+
+function getCurrentTouchPath(event: ToolEvent): string {
+  return getPathMeta(event, ['current_page_path', 'page_path', 'source_page', 'first_page_path']);
 }
 
 function getSafeMode(event: ToolEvent): string {
@@ -194,16 +235,17 @@ function summarizeSafeMetadata(event: ToolEvent): string {
     .join(' · ');
 }
 
-function funnelStageValue(allTime: number, rangeCount: number): string {
-  if (allTime === 0) return 'Not tracked yet';
-  if (rangeCount === 0) return '0';
-  return String(rangeCount);
+function formatCount(value: number): string {
+  return value.toLocaleString('en-GB');
 }
 
-function stageStatus(allTime: number, rangeCount: number): string {
-  if (allTime === 0) return 'Not tracked yet';
-  if (rangeCount === 0) return 'No events in range';
-  return 'Tracked';
+function formatRate(numerator: number, denominator: number): string {
+  if (denominator === 0) return 'No data yet';
+
+  const rate = (numerator / denominator) * 100;
+  if (!Number.isFinite(rate)) return 'No data yet';
+
+  return `${rate.toFixed(rate >= 10 ? 0 : 1)}%`;
 }
 
 function safeModeLabel(mode: string): string {
@@ -211,6 +253,66 @@ function safeModeLabel(mode: string): string {
   if (mode === 'residential') return 'Residential';
   if (mode === 'admin') return 'Admin';
   return 'Unknown';
+}
+
+function buildStageSnapshots(events: ToolEvent[]): StageSnapshot[] {
+  return stageDefinitions.map((stage) => ({
+    key: stage.key as FunnelStageKey,
+    label: stage.label,
+    helper: stage.helper,
+    count: getStageCount(events, stage.key),
+    rate: 'No data yet',
+  }));
+}
+
+function decorateStageRates(stages: StageSnapshot[]): StageSnapshot[] {
+  return stages.map((stage, index) => {
+    if (index === 0) {
+      return { ...stage, rate: '100%' };
+    }
+
+    const previousCount = stages[index - 1]?.count ?? 0;
+    return { ...stage, rate: formatRate(stage.count, previousCount) };
+  });
+}
+
+function buildRangeSnapshot(events: ToolEvent[], range: Exclude<DateRange, 'all'>): RangeSnapshot {
+  const cutoff = toDateRange(range);
+  const filtered = events.filter((event) => {
+    if (!isRelevantEvent(event)) return false;
+    if (!cutoff) return true;
+    return new Date(event.createdAt) >= cutoff;
+  });
+
+  const stageCards = decorateStageRates(buildStageSnapshots(filtered));
+
+  return {
+    key: range,
+    label: range === '24h' ? 'Last 24 hours' : range === '7d' ? 'Last 7 days' : 'Last 30 days',
+    pageViews: getStageCount(filtered, 'inbound_page_view'),
+    commercialCtaClicks: filtered.filter((event) => ctaEventNames.has(event.eventName)).length,
+    checkStarts: getStageCount(filtered, 'commercial_check_started'),
+    submissions: getStageCount(filtered, 'commercial_check_submitted'),
+    paidCtaClicks: getStageCount(filtered, 'results_viability_file_requested_clicked'),
+    checkoutStarts: getStageCount(filtered, 'checkout_started'),
+    paymentsCompleted: getStageCount(filtered, 'payment_completed'),
+    paidFilesOpened: getStageCount(filtered, 'paid_file_opened'),
+    stageCards,
+  };
+}
+
+function countFirstTouchRows(sourceEvents: ToolEvent[], keys: string[]) {
+  const counts = new Map<string, number>();
+
+  for (const event of sourceEvents) {
+    const path = getPathMeta(event, keys);
+    counts.set(path, (counts.get(path) ?? 0) + 1);
+  }
+
+  return [...counts.entries()]
+    .map(([path, count]) => ({ path, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
 }
 
 export default function AdminFunnelPage() {
@@ -235,13 +337,13 @@ export default function AdminFunnelPage() {
     }
   };
 
-  const rangeStart = useMemo(() => toDateRange(dateRange), [dateRange]);
+  const selectedRangeStart = useMemo(() => toDateRange(dateRange), [dateRange]);
 
-  const rangeEvents = useMemo(() => {
+  const selectedRangeEvents = useMemo(() => {
     const search = searchTerm.trim().toLowerCase();
 
     return events.filter((event) => {
-      if (rangeStart && new Date(event.createdAt) < rangeStart) return false;
+      if (selectedRangeStart && new Date(event.createdAt) < selectedRangeStart) return false;
       if (!isRelevantEvent(event)) return false;
 
       const searchable = [
@@ -255,96 +357,64 @@ export default function AdminFunnelPage() {
 
       return !search || searchable.includes(search);
     });
-  }, [events, rangeStart, searchTerm]);
+  }, [events, selectedRangeStart, searchTerm]);
+
+  const allTimeRelevantEvents = useMemo(() => events.filter(isRelevantEvent), [events]);
+
+  const rangeSnapshots = useMemo(
+    () => rangeOptions.map((range) => buildRangeSnapshot(events, range)),
+    [events]
+  );
 
   const stageCards = useMemo(
-    () =>
-      stageDefinitions.map((stage) => {
-        const allTime = getStageCount(events, stage.key);
-        const inRange = getStageCount(rangeEvents, stage.key);
-
-        return {
-          ...stage,
-          allTime,
-          inRange,
-          status: stageStatus(allTime, inRange),
-        };
-      }),
-    [events, rangeEvents]
+    () => buildStageSnapshots(allTimeRelevantEvents),
+    [allTimeRelevantEvents]
   );
+
+  const missingStages = useMemo(() => {
+    return stageCards
+      .filter((stage) => stage.count === 0)
+      .map((stage) => stage.label);
+  }, [stageCards]);
 
   const pageRows = useMemo(() => {
     return inboundPages.map((page) => {
-      const pageEvents = rangeEvents.filter((event) => getPageKey(event) === page.path);
-      const allTimePageEvents = events.filter((event) => getPageKey(event) === page.path);
+      const pageEvents = selectedRangeEvents.filter((event) => getPageKey(event) === page.path);
       const rangeAttributedSubmissions = pageEvents.filter((event) => event.eventName === 'commercial_check_submitted').length;
-      const allTimeAttributedSubmissions = allTimePageEvents.filter((event) => event.eventName === 'commercial_check_submitted').length;
       const rangeAttributedRequests = pageEvents.filter((event) => event.eventName === 'results_viability_file_requested_clicked').length;
-      const allTimeAttributedRequests = allTimePageEvents.filter((event) => event.eventName === 'results_viability_file_requested_clicked').length;
-      const hasAnyRangeSubmissions = rangeEvents.some((event) => event.eventName === 'commercial_check_submitted');
-      const hasAnyRangeRequests = rangeEvents.some((event) => event.eventName === 'results_viability_file_requested_clicked');
-
       const views = pageEvents.filter((event) => event.eventName === 'inbound_page_view').length;
-      const viewsAllTime = allTimePageEvents.filter((event) => event.eventName === 'inbound_page_view').length;
       const ctaClicks = pageEvents.filter((event) => ctaEventNames.has(event.eventName)).length;
-      const ctaClicksAllTime = allTimePageEvents.filter((event) => ctaEventNames.has(event.eventName)).length;
 
       return {
         ...page,
-        views: funnelStageValue(viewsAllTime, views),
-        ctaClicks: funnelStageValue(ctaClicksAllTime, ctaClicks),
-        submissions:
-          rangeAttributedSubmissions > 0
-            ? String(rangeAttributedSubmissions)
-            : hasAnyRangeSubmissions
-              ? 'Not tracked yet'
-              : funnelStageValue(allTimeAttributedSubmissions, rangeAttributedSubmissions),
-        requests:
-          rangeAttributedRequests > 0
-            ? String(rangeAttributedRequests)
-            : hasAnyRangeRequests
-              ? 'Not tracked yet'
-              : funnelStageValue(allTimeAttributedRequests, rangeAttributedRequests),
+        views: formatCount(views),
+        ctaClicks: formatCount(ctaClicks),
+        submissions: formatCount(rangeAttributedSubmissions),
+        requests: formatCount(rangeAttributedRequests),
       };
     });
-  }, [events, rangeEvents]);
+  }, [selectedRangeEvents]);
 
   const attributionRows = useMemo(() => {
-    const groupEvents = (sourceEvents: ToolEvent[], keys: string[]) => {
-      const groups = new Map<string, number>();
-
-      for (const event of sourceEvents) {
-        const path = getPathMeta(event, keys);
-        const nextCount = groups.get(path) ?? 0;
-        groups.set(path, nextCount + 1);
-      }
-
-      return [...groups.entries()]
-        .map(([path, count]) => ({ path, count }))
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 5);
-    };
-
-    const inboundLandingRows = groupEvents(
-      rangeEvents.filter((event) => event.eventName === 'inbound_page_view'),
+    const inboundLandingRows = countFirstTouchRows(
+      selectedRangeEvents.filter((event) => event.eventName === 'inbound_page_view'),
       ['first_page_path', 'page_path']
     );
 
-    const firstTouchPriority = [
-      'first_page_path',
-      'source_page',
-      'last_page_path',
-      'current_page_path',
-      'page_path',
-    ];
+    const firstTouchPriority = ['first_page_path', 'source_page', 'current_page_path', 'page_path'];
 
-    const submissionSourceRows = groupEvents(
-      rangeEvents.filter((event) => event.eventName === 'commercial_check_submitted'),
+    const submissionSourceRows = countFirstTouchRows(
+      selectedRangeEvents.filter((event) => event.eventName === 'commercial_check_submitted'),
       firstTouchPriority
     );
 
-    const checkoutSourceRows = groupEvents(
-      rangeEvents.filter((event) => event.eventName === 'checkout_started'),
+    const checkoutSourceRows = countFirstTouchRows(
+      selectedRangeEvents.filter((event) => event.eventName === 'checkout_started'),
+      firstTouchPriority
+    );
+
+    const paymentSourceRows = countFirstTouchRows(
+      selectedRangeEvents.filter((event) => event.eventName === 'payment_completed'),
       firstTouchPriority
     );
 
@@ -352,16 +422,24 @@ export default function AdminFunnelPage() {
       inboundLandingRows,
       submissionSourceRows,
       checkoutSourceRows,
+      paymentSourceRows,
     };
-  }, [rangeEvents]);
+  }, [selectedRangeEvents]);
 
-  const latestEvents = useMemo(() => rangeEvents.slice(0, 20), [rangeEvents]);
+  const recentEvents = useMemo(() => selectedRangeEvents.slice(0, 20), [selectedRangeEvents]);
 
-  const missingStages = useMemo(() => {
-    return stageCards
-      .filter((stage) => stage.allTime === 0)
-      .map((stage) => stage.label);
-  }, [stageCards]);
+  const interpretationPoints = useMemo(() => {
+    const points = [
+      'Page views but no check starts usually point to a landing page or CTA issue.',
+      'Check starts but no submissions usually point to form friction.',
+      'Submissions but no paid CTA clicks usually point to a results-page value issue.',
+      'Paid CTA clicks but no checkout starts usually point to a paid-flow clarity issue.',
+      'Checkout starts but no payments usually point to price, trust, or Stripe hesitation.',
+      'Payments but no paid file opens usually point to an access flow issue.',
+    ];
+
+    return points;
+  }, []);
 
   const trackingGaps = useMemo(() => {
     const gaps = [
@@ -374,7 +452,7 @@ export default function AdminFunnelPage() {
     ];
 
     return gaps;
-  }, [stageCards]);
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
@@ -442,19 +520,93 @@ export default function AdminFunnelPage() {
         {error && <p className="text-sm text-red-600 mt-3">{error}</p>}
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {stageCards.map((stage) => (
-          <div key={stage.key} className="bg-white border border-stone-200 rounded-2xl p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-stone-400">{stage.label}</p>
-            <p className="text-3xl font-bold text-stone-950 mt-1">{stage.inRange}</p>
-            <p className="text-xs text-stone-500 mt-2 leading-5">
-              {stage.helper} {stage.allTime === 0 ? 'Not tracked yet.' : `All time: ${stage.allTime}.`}
-            </p>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-stone-400 mt-3">
-              {stage.status}
-            </p>
-          </div>
-        ))}
+      <div className="mb-8">
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.24em] text-teal-700 font-semibold mb-2">
+            Funnel snapshots
+          </p>
+
+          <h2 className="text-xl font-bold text-stone-950">
+            Stage counts and conversion rates across the three most useful windows
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+          {rangeSnapshots.map((snapshot) => (
+            <div key={snapshot.key} className="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm">
+              <p className="text-xs uppercase tracking-[0.2em] text-stone-400 font-semibold">
+                {snapshot.label}
+              </p>
+
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="rounded-xl border border-stone-200 bg-stone-50 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-stone-400">Page views</p>
+                  <p className="text-xl font-bold text-stone-950 mt-1">{formatCount(snapshot.pageViews)}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-stone-400">CTA clicks</p>
+                  <p className="text-xl font-bold text-stone-950 mt-1">{formatCount(snapshot.commercialCtaClicks)}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-stone-400">Commercial starts</p>
+                  <p className="text-xl font-bold text-stone-950 mt-1">{formatCount(snapshot.checkStarts)}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-stone-400">Submissions</p>
+                  <p className="text-xl font-bold text-stone-950 mt-1">{formatCount(snapshot.submissions)}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-stone-400">Paid-file CTA</p>
+                  <p className="text-xl font-bold text-stone-950 mt-1">{formatCount(snapshot.paidCtaClicks)}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-stone-400">Checkout starts</p>
+                  <p className="text-xl font-bold text-stone-950 mt-1">{formatCount(snapshot.checkoutStarts)}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-stone-400">Payments</p>
+                  <p className="text-xl font-bold text-stone-950 mt-1">{formatCount(snapshot.paymentsCompleted)}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-stone-400">File opens</p>
+                  <p className="text-xl font-bold text-stone-950 mt-1">{formatCount(snapshot.paidFilesOpened)}</p>
+                </div>
+              </div>
+
+              <div className="mt-4 space-y-2 text-sm text-stone-700">
+                <p>Views → starts: {formatRate(snapshot.checkStarts, snapshot.pageViews)}</p>
+                <p>Starts → submissions: {formatRate(snapshot.submissions, snapshot.checkStarts)}</p>
+                <p>Submissions → paid CTA: {formatRate(snapshot.paidCtaClicks, snapshot.submissions)}</p>
+                <p>Paid CTA → checkout: {formatRate(snapshot.checkoutStarts, snapshot.paidCtaClicks)}</p>
+                <p>Checkout → payment: {formatRate(snapshot.paymentsCompleted, snapshot.checkoutStarts)}</p>
+                <p>Payment → file open: {formatRate(snapshot.paidFilesOpened, snapshot.paymentsCompleted)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm mb-8">
+        <p className="font-semibold text-stone-950 mb-3">
+          How to read the funnel
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {interpretationPoints.map((item, index) => (
+            <div
+              key={item}
+              className={`rounded-xl border p-4 text-sm leading-6 ${
+                index % 3 === 0
+                  ? 'border-teal-200 bg-teal-50 text-teal-900'
+                  : index % 3 === 1
+                    ? 'border-stone-200 bg-stone-50 text-stone-700'
+                    : 'border-amber-200 bg-amber-50 text-amber-900'
+              }`}
+            >
+              {item}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm mb-8">
@@ -470,7 +622,7 @@ export default function AdminFunnelPage() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {(['today', '7d', '30d', 'all'] as DateRange[]).map((range) => (
+            {(['24h', '7d', '30d', 'all'] as DateRange[]).map((range) => (
               <button
                 key={range}
                 type="button"
@@ -481,7 +633,7 @@ export default function AdminFunnelPage() {
                     : 'bg-white text-stone-700 border-stone-300 hover:border-teal-500'
                 }`}
               >
-                {range === 'today' ? 'Today' : range === '7d' ? 'Last 7 days' : range === '30d' ? 'Last 30 days' : 'All time'}
+                {range === '24h' ? 'Last 24 hours' : range === '7d' ? 'Last 7 days' : range === '30d' ? 'Last 30 days' : 'All time'}
               </button>
             ))}
           </div>
@@ -542,54 +694,34 @@ export default function AdminFunnelPage() {
 
       <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm mb-8">
         <p className="font-semibold text-stone-950 mb-4">
-          Attribution
+          First-touch source pages
         </p>
 
         <p className="text-xs text-stone-500 leading-6 mb-4 max-w-4xl">
-          Attribution rows use first_page_path where available, so newer conversion events can be tied back to the first public landing page.
-          Older events may fall back to current or source page metadata.
+          Use first_page_path first, then source_page, then current_page_path, then page_path. Older events may not have every field, so the table falls back safely rather than exposing raw metadata.
         </p>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-stone-400 font-semibold mb-3">
-              Top landing pages
-            </p>
-
-            <div className="overflow-x-auto">
-              <table className="min-w-full border-collapse text-sm">
-                <thead>
-                  <tr className="border-b border-stone-200 bg-stone-50 text-left">
-                    <th className="px-4 py-3 font-semibold text-stone-700">Page</th>
-                    <th className="px-4 py-3 font-semibold text-stone-700">In range</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {attributionRows.inboundLandingRows.length === 0 ? (
-                    <tr>
-                      <td className="px-4 py-3 text-sm text-stone-500" colSpan={2}>
-                        No inbound page views in the current range.
-                      </td>
-                    </tr>
-                  ) : (
-                    attributionRows.inboundLandingRows.map((row) => (
-                      <tr key={row.path} className="border-b border-stone-100 align-top">
-                        <td className="px-4 py-3">
-                          <div className="font-medium text-stone-950">{row.path}</div>
-                        </td>
-                        <td className="px-4 py-3 text-stone-700">{row.count}</td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div>
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          {[
+            {
+              title: 'Commercial submissions',
+              rows: attributionRows.submissionSourceRows,
+              empty: 'No commercial submissions in the current range.',
+            },
+            {
+              title: 'Checkout starts',
+              rows: attributionRows.checkoutSourceRows,
+              empty: 'No checkout starts in the current range.',
+            },
+            {
+              title: 'Payment completed',
+              rows: attributionRows.paymentSourceRows,
+              empty: 'No payments completed in the current range.',
+            },
+          ].map((section) => (
+            <div key={section.title}>
               <p className="text-xs uppercase tracking-[0.2em] text-stone-400 font-semibold mb-3">
-                First-touch pages for commercial submissions
+                {section.title}
               </p>
 
               <div className="overflow-x-auto">
@@ -601,19 +733,19 @@ export default function AdminFunnelPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {attributionRows.submissionSourceRows.length === 0 ? (
+                    {section.rows.length === 0 ? (
                       <tr>
                         <td className="px-4 py-3 text-sm text-stone-500" colSpan={2}>
-                          No commercial submissions in the current range.
+                          {section.empty}
                         </td>
                       </tr>
                     ) : (
-                      attributionRows.submissionSourceRows.map((row) => (
+                      section.rows.map((row) => (
                         <tr key={row.path} className="border-b border-stone-100 align-top">
                           <td className="px-4 py-3">
                             <div className="font-medium text-stone-950">{row.path}</div>
                           </td>
-                          <td className="px-4 py-3 text-stone-700">{row.count}</td>
+                          <td className="px-4 py-3 text-stone-700">{formatCount(row.count)}</td>
                         </tr>
                       ))
                     )}
@@ -621,42 +753,7 @@ export default function AdminFunnelPage() {
                 </table>
               </div>
             </div>
-
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-stone-400 font-semibold mb-3">
-                First-touch pages for checkout started
-              </p>
-
-              <div className="overflow-x-auto">
-                <table className="min-w-full border-collapse text-sm">
-                  <thead>
-                    <tr className="border-b border-stone-200 bg-stone-50 text-left">
-                      <th className="px-4 py-3 font-semibold text-stone-700">Page</th>
-                      <th className="px-4 py-3 font-semibold text-stone-700">In range</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {attributionRows.checkoutSourceRows.length === 0 ? (
-                      <tr>
-                        <td className="px-4 py-3 text-sm text-stone-500" colSpan={2}>
-                          No checkout starts in the current range.
-                        </td>
-                      </tr>
-                    ) : (
-                      attributionRows.checkoutSourceRows.map((row) => (
-                        <tr key={row.path} className="border-b border-stone-100 align-top">
-                          <td className="px-4 py-3">
-                            <div className="font-medium text-stone-950">{row.path}</div>
-                          </td>
-                          <td className="px-4 py-3 text-stone-700">{row.count}</td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -692,32 +789,35 @@ export default function AdminFunnelPage() {
 
       <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm mb-8">
         <p className="font-semibold text-stone-950 mb-4">
-          Latest relevant events
+          Recent relevant events
         </p>
 
-        {latestEvents.length === 0 ? (
+        {recentEvents.length === 0 ? (
           <p className="text-sm text-stone-500">
             Load events, run the commercial funnel, or adjust your filters.
           </p>
         ) : (
           <div className="space-y-3">
-            {latestEvents.map((event) => (
+            {recentEvents.map((event) => (
               <div key={event.id} className="rounded-2xl border border-stone-200 bg-stone-50 p-4 shadow-sm">
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                <div className="grid grid-cols-1 gap-3 lg:grid-cols-[180px_1fr_1fr]">
                   <div>
                     <p className="text-xs uppercase tracking-[0.2em] text-stone-400 font-semibold mb-1">
                       {formatDate(event.createdAt)}
                     </p>
-                    <h3 className="text-sm font-semibold text-stone-950">
+                    <p className="text-sm font-semibold text-stone-950">
                       {event.eventName}
-                    </h3>
-                    <p className="text-xs text-stone-500 mt-1">
-                      Page: {event.pagePath ?? 'Unknown'} · Mode: {safeModeLabel(getSafeMode(event))}
                     </p>
                   </div>
 
-                  <div className="max-w-xl text-xs text-stone-600 leading-6">
-                    {summarizeSafeMetadata(event) || 'No safe metadata captured.'}
+                  <div className="text-xs text-stone-600 leading-6">
+                    <p><span className="font-semibold text-stone-700">Page path:</span> {event.pagePath ?? 'Unknown'}</p>
+                    <p><span className="font-semibold text-stone-700">First touch:</span> {getFirstTouchPath(event)}</p>
+                  </div>
+
+                  <div className="text-xs text-stone-600 leading-6">
+                    <p><span className="font-semibold text-stone-700">Current page:</span> {getCurrentTouchPath(event)}</p>
+                    <p><span className="font-semibold text-stone-700">Mode:</span> {safeModeLabel(getSafeMode(event))}</p>
                   </div>
                 </div>
               </div>
