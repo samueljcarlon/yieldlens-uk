@@ -531,7 +531,7 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
   const assumptions = getCommercialAssumptions(submission);
 
   return (
-    <section className="mb-8 overflow-hidden rounded-[32px] border border-stone-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
+    <section className="mb-8 overflow-hidden rounded-[32px] border border-stone-200 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
       <div className="bg-stone-950 px-6 py-7 text-white sm:px-8 sm:py-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
           <div>
@@ -762,7 +762,7 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
   const questions = getCommercialTakeawayQuestions(result);
 
   return (
-    <div className="rounded-[32px] border border-stone-200 bg-white p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
+    <div className="rounded-[32px] border border-stone-200 bg-white p-5 sm:p-6 shadow-[0_10px_24px_rgba(15,23,42,0.05)]">
       <div className="mb-5">
         <p className="text-[11px] uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
           What the free result tells you
@@ -901,7 +901,7 @@ export default function ResultsPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
-      <section className="mb-8 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
+      <section className="mb-8 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-[0_10px_24px_rgba(15,23,42,0.06)]">
         <div className="bg-gradient-to-r from-stone-950 to-stone-900 px-6 py-7 text-white sm:px-8 sm:py-8">
           <p className="text-xs uppercase tracking-[0.24em] text-green-300 font-semibold mb-3">
             {isResidential ? 'Residential return check' : 'Commercial site check'}

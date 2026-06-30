@@ -360,7 +360,7 @@ export default function SampleCommercialViabilityFilePage() {
                 </Link>
               </div>
             </div>
-            <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900 shadow-[0_24px_64px_rgba(15,23,42,0.16)]`}>
+            <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900 shadow-[0_14px_34px_rgba(15,23,42,0.10)]`}>
               <div className="flex items-start justify-between gap-4 mb-5">
                 <div>
                   <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-semibold mb-1">

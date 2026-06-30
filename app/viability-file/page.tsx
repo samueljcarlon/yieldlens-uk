@@ -338,7 +338,7 @@ export default function ViabilityFilePage() {
 
             </div>
 
-            <div className={`${surfaceCardClass} overflow-hidden bg-white text-stone-900 shadow-2xl`}>
+            <div className={`${surfaceCardClass} overflow-hidden bg-white text-stone-900 shadow-[0_12px_28px_rgba(15,23,42,0.12)]`}>
               <div className="px-5 py-4 border-b border-stone-200">
                 <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-semibold">
                   Example commercial file

@@ -135,7 +135,7 @@ export default function ResultsConversionPanel({
   const items = isResidential ? residentialItems : commercialItems;
 
   return (
-    <section className={`overflow-hidden ${surfaceCardClass} shadow-[0_18px_50px_rgba(15,23,42,0.08)]`}>
+    <section className={`overflow-hidden ${surfaceCardClass} shadow-[0_12px_30px_rgba(15,23,42,0.06)]`}>
       <div className="bg-[var(--yieldlens-hero)] px-6 py-6 text-white sm:px-7">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-2xl">
@@ -208,7 +208,7 @@ export default function ResultsConversionPanel({
                 </ul>
               </div>
 
-              <div className={`${surfaceCardClass} bg-white p-5 border-l-4 border-l-[var(--yieldlens-primary)] shadow-[0_18px_50px_rgba(15,23,42,0.1)]`}>
+              <div className={`${surfaceCardClass} bg-white p-5 border-l-4 border-l-[var(--yieldlens-primary)] shadow-[0_12px_30px_rgba(15,23,42,0.07)]`}>
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.2em] text-[#5b7d58] font-semibold mb-2">

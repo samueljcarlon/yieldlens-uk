@@ -237,7 +237,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className={`${surfaceCardClass} overflow-hidden border-white/15 bg-white/5 shadow-2xl`}>
+            <div className={`${surfaceCardClass} overflow-hidden border-white/15 bg-white/5 shadow-[0_12px_28px_rgba(15,23,42,0.12)]`}>
               <div className="border-b border-white/10 bg-gradient-to-r from-white/10 via-white/5 to-amber-400/10 px-5 py-4 flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-stone-400 font-medium">
