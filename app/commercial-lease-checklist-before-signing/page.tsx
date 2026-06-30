@@ -152,9 +152,9 @@ const questionGroups = [
 
 const bridgeLinks = [
   {
-    title: 'Commercial lease viability check',
-    href: '/commercial-lease-viability-check',
-    text: 'Pressure-test whether the site can carry the rent before you sign.',
+    title: 'Commercial lease costs before signing',
+    href: '/commercial-lease-costs-before-signing',
+    text: 'Check the full cost stack before the lease becomes expensive to unwind.',
   },
   {
     title: 'Commercial heads of terms before signing',
@@ -162,19 +162,9 @@ const bridgeLinks = [
     text: 'Check the commercial assumptions before the lease process becomes expensive.',
   },
   {
-    title: 'Commercial lease costs before signing',
-    href: '/commercial-lease-costs-before-signing',
-    text: 'Check the full cost stack before the lease becomes expensive to unwind.',
-  },
-  {
-    title: 'Commercial rent review before signing',
-    href: '/commercial-rent-review-before-signing',
-    text: 'Check whether future rent increases could tighten the lease later.',
-  },
-  {
-    title: 'Commercial break clause before signing',
-    href: '/commercial-break-clause-before-signing',
-    text: 'Check whether exit flexibility reduces the downside if trading weakens.',
+    title: 'Commercial rent-free period before signing',
+    href: '/commercial-rent-free-period-before-signing',
+    text: 'Check whether the incentive really protects launch cash.',
   },
   {
     title: 'Commercial lease deposit before signing',
@@ -192,39 +182,19 @@ const bridgeLinks = [
     text: 'Check how opening spend changes the cash buffer.',
   },
   {
-    title: 'Commercial rent-free period before signing',
-    href: '/commercial-rent-free-period-before-signing',
-    text: 'Check whether the incentive preserves enough opening cash.',
+    title: 'Commercial rent review before signing',
+    href: '/commercial-rent-review-before-signing',
+    text: 'Check whether future rent increases could tighten the lease later.',
   },
   {
-    title: 'Commercial rent affordability calculator',
-    href: '/commercial-rent-affordability-calculator',
-    text: 'Check whether the business can afford the rent and operating costs.',
+    title: 'Commercial break clause before signing',
+    href: '/commercial-break-clause-before-signing',
+    text: 'Check whether exit flexibility reduces the downside if trading weakens.',
   },
   {
-    title: 'Commercial rent burden calculator',
-    href: '/commercial-rent-burden-calculator',
-    text: 'See how much of expected revenue rent is absorbing.',
-  },
-  {
-    title: 'Commercial lease survival calculator',
-    href: '/commercial-lease-survival-calculator',
-    text: 'Check whether the site can survive a weak opening period.',
-  },
-  {
-    title: 'Sample commercial viability file',
-    href: '/sample-commercial-viability-file',
-    text: 'See the kind of output the £49 paid file produces.',
-  },
-  {
-    title: 'Viability file',
-    href: '/viability-file',
-    text: 'Read what the paid Standard commercial viability file includes.',
-  },
-  {
-    title: 'How it works',
-    href: '/how-it-works',
-    text: 'Learn how the free check, paid file, and sample report fit together.',
+    title: 'Commercial repairing obligations before signing',
+    href: '/commercial-repairing-obligations-before-signing',
+    text: 'Check whether repair and reinstatement risk changes the cost picture.',
   },
 ];
 

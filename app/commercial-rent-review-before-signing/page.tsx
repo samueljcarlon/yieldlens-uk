@@ -157,7 +157,6 @@ const exampleRows = [
 ];
 
 const relatedLinks = [
-  { href: '/commercial-heads-of-terms-before-signing', label: 'Commercial heads of terms before signing' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-break-clause-before-signing', label: 'Commercial break clause before signing' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },

@@ -209,8 +209,8 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                 <Link href="/commercial-rent-burden-calculator" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial rent burden calculator
                 </Link>
-                <Link href="/how-it-works" className="underline decoration-white/30 underline-offset-4 hover:text-white">
-                  How it works
+                <Link href="/break-even-customers-calculator" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Break-even customers calculator
                 </Link>
               </div>
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>

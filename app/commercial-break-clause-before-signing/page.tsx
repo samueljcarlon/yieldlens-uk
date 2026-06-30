@@ -161,11 +161,11 @@ const exampleRows = [
 ];
 
 const relatedLinks = [
-  { href: '/commercial-heads-of-terms-before-signing', label: 'Commercial heads of terms before signing' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-rent-review-before-signing', label: 'Commercial rent review before signing' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
   { href: '/commercial-lease-survival-calculator', label: 'Commercial lease survival calculator' },
+  { href: '/commercial-repairing-obligations-before-signing', label: 'Commercial repairing obligations before signing' },
 ];
 
 function SectionTitle({

@@ -174,11 +174,6 @@ const commercialLinks = [
     href: '/commercial-lease-costs-before-signing',
   },
   {
-    title: 'Commercial heads of terms before signing',
-    text: 'Check the commercial terms before the lease becomes expensive to unwind.',
-    href: '/commercial-heads-of-terms-before-signing',
-  },
-  {
     title: 'Commercial rent review before signing',
     text: 'Check whether future rent increases could tighten the lease later.',
     href: '/commercial-rent-review-before-signing',
@@ -187,6 +182,11 @@ const commercialLinks = [
     title: 'Commercial break clause before signing',
     text: 'Check whether exit flexibility reduces the downside if trading weakens.',
     href: '/commercial-break-clause-before-signing',
+  },
+  {
+    title: 'Commercial repairing obligations before signing',
+    text: 'Check whether repair exposure changes the lease viability picture.',
+    href: '/commercial-repairing-obligations-before-signing',
   },
   {
     title: 'Commercial rent affordability calculator',
@@ -301,8 +301,8 @@ export default function CommercialLeaseViabilityPage() {
                 <Link href="/commercial-break-clause-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial break clause before signing
                 </Link>
-                <Link href="/how-it-works" className="underline decoration-white/30 underline-offset-4 hover:text-white">
-                  How it works
+                <Link href="/break-even-customers-calculator" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Break-even customers calculator
                 </Link>
               </div>
             </div>

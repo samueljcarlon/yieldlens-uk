@@ -286,33 +286,30 @@ export default function ViabilityFilePage() {
                 numbers.
               </p>
 
-              <p className="text-sm text-stone-300 max-w-2xl mb-6 leading-7">
-                If you want to look at the deposit side in isolation, see{' '}
-                <Link href="/commercial-lease-deposit-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  commercial lease deposits before signing
-                </Link>
-                , and if shared occupancy costs are the bigger question, see{' '}
-                <Link href="/commercial-service-charge-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  commercial service charge before signing
-                </Link>
-                . If fit-out is the bigger question, see{' '}
-                <Link href="/commercial-fit-out-costs-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  commercial fit-out costs before signing
-                </Link>
-                . If future rent increases are the bigger question, see{' '}
-                <Link href="/commercial-rent-review-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  commercial rent reviews before signing
-                </Link>
-                . If the deal itself needs a commercial pressure test before the lease gets expensive to unwind, see{' '}
-                <Link href="/commercial-heads-of-terms-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  commercial heads of terms before signing
-                </Link>
-                . If exit flexibility is the bigger question, see{' '}
-                <Link href="/commercial-break-clause-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  commercial break clauses before signing
-                </Link>
-                .
+              <p className="text-sm text-stone-300 max-w-2xl mb-4 leading-7">
+                If you are still comparing sites, start with the before-signing guides for heads of terms, costs, rent-free timing, deposit pressure, repair risk, and exit flexibility.
               </p>
+
+              <div className="mb-6 flex flex-wrap gap-3 text-sm text-stone-300">
+                <Link href="/commercial-heads-of-terms-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial heads of terms before signing
+                </Link>
+                <Link href="/commercial-lease-costs-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial lease costs before signing
+                </Link>
+                <Link href="/commercial-rent-free-period-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial rent-free period before signing
+                </Link>
+                <Link href="/commercial-lease-deposit-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial lease deposit before signing
+                </Link>
+                <Link href="/commercial-repairing-obligations-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial repairing obligations before signing
+                </Link>
+                <Link href="/commercial-break-clause-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial break clause before signing
+                </Link>
+              </div>
 
               <ul className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-200 leading-6">
                 <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">

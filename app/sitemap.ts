@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/commercial-fit-out-costs-before-signing',
     '/commercial-rent-review-before-signing',
     '/commercial-break-clause-before-signing',
+    '/commercial-repairing-obligations-before-signing',
     '/restaurant-lease-viability-check',
     '/salon-lease-viability-check',
     '/commercial-lease-viability-check',

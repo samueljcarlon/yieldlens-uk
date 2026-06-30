@@ -167,7 +167,7 @@ const relatedLinks = [
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
   { href: '/commercial-lease-deposit-before-signing', label: 'Commercial lease deposit before signing' },
   { href: '/commercial-rent-free-period-before-signing', label: 'Commercial rent-free period before signing' },
-  { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
+  { href: '/sample-commercial-viability-file', label: 'Sample commercial viability file' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
 ];
 

@@ -201,11 +201,6 @@ const relatedLinks = [
     description: 'Move from costs to the wider signing checklist.',
   },
   {
-    href: '/commercial-heads-of-terms-before-signing',
-    label: 'Commercial heads of terms before signing',
-    description: 'Check the commercial terms before the lease is drafted.',
-  },
-  {
     href: '/commercial-lease-deposit-before-signing',
     label: 'Commercial lease deposit before signing',
     description: 'Check how the deposit changes opening cash and working capital.',
@@ -219,6 +214,11 @@ const relatedLinks = [
     href: '/commercial-fit-out-costs-before-signing',
     label: 'Commercial fit-out costs before signing',
     description: 'Check how opening spend changes the cash buffer.',
+  },
+  {
+    href: '/commercial-repairing-obligations-before-signing',
+    label: 'Commercial repairing obligations before signing',
+    description: 'Check whether repair risk changes the opening cost stack.',
   },
 ];
 
