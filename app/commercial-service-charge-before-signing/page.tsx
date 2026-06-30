@@ -164,7 +164,7 @@ const relatedLinks = [
   { href: '/commercial-rent-burden-calculator', label: 'Commercial rent burden calculator' },
   { href: '/commercial-rent-affordability-calculator', label: 'Commercial rent affordability calculator' },
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
-  { href: '/commercial-repairing-obligations-before-signing', label: 'Commercial repairing obligations before signing' },
+  { href: '/commercial-business-rates-before-signing', label: 'Commercial business rates before signing' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
 ];
 

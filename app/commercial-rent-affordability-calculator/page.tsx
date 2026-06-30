@@ -122,7 +122,7 @@ const relatedLinks = [
   { href: '/commercial-fit-out-costs-before-signing', label: 'Commercial fit-out costs before signing' },
   { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
   { href: '/commercial-rent-burden-calculator', label: 'Commercial rent burden calculator' },
-  { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
+  { href: '/commercial-business-rates-before-signing', label: 'Commercial business rates before signing' },
 ];
 
 function SectionTitle({

@@ -216,9 +216,9 @@ const relatedLinks = [
     description: 'Check how opening spend changes the cash buffer.',
   },
   {
-    href: '/commercial-repairing-obligations-before-signing',
-    label: 'Commercial repairing obligations before signing',
-    description: 'Check whether repair risk changes the opening cost stack.',
+    href: '/commercial-business-rates-before-signing',
+    label: 'Commercial business rates before signing',
+    description: 'Check how rates change the recurring cost base.',
   },
 ];
 

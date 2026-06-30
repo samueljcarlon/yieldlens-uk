@@ -84,7 +84,7 @@ const commercialFileItems = [
 const proofBlocks = [
   {
     title: 'Why the checks matter',
-    text: 'Rent burden checks affordability pressure. Break-even customers check trading realism. Opening cash checks setup strain. Downside survival checks weak-start resilience. Rent-free periods and fit-out incentives can change the cash picture. The evidence checklist reduces assumption risk.',
+    text: 'Rent burden checks affordability pressure. Break-even customers check trading realism. Opening cash checks setup strain. Business rates and service charge can move the cost base. Downside survival checks weak-start resilience. Rent-free periods and fit-out incentives can change the cash picture. The evidence checklist reduces assumption risk.',
   },
   {
     title: 'What the memo helps you do',

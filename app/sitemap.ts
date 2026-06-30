@@ -5,6 +5,7 @@ const baseUrl = 'https://yieldlens.co.uk';
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     '',
+    '/about',
     '/check',
     '/contact',
     '/privacy',
@@ -12,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/commercial-lease-checklist-before-signing',
     '/commercial-heads-of-terms-before-signing',
     '/commercial-lease-costs-before-signing',
+    '/commercial-business-rates-before-signing',
     '/commercial-rent-free-period-before-signing',
     '/commercial-lease-deposit-before-signing',
     '/commercial-service-charge-before-signing',

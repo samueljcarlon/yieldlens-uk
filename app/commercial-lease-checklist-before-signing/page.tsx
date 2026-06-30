@@ -182,6 +182,12 @@ const guideIndexRows = [
     label: 'Commercial service charge before signing',
   },
   {
+    issue: 'Business rates',
+    why: 'They can materially change the monthly cost base.',
+    href: '/commercial-business-rates-before-signing',
+    label: 'Commercial business rates before signing',
+  },
+  {
     issue: 'Fit-out costs',
     why: 'They drain cash before revenue starts.',
     href: '/commercial-fit-out-costs-before-signing',

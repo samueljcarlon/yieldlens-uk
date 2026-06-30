@@ -181,9 +181,9 @@ const funnelLinks = [
     href: '/sample-commercial-viability-file',
   },
   {
-    title: 'How it works',
-    text: 'Learn how YieldLens turns rent and costs into a practical decision view.',
-    href: '/how-it-works',
+    title: 'Commercial business rates before signing',
+    text: 'Check how rates change the monthly cost base before you commit.',
+    href: '/commercial-business-rates-before-signing',
   },
 ];
 
