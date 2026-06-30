@@ -18,50 +18,50 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Permitted Use Before Signing | YieldLens UK',
+  title: 'Commercial Assignment and Subletting Before Signing | YieldLens UK',
   description:
-    'Check how permitted use, planning, licensing and lease restrictions can affect commercial lease viability before signing.',
+    'Check how assignment, subletting and exit restrictions can affect commercial lease viability before signing.',
   alternates: {
-    canonical: '/commercial-permitted-use-before-signing',
+    canonical: '/commercial-assignment-subletting-before-signing',
   },
   openGraph: {
-    title: 'Commercial Permitted Use Before Signing | YieldLens UK',
+    title: 'Commercial Assignment and Subletting Before Signing | YieldLens UK',
     description:
-      'Check how permitted use, planning, licensing and lease restrictions can affect commercial lease viability before signing.',
-    url: 'https://yieldlens.co.uk/commercial-permitted-use-before-signing',
+      'Check how assignment, subletting and exit restrictions can affect commercial lease viability before signing.',
+    url: 'https://yieldlens.co.uk/commercial-assignment-subletting-before-signing',
   },
 };
 
 const faqItems = [
   {
-    question: 'What is permitted use in a commercial lease?',
+    question: 'What is assignment in a commercial lease?',
     answer:
-      'Permitted use is the type of business or activity the lease allows at the property. The exact wording matters because it can limit what the tenant can actually do at the site.',
+      'Assignment is the transfer of the tenant’s lease interest to another occupier. The exact conditions matter because they can affect how easily the tenant can exit later.',
   },
   {
-    question: 'Why should I check permitted use before signing?',
+    question: 'What is subletting in a commercial lease?',
     answer:
-      'A site can look financially viable and still be unsuitable if the intended use is not allowed or needs further permission. Checking early helps avoid spending on a unit that cannot operate as planned.',
+      'Subletting is when the tenant lets the premises, or part of them, to another party under a separate agreement. The lease wording determines whether that is allowed and on what terms.',
   },
   {
-    question: 'Can planning or licensing affect lease viability?',
+    question: 'Why should I check assignment and subletting before signing?',
     answer:
-      'Yes. Planning constraints, licences, landlord consent, or lease wording can all affect whether the intended business can open and trade as planned.',
+      'They affect exit flexibility. If the site underperforms or the concept changes, the lease may be harder to manage if assignment or subletting is limited.',
   },
   {
-    question: 'Should permitted use be checked before fit-out?',
+    question: 'Should assignment be checked alongside the break clause?',
     answer:
-      'Yes. It is safer to check before fit-out, deposit, and legal costs are fully committed, because those costs can be hard to unwind.',
+      'Yes. The break clause gives one exit route on a date. Assignment and subletting can affect what happens if the tenant needs more flexibility between those dates.',
   },
   {
-    question: 'Can YieldLens confirm whether a business use is allowed?',
+    question: 'Can assignment or subletting affect lease viability?',
     answer:
-      'No. YieldLens does not confirm permitted use, planning position, licensing position, or landlord consent. It helps you identify where the commercial risk sits so the right checks can be made.',
+      'Yes. If exit options are too tight, the downside of the lease is greater, especially when fit-out spend and opening cash are already stretched.',
   },
   {
-    question: 'Is YieldLens giving legal, planning or licensing advice?',
+    question: 'Is YieldLens giving legal advice on assignment or subletting?',
     answer:
-      'No. YieldLens UK provides indicative decision-support only. It does not provide legal, planning, licensing, valuation, tax, or financial advice.',
+      'No. YieldLens UK provides indicative decision-support only. It does not review legal wording or replace legal, lease, valuation, tax, or financial advice.',
   },
 ];
 
@@ -91,60 +91,46 @@ const breadcrumbStructuredData = {
     {
       '@type': 'ListItem',
       position: 2,
-      name: 'Commercial Permitted Use Before Signing',
-      item: 'https://yieldlens.co.uk/commercial-permitted-use-before-signing',
+      name: 'Commercial Assignment and Subletting Before Signing',
+      item: 'https://yieldlens.co.uk/commercial-assignment-subletting-before-signing',
     },
   ],
 };
 
 const comparisonRows = [
   {
-    title: 'Rent burden',
-    text: 'Shows whether the headline rent is too much for the expected revenue.',
+    title: 'Assignment',
+    text: 'Shows whether the lease can be transferred to another tenant if the business needs to exit.',
+  },
+  {
+    title: 'Subletting',
+    text: 'Shows whether the tenant can lease the unit, or part of it, to someone else later.',
+  },
+  {
+    title: 'Break clause',
+    text: 'Shows whether there is a contractual exit date if the clause conditions are met.',
+  },
+  {
+    title: 'Lease length',
+    text: 'Shows how long the tenant is committed before any other exit route is considered.',
   },
   {
     title: 'Permitted use',
-    text: 'Shows whether the intended business can actually operate at the site.',
+    text: 'Shows whether the future occupier or use would still fit the lease wording.',
   },
   {
-    title: 'Planning and licensing',
-    text: 'Shows whether the business may need further permission before trading.',
-  },
-  {
-    title: 'Landlord consent',
-    text: 'Shows whether the intended use or works may need approval before opening.',
-  },
-  {
-    title: 'Fit-out and opening cash',
-    text: 'Shows whether upfront spend is still sensible if the use is not yet settled.',
-  },
-  {
-    title: 'Lease restrictions',
-    text: 'Shows whether use wording, hours, extraction, signage, or exclusivity could limit the concept.',
+    title: 'Repair obligations',
+    text: 'Shows whether condition risk could make assignment or exit more difficult later.',
   },
 ];
 
 const exampleRows = [
-  { label: 'Business type', value: 'Cafe' },
   { label: 'Annual rent', value: '£60,000' },
   { label: 'Monthly rent', value: '£5,000' },
   { label: 'Expected monthly revenue', value: '£24,960' },
-  { label: 'Expected customers/day', value: '80' },
+  { label: 'Rent burden', value: '20.0%' },
   { label: 'Fit-out', value: '£50,000' },
   { label: 'Opening cash buffer', value: '£9,000' },
-];
-
-const verificationChecks = [
-  'Does the lease permit the intended business use?',
-  'Is the permitted use wide enough if the concept changes later?',
-  'Is landlord consent needed for the intended operation?',
-  'Are planning constraints or separate permissions to check?',
-  'Are licences needed before trading starts?',
-  'Are opening hours restricted?',
-  'Are extraction, signage, seating, or outdoor trading assumptions allowed?',
-  'Are there exclusivity or neighbouring-use restrictions?',
-  'Could permitted use affect assignment or subletting later?',
-  'Has a solicitor or appropriate professional reviewed the wording?',
 ];
 
 const relatedLinks = [
@@ -159,19 +145,19 @@ const relatedLinks = [
     description: 'Check the early deal points before the lease gets expensive.',
   },
   {
-    href: '/commercial-lease-costs-before-signing',
-    label: 'Commercial lease costs before signing',
-    description: 'Check whether the cost stack still works if use is constrained.',
+    href: '/commercial-lease-length-before-signing',
+    label: 'Commercial lease length before signing',
+    description: 'See how the commitment period changes the exit question.',
   },
   {
-    href: '/commercial-assignment-subletting-before-signing',
-    label: 'Commercial assignment and subletting before signing',
-    description: 'Check whether exit flexibility matters if the concept changes.',
+    href: '/commercial-break-clause-before-signing',
+    label: 'Commercial break clause before signing',
+    description: 'Compare the clause that gives a date-based exit route.',
   },
   {
-    href: '/commercial-lease-viability-check',
-    label: 'Commercial lease viability check',
-    description: 'Pressure-test the numbers after the use question is understood.',
+    href: '/commercial-permitted-use-before-signing',
+    label: 'Commercial permitted use before signing',
+    description: 'Check whether the intended business still fits the lease.',
   },
 ];
 
@@ -195,16 +181,16 @@ function SectionTitle({
   );
 }
 
-export default function CommercialPermittedUseBeforeSigningPage() {
+export default function CommercialAssignmentSublettingBeforeSigningPage() {
   return (
     <div className="bg-[var(--yieldlens-page)] text-stone-900">
       <JsonLd data={[faqStructuredData, breadcrumbStructuredData]} />
       <FunnelEventTracker
         eventName="inbound_page_view"
-        pagePath="/commercial-permitted-use-before-signing"
+        pagePath="/commercial-assignment-subletting-before-signing"
         pageType="seo_page"
         mode="commercial"
-        eventLabel="Commercial permitted use before signing viewed"
+        eventLabel="Commercial assignment and subletting before signing viewed"
       />
 
       <section className={`${heroBackdropClass} mx-4 sm:mx-6 lg:mx-auto lg:max-w-6xl mt-4`}>
@@ -213,22 +199,22 @@ export default function CommercialPermittedUseBeforeSigningPage() {
           <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_0.95fr] gap-10 lg:gap-12 items-center">
             <div>
               <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#D6C7A2] mb-4">
-                Commercial permitted use
+                Commercial assignment and subletting
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial permitted use before signing a lease
+                Commercial assignment and subletting before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
-                The numbers can look workable, but the site still needs to be usable for the intended business. Permitted use, planning restrictions, licensing, lease wording and landlord consent can all affect whether a commercial unit can actually trade as planned.
+                Assignment and subletting clauses can affect how much flexibility a tenant has if the site does not trade as expected. A lease can look viable at the start, but become harder to manage if the business cannot assign, sublet, adapt, or exit cleanly.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
-                Use this page to check the use assumptions before fit-out, deposit, and legal costs are committed.
+                Use this page to think about exit flexibility before you sign, then run the free commercial check if you want to pressure-test the numbers as well.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
-                  pagePath="/commercial-permitted-use-before-signing"
+                  pagePath="/commercial-assignment-subletting-before-signing"
                   ctaLabel="Run a free commercial check"
                   pageType="seo_page"
                   className={heroPrimaryCtaClass}
@@ -238,7 +224,7 @@ export default function CommercialPermittedUseBeforeSigningPage() {
                 <TrackedCtaLink
                   href="/sample-commercial-viability-file"
                   eventName="commercial_home_cta_clicked"
-                  pagePath="/commercial-permitted-use-before-signing"
+                  pagePath="/commercial-assignment-subletting-before-signing"
                   ctaLabel="View sample viability file"
                   pageType="seo_page"
                   className={heroSecondaryCtaClass}
@@ -246,94 +232,68 @@ export default function CommercialPermittedUseBeforeSigningPage() {
                   View sample viability file
                 </TrackedCtaLink>
               </div>
-              <div className="mt-6 flex flex-wrap gap-3 text-xs text-stone-300">
-                <Link href="/commercial-lease-checklist-before-signing" className="underline decoration-stone-400/70 underline-offset-4">
-                  Commercial lease checklist before signing
-                </Link>
-                <Link href="/commercial-heads-of-terms-before-signing" className="underline decoration-stone-400/70 underline-offset-4">
-                  Commercial heads of terms before signing
-                </Link>
-                <Link href="/commercial-lease-viability-check" className="underline decoration-stone-400/70 underline-offset-4">
+              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-300">
+                <Link href="/commercial-lease-viability-check" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease viability check
+                </Link>
+                <Link href="/viability-file" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Standard commercial viability file
                 </Link>
               </div>
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>
-                YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, planning advice, licensing advice, a valuation, a RICS valuation, building survey advice, or a substitute for professional due diligence.
+                YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, a RICS valuation, building survey advice, or a substitute for professional due diligence.
               </p>
             </div>
 
             <div className={`${surfaceCardClass} bg-white/95 p-5 sm:p-6 shadow-[0_18px_48px_rgba(15,23,42,0.10)]`}>
               <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-medium mb-3">
-                Why permitted use matters
+                Quick answer
               </p>
-              <div className="space-y-3">
-                {[
-                  {
-                    title: 'Use may be restricted',
-                    text: 'The lease can limit what the property may be used for, which affects whether the concept can operate there.',
-                  },
-                  {
-                    title: 'Planning and licensing may still matter',
-                    text: 'A viable unit can still need further permission before it is ready to trade.',
-                  },
-                  {
-                    title: 'Costs are easier to avoid early',
-                    text: 'It is safer to check use assumptions before fit-out, deposit, and legal costs are committed.',
-                  },
-                  {
-                    title: 'Revenue assumptions can break',
-                    text: 'If the intended use is not allowed, the revenue case may not be realistic even if the rent model looks fine.',
-                  },
-                ].map((row) => (
-                  <div key={row.title} className={`${surfaceCardSoftClass} p-4`}>
-                    <p className="text-sm font-semibold text-stone-900 mb-1">{row.title}</p>
-                    <p className="text-sm text-[var(--yieldlens-muted)] leading-6">{row.text}</p>
-                  </div>
-                ))}
+              <ul className="space-y-2 text-sm leading-6 text-[var(--yieldlens-muted)]">
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
+                  <span>Check whether the lease can be assigned if the business changes.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
+                  <span>Check whether subletting is allowed and on what terms.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
+                  <span>Read assignment together with the break clause, lease length, and permitted use.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--yieldlens-caution)] shrink-0" />
+                  <span>Exit flexibility matters more when fit-out spend and opening cash are already tight.</span>
+                </li>
+              </ul>
+              <div className="mt-5 rounded-3xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] p-4 text-sm text-[var(--yieldlens-muted)] leading-7">
+                A site can look workable on rent alone and still be hard to manage if the lease does not leave a clean exit path.
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className={`${sectionBandClass} mt-8`}>
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Why it matters"
-            title="A site can look financially viable and still be the wrong use."
-            description="Use restrictions matter before fit-out, deposit and legal costs are committed. The commercial case only works if the intended business can actually operate there."
+            eyebrow="Why the clause matters"
+            title="Assignment and subletting are part of the downside, not just a legal footnote."
+            description="If the business changes, the site underperforms, or the concept needs to pivot, the lease needs a practical exit route."
           />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              {
-                title: 'Use and tradeability',
-                text: 'The lease may restrict how the property can be used, which can stop the intended concept before it starts.',
-              },
-              {
-                title: 'Planning and licensing',
-                text: 'Separate permissions may still be needed before the site can open and trade as planned.',
-              },
-              {
-                title: 'Upfront spend',
-                text: 'If use is not settled, fit-out, deposit, and legal costs can be sunk into the wrong site.',
-              },
-              {
-                title: 'Revenue realism',
-                text: 'Revenue assumptions only work if the planned service, layout, hours, and operating model are actually allowed.',
-              },
-              {
-                title: 'Landlord consent',
-                text: 'Some changes or uses may need landlord approval before they can proceed.',
-              },
-              {
-                title: 'Lease viability',
-                text: 'A site can look affordable on rent and still fail the practical use check.',
-              },
+              'They affect exit flexibility.',
+              'They matter if trading weakens.',
+              'They matter if the concept changes.',
+              'They interact with permitted use.',
+              'They interact with lease length and break clauses.',
+              'They can change the downside of committing to a site.',
             ].map((item, index) => (
               <div
-                key={item.title}
-                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 ${
+                key={item}
+                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 text-sm text-stone-700 leading-7 ${
                   index === 0
                     ? 'border-t-[var(--yieldlens-positive)]'
                     : index === 1
@@ -347,27 +307,25 @@ export default function CommercialPermittedUseBeforeSigningPage() {
                             : 'border-t-[var(--yieldlens-caution)]'
                 }`}
               >
-                <h3 className="text-lg font-semibold text-stone-900 mb-2">{item.title}</h3>
-                <p className="text-sm text-[var(--yieldlens-muted)] leading-7">{item.text}</p>
+                {item}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+      <section className={`${sectionBandClass}`}>
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Commercial comparison"
-            title="Financial viability is not the same as permitted use."
-            description="YieldLens can test the commercial pressure points, but it cannot confirm that the intended use is legally or practically permitted."
+            eyebrow="Compare the terms"
+            title="Assignment and subletting should be read with the rest of the lease."
+            description="The key question is not only whether the site works on day one, but whether the tenant can still manage the downside if assumptions change."
           />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {comparisonRows.map((row, index) => (
               <div
                 key={row.title}
-                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 ${
+                className={`${surfaceCardClass} border-t-4 p-5 sm:p-6 ${
                   index === 0
                     ? 'border-t-[var(--yieldlens-caution)]'
                     : index === 1
@@ -381,39 +339,36 @@ export default function CommercialPermittedUseBeforeSigningPage() {
                             : 'border-t-[var(--yieldlens-caution)]'
                 }`}
               >
-                <h3 className="text-base font-semibold text-stone-900 mb-2">{row.title}</h3>
-                <p className="text-sm text-[var(--yieldlens-muted)] leading-6">{row.text}</p>
+                <h3 className="text-lg font-semibold text-stone-900 mb-2">{row.title}</h3>
+                <p className="text-sm text-[var(--yieldlens-muted)] leading-7">{row.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className={`${sectionBandClass}`}>
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Illustrative example"
-            title="If the use is wrong, the revenue case may not be realistic."
-            description="This is an illustrative scenario, not a real case study."
+            title="Exit flexibility matters more when the opening cash buffer is thin."
+            description="This is a safe fictional example, not a real case study."
           />
-          <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-4">
             <div className={`${surfaceCardClass} p-5 sm:p-6`}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {exampleRows.map((row) => (
-                  <div key={row.label} className={`${surfaceCardSoftClass} p-3`}>
-                    <p className="text-xs uppercase tracking-wide text-[var(--yieldlens-muted)]">{row.label}</p>
-                    <p className="text-lg font-semibold text-stone-900 mt-1">{row.value}</p>
+                  <div key={row.label} className={`${surfaceCardSoftClass} p-4`}>
+                    <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-caution)] mb-2">{row.label}</p>
+                    <p className="text-lg font-semibold text-stone-900">{row.value}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className={`${surfaceCardSoftClass} p-5 sm:p-6`}>
+            <div className={`${surfaceCardSoftClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-sm text-[var(--yieldlens-muted)] leading-7">
-                If the cafe use, opening hours, extraction, signage, alcohol licence, seating, outdoor space or other operational assumptions are not permitted, the revenue case may not be realistic even if the rent model appears workable.
+                If the site has high fit-out spend and a limited opening buffer, exit flexibility matters if trading is weaker than expected. Assignment, subletting, permitted use, and break clause wording should be read together.
               </p>
-              <div className="mt-4 rounded-3xl border border-[var(--yieldlens-border)] bg-white p-4 text-sm text-[var(--yieldlens-muted)] leading-7">
-                The useful question is not only whether the site can carry the rent. It is whether the intended business can actually operate there under the lease, planning, and licensing position that needs to be verified.
-              </div>
             </div>
           </div>
         </div>
@@ -422,37 +377,48 @@ export default function CommercialPermittedUseBeforeSigningPage() {
       <section className={`${sectionBandClass}`}>
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Questions to verify"
-            title="What should you check before relying on the use assumption?"
-            description="These are the points to verify with a solicitor, the landlord, or the relevant official source before the deal moves forward."
+            eyebrow="Questions to ask"
+            title="Ask the questions that make the exit route concrete."
+            description="These are the checks that should be answered before fit-out, deposit, and legal work become sunk."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {verificationChecks.map((item, index) => (
+            {[
+              'Can the lease be assigned?',
+              'Can the premises be sublet?',
+              'Is landlord consent required?',
+              'Can consent be refused or delayed?',
+              'Are there conditions attached to assignment or subletting?',
+              'Does permitted use restrict likely future occupiers?',
+              'Are guarantees or ongoing liabilities required after assignment?',
+              'Does subletting have to be of the whole premises or part only?',
+              'How does assignment or subletting interact with repair obligations?',
+              'Has a solicitor reviewed the wording?',
+            ].map((item, index) => (
               <div
                 key={item}
-                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 ${
+                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 text-sm text-stone-700 leading-7 ${
                   index === 0
-                    ? 'border-t-[var(--yieldlens-caution)]'
+                    ? 'border-t-[var(--yieldlens-positive)]'
                     : index === 1
-                      ? 'border-t-[var(--yieldlens-primary)]'
+                      ? 'border-t-[var(--yieldlens-caution)]'
                       : index === 2
-                        ? 'border-t-[var(--yieldlens-positive)]'
+                        ? 'border-t-[var(--yieldlens-primary)]'
                         : index === 3
                           ? 'border-t-[var(--yieldlens-fragile)]'
                           : index === 4
                             ? 'border-t-[var(--yieldlens-risk)]'
                             : index === 5
-                              ? 'border-t-[var(--yieldlens-caution)]'
+                              ? 'border-t-[var(--yieldlens-positive)]'
                               : index === 6
-                                ? 'border-t-[var(--yieldlens-primary)]'
+                                ? 'border-t-[var(--yieldlens-caution)]'
                                 : index === 7
-                                  ? 'border-t-[var(--yieldlens-positive)]'
+                                  ? 'border-t-[var(--yieldlens-primary)]'
                                   : index === 8
                                     ? 'border-t-[var(--yieldlens-fragile)]'
                                     : 'border-t-[var(--yieldlens-risk)]'
                 }`}
               >
-                <p className="text-sm text-stone-700 leading-7">{item}</p>
+                {item}
               </div>
             ))}
           </div>
@@ -463,8 +429,8 @@ export default function CommercialPermittedUseBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="How YieldLens helps"
-            title="The free commercial check tests the pressure points around the use question."
-            description="YieldLens can help you see whether the lease still looks viable once the commercial assumptions are tested, but it cannot confirm permissions or wording."
+            title="The free commercial check tests the pressure points around the exit question."
+            description="YieldLens can show whether the site still looks viable once the commercial assumptions are tested, but it cannot confirm assignment, subletting, landlord consent, or legal wording."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-positive)]`}>
@@ -507,7 +473,7 @@ export default function CommercialPermittedUseBeforeSigningPage() {
             <TrackedCtaLink
               href="/check?mode=commercial"
               eventName="commercial_home_cta_clicked"
-              pagePath="/commercial-permitted-use-before-signing"
+              pagePath="/commercial-assignment-subletting-before-signing"
               ctaLabel="Run a free commercial check"
               pageType="seo_page"
               className={heroPrimaryCtaClass}
@@ -518,6 +484,13 @@ export default function CommercialPermittedUseBeforeSigningPage() {
               View viability file
             </Link>
           </div>
+          <p className="mt-4 text-sm text-[var(--yieldlens-muted)] leading-7">
+            For the full lease pressure test, see the{' '}
+            <Link href="/commercial-lease-viability-check" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
+              commercial lease viability check
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
@@ -525,7 +498,8 @@ export default function CommercialPermittedUseBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Related pages"
-            title="Use the next page that matches the question you are asking."
+            title="Use the next page that matches the lease question you are asking."
+            description="These pages stay close to lease flexibility, timing, and the commercial downside of signing."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {relatedLinks.map((link) => (
@@ -544,8 +518,8 @@ export default function CommercialPermittedUseBeforeSigningPage() {
 
       <FaqSection
         eyebrow="Frequently asked questions"
-        title="Commercial permitted use FAQs"
-        description="Short answers for people checking whether the intended use is actually workable at the site."
+        title="Commercial assignment and subletting FAQs"
+        description="Short answers for people checking whether the lease leaves a practical exit route."
         faqs={faqItems.map((item) => ({ question: item.question, answer: item.answer }))}
         sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
       />
@@ -554,7 +528,7 @@ export default function CommercialPermittedUseBeforeSigningPage() {
         <div className="px-4 sm:px-6 lg:px-8 py-8 text-sm text-stone-300 leading-7 text-center">
           <p className="font-semibold text-[#D6C7A2] mb-2">Important disclaimer</p>
           <p className={disclaimerClass}>
-            YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, planning advice, licensing advice, valuation, building survey advice, or a substitute for professional due diligence.
+            YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, a valuation, a RICS valuation, or a substitute for professional due diligence.
           </p>
         </div>
       </section>

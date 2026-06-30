@@ -84,7 +84,7 @@ const commercialFileItems = [
 const proofBlocks = [
   {
     title: 'Why the checks matter',
-    text: 'Rent burden checks affordability pressure. Break-even customers check trading realism. Opening cash checks setup strain. Business rates and service charge can move the cost base. Lease length shapes commitment risk. Permitted use can stop the concept before it starts. Downside survival checks weak-start resilience. Rent-free periods and fit-out incentives can change the cash picture. The evidence checklist reduces assumption risk.',
+    text: 'Rent burden checks affordability pressure. Break-even customers check trading realism. Opening cash checks setup strain. Business rates and service charge can move the cost base. Lease length shapes commitment risk. Assignment and subletting affect exit flexibility. Permitted use can stop the concept before it starts. Downside survival checks weak-start resilience. Rent-free periods and fit-out incentives can change the cash picture. The evidence checklist reduces assumption risk.',
   },
   {
     title: 'What the memo helps you do',
@@ -287,7 +287,7 @@ export default function ViabilityFilePage() {
               </p>
 
               <p className="text-sm text-stone-300 max-w-2xl mb-4 leading-7">
-                If you are still comparing sites, start with the before-signing guides for heads of terms, costs, rent-free timing, lease length, deposit pressure, repair risk, and exit flexibility.
+                If you are still comparing sites, start with the before-signing guides for heads of terms, costs, rent-free timing, lease length, assignment and subletting, deposit pressure, repair risk, and exit flexibility.
               </p>
 
               <div className="mb-6 flex flex-wrap gap-3 text-sm text-stone-300">
@@ -305,6 +305,9 @@ export default function ViabilityFilePage() {
                 </Link>
                 <Link href="/commercial-lease-length-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease length before signing
+                </Link>
+                <Link href="/commercial-assignment-subletting-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial assignment and subletting before signing
                 </Link>
                 <Link href="/commercial-lease-deposit-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease deposit before signing

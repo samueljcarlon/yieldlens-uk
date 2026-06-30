@@ -111,6 +111,10 @@ const termRows = [
     text: 'The term sets the commitment period and changes how long the business has to recover setup cost.',
   },
   {
+    title: 'Assignment and subletting',
+    text: 'If the concept changes, ask how easy it will be to transfer or let the lease later.',
+  },
+  {
     title: 'Deposit',
     text: 'Cash tied up at the start reduces working capital before trade has proved itself.',
   },
@@ -182,9 +186,9 @@ const relatedLinks = [
     description: 'Check whether future rent increases could tighten the deal.',
   },
   {
-    href: '/commercial-lease-length-before-signing',
-    label: 'Commercial lease length before signing',
-    description: 'Check whether the commitment period matches the business plan.',
+    href: '/commercial-assignment-subletting-before-signing',
+    label: 'Commercial assignment and subletting before signing',
+    description: 'Check whether the lease can still be transferred if the concept changes.',
   },
 ];
 

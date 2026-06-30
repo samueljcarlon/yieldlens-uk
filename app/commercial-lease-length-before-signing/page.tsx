@@ -166,9 +166,9 @@ const exampleRows = [
 
 const relatedLinks = [
   {
-    href: '/commercial-lease-costs-before-signing',
-    label: 'Commercial lease costs before signing',
-    description: 'Check the full cost stack before the lease is signed.',
+    href: '/commercial-assignment-subletting-before-signing',
+    label: 'Commercial assignment and subletting before signing',
+    description: 'See whether exit flexibility is enough if the concept changes.',
   },
   {
     href: '/commercial-rent-review-before-signing',
