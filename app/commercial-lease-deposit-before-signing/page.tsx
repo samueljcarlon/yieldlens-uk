@@ -169,6 +169,7 @@ const relatedLinks = [
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
   { href: '/commercial-rent-free-period-before-signing', label: 'Commercial rent-free period before signing' },
   { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
+  { href: '/commercial-fit-out-costs-before-signing', label: 'Commercial fit-out costs before signing' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-rent-affordability-calculator', label: 'Commercial rent affordability calculator' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },

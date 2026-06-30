@@ -226,6 +226,11 @@ const relatedLinks = [
     description: 'Check how shared costs change the true occupancy cost.',
   },
   {
+    href: '/commercial-fit-out-costs-before-signing',
+    label: 'Commercial fit-out costs before signing',
+    description: 'Check how opening spend changes the cash buffer.',
+  },
+  {
     href: '/commercial-rent-affordability-calculator',
     label: 'Commercial rent affordability calculator',
     description: 'Check whether the rent still fits the business model.',

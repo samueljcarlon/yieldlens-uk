@@ -172,6 +172,11 @@ const bridgeLinks = [
     text: 'Check how shared costs change the true occupancy cost.',
   },
   {
+    title: 'Commercial fit-out costs before signing',
+    href: '/commercial-fit-out-costs-before-signing',
+    text: 'Check how opening spend changes the cash buffer.',
+  },
+  {
     title: 'Commercial rent-free period before signing',
     href: '/commercial-rent-free-period-before-signing',
     text: 'Check whether the incentive preserves enough opening cash.',

@@ -295,6 +295,10 @@ export default function ViabilityFilePage() {
                 <Link href="/commercial-service-charge-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   commercial service charge before signing
                 </Link>
+                . If fit-out is the bigger question, see{' '}
+                <Link href="/commercial-fit-out-costs-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  commercial fit-out costs before signing
+                </Link>
                 .
               </p>
 

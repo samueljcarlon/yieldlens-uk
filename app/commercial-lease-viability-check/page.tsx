@@ -184,6 +184,11 @@ const commercialLinks = [
     href: '/commercial-service-charge-before-signing',
   },
   {
+    title: 'Commercial fit-out costs before signing',
+    text: 'Check how opening spend changes the cash buffer.',
+    href: '/commercial-fit-out-costs-before-signing',
+  },
+  {
     title: 'Commercial rent-free period before signing',
     text: 'Check whether the incentive actually improves launch cash.',
     href: '/commercial-rent-free-period-before-signing',
