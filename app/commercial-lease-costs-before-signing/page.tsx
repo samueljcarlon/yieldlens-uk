@@ -216,6 +216,11 @@ const relatedLinks = [
     description: 'Check whether the incentive actually protects launch cash.',
   },
   {
+    href: '/commercial-rent-review-before-signing',
+    label: 'Commercial rent review before signing',
+    description: 'Check whether the rent could rise later and tighten the lease.',
+  },
+  {
     href: '/commercial-lease-deposit-before-signing',
     label: 'Commercial lease deposit before signing',
     description: 'Check how the deposit changes opening cash and working capital.',

@@ -12,57 +12,56 @@ import {
   memoBandClass,
   sectionBandClass,
   sectionHeadingClass,
-  secondaryCtaClass,
   surfaceCardClass,
   surfaceCardSoftClass,
   supportingTextClass,
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Service Charge Before Signing | YieldLens UK',
+  title: 'Commercial Rent Review Before Signing | YieldLens UK',
   description:
-    'Check how service charge, insurance, shared costs and variable lease costs affect commercial rent affordability before signing a lease.',
+    'Check how rent review clauses, future rent increases and lease wording can affect commercial rent affordability before signing.',
   alternates: {
-    canonical: '/commercial-service-charge-before-signing',
+    canonical: '/commercial-rent-review-before-signing',
   },
   openGraph: {
-    title: 'Commercial Service Charge Before Signing | YieldLens UK',
+    title: 'Commercial Rent Review Before Signing | YieldLens UK',
     description:
-      'Check how service charge, insurance, shared costs and variable lease costs affect commercial rent affordability before signing a lease.',
-    url: 'https://yieldlens.co.uk/commercial-service-charge-before-signing',
+      'Check how rent review clauses, future rent increases and lease wording can affect commercial rent affordability before signing.',
+    url: 'https://yieldlens.co.uk/commercial-rent-review-before-signing',
   },
 };
 
 const faqItems = [
   {
-    question: 'What is service charge in a commercial lease?',
+    question: 'What is a commercial rent review?',
     answer:
-      'Service charge is the tenant contribution to shared building or estate costs. It can sit on top of rent and increase the true occupancy cost.',
+      'A commercial rent review is a clause that allows the rent to be checked and potentially changed at a future point in the lease. The exact effect depends on the wording of the lease.',
   },
   {
-    question: 'Is service charge included in commercial rent?',
+    question: 'Why does rent review wording matter before signing?',
     answer:
-      'Not always. Some leases quote rent separately and then recover service charge, insurance, or other costs on top.',
+      'The starting rent is not the only rent risk. If the review wording allows a higher future rent, the site can become tighter later even if it looks manageable on day one.',
   },
   {
-    question: 'Can commercial service charge change after signing?',
+    question: 'Is starting rent enough to judge affordability?',
     answer:
-      'Yes, depending on the lease wording, the budget, the actual recoverable costs, and how the service charge is reconciled. The amount can move if the estimate differs from actual costs.',
+      'No. A starting rent can look fine while the review timing, indexation, or market review clause creates a stronger cost later on.',
   },
   {
-    question: 'Should I include service charge in rent affordability?',
+    question: 'Should I check rent review timing against a break clause?',
     answer:
-      'Yes. If service charge is ignored, the occupancy cost can look smaller than it really is, which can make a lease seem easier to carry than it is.',
+      'Yes. The timing matters because a lease can feel very different if the break clause comes before or after the first review date.',
   },
   {
-    question: 'What should I check before signing a lease with service charge?',
+    question: 'Can a rent review affect commercial lease viability?',
     answer:
-      'Check whether it is fixed, capped, estimated, or variable; what it covers; whether major works or landlord fees are included; and how the estimate is reconciled.',
+      'Yes. If the current rent burden is already tight, a future increase can narrow the margin for staff, rates, utilities, and slower trading months.',
   },
   {
-    question: 'Is YieldLens giving legal or lease advice?',
+    question: 'Is YieldLens giving rent review or legal advice?',
     answer:
-      'No. YieldLens UK provides indicative decision-support only. It helps you understand the commercial pressure points, but it does not replace legal, tax, finance, or lease advice.',
+      'No. YieldLens UK provides indicative decision-support only. It does not replace legal, lease, valuation, tax, or financial advice.',
   },
 ];
 
@@ -92,63 +91,59 @@ const breadcrumbStructuredData = {
     {
       '@type': 'ListItem',
       position: 2,
-      name: 'Commercial Service Charge Before Signing',
-      item: 'https://yieldlens.co.uk/commercial-service-charge-before-signing',
+      name: 'Commercial Rent Review Before Signing',
+      item: 'https://yieldlens.co.uk/commercial-rent-review-before-signing',
     },
   ],
 };
 
-const impactRows = [
+const riskRows = [
   {
-    title: 'True occupancy cost',
-    text: 'Service charge sits on top of rent and changes the real monthly cost of being in the unit.',
+    title: 'Starting rent is not the full story',
+    text: 'A site can look affordable today and still become tighter if the review clause allows the rent to rise later.',
   },
   {
-    title: 'Variable recovery risk',
-    text: 'If the charge is estimated or reconciled later, the cost can move after the lease is signed.',
+    title: 'Future rent affects the margin of safety',
+    text: 'Higher rent reduces room for staff, rates, utilities, insurance, and slower trading months.',
   },
   {
-    title: 'Opening cash pressure',
-    text: 'A higher occupancy stack leaves less room for fit-out, stock, staff, and weak opening months.',
+    title: 'Timing matters',
+    text: 'The break clause, review date, and rent-free timing should be considered together before signing.',
   },
   {
-    title: 'Downside trading',
-    text: 'Unexpected recoveries can narrow the margin of safety if trading starts slowly.',
-  },
-  {
-    title: 'Lease viability',
-    text: 'The question is not only whether rent is affordable, but whether the full occupancy cost still works.',
+    title: 'Lease wording matters',
+    text: 'Indexation, market review, or upward-only wording can all change how the lease behaves after opening.',
   },
 ];
 
 const compareRows = [
   {
-    title: 'Headline rent',
-    text: 'The obvious lease figure, but only one part of the full occupancy cost.',
+    title: 'Starting headline rent',
+    text: 'The rent shown at the start of the lease.',
   },
   {
-    title: 'Service charge',
-    text: 'Shared costs for the building or estate, which may be fixed, estimated, or variable.',
+    title: 'Rent-free period',
+    text: 'Delays some rent, but does not remove future rent review risk.',
   },
   {
-    title: 'Insurance recovery',
-    text: 'The landlord may recover building insurance separately from rent.',
+    title: 'Stepped rent',
+    text: 'Raises rent in stages rather than all at once.',
   },
   {
-    title: 'Utilities',
-    text: 'Running costs that can sit beside rent and service charge.',
+    title: 'Rent review clause',
+    text: 'Sets out how and when the rent can change later.',
   },
   {
-    title: 'Business rates',
-    text: 'A separate property cost that can be missed in a quick rent-only screen.',
+    title: 'Index-linked review',
+    text: 'Adjusts rent by reference to an index if the lease uses that method.',
   },
   {
-    title: 'Repairs and maintenance',
-    text: 'Lease wording can create exposure to upkeep or building costs beyond the headline rent.',
+    title: 'Market review or upward-only wording',
+    text: 'Can lead to a higher rent later depending on lease terms and market conditions.',
   },
   {
-    title: 'Sinking fund / major works',
-    text: 'If relevant, these can add another layer of recoverable or episodic cost.',
+    title: 'Break clause timing',
+    text: 'The lease may be more flexible if the break arrives before a review date.',
   },
 ];
 
@@ -157,6 +152,7 @@ const exampleRows = [
   { label: 'Monthly rent', value: '£5,000' },
   { label: 'Expected monthly revenue', value: '£24,960' },
   { label: 'Rent burden', value: '20.0%' },
+  { label: 'Break-even customers/day', value: '45.2' },
   { label: 'Opening cash buffer', value: '£9,000' },
 ];
 
@@ -164,10 +160,8 @@ const relatedLinks = [
   { href: '/check?mode=commercial', label: 'Run a free commercial check' },
   { href: '/sample-commercial-viability-file', label: 'View sample viability file' },
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
-  { href: '/commercial-rent-review-before-signing', label: 'Commercial rent review before signing' },
-  { href: '/commercial-lease-deposit-before-signing', label: 'Commercial lease deposit before signing' },
+  { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
   { href: '/commercial-rent-free-period-before-signing', label: 'Commercial rent-free period before signing' },
-  { href: '/commercial-fit-out-costs-before-signing', label: 'Commercial fit-out costs before signing' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-rent-affordability-calculator', label: 'Commercial rent affordability calculator' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
@@ -189,21 +183,21 @@ function SectionTitle({
         {eyebrow}
       </p>
       <h2 className={`${sectionHeadingClass} mb-3`}>{title}</h2>
-      {description && <p className={`${supportingTextClass}`}>{description}</p>}
+      {description && <p className={supportingTextClass}>{description}</p>}
     </div>
   );
 }
 
-export default function CommercialServiceChargeBeforeSigningPage() {
+export default function CommercialRentReviewBeforeSigningPage() {
   return (
     <div className="bg-[var(--yieldlens-page)] text-stone-900">
       <JsonLd data={[faqStructuredData, breadcrumbStructuredData]} />
       <FunnelEventTracker
         eventName="inbound_page_view"
-        pagePath="/commercial-service-charge-before-signing"
+        pagePath="/commercial-rent-review-before-signing"
         pageType="seo_page"
         mode="commercial"
-        eventLabel="Commercial service charge before signing viewed"
+        eventLabel="Commercial rent review before signing viewed"
       />
 
       <section className={`${heroBackdropClass} mx-4 sm:mx-6 lg:mx-auto lg:max-w-6xl mt-4`}>
@@ -212,22 +206,22 @@ export default function CommercialServiceChargeBeforeSigningPage() {
           <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_0.95fr] gap-10 lg:gap-12 items-center">
             <div>
               <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#D6C7A2] mb-4">
-                Commercial service charge
+                Commercial rent review
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial service charge before signing a lease
+                Commercial rent reviews before signing a lease
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
-                Service charge can materially change the true cost of a commercial lease. A site can look affordable on headline rent, but become much tighter once service charge, insurance, utilities, rates, repairs and opening costs are included.
+                A commercial lease can look affordable at the starting rent but become tighter later if rent review wording, review dates, indexation or future increases are not understood before signing.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
-                Use this page to judge the hidden costs in the lease, then run the free commercial check if you want to test rent and occupancy pressure together.
+                Use this page to check how the rent may move later, then run the free commercial check if you want to pressure-test the lease together.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
-                  pagePath="/commercial-service-charge-before-signing"
+                  pagePath="/commercial-rent-review-before-signing"
                   ctaLabel="Run a free commercial check"
                   pageType="seo_page"
                   className={heroPrimaryCtaClass}
@@ -237,7 +231,7 @@ export default function CommercialServiceChargeBeforeSigningPage() {
                 <TrackedCtaLink
                   href="/sample-commercial-viability-file"
                   eventName="commercial_home_cta_clicked"
-                  pagePath="/commercial-service-charge-before-signing"
+                  pagePath="/commercial-rent-review-before-signing"
                   ctaLabel="View sample viability file"
                   pageType="seo_page"
                   className={heroSecondaryCtaClass}
@@ -249,8 +243,8 @@ export default function CommercialServiceChargeBeforeSigningPage() {
                 <Link href="/commercial-lease-costs-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease costs before signing
                 </Link>
-                <Link href="/commercial-lease-deposit-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial lease deposit before signing
+                <Link href="/commercial-rent-free-period-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial rent-free period before signing
                 </Link>
                 <Link href="/commercial-lease-viability-check" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease viability check
@@ -263,10 +257,10 @@ export default function CommercialServiceChargeBeforeSigningPage() {
 
             <div className={`${surfaceCardClass} bg-white/95 p-5 sm:p-6 shadow-[0_18px_48px_rgba(15,23,42,0.10)]`}>
               <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-medium mb-3">
-                Why service charge matters
+                Why rent reviews matter
               </p>
               <div className="space-y-3">
-                {impactRows.map((row) => (
+                {riskRows.map((row) => (
                   <div key={row.title} className={`${surfaceCardSoftClass} p-4`}>
                     <p className="text-sm font-semibold text-stone-900 mb-1">{row.title}</p>
                     <p className="text-sm text-[var(--yieldlens-muted)] leading-6">{row.text}</p>
@@ -281,9 +275,9 @@ export default function CommercialServiceChargeBeforeSigningPage() {
       <section className={`${sectionBandClass} mt-8`}>
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Headline rent versus occupancy cost"
-            title="The combined cost base matters more than headline rent alone."
-            description="A good-looking rent can still hide a tighter deal once service charge and other occupancy costs are included."
+            eyebrow="Rent review versus starting rent"
+            title="The question is not just whether the site can afford rent today."
+            description="It is what happens if the rent changes while the business is still proving itself."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {compareRows.map((row, index) => (
@@ -317,7 +311,7 @@ export default function CommercialServiceChargeBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Illustrative example"
-            title="A simple example shows how service charge narrows the margin of safety."
+            title="A fictional site becomes harder to judge once future rent is part of the picture."
             description="This is an illustrative scenario, not a real case study."
           />
           <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
@@ -333,10 +327,10 @@ export default function CommercialServiceChargeBeforeSigningPage() {
             </div>
             <div className={`${surfaceCardSoftClass} p-5 sm:p-6`}>
               <p className="text-sm text-[var(--yieldlens-muted)] leading-7">
-                If service charge or other occupancy costs are understated, the margin of safety narrows further. At a 20.0% rent burden, extra recurring costs can materially change the decision.
+                At a 20.0% starting rent burden, even a future rent increase can matter because the lease already has limited room for error.
               </p>
               <div className="mt-4 rounded-3xl border border-[var(--yieldlens-border)] bg-white p-4 text-sm text-[var(--yieldlens-muted)] leading-7">
-                The useful question is not just whether rent looks manageable. It is whether the full occupancy cost still leaves enough working capital after the lease begins to bite.
+                The useful question is not only whether the rent works now. It is whether the starting rent, rent review timing, and break clause still leave enough headroom if trading is slower than expected.
               </div>
             </div>
           </div>
@@ -347,21 +341,21 @@ export default function CommercialServiceChargeBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Questions to ask"
-            title="What should you check before signing a lease with service charge?"
-            description="These are practical questions to verify with appropriate professional support."
+            title="What should you check before relying on the starting rent?"
+            description="These are questions to verify with appropriate professional support."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              'Is the service charge fixed, capped, estimated or variable?',
-              'What did previous years cost?',
-              'Are major works or sinking funds included?',
-              'Are landlord management fees included?',
-              'Is insurance recovered separately?',
-              'Are utilities separately metered?',
-              'Are there exclusions or one-off costs?',
-              'Does the lease allow unexpected recoveries?',
-              'Is VAT payable?',
-              'What happens if the estimate is wrong?',
+              'When is the first rent review?',
+              'How is the reviewed rent calculated?',
+              'Is the review fixed, indexed, market-based or another method?',
+              'Is there upward-only wording?',
+              'Is there a cap or collar?',
+              'Does the break clause fall before or after the review?',
+              'Does the rent-free period affect review timing?',
+              'Is service charge reviewed separately?',
+              'What happens if trading is weaker by the review date?',
+              'Has a solicitor reviewed the clause?',
             ].map((item, index) => (
               <div
                 key={item}
@@ -386,22 +380,22 @@ export default function CommercialServiceChargeBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="How YieldLens helps"
-            title="Use the free commercial check to test the full occupancy cost."
-            description="Service charge only matters in context. The free check puts it next to rent, opening cash, and downside trading."
+            title="Use the free commercial check to test the starting rent pressure."
+            description="Rent review only matters in context. The free check puts the rent next to opening cash, downside trading, and the rest of the lease pressure."
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               {
-                title: 'Rent burden',
-                text: 'See how much expected revenue the combined rent stack absorbs.',
+                title: 'Starting rent burden',
+                text: 'See how much expected revenue the rent absorbs at the outset.',
               },
               {
-                title: 'Monthly cost pressure',
-                text: 'Check whether the service charge leaves enough room for the rest of the cost base.',
+                title: 'Break-even customers',
+                text: 'Translate the lease into a daily trading target.',
               },
               {
-                title: 'Opening cash and downside trading',
-                text: 'Test whether the buffer survives weak early trade.',
+                title: 'Opening cash pressure',
+                text: 'Check whether the buffer still works if trading starts slowly.',
               },
             ].map((item, index) => (
               <div
@@ -423,7 +417,7 @@ export default function CommercialServiceChargeBeforeSigningPage() {
             <TrackedCtaLink
               href="/check?mode=commercial"
               eventName="commercial_home_cta_clicked"
-              pagePath="/commercial-service-charge-before-signing"
+              pagePath="/commercial-rent-review-before-signing"
               ctaLabel="Run a free commercial check"
               pageType="seo_page"
               className={heroPrimaryCtaClass}
@@ -446,20 +440,20 @@ export default function CommercialServiceChargeBeforeSigningPage() {
           />
           <div className={`${surfaceCardClass} p-5 sm:p-6`}>
             <p className="text-sm text-[var(--yieldlens-muted)] leading-7">
-              If the service charge changes the picture enough to keep the site in play, the sample file shows the format and the Standard file turns the result into a decision-support memo after the free check.
+              If rent review wording changes the picture enough to keep the site in play, the sample file shows the format and the Standard file turns the result into a decision-support memo after the free check.
             </p>
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <TrackedCtaLink
                 href="/sample-commercial-viability-file"
                 eventName="commercial_home_cta_clicked"
-                pagePath="/commercial-service-charge-before-signing"
+                pagePath="/commercial-rent-review-before-signing"
                 ctaLabel="See sample viability file"
                 pageType="seo_page"
                 className={heroPrimaryCtaClass}
               >
                 See sample viability file
               </TrackedCtaLink>
-              <Link href="/commercial-lease-costs-before-signing" className={secondaryCtaClass}>
+              <Link href="/commercial-lease-costs-before-signing" className={heroSecondaryCtaClass}>
                 Commercial lease costs before signing
               </Link>
             </div>
@@ -469,8 +463,8 @@ export default function CommercialServiceChargeBeforeSigningPage() {
 
       <FaqSection
         eyebrow="Frequently asked questions"
-        title="Commercial service charge FAQs"
-        description="Short answers for people comparing hidden lease costs and occupancy pressure."
+        title="Commercial rent review FAQs"
+        description="Short answers for people comparing future rent risk, affordability, and lease viability."
         faqs={faqItems.map((item) => ({ question: item.question, answer: item.answer }))}
         sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
       />
@@ -479,7 +473,7 @@ export default function CommercialServiceChargeBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Related pages"
-            title="Move to the page that matches the next cost question."
+            title="Move to the page that matches the next lease question."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {relatedLinks.map((link) => (

@@ -299,6 +299,10 @@ export default function ViabilityFilePage() {
                 <Link href="/commercial-fit-out-costs-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   commercial fit-out costs before signing
                 </Link>
+                . If future rent increases are the bigger question, see{' '}
+                <Link href="/commercial-rent-review-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  commercial rent reviews before signing
+                </Link>
                 .
               </p>
 

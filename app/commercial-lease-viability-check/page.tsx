@@ -174,6 +174,11 @@ const commercialLinks = [
     href: '/commercial-lease-costs-before-signing',
   },
   {
+    title: 'Commercial rent review before signing',
+    text: 'Check whether future rent increases could tighten the lease later.',
+    href: '/commercial-rent-review-before-signing',
+  },
+  {
     title: 'Commercial lease deposit before signing',
     text: 'Check how the deposit affects opening cash and working capital.',
     href: '/commercial-lease-deposit-before-signing',

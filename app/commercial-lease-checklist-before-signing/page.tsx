@@ -162,6 +162,11 @@ const bridgeLinks = [
     text: 'Check the full cost stack before the lease becomes expensive to unwind.',
   },
   {
+    title: 'Commercial rent review before signing',
+    href: '/commercial-rent-review-before-signing',
+    text: 'Check whether future rent increases could tighten the lease later.',
+  },
+  {
     title: 'Commercial lease deposit before signing',
     href: '/commercial-lease-deposit-before-signing',
     text: 'Check how the deposit changes opening cash and working capital.',
