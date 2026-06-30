@@ -43,7 +43,7 @@ export default function PrivacyPage() {
           </p>
           <p className="mt-3">
             If you need help with privacy, support, or the payment flow, use
-            the contact page or email hello@yieldlens.co.uk.
+            the contact page or email yieldlensuk@gmail.com.
           </p>
         </section>
 

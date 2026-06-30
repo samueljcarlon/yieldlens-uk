@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const linkClass = 'block text-sm text-stone-300 transition-colors hover:text-white';
-const supportHref = 'mailto:hello@yieldlens.co.uk?subject=YieldLens%20support';
+const supportHref = 'mailto:yieldlensuk@gmail.com?subject=YieldLens%20support';
 
 export default function Footer() {
   return (
@@ -23,7 +23,7 @@ export default function Footer() {
             <p className="mt-4 max-w-sm text-sm leading-7 text-stone-400">
               For support, email{' '}
               <a href={supportHref} className="underline decoration-white/30 underline-offset-4 hover:decoration-white">
-                hello@yieldlens.co.uk
+                yieldlensuk@gmail.com
               </a>
               . If the numbers look off, rerun the check with revised
               assumptions before paying or signing.
@@ -136,7 +136,7 @@ export default function Footer() {
             Questions about the product, access after payment, or privacy? Use
             the contact page or email{' '}
             <a href={supportHref} className="underline decoration-white/30 underline-offset-4 hover:decoration-white">
-              hello@yieldlens.co.uk
+              yieldlensuk@gmail.com
             </a>
             .
           </p>

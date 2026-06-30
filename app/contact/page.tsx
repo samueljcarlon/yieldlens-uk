@@ -67,7 +67,7 @@ function SectionTitle({
 }
 
 function mailtoHref() {
-  return 'mailto:hello@yieldlens.co.uk?subject=YieldLens%20support';
+  return 'mailto:yieldlensuk@gmail.com?subject=YieldLens%20support';
 }
 
 export default function ContactPage() {
@@ -87,7 +87,7 @@ export default function ContactPage() {
                 For product questions, access after payment, privacy queries, or
                 report corrections, email YieldLens UK at{' '}
                 <a className="underline decoration-white/30 underline-offset-4 hover:decoration-white" href={mailtoHref()}>
-                  hello@yieldlens.co.uk
+                  yieldlensuk@gmail.com
                 </a>
                 .
               </p>
@@ -191,7 +191,7 @@ export default function ContactPage() {
           />
           <div className="flex flex-col sm:flex-row gap-3">
             <a href={mailtoHref()} className={heroPrimaryCtaClass}>
-              Email hello@yieldlens.co.uk
+            Email yieldlensuk@gmail.com
             </a>
             <Link href="/sample-commercial-viability-file" className={heroSecondaryCtaClass}>
               View sample file

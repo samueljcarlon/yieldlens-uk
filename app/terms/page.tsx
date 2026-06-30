@@ -135,7 +135,7 @@ export default function TermsPage() {
         <section>
           <SectionTitle eyebrow="9. Contact" title="Questions and support" />
           <p className="mt-3">
-            For questions, use the contact page or email hello@yieldlens.co.uk.
+            For questions, use the contact page or email yieldlensuk@gmail.com.
             If something looks unclear, ask before paying or signing so the
             assumptions can be checked again.
           </p>

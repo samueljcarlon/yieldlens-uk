@@ -21,11 +21,11 @@ const siteStructuredData = [
     url: 'https://yieldlens.co.uk',
     description:
       'Independent UK commercial lease viability and rent affordability decision-support.',
-    email: 'hello@yieldlens.co.uk',
+    email: 'yieldlensuk@gmail.com',
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer support',
-      email: 'hello@yieldlens.co.uk',
+      email: 'yieldlensuk@gmail.com',
       areaServed: 'GB',
       availableLanguage: 'en-GB',
     },
