@@ -157,6 +157,11 @@ const bridgeLinks = [
     text: 'Pressure-test whether the site can carry the rent before you sign.',
   },
   {
+    title: 'Commercial heads of terms before signing',
+    href: '/commercial-heads-of-terms-before-signing',
+    text: 'Check the commercial assumptions before the lease process becomes expensive.',
+  },
+  {
     title: 'Commercial lease costs before signing',
     href: '/commercial-lease-costs-before-signing',
     text: 'Check the full cost stack before the lease becomes expensive to unwind.',

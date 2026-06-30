@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/privacy',
     '/terms',
     '/commercial-lease-checklist-before-signing',
+    '/commercial-heads-of-terms-before-signing',
     '/commercial-lease-costs-before-signing',
     '/commercial-rent-free-period-before-signing',
     '/commercial-lease-deposit-before-signing',

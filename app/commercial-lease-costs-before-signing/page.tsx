@@ -201,9 +201,9 @@ const relatedLinks = [
     description: 'Move from costs to the wider signing checklist.',
   },
   {
-    href: '/commercial-rent-free-period-before-signing',
-    label: 'Commercial rent-free period before signing',
-    description: 'Check whether the incentive actually protects launch cash.',
+    href: '/commercial-heads-of-terms-before-signing',
+    label: 'Commercial heads of terms before signing',
+    description: 'Check the commercial terms before the lease is drafted.',
   },
   {
     href: '/commercial-lease-deposit-before-signing',

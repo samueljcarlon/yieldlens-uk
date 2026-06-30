@@ -153,10 +153,10 @@ const exampleRows = [
 ];
 
 const relatedLinks = [
-  { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
-  { href: '/commercial-lease-deposit-before-signing', label: 'Commercial lease deposit before signing' },
-  { href: '/commercial-fit-out-costs-before-signing', label: 'Commercial fit-out costs before signing' },
+  { href: '/commercial-heads-of-terms-before-signing', label: 'Commercial heads of terms before signing' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
+  { href: '/commercial-lease-deposit-before-signing', label: 'Commercial lease deposit before signing' },
+  { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
   { href: '/commercial-rent-review-before-signing', label: 'Commercial rent review before signing' },
 ];
 

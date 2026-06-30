@@ -161,9 +161,9 @@ const exampleRows = [
 ];
 
 const relatedLinks = [
+  { href: '/commercial-heads-of-terms-before-signing', label: 'Commercial heads of terms before signing' },
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
   { href: '/commercial-rent-affordability-calculator', label: 'Commercial rent affordability calculator' },
-  { href: '/commercial-rent-burden-calculator', label: 'Commercial rent burden calculator' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
 ];

@@ -174,14 +174,14 @@ const commercialLinks = [
     href: '/commercial-lease-costs-before-signing',
   },
   {
+    title: 'Commercial heads of terms before signing',
+    text: 'Check the commercial terms before the lease becomes expensive to unwind.',
+    href: '/commercial-heads-of-terms-before-signing',
+  },
+  {
     title: 'Commercial rent review before signing',
     text: 'Check whether future rent increases could tighten the lease later.',
     href: '/commercial-rent-review-before-signing',
-  },
-  {
-    title: 'Commercial rent-free period before signing',
-    text: 'Check whether the incentive actually improves launch cash.',
-    href: '/commercial-rent-free-period-before-signing',
   },
   {
     title: 'Commercial break clause before signing',
