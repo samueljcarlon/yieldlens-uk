@@ -167,6 +167,11 @@ const bridgeLinks = [
     text: 'Check how the deposit changes opening cash and working capital.',
   },
   {
+    title: 'Commercial service charge before signing',
+    href: '/commercial-service-charge-before-signing',
+    text: 'Check how shared costs change the true occupancy cost.',
+  },
+  {
     title: 'Commercial rent-free period before signing',
     href: '/commercial-rent-free-period-before-signing',
     text: 'Check whether the incentive preserves enough opening cash.',

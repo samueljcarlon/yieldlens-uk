@@ -119,6 +119,7 @@ const whatToVerify = [
 
 const relatedLinks = [
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
+  { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
   { href: '/check?mode=commercial', label: 'Commercial lease viability check' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability page' },
   { href: '/commercial-rent-burden-calculator', label: 'Commercial rent burden calculator' },

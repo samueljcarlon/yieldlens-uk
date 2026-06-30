@@ -221,6 +221,11 @@ const relatedLinks = [
     description: 'Check how the deposit changes opening cash and working capital.',
   },
   {
+    href: '/commercial-service-charge-before-signing',
+    label: 'Commercial service charge before signing',
+    description: 'Check how shared costs change the true occupancy cost.',
+  },
+  {
     href: '/commercial-rent-affordability-calculator',
     label: 'Commercial rent affordability calculator',
     description: 'Check whether the rent still fits the business model.',

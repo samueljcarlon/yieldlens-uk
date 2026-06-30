@@ -179,6 +179,11 @@ const commercialLinks = [
     href: '/commercial-lease-deposit-before-signing',
   },
   {
+    title: 'Commercial service charge before signing',
+    text: 'Check how shared costs change the true occupancy cost.',
+    href: '/commercial-service-charge-before-signing',
+  },
+  {
     title: 'Commercial rent-free period before signing',
     text: 'Check whether the incentive actually improves launch cash.',
     href: '/commercial-rent-free-period-before-signing',

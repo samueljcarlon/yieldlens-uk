@@ -291,6 +291,10 @@ export default function ViabilityFilePage() {
                 <Link href="/commercial-lease-deposit-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   commercial lease deposits before signing
                 </Link>
+                , and if shared occupancy costs are the bigger question, see{' '}
+                <Link href="/commercial-service-charge-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  commercial service charge before signing
+                </Link>
                 .
               </p>
 
