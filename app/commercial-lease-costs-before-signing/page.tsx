@@ -196,11 +196,6 @@ const exampleRows = [
 
 const relatedLinks = [
   {
-    href: '/commercial-lease-checklist-before-signing',
-    label: 'Commercial lease checklist before signing',
-    description: 'Move from costs to the wider signing checklist.',
-  },
-  {
     href: '/commercial-lease-deposit-before-signing',
     label: 'Commercial lease deposit before signing',
     description: 'Check how the deposit changes opening cash and working capital.',
@@ -221,9 +216,9 @@ const relatedLinks = [
     description: 'Check how rates change the recurring cost base.',
   },
   {
-    href: '/commercial-permitted-use-before-signing',
-    label: 'Commercial permitted use before signing',
-    description: 'Check whether the intended business can actually operate there.',
+    href: '/commercial-lease-length-before-signing',
+    label: 'Commercial lease length before signing',
+    description: 'Check whether the commitment period matches the plan.',
   },
 ];
 
@@ -271,7 +266,7 @@ export default function CommercialLeaseCostsBeforeSigningPage() {
                 Commercial lease costs to check before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
-                Before signing a commercial lease, the rent is only one part of the commitment. Fit-out, deposit, service charge, legal fees, business rates, utilities, insurance, stock, staffing, and weak opening months can all affect whether the site can carry the lease.
+                Before signing a commercial lease, the rent is only one part of the commitment. Lease length, fit-out, deposit, service charge, legal fees, business rates, utilities, insurance, stock, staffing, and weak opening months can all affect whether the site can carry the lease.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
                 Use this page to check the costs before signing, then run the free commercial check if you want to pressure-test whether the unit still looks workable.

@@ -163,9 +163,9 @@ const exampleRows = [
 const relatedLinks = [
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-rent-review-before-signing', label: 'Commercial rent review before signing' },
+  { href: '/commercial-lease-length-before-signing', label: 'Commercial lease length before signing' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
   { href: '/commercial-lease-survival-calculator', label: 'Commercial lease survival calculator' },
-  { href: '/commercial-repairing-obligations-before-signing', label: 'Commercial repairing obligations before signing' },
 ];
 
 function SectionTitle({
@@ -212,7 +212,7 @@ export default function CommercialBreakClauseBeforeSigningPage() {
                 Commercial break clauses before signing a lease
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
-                A break clause can change the downside of a commercial lease. If trading is weaker than expected, opening cash is tight, or rent review risk is unclear, exit flexibility can matter as much as the starting rent.
+                A break clause can change the downside of a commercial lease. If trading is weaker than expected, opening cash is tight, lease length is long, or rent review risk is unclear, exit flexibility can matter as much as the starting rent.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
                 Use this page to judge how the break clause changes the downside, then run the free commercial check if you want to pressure-test the lease together.

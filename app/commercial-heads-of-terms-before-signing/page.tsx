@@ -20,14 +20,14 @@ import {
 export const metadata: Metadata = {
   title: 'Commercial Heads of Terms Before Signing | YieldLens UK',
   description:
-    'Check rent, deposit, rent-free period, service charge, break clause, rent review and opening cash before agreeing commercial lease heads of terms.',
+    'Check rent, deposit, rent-free period, lease length, service charge, break clause, rent review and opening cash before agreeing commercial lease heads of terms.',
   alternates: {
     canonical: '/commercial-heads-of-terms-before-signing',
   },
   openGraph: {
     title: 'Commercial Heads of Terms Before Signing | YieldLens UK',
     description:
-      'Check rent, deposit, rent-free period, service charge, break clause, rent review and opening cash before agreeing commercial lease heads of terms.',
+      'Check rent, deposit, rent-free period, lease length, service charge, break clause, rent review and opening cash before agreeing commercial lease heads of terms.',
     url: 'https://yieldlens.co.uk/commercial-heads-of-terms-before-signing',
   },
 };
@@ -107,6 +107,10 @@ const termRows = [
     text: 'The timing of any incentive matters because it affects whether launch cash survives the opening period.',
   },
   {
+    title: 'Lease length',
+    text: 'The term sets the commitment period and changes how long the business has to recover setup cost.',
+  },
+  {
     title: 'Deposit',
     text: 'Cash tied up at the start reduces working capital before trade has proved itself.',
   },
@@ -178,14 +182,9 @@ const relatedLinks = [
     description: 'Check whether future rent increases could tighten the deal.',
   },
   {
-    href: '/commercial-permitted-use-before-signing',
-    label: 'Commercial permitted use before signing',
-    description: 'Check whether the intended business can actually operate there.',
-  },
-  {
-    href: '/commercial-break-clause-before-signing',
-    label: 'Commercial break clause before signing',
-    description: 'Check whether exit flexibility changes the downside.',
+    href: '/commercial-lease-length-before-signing',
+    label: 'Commercial lease length before signing',
+    description: 'Check whether the commitment period matches the business plan.',
   },
 ];
 
@@ -233,7 +232,7 @@ export default function CommercialHeadsOfTermsBeforeSigningPage() {
                 Commercial heads of terms before signing a lease
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
-                Heads of terms can make a commercial lease feel real before the tenant has fully tested the numbers. Rent, rent-free period, deposit, service charge, repair obligations, break clause and rent review wording can all affect whether the site can carry the lease.
+                Heads of terms can make a commercial lease feel real before the tenant has fully tested the numbers. Rent, rent-free period, lease length, deposit, service charge, repair obligations, break clause and rent review wording can all affect whether the site can carry the lease.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
                 Use this page to pressure-test the commercial assumptions before the lease process becomes expensive.

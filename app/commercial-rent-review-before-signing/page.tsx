@@ -159,6 +159,7 @@ const exampleRows = [
 const relatedLinks = [
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-break-clause-before-signing', label: 'Commercial break clause before signing' },
+  { href: '/commercial-lease-length-before-signing', label: 'Commercial lease length before signing' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
   { href: '/commercial-rent-affordability-calculator', label: 'Commercial rent affordability calculator' },
 ];
@@ -210,7 +211,7 @@ export default function CommercialRentReviewBeforeSigningPage() {
                 A commercial lease can look affordable at the starting rent but become tighter later if rent review wording, review dates, indexation or future increases are not understood before signing.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
-                Use this page to check how the rent may move later, then run the free commercial check if you want to pressure-test the lease together.
+                Use this page to check how the rent may move later and how that fits with the lease length and break clause, then run the free commercial check if you want to pressure-test the lease together.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink

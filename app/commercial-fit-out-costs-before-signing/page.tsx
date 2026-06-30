@@ -113,7 +113,7 @@ const impactRows = [
   },
   {
     title: 'Lease interaction',
-    text: 'Fit-out pressure matters even more when rent-free timing, deposit, and service charge are also in play.',
+    text: 'Fit-out pressure matters even more when rent-free timing, deposit, lease length, and service charge are also in play.',
   },
   {
     title: 'Lease viability',
@@ -219,6 +219,13 @@ export default function CommercialFitOutCostsBeforeSigningPage() {
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
                 Use this page to understand the opening spend before signing, then run the free commercial check if you want to test the lease pressure together.
+              </p>
+              <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
+                If the build needs time to pay back, compare it with{' '}
+                <Link href="/commercial-lease-length-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  commercial lease length before signing
+                </Link>
+                .
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink

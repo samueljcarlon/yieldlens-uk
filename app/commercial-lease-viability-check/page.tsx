@@ -160,6 +160,7 @@ const verifyItems = [
   'Deposit terms',
   'Rent-free period',
   'Landlord contribution',
+  'Lease length',
   'Break clause',
   'Repair obligations',
   'Permitted use',
@@ -168,6 +169,11 @@ const verifyItems = [
 ];
 
 const commercialLinks = [
+  {
+    title: 'Commercial lease checklist before signing',
+    text: 'Start with the central hub if you are still choosing which lease question to check first.',
+    href: '/commercial-lease-checklist-before-signing',
+  },
   {
     title: 'Commercial lease costs before signing',
     text: 'Check the full cost stack before you commit to the lease.',
@@ -184,19 +190,9 @@ const commercialLinks = [
     href: '/commercial-break-clause-before-signing',
   },
   {
-    title: 'Commercial repairing obligations before signing',
-    text: 'Check whether repair exposure changes the lease viability picture.',
-    href: '/commercial-repairing-obligations-before-signing',
-  },
-  {
-    title: 'Commercial permitted use before signing',
-    text: 'Check whether the intended business can actually operate there.',
-    href: '/commercial-permitted-use-before-signing',
-  },
-  {
-    title: 'Commercial rent affordability calculator',
-    text: 'Check whether the rent still fits after costs and trading pressure are added.',
-    href: '/commercial-rent-affordability-calculator',
+    title: 'Commercial lease length before signing',
+    text: 'Check whether the commitment period matches the trading plan.',
+    href: '/commercial-lease-length-before-signing',
   },
 ];
 

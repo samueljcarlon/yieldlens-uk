@@ -21,14 +21,14 @@ import {
 export const metadata: Metadata = {
   title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks',
   description:
-    'Check rent, service charge, business rates, permitted use, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
+    'Check rent, lease length, service charge, business rates, permitted use, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
   alternates: {
     canonical: '/commercial-lease-checklist-before-signing',
   },
   openGraph: {
     title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks | YieldLens UK',
     description:
-      'Check rent, service charge, business rates, permitted use, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
+      'Check rent, lease length, service charge, business rates, permitted use, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
     url: 'https://yieldlens.co.uk/commercial-lease-checklist-before-signing',
   },
 };
@@ -42,7 +42,7 @@ const faqStructuredData = {
       name: 'What should I check before signing a commercial lease?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Start with rent burden, break-even customers or sales, opening cash, downside trading, service charge, rent review, repairing obligations, break clauses, and permitted use. Then ask a solicitor to review the legal terms.',
+        text: 'Start with rent burden, break-even customers or sales, opening cash, downside trading, service charge, rent review, lease length, repairing obligations, break clauses, and permitted use. Then ask a solicitor to review the legal terms.',
       },
     },
     {
@@ -112,6 +112,7 @@ const checklistSections = [
   {
     title: 'Lease terms',
     items: [
+      'Lease length',
       'Break clause',
       'Repair obligations',
       'Permitted use',
@@ -142,7 +143,7 @@ const questionGroups = [
   },
   {
     title: 'Lease terms',
-    text: 'Is service charge capped or variable? Who pays for repairs? Can rent increase at review? Is there a break clause? Are landlord works documented?',
+    text: 'Is service charge capped or variable? Who pays for repairs? Is the lease length right for the plan? Can rent increase at review? Is there a break clause? Are landlord works documented?',
   },
   {
     title: 'Trading evidence',
@@ -162,6 +163,12 @@ const guideIndexRows = [
     why: 'Deal points are harder to change later.',
     href: '/commercial-heads-of-terms-before-signing',
     label: 'Commercial heads of terms before signing',
+  },
+  {
+    issue: 'Lease length',
+    why: 'The term sets the commitment period and fit-out payback window.',
+    href: '/commercial-lease-length-before-signing',
+    label: 'Commercial lease length before signing',
   },
   {
     issue: 'Rent-free period',
@@ -222,7 +229,7 @@ const guideIndexRows = [
 const faqItems = [
   {
     q: 'What should I check before signing a commercial lease?',
-    a: 'Start with rent burden, break-even customers or sales, upfront cash, downside trading, service charge, rent review, repairing obligations, break clauses, and permitted use. Then ask a solicitor to review the legal terms.',
+    a: 'Start with rent burden, break-even customers or sales, upfront cash, downside trading, service charge, rent review, lease length, repairing obligations, break clauses, and permitted use. Then ask a solicitor to review the legal terms.',
   },
   {
     q: 'Should I sign a lease based only on rent?',
@@ -303,7 +310,7 @@ export default function CommercialLeaseChecklistPage() {
                 Commercial lease checklist before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
-                What should I check before signing a commercial lease? Cover both lease terms and commercial affordability. A unit can look attractive but become fragile once rent, service charge, business rates, fit-out, deposit, stock, staffing, and weak early trade are included.
+                What should I check before signing a commercial lease? Cover both lease terms and commercial affordability. A unit can look attractive but become fragile once rent, lease length, service charge, business rates, fit-out, deposit, stock, staffing, and weak early trade are included.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
                 This page gives a practical pre-signing checklist, then points you towards the free commercial check and the £49 Standard file if you want a structured decision memo.
