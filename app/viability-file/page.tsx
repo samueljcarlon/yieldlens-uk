@@ -303,6 +303,10 @@ export default function ViabilityFilePage() {
                 <Link href="/commercial-rent-review-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   commercial rent reviews before signing
                 </Link>
+                . If exit flexibility is the bigger question, see{' '}
+                <Link href="/commercial-break-clause-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  commercial break clauses before signing
+                </Link>
                 .
               </p>
 

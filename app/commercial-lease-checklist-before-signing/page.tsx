@@ -167,6 +167,11 @@ const bridgeLinks = [
     text: 'Check whether future rent increases could tighten the lease later.',
   },
   {
+    title: 'Commercial break clause before signing',
+    href: '/commercial-break-clause-before-signing',
+    text: 'Check whether exit flexibility reduces the downside if trading weakens.',
+  },
+  {
     title: 'Commercial lease deposit before signing',
     href: '/commercial-lease-deposit-before-signing',
     text: 'Check how the deposit changes opening cash and working capital.',
@@ -550,7 +555,13 @@ export default function CommercialLeaseChecklistPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 items-start">
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-caution)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Related pages
+                Before-signing guides
+              </p>
+              <h2 className="text-2xl font-bold text-stone-900 mb-3">
+                Commercial lease issues to check before signing
+              </h2>
+              <p className="text-sm text-[var(--yieldlens-muted)] leading-7 mb-4">
+                Start with the overall checklist, then use the focused guides when one lease issue needs a closer look.
               </p>
               <div className="grid grid-cols-1 gap-3">
                 {bridgeLinks.map((link, index) => (

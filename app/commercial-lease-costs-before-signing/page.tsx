@@ -196,16 +196,6 @@ const exampleRows = [
 
 const relatedLinks = [
   {
-    href: '/check?mode=commercial',
-    label: 'Run a free commercial check',
-    description: 'Run the rent, cash, and lease pressure test.',
-  },
-  {
-    href: '/sample-commercial-viability-file',
-    label: 'View sample viability file',
-    description: 'See the memo format before paying.',
-  },
-  {
     href: '/commercial-lease-checklist-before-signing',
     label: 'Commercial lease checklist before signing',
     description: 'Move from costs to the wider signing checklist.',
@@ -214,11 +204,6 @@ const relatedLinks = [
     href: '/commercial-rent-free-period-before-signing',
     label: 'Commercial rent-free period before signing',
     description: 'Check whether the incentive actually protects launch cash.',
-  },
-  {
-    href: '/commercial-rent-review-before-signing',
-    label: 'Commercial rent review before signing',
-    description: 'Check whether the rent could rise later and tighten the lease.',
   },
   {
     href: '/commercial-lease-deposit-before-signing',
@@ -234,26 +219,6 @@ const relatedLinks = [
     href: '/commercial-fit-out-costs-before-signing',
     label: 'Commercial fit-out costs before signing',
     description: 'Check how opening spend changes the cash buffer.',
-  },
-  {
-    href: '/commercial-rent-affordability-calculator',
-    label: 'Commercial rent affordability calculator',
-    description: 'Check whether the rent still fits the business model.',
-  },
-  {
-    href: '/commercial-rent-burden-calculator',
-    label: 'Commercial rent burden calculator',
-    description: 'See how much revenue rent is absorbing.',
-  },
-  {
-    href: '/commercial-lease-survival-calculator',
-    label: 'Commercial lease survival calculator',
-    description: 'Check whether weak opening months still leave runway.',
-  },
-  {
-    href: '/viability-file',
-    label: 'Viability file',
-    description: 'Read what the paid Standard commercial viability file includes.',
   },
 ];
 

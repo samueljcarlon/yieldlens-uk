@@ -157,15 +157,11 @@ const exampleRows = [
 ];
 
 const relatedLinks = [
-  { href: '/check?mode=commercial', label: 'Run a free commercial check' },
-  { href: '/sample-commercial-viability-file', label: 'View sample viability file' },
-  { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
-  { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
-  { href: '/commercial-rent-free-period-before-signing', label: 'Commercial rent-free period before signing' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
-  { href: '/commercial-rent-affordability-calculator', label: 'Commercial rent affordability calculator' },
+  { href: '/commercial-break-clause-before-signing', label: 'Commercial break clause before signing' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
-  { href: '/viability-file', label: 'Viability file' },
+  { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
+  { href: '/commercial-rent-affordability-calculator', label: 'Commercial rent affordability calculator' },
 ];
 
 function SectionTitle({

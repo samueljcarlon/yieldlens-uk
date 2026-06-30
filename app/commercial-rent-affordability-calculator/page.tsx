@@ -119,15 +119,10 @@ const whatToVerify = [
 
 const relatedLinks = [
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
-  { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
   { href: '/commercial-fit-out-costs-before-signing', label: 'Commercial fit-out costs before signing' },
-  { href: '/check?mode=commercial', label: 'Commercial lease viability check' },
-  { href: '/commercial-lease-viability-check', label: 'Commercial lease viability page' },
+  { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
   { href: '/commercial-rent-burden-calculator', label: 'Commercial rent burden calculator' },
-  { href: '/commercial-lease-survival-calculator', label: 'Commercial lease survival calculator' },
-  { href: '/sample-commercial-viability-file', label: 'Sample viability file' },
-  { href: '/viability-file', label: 'Viability file' },
-  { href: '/how-it-works', label: 'How it works' },
+  { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
 ];
 
 function SectionTitle({

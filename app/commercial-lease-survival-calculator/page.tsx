@@ -201,6 +201,12 @@ const connectionItems = [
     href: '/break-even-customers-calculator',
     label: 'View break-even calculator',
   },
+  {
+    title: 'Break clause',
+    text: 'Exit flexibility matters when the downside case is too tight to carry for long.',
+    href: '/commercial-break-clause-before-signing',
+    label: 'View break clause guide',
+  },
 ];
 
 const fullCheckItems = [

@@ -179,44 +179,19 @@ const commercialLinks = [
     href: '/commercial-rent-review-before-signing',
   },
   {
-    title: 'Commercial lease deposit before signing',
-    text: 'Check how the deposit affects opening cash and working capital.',
-    href: '/commercial-lease-deposit-before-signing',
-  },
-  {
-    title: 'Commercial service charge before signing',
-    text: 'Check how shared costs change the true occupancy cost.',
-    href: '/commercial-service-charge-before-signing',
-  },
-  {
-    title: 'Commercial fit-out costs before signing',
-    text: 'Check how opening spend changes the cash buffer.',
-    href: '/commercial-fit-out-costs-before-signing',
-  },
-  {
     title: 'Commercial rent-free period before signing',
     text: 'Check whether the incentive actually improves launch cash.',
     href: '/commercial-rent-free-period-before-signing',
   },
   {
+    title: 'Commercial break clause before signing',
+    text: 'Check whether exit flexibility reduces the downside if trading weakens.',
+    href: '/commercial-break-clause-before-signing',
+  },
+  {
     title: 'Commercial rent affordability calculator',
     text: 'Check whether the rent still fits after costs and trading pressure are added.',
     href: '/commercial-rent-affordability-calculator',
-  },
-  {
-    title: 'Commercial rent burden calculator',
-    text: 'See whether rent absorbs too much revenue before staff and other costs are considered.',
-    href: '/commercial-rent-burden-calculator',
-  },
-  {
-    title: 'Commercial lease survival calculator',
-    text: 'Pressure-test survival runway after opening.',
-    href: '/commercial-lease-survival-calculator',
-  },
-  {
-    title: 'Sample commercial viability file',
-    text: 'See the £49 decision memo structure before unlocking it.',
-    href: '/sample-commercial-viability-file',
   },
 ];
 
@@ -322,6 +297,9 @@ export default function CommercialLeaseViabilityPage() {
                 </Link>
                 <Link href="/commercial-rent-burden-calculator" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial rent burden calculator
+                </Link>
+                <Link href="/commercial-break-clause-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial break clause before signing
                 </Link>
                 <Link href="/how-it-works" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   How it works

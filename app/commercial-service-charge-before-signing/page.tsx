@@ -161,17 +161,11 @@ const exampleRows = [
 ];
 
 const relatedLinks = [
-  { href: '/check?mode=commercial', label: 'Run a free commercial check' },
-  { href: '/sample-commercial-viability-file', label: 'View sample viability file' },
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
-  { href: '/commercial-rent-review-before-signing', label: 'Commercial rent review before signing' },
-  { href: '/commercial-lease-deposit-before-signing', label: 'Commercial lease deposit before signing' },
-  { href: '/commercial-rent-free-period-before-signing', label: 'Commercial rent-free period before signing' },
-  { href: '/commercial-fit-out-costs-before-signing', label: 'Commercial fit-out costs before signing' },
-  { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-rent-affordability-calculator', label: 'Commercial rent affordability calculator' },
+  { href: '/commercial-rent-burden-calculator', label: 'Commercial rent burden calculator' },
+  { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
-  { href: '/viability-file', label: 'Viability file' },
 ];
 
 function SectionTitle({
