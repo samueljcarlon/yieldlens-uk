@@ -631,8 +631,14 @@ export default function ViabilityFilePage() {
           </div>
 
           <p className="mt-4 text-sm text-stone-700 leading-7 max-w-2xl mx-auto">
-            If you need help with access after payment or a saved result, use
-            the{' '}
+            If you need help with access after payment or a saved result, email{' '}
+            <a
+              href="mailto:yieldlensuk@gmail.com?subject=YieldLens%20support"
+              className="text-[var(--yieldlens-caution)] font-medium hover:underline"
+            >
+              yieldlensuk@gmail.com
+            </a>{' '}
+            or use the{' '}
             <Link href="/contact" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
               contact page
             </Link>

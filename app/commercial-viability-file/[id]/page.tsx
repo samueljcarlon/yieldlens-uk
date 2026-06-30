@@ -1484,8 +1484,9 @@ function AccessHelpState() {
         </p>
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mt-4">
-          If you still cannot open the file, use the contact page and include a
-          short description of what happened. Do not send payment card details or
+          If you still cannot open the file, email yieldlensuk@gmail.com with
+          the email used at checkout, the approximate payment time, and a short
+          description of what happened. Do not send payment card details or
           other sensitive information by email.
         </p>
 

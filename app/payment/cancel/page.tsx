@@ -41,11 +41,14 @@ export default async function PaymentCancelPage({
         </p>
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto mt-4">
-          If you need support with checkout, the saved result, or the sample
-          file, use the{' '}
+          If you need support with checkout, the saved result, or the sample file, use the{' '}
           <Link href="/contact" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
             contact page
           </Link>
+          or email{' '}
+          <a href="mailto:yieldlensuk@gmail.com?subject=YieldLens%20support" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
+            yieldlensuk@gmail.com
+          </a>
           .
         </p>
 

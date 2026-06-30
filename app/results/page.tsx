@@ -587,6 +587,17 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
                 Edit assumptions or run another check
               </Link>
             </div>
+
+            <p className="mt-3 text-sm text-stone-300 leading-6 max-w-3xl">
+              Need help with access after payment or a saved result? Email{' '}
+              <a
+                href="mailto:yieldlensuk@gmail.com?subject=YieldLens%20support"
+                className="font-medium text-[#DCCDA8] hover:underline"
+              >
+                yieldlensuk@gmail.com
+              </a>{' '}
+              or use the contact page.
+            </p>
           </div>
 
           <div className="rounded-3xl border border-white/25 bg-white/0 p-4 sm:p-5 shadow-sm">

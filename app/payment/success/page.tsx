@@ -64,7 +64,7 @@ export default async function PaymentSuccessPage({
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">
           {isReady
             ? 'Open the Standard file from this page. You can print it or save it as PDF for negotiation and due diligence. If your assumptions change later, rerun the free commercial check and unlock the latest saved result again.'
-            : 'Payment received. Your file may take a few seconds to unlock. Refresh this page shortly, then open the file from this page. If access does not appear, wait a moment and contact support.'}
+            : 'Payment received. Your file may take a few seconds to unlock. Refresh this page shortly, then open the file from this page. If access does not appear, email yieldlensuk@gmail.com with the email used at checkout, the approximate payment time, and a short description of the issue. Please do not send card details or other sensitive payment information.'}
         </p>
 
         <p className="text-sm text-stone-500 leading-7 max-w-2xl mx-auto mt-4">
@@ -76,6 +76,10 @@ export default async function PaymentSuccessPage({
           <Link href="/contact" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
             contact page
           </Link>
+          or email{' '}
+          <a href="mailto:yieldlensuk@gmail.com?subject=YieldLens%20support" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
+            yieldlensuk@gmail.com
+          </a>
           .
         </p>
 
