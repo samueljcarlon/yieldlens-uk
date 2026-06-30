@@ -211,6 +211,11 @@ const relatedLinks = [
     description: 'Move from costs to the wider signing checklist.',
   },
   {
+    href: '/commercial-rent-free-period-before-signing',
+    label: 'Commercial rent-free period before signing',
+    description: 'Check whether the incentive actually protects launch cash.',
+  },
+  {
     href: '/commercial-rent-affordability-calculator',
     label: 'Commercial rent affordability calculator',
     description: 'Check whether the rent still fits the business model.',

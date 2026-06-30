@@ -174,6 +174,11 @@ const commercialLinks = [
     href: '/commercial-lease-costs-before-signing',
   },
   {
+    title: 'Commercial rent-free period before signing',
+    text: 'Check whether the incentive actually improves launch cash.',
+    href: '/commercial-rent-free-period-before-signing',
+  },
+  {
     title: 'Commercial rent affordability calculator',
     text: 'Check whether the rent still fits after costs and trading pressure are added.',
     href: '/commercial-rent-affordability-calculator',

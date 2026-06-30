@@ -76,6 +76,7 @@ const commercialFileItems = [
   'Rent burden and break-even customers',
   'Opening cash and six-month survival',
   'Downside trading stress test',
+  'Rent-free periods and lease incentives',
   'Negotiation levers',
   'Evidence checklist before signing',
 ];
@@ -83,7 +84,7 @@ const commercialFileItems = [
 const proofBlocks = [
   {
     title: 'Why the checks matter',
-    text: 'Rent burden checks affordability pressure. Break-even customers check trading realism. Opening cash checks setup strain. Downside survival checks weak-start resilience. The evidence checklist reduces assumption risk.',
+    text: 'Rent burden checks affordability pressure. Break-even customers check trading realism. Opening cash checks setup strain. Downside survival checks weak-start resilience. Rent-free periods and fit-out incentives can change the cash picture. The evidence checklist reduces assumption risk.',
   },
   {
     title: 'What the memo helps you do',
@@ -277,11 +278,12 @@ export default function ViabilityFilePage() {
               <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 A printable decision-support memo built from the saved
                 commercial check assumptions. It helps organise rent burden,
-                cash pressure, downside risk, evidence gaps, and lease
-                questions before you sign. It is unlocked from a saved result,
-                then opens as a memo you can print or save as PDF. If your
-                assumptions change, rerun the free commercial check so the file
-                reflects the latest numbers.
+                cash pressure, downside risk, evidence gaps, lease questions,
+                and any rent-free period or fit-out incentive before you sign.
+                It is unlocked from a saved result, then opens as a memo you
+                can print or save as PDF. If your assumptions change, rerun
+                the free commercial check so the file reflects the latest
+                numbers.
               </p>
 
               <ul className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-200 leading-6">
@@ -291,13 +293,16 @@ export default function ViabilityFilePage() {
                 <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                   Printable memo for negotiation and due diligence
                 </li>
-                <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                  Rent burden, cash pressure, downside risk, and lease questions
-                </li>
-                <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                  Use estimates while comparing sites, then rerun the check
-                </li>
-              </ul>
+              <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                Rent burden, cash pressure, downside risk, and lease questions
+              </li>
+              <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                Rent-free periods and lease incentives can change the cash stack
+              </li>
+              <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                Use estimates while comparing sites, then rerun the check
+              </li>
+            </ul>
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
@@ -384,6 +389,14 @@ export default function ViabilityFilePage() {
           description="The Standard commercial viability file turns the free check into a concise decision memo."
         />
 
+        <p className="mb-6 text-sm text-stone-600 leading-7 max-w-3xl">
+          If a rent-free period or fit-out incentive is part of the deal, see{' '}
+          <Link href="/commercial-rent-free-period-before-signing" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
+            commercial rent-free periods before signing
+          </Link>{' '}
+          for the timing and cash impact before you commit.
+        </p>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {commercialFileItems.map((item) => (
             <div
@@ -428,7 +441,7 @@ export default function ViabilityFilePage() {
 
           <p className="mt-4 text-sm text-stone-600 leading-7 max-w-4xl">
             Use estimates if you are still comparing units. The file is useful when the deal looks promising
-            but you want to understand rent pressure, opening cash, and weak-start risk before committing.
+            but you want to understand rent pressure, opening cash, weak-start risk, and whether an incentive like a rent-free period actually changes the picture before committing.
           </p>
         </div>
       </section>

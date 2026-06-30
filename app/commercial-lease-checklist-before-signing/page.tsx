@@ -162,6 +162,11 @@ const bridgeLinks = [
     text: 'Check the full cost stack before the lease becomes expensive to unwind.',
   },
   {
+    title: 'Commercial rent-free period before signing',
+    href: '/commercial-rent-free-period-before-signing',
+    text: 'Check whether the incentive preserves enough opening cash.',
+  },
+  {
     title: 'Commercial rent affordability calculator',
     href: '/commercial-rent-affordability-calculator',
     text: 'Check whether the business can afford the rent and operating costs.',
