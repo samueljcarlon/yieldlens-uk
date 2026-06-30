@@ -111,6 +111,11 @@ const trustPrinciples = [
   'The aim is better judgment before the lease gets expensive to unwind.',
 ];
 
+const founderNote = [
+  'YieldLens UK was built by Sam Carlon to make commercial lease assumptions easier to challenge before operators commit to rent, fit-out, deposit, and legal costs.',
+  'The product is deliberately assumption-led. It does not replace professional due diligence, but it helps users organise the key commercial pressure points before signing.',
+];
+
 function SectionTitle({
   eyebrow,
   title,
@@ -359,6 +364,33 @@ export default function AboutPage() {
                 {item}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Founder note"
+            title="Built by Sam Carlon."
+            description="A small amount of founder presence helps with accountability without turning the page into a personal profile."
+          />
+          <div className={`${surfaceCardSoftClass} p-6 sm:p-7 max-w-3xl`}>
+            <div className="space-y-4 text-sm leading-7 text-stone-700">
+              {founderNote.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+              <p>
+                <a
+                  href="https://www.linkedin.com/in/sam-carlon-81729b222/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-[var(--yieldlens-primary)] hover:underline"
+                >
+                  Sam Carlon on LinkedIn
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </section>
