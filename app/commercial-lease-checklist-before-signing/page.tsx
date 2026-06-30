@@ -150,51 +150,60 @@ const questionGroups = [
   },
 ];
 
-const bridgeLinks = [
+const guideIndexRows = [
   {
-    title: 'Commercial lease costs before signing',
+    issue: 'Total lease costs',
+    why: 'Rent is only part of the commitment.',
     href: '/commercial-lease-costs-before-signing',
-    text: 'Check the full cost stack before the lease becomes expensive to unwind.',
+    label: 'Commercial lease costs before signing',
   },
   {
-    title: 'Commercial heads of terms before signing',
+    issue: 'Heads of terms',
+    why: 'Deal points are harder to change later.',
     href: '/commercial-heads-of-terms-before-signing',
-    text: 'Check the commercial assumptions before the lease process becomes expensive.',
+    label: 'Commercial heads of terms before signing',
   },
   {
-    title: 'Commercial rent-free period before signing',
+    issue: 'Rent-free period',
+    why: 'It affects launch cash and early trading runway.',
     href: '/commercial-rent-free-period-before-signing',
-    text: 'Check whether the incentive really protects launch cash.',
+    label: 'Commercial rent-free period before signing',
   },
   {
-    title: 'Commercial lease deposit before signing',
+    issue: 'Rent deposit',
+    why: 'It ties up cash before trading starts.',
     href: '/commercial-lease-deposit-before-signing',
-    text: 'Check how the deposit changes opening cash and working capital.',
+    label: 'Commercial lease deposit before signing',
   },
   {
-    title: 'Commercial service charge before signing',
+    issue: 'Service charge',
+    why: 'It changes the true occupancy cost.',
     href: '/commercial-service-charge-before-signing',
-    text: 'Check how shared costs change the true occupancy cost.',
+    label: 'Commercial service charge before signing',
   },
   {
-    title: 'Commercial fit-out costs before signing',
+    issue: 'Fit-out costs',
+    why: 'They drain cash before revenue starts.',
     href: '/commercial-fit-out-costs-before-signing',
-    text: 'Check how opening spend changes the cash buffer.',
+    label: 'Commercial fit-out costs before signing',
   },
   {
-    title: 'Commercial rent review before signing',
+    issue: 'Rent review',
+    why: 'Future rent can change viability later.',
     href: '/commercial-rent-review-before-signing',
-    text: 'Check whether future rent increases could tighten the lease later.',
+    label: 'Commercial rent review before signing',
   },
   {
-    title: 'Commercial break clause before signing',
+    issue: 'Break clause',
+    why: 'Exit flexibility affects downside risk.',
     href: '/commercial-break-clause-before-signing',
-    text: 'Check whether exit flexibility reduces the downside if trading weakens.',
+    label: 'Commercial break clause before signing',
   },
   {
-    title: 'Commercial repairing obligations before signing',
+    issue: 'Repairing obligations',
+    why: 'Hidden repair exposure can change the economics.',
     href: '/commercial-repairing-obligations-before-signing',
-    text: 'Check whether repair and reinstatement risk changes the cost picture.',
+    label: 'Commercial repairing obligations before signing',
   },
 ];
 
@@ -341,6 +350,53 @@ export default function CommercialLeaseChecklistPage() {
                 A checklist is most useful when it includes both lease wording and affordability pressure. Numbers without lease terms, or lease terms without numbers, miss the real risk.
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Before-signing guides"
+            title="Commercial lease issues to check before signing"
+            description="Use the hub to pick the guide that matches the clause or cost line you need to pressure-test first."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {guideIndexRows.map((row, index) => (
+              <div
+                key={row.href}
+                className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 ${
+                  index === 0
+                    ? 'border-t-[var(--yieldlens-caution)]'
+                    : index === 1
+                      ? 'border-t-[var(--yieldlens-primary)]'
+                      : index === 2
+                        ? 'border-t-[var(--yieldlens-positive)]'
+                        : index === 3
+                          ? 'border-t-[var(--yieldlens-fragile)]'
+                          : index === 4
+                            ? 'border-t-[var(--yieldlens-risk)]'
+                            : index === 5
+                              ? 'border-t-[var(--yieldlens-caution)]'
+                              : index === 6
+                                ? 'border-t-[var(--yieldlens-primary)]'
+                                : index === 7
+                                  ? 'border-t-[var(--yieldlens-positive)]'
+                                  : 'border-t-[var(--yieldlens-fragile)]'
+                }`}
+              >
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
+                  {row.issue}
+                </p>
+                <p className="text-sm text-stone-700 leading-7 mb-4">
+                  {row.why}
+                </p>
+                <Link href={row.href} className="text-sm font-medium text-[var(--yieldlens-primary)] underline decoration-[var(--yieldlens-primary)]/25 underline-offset-4 hover:decoration-[var(--yieldlens-primary)]">
+                  Read next: {row.label}
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -527,42 +583,38 @@ export default function CommercialLeaseChecklistPage() {
 
       <section className={`${sectionBandClass}`}>
         <div className="max-w-6xl mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-caution)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Before-signing guides
+                Product bridge
               </p>
               <h2 className="text-2xl font-bold text-stone-900 mb-3">
-                Commercial lease issues to check before signing
+                After reviewing the lease points, run a free commercial check.
               </h2>
-              <p className="text-sm text-[var(--yieldlens-muted)] leading-7 mb-4">
-                Start with the overall checklist, then use the focused guides when one lease issue needs a closer look.
+              <p className="text-sm text-[var(--yieldlens-muted)] leading-7 mb-5">
+                Test rent burden, opening cash, and downside pressure before the lease gets expensive to unwind.
               </p>
-              <div className="grid grid-cols-1 gap-3">
-                {bridgeLinks.map((link, index) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`${surfaceCardSoftClass} border-t-4 p-4 transition-all hover:border-t-[var(--yieldlens-caution)] hover:shadow-sm ${
-                      index === 0
-                        ? 'border-t-[var(--yieldlens-positive)]'
-                        : index === 1
-                          ? 'border-t-[var(--yieldlens-primary)]'
-                          : index === 2
-                            ? 'border-t-[var(--yieldlens-fragile)]'
-                            : index === 3
-                              ? 'border-t-[var(--yieldlens-risk)]'
-                              : index === 4
-                                ? 'border-t-[var(--yieldlens-caution)]'
-                                : index === 5
-                                  ? 'border-t-[var(--yieldlens-primary)]'
-                                  : 'border-t-[var(--yieldlens-positive)]'
-                    }`}
-                  >
-                    <p className="font-semibold text-stone-900 mb-1">{link.title}</p>
-                    <p className="text-sm text-[var(--yieldlens-muted)] leading-6">{link.text}</p>
-                  </Link>
-                ))}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <TrackedCtaLink
+                  href="/check?mode=commercial"
+                  eventName="commercial_home_cta_clicked"
+                  pagePath="/commercial-lease-checklist-before-signing"
+                  ctaLabel="Run a free commercial check"
+                  pageType="seo_page"
+                  className={heroPrimaryCtaClass}
+                >
+                  Run a free commercial check
+                </TrackedCtaLink>
+                <TrackedCtaLink
+                  href="/sample-commercial-viability-file"
+                  eventName="commercial_home_cta_clicked"
+                  pagePath="/commercial-lease-checklist-before-signing"
+                  ctaLabel="View sample viability file"
+                  pageType="seo_page"
+                  className={heroSecondaryCtaClass}
+                >
+                  View sample viability file
+                </TrackedCtaLink>
               </div>
             </div>
 
