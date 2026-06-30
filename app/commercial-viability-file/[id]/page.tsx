@@ -12,9 +12,9 @@ import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
 import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
 
 export const metadata: Metadata = {
-  title: 'Commercial Viability File',
+  title: 'Standard Commercial Viability File | YieldLens UK',
   description:
-    'Paid commercial viability file that turns a commercial result into a decision memo for negotiation and due diligence.',
+    '£49 printable commercial decision memo built from the free check, with rent burden, cash pressure, downside risk, negotiation levers, and lease questions.',
   robots: {
     index: false,
     follow: false,
@@ -227,6 +227,7 @@ function getCommercialContext(request: ReportRequest) {
   const upfrontCashNeeded = toNumber(result.upfrontCashNeeded);
   const startingCash = toNumber(input.startingCash);
   const cashAfterOpening = toNumber(result.availableCashAfterOpening);
+  const businessType = typeof input.businessType === 'string' && input.businessType.trim() ? input.businessType.trim() : null;
   const downsideRevenuePercentage = toNumber(result.downsideRevenuePercentage ?? input.downsideRevenuePercentage);
   const downsideMonthlyRevenue = toNumber(result.downsideMonthlyRevenue);
   const downsideMonthlyPosition = toNumber(result.downsideMonthlyPosition);
@@ -249,6 +250,7 @@ function getCommercialContext(request: ReportRequest) {
     upfrontCashNeeded,
     startingCash,
     cashAfterOpening,
+    businessType,
     downsideRevenuePercentage,
     downsideMonthlyRevenue,
     downsideMonthlyPosition,
@@ -372,6 +374,43 @@ function getSiteSnapshotRows(request: ReportRequest): Array<{ label: string; val
     { label: 'Expected customers/day', value: formatNumber(input.expectedCustomersPerDay) },
     { label: 'Average spend', value: formatCurrency(input.averageSpendPerCustomer) },
     { label: 'Opening days/month', value: formatNumber(input.openingDaysPerMonth) },
+  ];
+}
+
+function getAssumptionRows(request: ReportRequest): Array<{ label: string; value: string; helper: string }> {
+  const figures = getCommercialContext(request);
+
+  return [
+    {
+      label: 'Business type',
+      value: figures.businessType ?? 'Not provided',
+      helper: 'This helps read the rent and trading pressure in context.',
+    },
+    {
+      label: 'Monthly rent',
+      value: formatCurrency(figures.monthlyRent),
+      helper: 'The rent figure used to test the monthly burden.',
+    },
+    {
+      label: 'Expected monthly revenue',
+      value: formatCurrency(figures.monthlyRevenue),
+      helper: 'The revenue case the memo is pressure-testing.',
+    },
+    {
+      label: 'Opening capital needed',
+      value: formatCurrency(figures.upfrontCashNeeded),
+      helper: 'The cash needed before the site starts trading.',
+    },
+    {
+      label: 'Starting cash',
+      value: formatCurrency(figures.startingCash),
+      helper: 'Cash available before the opening costs leave the business.',
+    },
+    {
+      label: 'Monthly cost base',
+      value: formatCurrency(figures.monthlyCostBase),
+      helper: 'Staff, rates, utilities, insurance, and other monthly pressure.',
+    },
   ];
 }
 
@@ -1391,6 +1430,48 @@ function getDueDiligenceItems(request: ReportRequest): Array<{ label: string; de
   ];
 }
 
+function getDecisionQuestions(request: ReportRequest): Array<{ question: string; answer: string }> {
+  const figures = getCommercialContext(request);
+  const assessment = getFinalAssessment(request);
+
+  return [
+    {
+      question: 'Can the site still work if revenue is lower than expected?',
+      answer:
+        figures.survivesSixBadMonths
+          ? 'The downside month still covers operating costs, but the opening capital stack and lease terms still need to stay controlled.'
+          : 'Not comfortably on the current assumptions, so the site needs stronger terms or lower monthly pressure before signing feels safer.',
+    },
+    {
+      question: 'Is there enough cash after fit-out and deposit?',
+      answer:
+        figures.cashAfterOpening !== null
+          ? figures.cashAfterOpening < 0
+            ? `No. The opening capital stack shows a shortfall of ${getOpeningShortfall(request) ?? 'Not available'} before trading begins.`
+            : `Yes, but only ${formatCurrency(figures.cashAfterOpening)} remains after opening costs, so the buffer still needs careful checking.`
+          : 'Not available on the current inputs.',
+    },
+    {
+      question: 'Are lease costs capped or uncertain?',
+      answer:
+        figures.rentBurden !== null && figures.rentBurden > 18
+          ? 'The rent burden is already high enough that service charge, repairs, and review wording matter more than they would on a lighter-burden site.'
+          : 'Service charge, repairs, rent review, and assignment wording still need confirming because they can change the real cost of the lease.',
+    },
+    {
+      question: 'What would change the verdict?',
+      answer:
+        assessment.nextStep +
+        ' A better opening capital stack, lower rent, or stronger evidence for revenue are the main changes that would move the file in a better direction.',
+    },
+    {
+      question: 'Should you still get professional advice?',
+      answer:
+        'Yes. This memo is decision-support only and does not replace legal, tax, finance, valuation, or property review.',
+    },
+  ];
+}
+
 function getReportReference(request: ReportRequest): string {
   return getShortReference(request.id);
 }
@@ -1603,6 +1684,27 @@ export default async function CommercialViabilityFilePage({
             display: none !important;
           }
 
+          .print-memo .bg-stone-950 {
+            background: #ffffff !important;
+            color: #111827 !important;
+          }
+
+          .print-memo .bg-stone-950 * {
+            color: #111827 !important;
+          }
+
+          .print-memo .bg-stone-950 .border-white\\/10,
+          .print-memo .bg-stone-950 .border-white\\/15,
+          .print-memo .bg-stone-950 .border-white\\/20 {
+            border-color: #d6d3d1 !important;
+          }
+
+          .print-memo .bg-stone-950 .bg-white\\/5,
+          .print-memo .bg-stone-950 .bg-white\\/6,
+          .print-memo .bg-stone-950 .bg-white\\/10 {
+            background: #f8faf6 !important;
+          }
+
           .customer-print-section {
             break-inside: avoid-page;
             page-break-inside: avoid;
@@ -1658,6 +1760,17 @@ export default async function CommercialViabilityFilePage({
                 YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
               </p>
 
+              <p className="mt-4 text-sm text-stone-300 leading-6 max-w-3xl">
+                Need access help after payment? Email{' '}
+                <a
+                  href="mailto:yieldlensuk@gmail.com?subject=YieldLens%20support"
+                  className="font-medium text-[#DCCDA8] hover:underline"
+                >
+                  yieldlensuk@gmail.com
+                </a>{' '}
+                and include the email used at checkout, approximate payment time, and a short description of the issue. Do not send card details.
+              </p>
+
               <div className="mt-8 flex flex-col sm:flex-row gap-3 customer-print-hide">
                 <PrintButton />
               </div>
@@ -1709,8 +1822,8 @@ export default async function CommercialViabilityFilePage({
 
       <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
-          eyebrow="Executive summary"
-          title={assessment.verdict}
+          eyebrow="Main pressure points"
+          title="What drives the verdict"
           description={getExecutiveSummary(request)}
         />
 
@@ -1736,6 +1849,25 @@ export default async function CommercialViabilityFilePage({
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-[#F4F3F1] border-y border-stone-200 customer-print-section">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Assumptions used"
+            title="The figures behind this memo."
+            description="These are the saved inputs the file uses. If they change, rerun the free commercial check and review the result again."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {getAssumptionRows(request).map((item) => (
+              <div key={item.label} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card">
+                <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">{item.label}</p>
+                <p className="text-2xl font-bold text-stone-950 tabular-nums">{item.value}</p>
+                <p className="mt-2 text-sm text-stone-600 leading-6">{item.helper}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1786,9 +1918,9 @@ export default async function CommercialViabilityFilePage({
 
       <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
-          eyebrow="Site snapshot"
-          title="The assumptions behind the paid file."
-          description="These are the entered inputs the report is built from."
+          eyebrow="File details"
+          title="The saved result this memo is built from."
+          description="These are the property details and file reference attached to the saved result."
         />
         <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-white shadow-sm customer-print-card">
           <table className="w-full border-collapse text-sm">
@@ -1892,6 +2024,29 @@ export default async function CommercialViabilityFilePage({
 
       <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
         <SectionTitle
+          eyebrow="What would make this stronger"
+          title="The levers that improve the position."
+          description="These are the areas that usually move the memo in a better direction before signing."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {getWhatWouldNeedToImprove(request).map((item) => (
+            <div key={item.title} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card">
+              <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+              <p className="mt-2 text-xs uppercase tracking-[0.18em] text-stone-400">Current</p>
+              <p className="text-sm text-stone-700 leading-6">{item.current}</p>
+              <div className="mt-3 rounded-2xl border border-stone-100 bg-stone-50 p-3">
+                <p className="text-xs uppercase tracking-[0.18em] text-stone-400">Target</p>
+                <p className="mt-1 text-sm text-stone-700 leading-6">{item.target}</p>
+              </div>
+              <p className="mt-3 text-xs uppercase tracking-[0.18em] text-stone-400">What would improve it</p>
+              <p className="mt-1 text-sm text-stone-600 leading-7">{item.action}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
+        <SectionTitle
           eyebrow="Negotiation levers"
           title="Practical lease points worth testing before signing."
         />
@@ -1980,6 +2135,22 @@ export default async function CommercialViabilityFilePage({
         </div>
       </section>
 
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
+        <SectionTitle
+          eyebrow="Decision questions"
+          title="The questions that decide whether the site still works."
+          description="Use these to pressure-test the memo before you commit."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {getDecisionQuestions(request).map((item) => (
+            <div key={item.question} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card">
+              <p className="text-sm font-semibold text-stone-900">{item.question}</p>
+              <p className="mt-2 text-sm text-stone-600 leading-7">{item.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="bg-[#F4F3F1] border-y border-stone-200 customer-print-section">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
@@ -1999,6 +2170,16 @@ export default async function CommercialViabilityFilePage({
               </div>
             ))}
           </div>
+          <p className="mt-4 text-sm text-stone-700 leading-7 max-w-4xl">
+            If you need access help after payment, email{' '}
+            <a
+              href="mailto:yieldlensuk@gmail.com?subject=YieldLens%20support"
+              className="font-medium text-[var(--yieldlens-caution)] hover:underline"
+            >
+              yieldlensuk@gmail.com
+            </a>{' '}
+            with the email used at checkout, the approximate payment time, and a short description of the issue. Do not send card details.
+          </p>
           <p className="mt-4 text-xs text-stone-500 leading-6 max-w-4xl">
             YieldLens UK provides indicative decision-support only. It is not a valuation, financial advice, mortgage advice, legal advice, tax advice, or a substitute for professional due diligence.
           </p>
