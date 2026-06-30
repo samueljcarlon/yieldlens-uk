@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { CommercialInput } from '@/types/property';
 
 interface Props {
-  onSubmit: (input: CommercialInput) => void;
+  onSubmit: (input: CommercialInput) => Promise<void> | void;
 }
 
 function isBlank(value: string): boolean {
@@ -105,6 +105,9 @@ function FieldBlock({
 export default function CommercialForm({ onSubmit }: Props) {
   const [form, setForm] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isMountedRef = useRef(true);
+  const isSubmittingRef = useRef(false);
   const sectionSteps = [
     'Site and rent',
     'Revenue assumptions',
@@ -112,6 +115,12 @@ export default function CommercialForm({ onSubmit }: Props) {
     'Opening cash and setup costs',
     'Downside case',
   ];
+
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   const set = (key: string, value: string) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -162,9 +171,10 @@ export default function CommercialForm({ onSubmit }: Props) {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    if (isSubmittingRef.current) return;
     if (!validate()) return;
 
     const input: CommercialInput = {
@@ -189,7 +199,18 @@ export default function CommercialForm({ onSubmit }: Props) {
       email: form.email,
     };
 
-    onSubmit(input);
+    isSubmittingRef.current = true;
+    setIsSubmitting(true);
+
+    try {
+      await Promise.resolve(onSubmit(input));
+    } finally {
+      isSubmittingRef.current = false;
+
+      if (isMountedRef.current) {
+        setIsSubmitting(false);
+      }
+    }
   };
 
   const inputClass =
@@ -431,9 +452,11 @@ export default function CommercialForm({ onSubmit }: Props) {
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <button
           type="submit"
-          className="w-full sm:w-auto min-h-[48px] bg-green-700 px-6 py-3.5 text-base font-semibold text-white transition-colors shadow-sm hover:bg-green-800"
+          disabled={isSubmitting}
+          aria-busy={isSubmitting}
+          className="w-full sm:w-auto min-h-[48px] bg-green-700 px-6 py-3.5 text-base font-semibold text-white transition-colors shadow-sm hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-70"
         >
-          See viability snapshot
+          {isSubmitting ? 'Saving commercial check...' : 'See viability snapshot'}
         </button>
 
         <p className="text-xs text-stone-500 leading-5 max-w-xl">

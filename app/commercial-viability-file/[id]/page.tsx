@@ -1774,6 +1774,10 @@ export default async function CommercialViabilityFilePage({
               <div className="mt-8 flex flex-col sm:flex-row gap-3 customer-print-hide">
                 <PrintButton />
               </div>
+
+              <p className="mt-3 text-xs text-stone-400 leading-5 customer-print-hide">
+                For a cleaner PDF, turn off browser headers and footers in the print dialog.
+              </p>
             </div>
 
             <div className="rounded-[32px] border border-white/10 bg-white text-stone-900 p-5 sm:p-6 shadow-[0_24px_64px_rgba(15,23,42,0.18)] customer-print-card">

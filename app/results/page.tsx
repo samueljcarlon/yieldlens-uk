@@ -51,6 +51,30 @@ function formatMonths(value?: number): string {
   return `${value.toFixed(1)} months`;
 }
 
+function getSubmissionTrackingKey(submissionId: string): string {
+  return `yieldlens:commercial_check_submitted:${submissionId}`;
+}
+
+function hasTrackedCommercialSubmission(submissionId: string): boolean {
+  if (typeof window === 'undefined' || !submissionId) return false;
+
+  try {
+    return window.localStorage.getItem(getSubmissionTrackingKey(submissionId)) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function markCommercialSubmissionTracked(submissionId: string): void {
+  if (typeof window === 'undefined' || !submissionId) return;
+
+  try {
+    window.localStorage.setItem(getSubmissionTrackingKey(submissionId), '1');
+  } catch {
+    // Ignore storage errors. Tracking must never break the page.
+  }
+}
+
 type SummaryTone = 'neutral' | 'strong' | 'caution' | 'critical';
 
 function hasNumber(value?: number): value is number {
@@ -843,7 +867,13 @@ export default function ResultsPage() {
       return;
     }
 
+    if (hasTrackedCommercialSubmission(submission.id)) {
+      hasTrackedSubmission.current = true;
+      return;
+    }
+
     hasTrackedSubmission.current = true;
+    markCommercialSubmissionTracked(submission.id);
 
     void logToolEvent({
       event_name: 'commercial_check_submitted',

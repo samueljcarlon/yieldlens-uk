@@ -777,6 +777,10 @@ export default function SampleCommercialViabilityFilePage() {
             </Link>
             <PrintSaveButton className="print-hidden w-full sm:w-auto min-h-[48px] border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-900 transition-colors hover:border-stone-400" />
           </div>
+
+          <p className="print-hidden mt-3 text-xs text-stone-500 leading-5 max-w-2xl">
+            For a cleaner PDF, turn off browser headers and footers in the print dialog.
+          </p>
         </div>
       </section>
     </div>
