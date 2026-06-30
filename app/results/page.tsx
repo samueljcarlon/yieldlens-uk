@@ -15,6 +15,7 @@ import ScoreCard from '@/components/ScoreCard';
 import ReportInterestButton from '@/components/ReportInterestButton';
 import ScenarioPanel from '@/components/ScenarioPanel';
 import ResultsConversionPanel from '@/components/ResultsConversionPanel';
+import FeedbackCtaPanel from '@/components/FeedbackCtaPanel';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import { primaryCtaClass } from '@/components/yieldLensUi';
 import { logToolEvent } from '@/lib/logToolEvent';
@@ -1141,6 +1142,23 @@ export default function ResultsPage() {
             resultSummary={commercialResultSummary}
           />
         </div>
+
+        {!isResidential ? (
+          <div className="mt-8">
+            <FeedbackCtaPanel
+              eyebrow="Operator feedback"
+              title="Testing a real commercial unit?"
+              body="If you are comparing a live lease, send a short note about what felt useful, unclear, or missing from the free check. That helps shape the paid file around real operator questions."
+              ctaLabel="Email feedback"
+              href={`mailto:yieldlensuk@gmail.com?subject=${encodeURIComponent(
+                'YieldLens feedback on commercial check'
+              )}&body=${encodeURIComponent(
+                'Business type:\nType of unit:\nWhat felt useful:\nWhat was unclear:\nWhat would make the £49 Standard file more useful:\n'
+              )}`}
+              note="Please do not send card details, full lease documents, or other sensitive payment information."
+            />
+          </div>
+        ) : null}
       </div>
 
       <div className="mt-8 bg-white border border-stone-200 rounded-xl p-5 text-sm text-[var(--yieldlens-muted)]">

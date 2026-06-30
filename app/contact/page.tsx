@@ -8,6 +8,7 @@ import {
   surfaceCardClass,
   surfaceCardSoftClass,
 } from '@/components/yieldLensUi';
+import FeedbackCtaPanel from '@/components/FeedbackCtaPanel';
 
 export const metadata: Metadata = {
   title: 'Contact YieldLens UK',
@@ -182,6 +183,40 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Operator feedback"
+            title="Useful feedback comes from real commercial users."
+            description="Cafes, restaurants, salons, retailers, and first-time commercial tenants can all send a short note if the free check or sample file misses something important."
+          />
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-4">
+            <FeedbackCtaPanel
+              eyebrow="Send feedback"
+              title="Tell us what the free check missed."
+              body="If you are comparing a real lease, send a short note about what felt useful, unclear, or missing. That helps shape the Standard file around operator questions rather than assumptions alone."
+              ctaLabel="Email feedback"
+              href={`mailto:yieldlensuk@gmail.com?subject=${encodeURIComponent(
+                'YieldLens feedback on commercial check'
+              )}&body=${encodeURIComponent(
+                'Business type:\nType of unit:\nWhat felt useful:\nWhat was unclear:\nWhat would make the £49 Standard file more useful:\n'
+              )}`}
+              note="Please do not send card details. Avoid sending confidential lease documents unless specifically requested."
+            />
+
+            <div className={`${surfaceCardSoftClass} p-5`}>
+              <p className="text-sm font-semibold text-stone-900 mb-2">Use this when you are:</p>
+              <ul className="space-y-2 text-sm text-stone-700 leading-7">
+                <li>Comparing two or more units</li>
+                <li>Testing a cafe, restaurant, salon, or retail lease</li>
+                <li>Deciding whether the rent still works after fit-out and deposit</li>
+                <li>Checking if the £49 file would add useful pressure-test detail</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-[var(--yieldlens-hero)] text-white">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
@@ -191,7 +226,7 @@ export default function ContactPage() {
           />
           <div className="flex flex-col sm:flex-row gap-3">
             <a href={mailtoHref()} className={heroPrimaryCtaClass}>
-            Email yieldlensuk@gmail.com
+              Email yieldlensuk@gmail.com
             </a>
             <Link href="/sample-commercial-viability-file" className={heroSecondaryCtaClass}>
               View sample file

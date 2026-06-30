@@ -3,6 +3,7 @@ import Link from 'next/link';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import PrintSaveButton from '@/components/PrintSaveButton';
+import FeedbackCtaPanel from '@/components/FeedbackCtaPanel';
 import RentBurdenGauge from '@/components/visuals/RentBurdenGauge';
 import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
 import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
@@ -736,6 +737,21 @@ export default function SampleCommercialViabilityFilePage() {
             </p>
           </div>
         </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
+        <FeedbackCtaPanel
+          eyebrow="Operator feedback"
+          title="Would this help before signing a lease?"
+          body="YieldLens is being improved around real operator questions. If the sample file misses something you would need before paying, send feedback."
+          ctaLabel="Send sample-file feedback"
+          href={`mailto:yieldlensuk@gmail.com?subject=${encodeURIComponent(
+            'YieldLens sample file feedback'
+          )}&body=${encodeURIComponent(
+            'Business type:\nType of unit:\nWhat was missing:\nWhat would make the sample more useful:\n'
+          )}`}
+          note="Please do not send card details, full lease documents, or other confidential payment information."
+        />
       </section>
 
       <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
