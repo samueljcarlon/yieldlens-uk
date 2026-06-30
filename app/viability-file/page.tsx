@@ -489,7 +489,7 @@ export default function ViabilityFilePage() {
           <SectionTitle
             eyebrow="Free vs paid"
             title="The free check gives the numbers. The paid file turns them into a decision memo."
-            description="The comparison below keeps the offer honest. The free check is the screen. The paid file is the printable pressure-test and action plan."
+            description="The comparison below keeps the offer honest. The free check is the screen. The paid file is the printable pressure-test and action plan. The sample file is a separate redacted example, not the same case as the homepage preview."
           />
 
           <div className="grid gap-3 md:hidden">
@@ -602,7 +602,7 @@ export default function ViabilityFilePage() {
           </h2>
 
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
-            The check creates the saved result that powers the file. From the results page, you can unlock the Standard commercial viability file for that result or view the sample file.
+            The check creates the saved result that powers the file. From the results page, you can unlock the Standard commercial viability file for that result or view the separate redacted sample file first.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

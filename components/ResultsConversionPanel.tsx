@@ -28,27 +28,19 @@ const residentialItems = [
 const commercialItems = [
   {
     title: 'Decision memo',
-    body: 'Turns the free numbers into a printable memo for negotiation and due diligence.',
+    body: 'Turns the free numbers into a printable memo with a clear next-step structure.',
   },
   {
     title: 'Stress-test scenarios',
-    body: 'Base, downside, and cost-up views that keep the snapshot honest.',
+    body: 'Base, downside, and cost-up views that show where the result bends.',
   },
   {
-    title: 'Negotiation levers',
-    body: 'Rent, rent-free terms, deposit, break clause, and landlord contribution prompts.',
+    title: 'Pressure points',
+    body: 'Rent burden, break-even customers, opening cash, and downside survival in one read.',
   },
   {
-    title: 'Evidence checklist',
-    body: 'What evidence to collect before heads of terms or signing.',
-  },
-  {
-    title: 'Lease questions',
-    body: 'Service charge, repairs, permitted use, rent review, and handover questions.',
-  },
-  {
-    title: 'Printable file',
-    body: 'A clean memo you can use when talking to agents, advisers, or landlords.',
+    title: 'Lease and evidence',
+    body: 'Questions to raise with the agent or landlord, plus the facts to verify before heads of terms.',
   },
 ];
 
@@ -57,7 +49,6 @@ const commercialQuestions = [
   'What turnover would I need?',
   'What happens if trade starts slower than expected?',
   'What should I challenge before signing?',
-  'What evidence should I collect?',
 ];
 
 const compareRows = [
@@ -76,14 +67,10 @@ const compareRows = [
 ];
 
 const paidFileChecklist = [
-  'Decision memo',
-  'Rent burden interpretation',
-  'Break-even customer context',
-  'Opening cash and buffer view',
-  'Six-month downside survival',
-  'Negotiation levers',
-  'Evidence checklist',
-  'Lease questions',
+  'Executive memo and verdict',
+  'Stress-test interpretation',
+  'Negotiation levers and lease questions',
+  'Evidence checklist and next steps',
   'Printable file',
 ];
 

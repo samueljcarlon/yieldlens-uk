@@ -327,13 +327,13 @@ export default function SampleCommercialViabilityFilePage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 items-start">
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
-                Sample paid file
+                Separate illustrative sample file
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
                 Sample Standard commercial viability file
               </h1>
               <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                See the kind of analysis included in the £49 paid file after a free commercial check.
+                See the kind of analysis included in the £49 paid file after a free commercial check. This is a separate illustrative case, not the same preview used on the homepage.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
@@ -412,15 +412,24 @@ export default function SampleCommercialViabilityFilePage() {
           title="A fragile site that fails the opening capital test."
           description="The downside month still covers operating costs, but the site does not have enough cash after opening to absorb the fit-out and setup burden."
         />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {sampleSummary.map((item) => (
-            <div key={item.label} className="bg-white border border-stone-200 rounded-3xl p-5 shadow-sm">
-              <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
-              <p className="text-2xl font-bold mt-2 text-stone-900">{item.value}</p>
-              <p className="text-sm text-stone-600 leading-6 mt-2">{item.helper}</p>
-            </div>
-          ))}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-4">
+          <div className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm">
+            <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">What the sample shows</p>
+            <p className="mt-2 text-sm text-stone-700 leading-7">
+              This separate illustrative case shows how the memo connects the opening capital stack to the verdict.
+              The main pressure point is not the downside month on its own. It is the amount of cash that leaves
+              the business before trading has a chance to stabilise.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {sampleSummary.slice(0, 2).map((item) => (
+              <div key={item.label} className="bg-white border border-stone-200 rounded-3xl p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
+                <p className="text-2xl font-bold mt-2 text-stone-900">{item.value}</p>
+                <p className="text-sm text-stone-600 leading-6 mt-2">{item.helper}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -738,7 +747,10 @@ export default function SampleCommercialViabilityFilePage() {
             Run your own commercial check, then request the paid file if the site still looks worth pursuing.
           </h2>
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
-            The sample shows the kind of pressure-test, negotiation prompts, and due diligence structure that appears in the Standard commercial viability file. After payment, the same memo opens from the saved result and can be printed or saved as PDF.
+            The sample is a separate illustrative case that shows the pressure-test,
+            negotiation prompts, and due diligence structure used in the Standard
+            commercial viability file. After payment, the memo for the saved result
+            opens from the results flow and can be printed or saved as PDF.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <TrackedCtaLink

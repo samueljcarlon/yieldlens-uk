@@ -28,24 +28,20 @@ const exampleVerdict = {
 
 const featureCards = [
   {
-    title: 'Rent burden',
-    desc: 'See whether monthly rent leaves enough room for staff, stock, service charge, and quieter weeks.',
+    title: 'Rent and trade pressure',
+    desc: 'See whether rent leaves enough room for staffing, stock, service charge, and the break-even volume the site really needs.',
   },
   {
-    title: 'Break-even customers',
-    desc: 'Turn rent and costs into a daily customer target that can be checked against real trade.',
+    title: 'Opening capital stack',
+    desc: 'Add fit-out, deposit, legal fees, stock, and setup costs before deciding whether the unit still feels workable.',
   },
   {
-    title: 'Upfront cash needed',
-    desc: 'Add fit-out, deposit, legal fees, stock, and setup costs before judging the site.',
+    title: 'Downside survival',
+    desc: 'Test whether the site still holds together when launch trade is softer than expected.',
   },
   {
-    title: 'Downside revenue',
-    desc: 'Test whether the site still works when opening trade is slower than expected.',
-  },
-  {
-    title: 'Six-month survival',
-    desc: 'Check whether the opening cash buffer can handle a difficult early trading period.',
+    title: 'Lease pressure points',
+    desc: 'Keep service charge, repairs, rent review, and permitted use in view before heads of terms become expensive.',
   },
 ];
 
@@ -66,9 +62,8 @@ const freeCheckShows = [
 ];
 
 const whyThisMatters = [
-  'Rent only looks manageable until fit-out, deposit, legal fees, staffing, and utilities are all in the stack.',
+  'Rent only looks manageable once fit-out, deposit, legal fees, staffing, and utilities are all in the stack.',
   'A good-looking unit can still be commercially fragile if the opening start is weaker than planned.',
-  'The check is meant to surface those pressure points before the lease becomes expensive to unwind.',
 ];
 
 const howItWorks = [
@@ -241,7 +236,7 @@ export default function HomePage() {
               <div className="border-b border-white/10 bg-gradient-to-r from-white/10 via-white/5 to-amber-400/10 px-5 py-4 flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-stone-400 font-medium">
-                    Free commercial check
+                    Example snapshot
                   </p>
                   <p className="text-3xl font-bold mt-1 tracking-tight">
                     67<span className="text-lg text-stone-400">/100</span>
@@ -348,12 +343,12 @@ export default function HomePage() {
               Proof and next step
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
-              The Standard file turns the snapshot into a decision memo.
+              The Standard file adds the pressure-test, not just more of the same numbers.
             </h2>
             <p className="text-sm text-stone-600 leading-7">
-              The free result shows the pressure points. The Standard file turns them
-              into a structured memo for negotiation, evidence checking, and lease
-              questions.
+              The free result surfaces the pressure points. The Standard file turns
+              them into the structure needed to challenge the lease before heads of
+              terms become expensive.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
