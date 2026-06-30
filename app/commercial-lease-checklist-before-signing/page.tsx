@@ -21,14 +21,14 @@ import {
 export const metadata: Metadata = {
   title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks',
   description:
-    'Check rent, service charge, business rates, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
+    'Check rent, service charge, business rates, permitted use, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
   alternates: {
     canonical: '/commercial-lease-checklist-before-signing',
   },
   openGraph: {
     title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks | YieldLens UK',
     description:
-      'Check rent, service charge, business rates, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
+      'Check rent, service charge, business rates, permitted use, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
     url: 'https://yieldlens.co.uk/commercial-lease-checklist-before-signing',
   },
 };

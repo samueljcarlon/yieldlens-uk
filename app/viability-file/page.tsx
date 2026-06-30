@@ -297,11 +297,17 @@ export default function ViabilityFilePage() {
                 <Link href="/commercial-lease-costs-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease costs before signing
                 </Link>
+                <Link href="/commercial-business-rates-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial business rates before signing
+                </Link>
                 <Link href="/commercial-rent-free-period-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial rent-free period before signing
                 </Link>
                 <Link href="/commercial-lease-deposit-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease deposit before signing
+                </Link>
+                <Link href="/commercial-permitted-use-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial permitted use before signing
                 </Link>
                 <Link href="/commercial-repairing-obligations-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial repairing obligations before signing
