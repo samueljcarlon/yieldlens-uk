@@ -6,16 +6,16 @@ import TrackedCtaLink from '@/components/TrackedCtaLink';
 import { disclaimerClass, heroSecondaryCtaClass, heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Standard Commercial Viability File',
+  title: 'Standard Commercial Viability File | YieldLens UK',
   description:
-    'Turn a free commercial check into a £49 decision memo for negotiation and due diligence before signing a commercial lease.',
+    'Standard commercial viability file, £49. A printable decision-support memo built from the saved commercial check assumptions.',
   alternates: {
     canonical: '/viability-file',
   },
   openGraph: {
-    title: 'Standard Commercial Viability File',
+    title: 'Standard Commercial Viability File | YieldLens UK',
     description:
-      'A £49 decision memo for pressure-testing commercial rent, cash, downside trading, and lease viability before signing.',
+      'A £49 printable decision-support memo built from the saved commercial check assumptions before signing.',
     url: 'https://yieldlens.co.uk/viability-file',
   },
 };
@@ -44,14 +44,14 @@ const faqStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is a YieldLens UK commercial viability file?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'A YieldLens UK commercial viability file is a structured decision-support file that organises the key lease metrics, risk flags, downside assumptions, missing evidence, lease questions, and recommended next checks in one place.',
+      {
+        '@type': 'Question',
+        name: 'What is a YieldLens UK commercial viability file?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A YieldLens UK commercial viability file is a structured decision-support file that organises the key lease metrics, risk flags, downside assumptions, missing evidence, lease questions, and next checks in one place.',
+        },
       },
-    },
     {
       '@type': 'Question',
       name: 'Is a viability file a valuation?',
@@ -271,28 +271,44 @@ export default function ViabilityFilePage() {
               </p>
 
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
-                Turn a commercial lease check into a decision memo before you sign.
+                Standard commercial viability file, £49.
               </h1>
 
               <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                Get a structured £49 viability file that turns the free
-                commercial check into a decision memo for negotiation and due
-                diligence before you sign. It is unlocked from a saved result,
+                A printable decision-support memo built from the saved
+                commercial check assumptions. It helps organise rent burden,
+                cash pressure, downside risk, evidence gaps, and lease
+                questions before you sign. It is unlocked from a saved result,
                 then opens as a memo you can print or save as PDF. If your
                 assumptions change, rerun the free commercial check so the file
                 reflects the latest numbers.
               </p>
+
+              <ul className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-200 leading-6">
+                <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                  Built from the saved commercial check assumptions
+                </li>
+                <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                  Printable memo for negotiation and due diligence
+                </li>
+                <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                  Rent burden, cash pressure, downside risk, and lease questions
+                </li>
+                <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                  Use estimates while comparing sites, then rerun the check
+                </li>
+              </ul>
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check?mode=commercial"
                   eventName="viability_file_page_cta_clicked"
                   pagePath="/viability-file"
-                  ctaLabel="Run a free commercial check first"
+                  ctaLabel="Start with a free commercial check"
                   pageType="product_page"
                   className={heroPrimaryCtaClass}
                 >
-                  Run a free commercial check first
+                  Start with a free commercial check
                 </TrackedCtaLink>
 
                 <TrackedCtaLink
@@ -310,6 +326,14 @@ export default function ViabilityFilePage() {
 
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>
                 Indicative decision-support only. Not advice, not a valuation, and not a substitute for professional due diligence.
+              </p>
+
+              <p className="mt-4 text-sm text-stone-300">
+                Need help with access after payment or a saved result? Use the{' '}
+                <Link href="/contact" className="text-[#DCCDA8] font-medium hover:underline">
+                  contact page
+                </Link>
+                .
               </p>
 
             </div>
@@ -369,6 +393,43 @@ export default function ViabilityFilePage() {
               {item}
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Objections and limits"
+            title="What the file does, and what it does not do."
+            description="The page stays clear about the product boundary so users know what they are buying."
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className={`${surfaceCardSoftClass} p-5`}>
+              <p className="text-sm font-semibold text-stone-900 mb-3">What do I get for £49?</p>
+              <ul className="space-y-2 text-sm text-stone-700 leading-7">
+                <li>• A printable decision-support memo</li>
+                <li>• An assumption review linked to the saved result</li>
+                <li>• Stress-test interpretation and downside context</li>
+                <li>• Negotiation levers, evidence checklist, and lease questions</li>
+              </ul>
+            </div>
+
+            <div className={`${surfaceCardSoftClass} p-5`}>
+              <p className="text-sm font-semibold text-stone-900 mb-3">What it will not tell you</p>
+              <ul className="space-y-2 text-sm text-stone-700 leading-7">
+                <li>• It does not confirm market rent.</li>
+                <li>• It does not review the lease wording.</li>
+                <li>• It does not replace legal, tax, finance, valuation, or property advice.</li>
+                <li>• It cannot use facts that were not entered into the free check.</li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="mt-4 text-sm text-stone-600 leading-7 max-w-4xl">
+            Use estimates if you are still comparing units. The file is useful when the deal looks promising
+            but you want to understand rent pressure, opening cash, and weak-start risk before committing.
+          </p>
         </div>
       </section>
 
@@ -549,11 +610,11 @@ export default function ViabilityFilePage() {
               href="/check?mode=commercial"
               eventName="viability_file_page_cta_clicked"
               pagePath="/viability-file"
-              ctaLabel="Run a free commercial check first"
+              ctaLabel="Start with a free commercial check"
               pageType="product_page"
               className="w-full sm:w-auto min-h-[48px] bg-[#5e7f5b] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#4f6d4c]"
             >
-              Run a free commercial check first
+              Start with a free commercial check
             </TrackedCtaLink>
 
             <TrackedCtaLink
