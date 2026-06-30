@@ -6,16 +6,16 @@ import VerdictBadge from '@/components/VerdictBadge';
 import { primaryCtaClass, secondaryCtaClass, heroPrimaryCtaClass, heroSecondaryCtaClass, surfaceCardClass, surfaceCardSoftClass, disclaimerClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Viability Check | YieldLens UK',
+  title: 'YieldLens UK | Commercial Rent and Lease Viability Decision-Support',
   description:
-    'Free commercial check first, then optional £49 Standard commercial viability file. YieldLens UK pressure-tests rent burden, break-even customers, opening cash, downside trading, and lease questions before signing a lease.',
+    'Independent UK commercial rent and lease viability decision-support. Run a free commercial check first, then unlock the optional £49 Standard file if the site still deserves deeper scrutiny.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Commercial Lease Viability Check | YieldLens UK',
+    title: 'YieldLens UK | Commercial Rent and Lease Viability Decision-Support',
     description:
-      'Free commercial check first, then optional £49 Standard commercial viability file. YieldLens UK pressure-tests rent burden, break-even customers, opening cash, downside trading, and lease questions before signing a lease.',
+      'Independent UK commercial rent and lease viability decision-support. Run a free commercial check first, then unlock the optional £49 Standard file if the site still deserves deeper scrutiny.',
     url: 'https://yieldlens.co.uk',
   },
 };
@@ -148,7 +148,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 lg:gap-12 items-center">
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
-                Commercial lease viability check
+                Commercial rent and lease viability
               </p>
 
               <h1 className="text-3xl sm:text-6xl font-bold leading-tight mb-6 max-w-3xl">

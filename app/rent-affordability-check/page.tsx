@@ -12,16 +12,16 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Rent Affordability Check | Rental Value vs Cash Flow | YieldLens UK',
+  title: 'Rent Affordability Check | Is This Rent Affordable? | YieldLens UK',
   description:
-    'Compare a rental value estimate with real rent affordability. Use YieldLens UK to test rent against income, bills, council tax, transport, and commitments before relying on the number.',
+    'Check whether rent is affordable against income, bills, and commitments. If you arrived from rental valuation search terms, use YieldLens UK to test whether the number really fits the budget.',
   alternates: {
     canonical: '/rent-affordability-check',
   },
   openGraph: {
-    title: 'Rent Affordability Check | Rental Value vs Cash Flow | YieldLens UK',
+    title: 'Rent Affordability Check | Is This Rent Affordable? | YieldLens UK',
     description:
-      'Check how much rent you can afford and compare the result with a rental value estimate before relying on the number.',
+      'Check whether rent is affordable against income, bills, and commitments. Use YieldLens UK when you need to test the number rather than rely on a rental valuation.',
     url: 'https://yieldlens.co.uk/rent-affordability-check',
   },
 };
@@ -150,6 +150,11 @@ const bridgeLinks = [
     text: 'Use this when the real question is whether the site can carry the rent before you sign.',
     href: '/check?mode=commercial',
   },
+  {
+    title: 'Sample commercial viability file',
+    text: 'See how the commercial result turns into a printable decision memo before payment.',
+    href: '/sample-commercial-viability-file',
+  },
 ];
 
 function SectionTitle({
@@ -205,12 +210,12 @@ export default function RentAffordabilityCheckPage() {
           <h1 className="text-4xl sm:text-6xl font-bold text-white leading-tight mb-6">
             Check how much rent you can afford before you commit.
           </h1>
-          <p className="text-lg text-stone-300 max-w-3xl mx-auto mb-8 leading-8">
+              <p className="text-lg text-stone-300 max-w-3xl mx-auto mb-8 leading-8">
             A rental valuation tells you what rent might be achievable. A rent
             affordability check asks whether the numbers still work after costs,
-            voids, and finance. Use YieldLens UK to compare a rent estimate with
-            the rest of the monthly budget before relying on it.
-          </p>
+            voids, and finance. If you arrived here from rental valuation search
+            terms, this page answers the affordability question instead.
+              </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="#calculator" className={heroPrimaryCtaClass}>

@@ -6,16 +6,16 @@ import ToolConversionPanel from '@/components/ToolConversionPanel';
 import { heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Property Cash Flow Calculator UK | YieldLens UK',
+  title: 'Property Cash Flow Calculator | Rent, Costs and Monthly Surplus | YieldLens UK',
   description:
-    'Use the YieldLens UK property cash flow calculator to estimate rental income, mortgage costs, service charge, ground rent, management fees, void allowance, and monthly cash flow.',
+    'Check whether rental income still leaves monthly surplus after mortgage, service charge, ground rent, insurance, maintenance, management fees, and void periods. YieldLens UK does not provide a valuation.',
   alternates: {
     canonical: '/property-cash-flow-calculator',
   },
   openGraph: {
-    title: 'Property Cash Flow Calculator UK | YieldLens UK',
+    title: 'Property Cash Flow Calculator | Rent, Costs and Monthly Surplus | YieldLens UK',
     description:
-      'Estimate rental property cash flow after mortgage costs, service charge, ground rent, management, maintenance, and void periods.',
+      'Check whether rental income still leaves monthly surplus after mortgage costs, service charge, ground rent, management, maintenance, and void periods.',
     url: 'https://yieldlens.co.uk/property-cash-flow-calculator',
   },
 };
@@ -139,8 +139,9 @@ export default function PropertyCashFlowCalculatorPage() {
             Check whether a rental property produces real monthly cash flow.
           </h1>
           <p className="text-lg text-[var(--yieldlens-muted)] max-w-3xl mx-auto mb-8 leading-8">
-            Use YieldLens UK to estimate rental property cash flow after mortgage costs,
-            service charge, ground rent, insurance, maintenance, management fees, void
+            Cash flow is different from rental valuation. Use YieldLens UK to
+            estimate rental property cash flow after mortgage costs, service
+            charge, ground rent, insurance, maintenance, management fees, void
             periods, and other monthly costs.
           </p>
 
