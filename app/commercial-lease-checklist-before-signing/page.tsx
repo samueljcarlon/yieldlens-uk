@@ -157,6 +157,11 @@ const bridgeLinks = [
     text: 'Pressure-test whether the site can carry the rent before you sign.',
   },
   {
+    title: 'Commercial lease costs before signing',
+    href: '/commercial-lease-costs-before-signing',
+    text: 'Check the full cost stack before the lease becomes expensive to unwind.',
+  },
+  {
     title: 'Commercial rent affordability calculator',
     href: '/commercial-rent-affordability-calculator',
     text: 'Check whether the business can afford the rent and operating costs.',

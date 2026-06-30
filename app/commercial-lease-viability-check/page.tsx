@@ -169,6 +169,11 @@ const verifyItems = [
 
 const commercialLinks = [
   {
+    title: 'Commercial lease costs before signing',
+    text: 'Check the full cost stack before you commit to the lease.',
+    href: '/commercial-lease-costs-before-signing',
+  },
+  {
     title: 'Commercial rent affordability calculator',
     text: 'Check whether the rent still fits after costs and trading pressure are added.',
     href: '/commercial-rent-affordability-calculator',
