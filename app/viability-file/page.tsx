@@ -279,11 +279,19 @@ export default function ViabilityFilePage() {
                 A printable decision-support memo built from the saved
                 commercial check assumptions. It helps organise rent burden,
                 cash pressure, downside risk, evidence gaps, lease questions,
-                and any rent-free period or fit-out incentive before you sign.
-                It is unlocked from a saved result, then opens as a memo you
-                can print or save as PDF. If your assumptions change, rerun
-                the free commercial check so the file reflects the latest
+                and any rent-free period, deposit, or fit-out incentive before
+                you sign. It is unlocked from a saved result, then opens as a
+                memo you can print or save as PDF. If your assumptions change,
+                rerun the free commercial check so the file reflects the latest
                 numbers.
+              </p>
+
+              <p className="text-sm text-stone-300 max-w-2xl mb-6 leading-7">
+                If you want to look at the deposit side in isolation, see{' '}
+                <Link href="/commercial-lease-deposit-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  commercial lease deposits before signing
+                </Link>
+                .
               </p>
 
               <ul className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-200 leading-6">
@@ -297,7 +305,7 @@ export default function ViabilityFilePage() {
                 Rent burden, cash pressure, downside risk, and lease questions
               </li>
               <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                Rent-free periods and lease incentives can change the cash stack
+                Rent-free periods, deposits, and lease incentives can change the cash stack
               </li>
               <li className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                 Use estimates while comparing sites, then rerun the check
@@ -441,7 +449,7 @@ export default function ViabilityFilePage() {
 
           <p className="mt-4 text-sm text-stone-600 leading-7 max-w-4xl">
             Use estimates if you are still comparing units. The file is useful when the deal looks promising
-            but you want to understand rent pressure, opening cash, weak-start risk, and whether an incentive like a rent-free period actually changes the picture before committing.
+            but you want to understand rent pressure, opening cash, weak-start risk, and whether an incentive like a rent-free period or deposit actually changes the picture before committing.
           </p>
         </div>
       </section>

@@ -162,6 +162,11 @@ const bridgeLinks = [
     text: 'Check the full cost stack before the lease becomes expensive to unwind.',
   },
   {
+    title: 'Commercial lease deposit before signing',
+    href: '/commercial-lease-deposit-before-signing',
+    text: 'Check how the deposit changes opening cash and working capital.',
+  },
+  {
     title: 'Commercial rent-free period before signing',
     href: '/commercial-rent-free-period-before-signing',
     text: 'Check whether the incentive preserves enough opening cash.',

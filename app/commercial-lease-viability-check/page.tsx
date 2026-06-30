@@ -174,6 +174,11 @@ const commercialLinks = [
     href: '/commercial-lease-costs-before-signing',
   },
   {
+    title: 'Commercial lease deposit before signing',
+    text: 'Check how the deposit affects opening cash and working capital.',
+    href: '/commercial-lease-deposit-before-signing',
+  },
+  {
     title: 'Commercial rent-free period before signing',
     text: 'Check whether the incentive actually improves launch cash.',
     href: '/commercial-rent-free-period-before-signing',

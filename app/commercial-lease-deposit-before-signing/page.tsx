@@ -19,45 +19,45 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Rent-Free Period Before Signing | YieldLens UK',
+  title: 'Commercial Lease Deposit Before Signing | YieldLens UK',
   description:
-    'Understand how a rent-free period, fit-out period or landlord incentive can affect opening cash, rent burden and commercial lease viability before signing.',
+    'Check how a commercial lease deposit affects opening cash, working capital, fit-out pressure and lease viability before signing.',
   alternates: {
-    canonical: '/commercial-rent-free-period-before-signing',
+    canonical: '/commercial-lease-deposit-before-signing',
   },
   openGraph: {
-    title: 'Commercial Rent-Free Period Before Signing | YieldLens UK',
+    title: 'Commercial Lease Deposit Before Signing | YieldLens UK',
     description:
-      'Understand how a rent-free period, fit-out period or landlord incentive can affect opening cash, rent burden and commercial lease viability before signing.',
-    url: 'https://yieldlens.co.uk/commercial-rent-free-period-before-signing',
+      'Check how a commercial lease deposit affects opening cash, working capital, fit-out pressure and lease viability before signing.',
+    url: 'https://yieldlens.co.uk/commercial-lease-deposit-before-signing',
   },
 };
 
 const faqItems = [
   {
-    question: 'What is a rent-free period in a commercial lease?',
+    question: 'What is a commercial lease deposit?',
     answer:
-      'A rent-free period is a period at the start of a lease when rent is reduced or waived. It is often used to support fit-out, launch, or early trading.',
+      'It is cash held by the landlord at the start of the lease, usually to secure the tenant’s obligations. It can be a fixed amount or linked to rent.',
   },
   {
-    question: 'Is a rent-free period better than lower rent?',
+    question: 'How much deposit is normal for a commercial lease?',
     answer:
-      'Not always. Lower headline rent helps every month, while a rent-free period helps most at the start. Which is better depends on the cash profile of the deal.',
+      'There is no universal answer. It depends on the tenant, the landlord’s risk view, the lease terms, and the wider deal structure.',
   },
   {
-    question: 'Does a rent-free period cover service charge?',
+    question: 'Can a commercial lease deposit be negotiated?',
     answer:
-      'Not necessarily. Some rent-free periods cover rent only, while service charge, insurance, VAT, or other costs may still apply. The wording matters.',
+      'Sometimes, but not always. The result depends on the landlord, covenant strength, fit-out risk, the proposed term, and the wider commercial position.',
   },
   {
-    question: 'Can a rent-free period improve commercial lease viability?',
+    question: 'Should I include the deposit in my opening cash calculation?',
     answer:
-      'Yes. If it preserves cash at the point when fit-out and launch costs are highest, it can improve opening cash, reduce early pressure, and make the lease easier to carry.',
+      'Yes. The deposit reduces the cash available after signing and can materially change the opening buffer.',
   },
   {
-    question: 'How long should a rent-free period be?',
+    question: 'Is a rent-free period the same as a lower deposit?',
     answer:
-      'There is no universal answer. The useful question is whether the period covers the realistic fit-out and opening timetable, not just a neat number in the heads of terms.',
+      'No. A rent-free period affects rent timing, while a deposit affects cash tied up at the start. They can help in different ways and should be considered together.',
   },
   {
     question: 'Is YieldLens giving lease negotiation advice?',
@@ -92,71 +92,82 @@ const breadcrumbStructuredData = {
     {
       '@type': 'ListItem',
       position: 2,
-      name: 'Commercial Rent-Free Period Before Signing',
-      item: 'https://yieldlens.co.uk/commercial-rent-free-period-before-signing',
+      name: 'Commercial Lease Deposit Before Signing',
+      item: 'https://yieldlens.co.uk/commercial-lease-deposit-before-signing',
     },
   ],
 };
 
-const changesRows = [
+const impactRows = [
   {
-    title: 'Cash retained before trading',
-    text: 'A rent-free period can preserve cash during the most expensive part of the launch.',
+    title: 'Opening cash',
+    text: 'The deposit reduces cash available immediately after signing, which can leave less room for trading errors.',
   },
   {
-    title: 'Fit-out breathing room',
-    text: 'It can reduce the gap between paying for works and actually opening the doors.',
+    title: 'Working capital',
+    text: 'Cash tied up in the deposit cannot be used for stock, payroll, utilities, or early trading pressure.',
   },
   {
-    title: 'Working capital after opening',
-    text: 'If the incentive is structured well, more cash can remain available after launch.',
+    title: 'Fit-out pressure',
+    text: 'The deposit sits alongside fit-out, legal fees, and launch costs in the same upfront stack.',
   },
   {
-    title: 'Weak first-month trading',
-    text: 'The early runway matters because revenue often arrives later than the costs.',
+    title: 'Downside risk',
+    text: 'If trade starts slower than expected, a smaller buffer can make the lease harder to carry.',
   },
   {
-    title: 'Timing mismatch',
-    text: 'The real question is whether the lease timing matches the opening timetable and cash plan.',
+    title: 'Lease viability',
+    text: 'The deposit is not just a line item; it can change whether the site still looks workable after opening.',
   },
 ];
 
-const comparisonRows = [
+const compareRows = [
   {
-    title: 'Lower headline rent',
-    text: 'Reduces the monthly fixed commitment.',
+    title: 'Rent deposit',
+    text: 'Cash held by the landlord before and during the lease.',
   },
   {
-    title: 'Rent-free period',
-    text: 'Preserves cash at the start and during launch.',
+    title: 'Fit-out/setup costs',
+    text: 'Works and equipment needed before opening.',
   },
   {
-    title: 'Landlord contribution',
-    text: 'Helps with fit-out cash directly.',
+    title: 'Legal fees',
+    text: 'Costs for solicitor and professional checks.',
   },
   {
-    title: 'Reduced deposit',
-    text: 'Leaves more working capital after signing.',
+    title: 'Opening stock',
+    text: 'Initial inventory needed to start trading.',
   },
   {
-    title: 'Stepped rent',
-    text: 'Reduces early pressure by phasing the rent up over time.',
+    title: 'Service charge / insurance',
+    text: 'May still be payable even if part of the rent is eased.',
+  },
+  {
+    title: 'Rent-free period timing',
+    text: 'Can improve cash timing, but it is not the same as a lower deposit.',
+  },
+  {
+    title: 'Working capital after opening',
+    text: 'This is the cash that has to survive the first trading period.',
   },
 ];
 
 const exampleRows = [
-  { label: 'Annual rent', value: '£60,000' },
-  { label: 'Monthly rent', value: '£5,000' },
   { label: 'Starting cash', value: '£90,000' },
+  { label: 'Fit-out', value: '£50,000' },
+  { label: 'Rent deposit', value: '£15,000' },
+  { label: 'Legal fees', value: '£3,000' },
+  { label: 'Opening stock', value: '£8,000' },
+  { label: 'Other setup costs', value: '£5,000' },
   { label: 'Upfront cash needed', value: '£81,000' },
-  { label: 'Opening buffer', value: '£9,000' },
+  { label: 'Opening cash buffer', value: '£9,000' },
 ];
 
 const relatedLinks = [
   { href: '/check?mode=commercial', label: 'Run a free commercial check' },
   { href: '/sample-commercial-viability-file', label: 'View sample viability file' },
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
-  { href: '/commercial-lease-deposit-before-signing', label: 'Commercial lease deposit before signing' },
+  { href: '/commercial-rent-free-period-before-signing', label: 'Commercial rent-free period before signing' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-rent-affordability-calculator', label: 'Commercial rent affordability calculator' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
@@ -183,16 +194,16 @@ function SectionTitle({
   );
 }
 
-export default function CommercialRentFreePeriodBeforeSigningPage() {
+export default function CommercialLeaseDepositBeforeSigningPage() {
   return (
     <div className="bg-[var(--yieldlens-page)] text-stone-900">
       <JsonLd data={[faqStructuredData, breadcrumbStructuredData]} />
       <FunnelEventTracker
         eventName="inbound_page_view"
-        pagePath="/commercial-rent-free-period-before-signing"
+        pagePath="/commercial-lease-deposit-before-signing"
         pageType="seo_page"
         mode="commercial"
-        eventLabel="Commercial rent-free period before signing viewed"
+        eventLabel="Commercial lease deposit before signing viewed"
       />
 
       <section className={`${heroBackdropClass} mx-4 sm:mx-6 lg:mx-auto lg:max-w-6xl mt-4`}>
@@ -201,22 +212,22 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
           <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_0.95fr] gap-10 lg:gap-12 items-center">
             <div>
               <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#D6C7A2] mb-4">
-                Commercial rent-free period
+                Commercial lease deposit
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial rent-free periods before signing a lease
+                Commercial lease deposits before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
-                A rent-free period can be more than a small incentive. For a new commercial tenant, it can change the opening cash buffer, fit-out pressure, early trading runway and whether the site can carry the rent after launch.
+                A rent deposit can make a commercial lease feel much tighter before trading begins. Even if the monthly rent looks manageable, deposit, fit-out, legal fees, stock and early operating costs can leave too little cash buffer after opening.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
-                Use this page to judge whether the timing of the incentive actually helps the deal, then run the free commercial check if you want to test the rent and cash pressure together.
+                Use this page to understand how the deposit affects opening cash and working capital, then run the free commercial check if you want to test the lease pressure together.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
-                  pagePath="/commercial-rent-free-period-before-signing"
+                  pagePath="/commercial-lease-deposit-before-signing"
                   ctaLabel="Run a free commercial check"
                   pageType="seo_page"
                   className={heroPrimaryCtaClass}
@@ -226,7 +237,7 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
                 <TrackedCtaLink
                   href="/sample-commercial-viability-file"
                   eventName="commercial_home_cta_clicked"
-                  pagePath="/commercial-rent-free-period-before-signing"
+                  pagePath="/commercial-lease-deposit-before-signing"
                   ctaLabel="View sample viability file"
                   pageType="seo_page"
                   className={heroSecondaryCtaClass}
@@ -238,8 +249,8 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
                 <Link href="/commercial-lease-costs-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease costs before signing
                 </Link>
-                <Link href="/commercial-lease-checklist-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial lease checklist
+                <Link href="/commercial-rent-free-period-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial rent-free period before signing
                 </Link>
                 <Link href="/commercial-lease-viability-check" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease viability check
@@ -252,10 +263,10 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
 
             <div className={`${surfaceCardClass} bg-white/95 p-5 sm:p-6 shadow-[0_18px_48px_rgba(15,23,42,0.10)]`}>
               <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-medium mb-3">
-                What the incentive changes
+                Why the deposit matters
               </p>
               <div className="space-y-3">
-                {changesRows.map((row) => (
+                {impactRows.map((row) => (
                   <div key={row.title} className={`${surfaceCardSoftClass} p-4`}>
                     <p className="text-sm font-semibold text-stone-900 mb-1">{row.title}</p>
                     <p className="text-sm text-[var(--yieldlens-muted)] leading-6">{row.text}</p>
@@ -270,24 +281,28 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
       <section className={`${sectionBandClass} mt-8`}>
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="What it changes"
-            title="A rent-free period changes timing, not just cost."
-            description="The useful question is whether it buys enough breathing room to survive fit-out, launch, and weak early trading."
+            eyebrow="Deposit versus other costs"
+            title="The opening capital stack matters more than any single cost."
+            description="The real question is how the deposit sits alongside the rest of the cash required to get open."
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {comparisonRows.map((row, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {compareRows.map((row, index) => (
               <div
                 key={row.title}
                 className={`${surfaceCardSoftClass} border-t-4 p-5 sm:p-6 ${
                   index === 0
-                    ? 'border-t-[var(--yieldlens-positive)]'
+                    ? 'border-t-[var(--yieldlens-caution)]'
                     : index === 1
-                      ? 'border-t-[var(--yieldlens-caution)]'
+                      ? 'border-t-[var(--yieldlens-primary)]'
                       : index === 2
-                        ? 'border-t-[var(--yieldlens-primary)]'
+                        ? 'border-t-[var(--yieldlens-positive)]'
                         : index === 3
                           ? 'border-t-[var(--yieldlens-fragile)]'
-                          : 'border-t-[var(--yieldlens-risk)]'
+                          : index === 4
+                            ? 'border-t-[var(--yieldlens-risk)]'
+                            : index === 5
+                              ? 'border-t-[var(--yieldlens-caution)]'
+                              : 'border-t-[var(--yieldlens-primary)]'
                 }`}
               >
                 <h3 className="text-base font-semibold text-stone-900 mb-2">{row.title}</h3>
@@ -302,7 +317,7 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Illustrative example"
-            title="A simple example shows why the timing matters."
+            title="A simple example shows how the deposit tightens the buffer."
             description="This is an illustrative scenario, not a real case study."
           />
           <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
@@ -318,10 +333,10 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
             </div>
             <div className={`${surfaceCardSoftClass} p-5 sm:p-6`}>
               <p className="text-sm text-[var(--yieldlens-muted)] leading-7">
-                A 3-month rent-free period could preserve up to £15,000 of early cash if it is applied to the right period, but the real impact depends on lease wording, timing, service charge, fit-out dates and the trading start date.
+                The deposit may be only one line item, but it materially affects how much cash remains after opening. A lower or staged deposit could improve working capital, but the impact depends on the lease terms and the wider cost stack.
               </p>
               <div className="mt-4 rounded-3xl border border-[var(--yieldlens-border)] bg-white p-4 text-sm text-[var(--yieldlens-muted)] leading-7">
-                The point is not that every tenant will get the same incentive. The point is that the wording and timing can materially change whether the lease still looks workable once the site opens.
+                The useful question is not whether a deposit sounds normal in isolation. It is whether the deposit still leaves enough working capital once the site is fitted out and opened.
               </div>
             </div>
           </div>
@@ -332,19 +347,20 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Questions to ask"
-            title="What should you ask before relying on a rent-free period?"
-            description="The small print matters because a rent-free period can be narrower than it first sounds."
+            title="What should you ask before relying on the deposit assumption?"
+            description="The wording and structure matter because the deposit can behave differently across leases."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              'Does it cover the fit-out period only or trading period too?',
-              'Does rent still accrue later?',
-              'Are service charge and insurance still payable?',
-              'Does the rent-free period depend on signing quickly?',
-              'What happens if opening is delayed?',
-              'Is the deposit based on full rent?',
-              'Is VAT payable?',
-              'Are there conditions attached?',
+              'How many months of rent is the deposit based on?',
+              'Is VAT included?',
+              'Is it held for the whole lease term or released later?',
+              'What conditions allow release?',
+              'Is it tied to rent reviews or assignment?',
+              'Is it protected or documented clearly?',
+              'Can it be reduced, staged or replaced with another structure?',
+              'How does it interact with a rent-free period?',
+              'Does the lease require other upfront payments?',
             ].map((item, index) => (
               <div
                 key={item}
@@ -369,22 +385,22 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="How YieldLens helps"
-            title="Use the free commercial check to test whether the incentive actually improves viability."
-            description="A rent-free period only matters if the rest of the cash stack and trading assumptions still work."
+            title="Use the free commercial check to test the full opening cash pressure."
+            description="The deposit only matters in context. The free check puts it next to the rent, fit-out, and downside trading assumptions."
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               {
-                title: 'Rent burden',
-                text: 'See whether the monthly rent pressure is still manageable.',
+                title: 'Opening cash pressure',
+                text: 'See whether the cash left after the deposit still looks usable.',
               },
               {
-                title: 'Opening cash pressure',
-                text: 'Check whether the launch buffer still survives fit-out and deposits.',
+                title: 'Rent burden',
+                text: 'Check whether the rent still fits the business once the deposit is paid.',
               },
               {
                 title: 'Downside trading',
-                text: 'Test whether weak opening months still leave room to trade.',
+                text: 'Test whether a slower start still leaves room to survive.',
               },
             ].map((item, index) => (
               <div
@@ -406,15 +422,15 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
             <TrackedCtaLink
               href="/check?mode=commercial"
               eventName="commercial_home_cta_clicked"
-              pagePath="/commercial-rent-free-period-before-signing"
+              pagePath="/commercial-lease-deposit-before-signing"
               ctaLabel="Run a free commercial check"
               pageType="seo_page"
               className={heroPrimaryCtaClass}
             >
               Run a free commercial check
             </TrackedCtaLink>
-            <Link href="/viability-file" className={heroSecondaryCtaClass}>
-              View viability file
+            <Link href="/commercial-lease-viability-check" className={heroSecondaryCtaClass}>
+              Commercial lease viability check
             </Link>
           </div>
         </div>
@@ -424,18 +440,18 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Paid file"
-            title="The £49 Standard commercial viability file turns the free check into a printable memo."
-            description="It organises the assumptions, stress tests, negotiation levers, evidence checklist, and lease questions in one place."
+            title="The £49 Standard commercial viability file turns the check into a printable memo."
+            description="It organises the opening capital stack, assumption review, negotiation levers, evidence checklist, and lease questions in one place."
           />
           <div className={`${surfaceCardClass} p-5 sm:p-6`}>
             <p className="text-sm text-[var(--yieldlens-muted)] leading-7">
-              If the rent-free period changes the picture enough to keep the site in play, the sample file shows the format and the Standard file turns the result into a decision-support memo after the free check.
+              If the deposit changes the cash picture enough to keep the site in play, the sample file shows the format and the Standard file turns the result into a decision-support memo after the free check.
             </p>
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <TrackedCtaLink
                 href="/sample-commercial-viability-file"
                 eventName="commercial_home_cta_clicked"
-                pagePath="/commercial-rent-free-period-before-signing"
+                pagePath="/commercial-lease-deposit-before-signing"
                 ctaLabel="See sample viability file"
                 pageType="seo_page"
                 className={heroPrimaryCtaClass}
@@ -452,8 +468,8 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
 
       <FaqSection
         eyebrow="Frequently asked questions"
-        title="Commercial rent-free period FAQs"
-        description="Practical answers for people comparing incentives, fit-out periods, and launch cash."
+        title="Commercial lease deposit FAQs"
+        description="Practical answers for people comparing deposits, working capital, and opening cash."
         faqs={faqItems.map((item) => ({ question: item.question, answer: item.answer }))}
         sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
       />
@@ -462,7 +478,7 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Related pages"
-            title="Move to the page that matches the next question."
+            title="Use the page that matches the next pressure point."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {relatedLinks.map((link) => (

@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/commercial-lease-checklist-before-signing',
     '/commercial-lease-costs-before-signing',
     '/commercial-rent-free-period-before-signing',
+    '/commercial-lease-deposit-before-signing',
     '/restaurant-lease-viability-check',
     '/salon-lease-viability-check',
     '/commercial-lease-viability-check',
