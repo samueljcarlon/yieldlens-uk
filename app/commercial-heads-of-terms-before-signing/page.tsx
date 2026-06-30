@@ -111,6 +111,10 @@ const termRows = [
     text: 'Cash tied up at the start reduces working capital before trade has proved itself.',
   },
   {
+    title: 'Permitted use',
+    text: 'The site still needs to be usable for the intended business before the paperwork gets expensive.',
+  },
+  {
     title: 'Service charge and insurance',
     text: 'These can change the true occupancy cost even when the rent looks manageable.',
   },
@@ -172,6 +176,11 @@ const relatedLinks = [
     href: '/commercial-rent-review-before-signing',
     label: 'Commercial rent review before signing',
     description: 'Check whether future rent increases could tighten the deal.',
+  },
+  {
+    href: '/commercial-permitted-use-before-signing',
+    label: 'Commercial permitted use before signing',
+    description: 'Check whether the intended business can actually operate there.',
   },
   {
     href: '/commercial-break-clause-before-signing',

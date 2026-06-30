@@ -220,6 +220,11 @@ const relatedLinks = [
     label: 'Commercial business rates before signing',
     description: 'Check how rates change the recurring cost base.',
   },
+  {
+    href: '/commercial-permitted-use-before-signing',
+    label: 'Commercial permitted use before signing',
+    description: 'Check whether the intended business can actually operate there.',
+  },
 ];
 
 function SectionTitle({

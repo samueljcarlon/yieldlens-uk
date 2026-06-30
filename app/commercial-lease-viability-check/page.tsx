@@ -189,6 +189,11 @@ const commercialLinks = [
     href: '/commercial-repairing-obligations-before-signing',
   },
   {
+    title: 'Commercial permitted use before signing',
+    text: 'Check whether the intended business can actually operate there.',
+    href: '/commercial-permitted-use-before-signing',
+  },
+  {
     title: 'Commercial rent affordability calculator',
     text: 'Check whether the rent still fits after costs and trading pressure are added.',
     href: '/commercial-rent-affordability-calculator',

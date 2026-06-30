@@ -188,6 +188,12 @@ const guideIndexRows = [
     label: 'Commercial business rates before signing',
   },
   {
+    issue: 'Permitted use',
+    why: 'It decides whether the intended business can actually operate there.',
+    href: '/commercial-permitted-use-before-signing',
+    label: 'Commercial permitted use before signing',
+  },
+  {
     issue: 'Fit-out costs',
     why: 'They drain cash before revenue starts.',
     href: '/commercial-fit-out-costs-before-signing',

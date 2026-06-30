@@ -165,6 +165,11 @@ const relatedLinks = [
     description: 'Check the full cost stack before the lease becomes expensive to unwind.',
   },
   {
+    href: '/commercial-permitted-use-before-signing',
+    label: 'Commercial permitted use before signing',
+    description: 'Check whether the intended use is actually allowed at the site.',
+  },
+  {
     href: '/commercial-lease-checklist-before-signing',
     label: 'Commercial lease checklist before signing',
     description: 'Use the hub for the wider pre-signing checklist.',
