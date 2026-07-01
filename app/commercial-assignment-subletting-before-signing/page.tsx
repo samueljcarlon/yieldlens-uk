@@ -159,6 +159,11 @@ const relatedLinks = [
     label: 'Commercial permitted use before signing',
     description: 'Check whether the intended business still fits the lease.',
   },
+  {
+    href: '/commercial-personal-guarantee-before-signing',
+    label: 'Commercial personal guarantee before signing',
+    description: 'Check whether personal downside is also part of the exit picture.',
+  },
 ];
 
 function SectionTitle({
