@@ -8,14 +8,14 @@ import { primaryCtaClass, secondaryCtaClass, heroPrimaryCtaClass, heroSecondaryC
 export const metadata: Metadata = {
   title: 'YieldLens UK | Commercial Rent and Lease Viability Decision-Support',
   description:
-    'Independent UK commercial rent and lease viability decision-support. Run a free commercial check first, then unlock the optional £49 Standard file if the site still deserves deeper scrutiny.',
+    'Independent UK commercial rent and lease viability decision-support. Run a free commercial check first, then unlock the optional £49 Standard Commercial Viability File if the site still deserves deeper scrutiny.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'YieldLens UK | Commercial Rent and Lease Viability Decision-Support',
     description:
-      'Independent UK commercial rent and lease viability decision-support. Run a free commercial check first, then unlock the optional £49 Standard file if the site still deserves deeper scrutiny.',
+      'Independent UK commercial rent and lease viability decision-support. Run a free commercial check first, then unlock the optional £49 Standard Commercial Viability File if the site still deserves deeper scrutiny.',
     url: 'https://yieldlens.co.uk',
   },
 };
@@ -332,7 +332,7 @@ export default function HomePage() {
             <p className="text-sm text-stone-600 leading-7 mb-5">
               The free result gives the headline pressure points so you can decide
               whether the unit deserves more time, better terms, or a deeper look in
-              the Standard file.
+              the £49 Standard Commercial Viability File.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {freeCheckShows.map((item) => (
@@ -366,10 +366,10 @@ export default function HomePage() {
               Proof and next step
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
-              The Standard file adds the pressure-test, not just more of the same numbers.
+              The £49 Standard Commercial Viability File adds the pressure-test, not just more of the same numbers.
             </h2>
             <p className="text-sm text-stone-600 leading-7">
-              The free result surfaces the pressure points. The Standard file turns
+              The free result surfaces the pressure points. The £49 Standard Commercial Viability File turns
               them into the structure needed to challenge the lease before heads of
               terms become expensive.
             </p>
@@ -588,22 +588,22 @@ export default function HomePage() {
                 href="/viability-file"
                 eventName="commercial_home_cta_clicked"
                 pagePath="/"
-                ctaLabel="View viability file"
+                ctaLabel="£49 Standard Commercial Viability File"
                 pageType="homepage"
                 className={secondaryCtaClass}
               >
-                View viability file
+                £49 Standard Commercial Viability File
               </TrackedCtaLink>
 
               <TrackedCtaLink
-                href="/check?mode=commercial"
+                href="/sample-commercial-viability-file"
                 eventName="commercial_home_cta_clicked"
                 pagePath="/"
-                ctaLabel="Run free check first"
+                ctaLabel="View sample viability file"
                 pageType="homepage"
                 className={secondaryCtaClass}
               >
-                Run free check first
+                View sample viability file
               </TrackedCtaLink>
             </div>
 

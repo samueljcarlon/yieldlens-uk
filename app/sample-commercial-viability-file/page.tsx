@@ -341,23 +341,23 @@ export default function SampleCommercialViabilityFilePage() {
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
                   pagePath="/sample-commercial-viability-file"
-                  ctaLabel="Start free commercial check"
+                  ctaLabel="Run a free commercial check"
                   pageType="sample_file"
                   className={heroPrimaryCtaClass}
                 >
-                  Start free commercial check
+                  Run a free commercial check
                 </TrackedCtaLink>
                 <Link
                   href="/viability-file"
                   className={heroSecondaryCtaClass}
                 >
-                  View paid file details
+                  £49 Standard Commercial Viability File
                 </Link>
                 <Link
                   href="/how-it-works"
                   className={heroSecondaryCtaClass}
                 >
-                  How it works
+                  Commercial lease checklist before signing
                 </Link>
               </div>
             </div>
@@ -780,11 +780,11 @@ export default function SampleCommercialViabilityFilePage() {
               href="/check?mode=commercial"
               eventName="commercial_home_cta_clicked"
               pagePath="/sample-commercial-viability-file"
-              ctaLabel="Start free commercial check"
+              ctaLabel="Run a free commercial check"
               pageType="sample_file"
               className="w-full sm:w-auto min-h-[48px] bg-[var(--yieldlens-primary)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--yieldlens-primary-hover)]"
             >
-              Start free commercial check
+              Run a free commercial check
             </TrackedCtaLink>
             <Link
               href="/viability-file"

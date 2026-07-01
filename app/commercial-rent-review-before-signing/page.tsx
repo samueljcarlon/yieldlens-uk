@@ -205,7 +205,7 @@ export default function CommercialRentReviewBeforeSigningPage() {
                 Commercial rent review
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial rent reviews before signing a lease
+                Commercial rent review before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
                 A commercial lease can look affordable at the starting rent but become tighter later if rent review wording, review dates, indexation or future increases are not understood before signing.
@@ -436,18 +436,18 @@ export default function CommercialRentReviewBeforeSigningPage() {
           />
           <div className={`${surfaceCardClass} p-5 sm:p-6`}>
             <p className="text-sm text-[var(--yieldlens-muted)] leading-7">
-              If rent review wording changes the picture enough to keep the site in play, the sample file shows the format and the Standard file turns the result into a decision-support memo after the free check.
+              If rent review wording changes the picture enough to keep the site in play, the sample file shows the format and the £49 Standard Commercial Viability File turns the result into a decision-support memo after the free check.
             </p>
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <TrackedCtaLink
                 href="/sample-commercial-viability-file"
                 eventName="commercial_home_cta_clicked"
                 pagePath="/commercial-rent-review-before-signing"
-                ctaLabel="See sample viability file"
+                ctaLabel="View sample viability file"
                 pageType="seo_page"
                 className={heroPrimaryCtaClass}
               >
-                See sample viability file
+                View sample viability file
               </TrackedCtaLink>
               <Link href="/commercial-lease-costs-before-signing" className={heroSecondaryCtaClass}>
                 Commercial lease costs before signing

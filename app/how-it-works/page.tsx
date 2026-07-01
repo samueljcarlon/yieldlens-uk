@@ -264,7 +264,7 @@ export default function HowItWorksPage() {
                   Run a free commercial check
                 </TrackedCtaLink>
                 <Link href="/sample-commercial-viability-file" className={heroSecondaryCtaClass}>
-                  View sample file
+                  View sample viability file
                 </Link>
               </div>
               <p className={`${disclaimerClass} mt-5 text-stone-400`}>
@@ -376,7 +376,7 @@ export default function HowItWorksPage() {
       <section className={`${memoBandClass} mx-4 sm:mx-6 lg:mx-auto lg:max-w-6xl my-16`}>
         <div className="px-4 sm:px-6 lg:px-8 py-16">
           <SectionTitle
-            eyebrow="What the £49 Standard file adds"
+            eyebrow="What the £49 Standard Commercial Viability File adds"
             title="The paid file turns the snapshot into a decision memo."
             description="It keeps the same numbers but organises them into a printable report the user can use for negotiation and due diligence before signing."
             tone="dark"
@@ -564,7 +564,7 @@ export default function HowItWorksPage() {
               Run a free commercial check
             </TrackedCtaLink>
             <Link href="/sample-commercial-viability-file" className={heroSecondaryCtaClass}>
-              View sample file
+              View sample viability file
             </Link>
             <Link href="/about" className={secondaryCtaClass}>
               About YieldLens

@@ -493,7 +493,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
           <SectionTitle
             eyebrow="What YieldLens helps with"
             title="The free check gives a fast survival snapshot."
-            description="The £49 Standard file turns the result into a decision memo with downside interpretation, negotiation levers, evidence checklist, and lease questions."
+            description="The £49 Standard Commercial Viability File turns the result into a decision memo with downside interpretation, negotiation levers, evidence checklist, and lease questions."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-positive)]`}>
@@ -511,7 +511,7 @@ export default function CommercialLeaseSurvivalCalculatorPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Standard file
+                £49 Standard Commercial Viability File
               </p>
               <BulletList
                 items={[

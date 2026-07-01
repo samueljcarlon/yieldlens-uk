@@ -263,7 +263,7 @@ export default function CommercialLeaseCostsBeforeSigningPage() {
                 Commercial lease costs
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial lease costs to check before signing
+                Commercial lease costs before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
                 Before signing a commercial lease, the rent is only one part of the commitment. Lease length, fit-out, deposit, service charge, legal fees, business rates, utilities, insurance, stock, staffing, and weak opening months can all affect whether the site can carry the lease.
@@ -295,7 +295,7 @@ export default function CommercialLeaseCostsBeforeSigningPage() {
               </div>
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-300">
                 <Link href="/commercial-lease-checklist-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial lease checklist
+                  Commercial lease checklist before signing
                 </Link>
                 <Link href="/commercial-lease-viability-check" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease viability check
@@ -453,14 +453,14 @@ export default function CommercialLeaseCostsBeforeSigningPage() {
                 href="/sample-commercial-viability-file"
                 eventName="commercial_home_cta_clicked"
                 pagePath="/commercial-lease-costs-before-signing"
-                ctaLabel="See sample viability file"
+                ctaLabel="View sample viability file"
                 pageType="seo_page"
                 className={heroPrimaryCtaClass}
               >
-                See sample viability file
+                View sample viability file
               </TrackedCtaLink>
               <Link href="/viability-file" className={secondaryCtaClass}>
-                View viability file
+                £49 Standard Commercial Viability File
               </Link>
             </div>
           </div>

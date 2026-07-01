@@ -212,7 +212,7 @@ export default function CommercialFitOutCostsBeforeSigningPage() {
                 Commercial fit-out costs
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial fit-out costs before signing a lease
+                Commercial fit-out costs before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
                 Fit-out can be one of the biggest cash drains before a commercial site starts trading. A lease can look affordable on monthly rent, but still become fragile if fit-out, deposit, legal fees, opening stock and early trading losses leave too little cash buffer.
@@ -450,18 +450,18 @@ export default function CommercialFitOutCostsBeforeSigningPage() {
           />
           <div className={`${surfaceCardClass} p-5 sm:p-6`}>
             <p className="text-sm text-[var(--yieldlens-muted)] leading-7">
-              If fit-out is the main question, the sample file shows the format and the Standard file turns the result into a decision-support memo after the free check.
+              If fit-out is the main question, the sample file shows the format and the £49 Standard Commercial Viability File turns the result into a decision-support memo after the free check.
             </p>
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <TrackedCtaLink
                 href="/sample-commercial-viability-file"
                 eventName="commercial_home_cta_clicked"
                 pagePath="/commercial-fit-out-costs-before-signing"
-                ctaLabel="See sample viability file"
+                ctaLabel="View sample viability file"
                 pageType="seo_page"
                 className={heroPrimaryCtaClass}
               >
-                See sample viability file
+                View sample viability file
               </TrackedCtaLink>
               <Link href="/commercial-lease-costs-before-signing" className={secondaryCtaClass}>
                 Commercial lease costs before signing

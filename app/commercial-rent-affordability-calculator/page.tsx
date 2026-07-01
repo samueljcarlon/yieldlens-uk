@@ -185,7 +185,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                 How much commercial rent can your business afford? Rent affordability is not just the market rent. It is whether the business can carry the rent after staff, stock, utilities, service charge, setup costs, and weaker early trade.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
-                Use this when you need to know whether a unit can carry the rent before you sign. If the answer needs more context, the free commercial check and the £49 Standard file turn the result into a practical decision path.
+                Use this when you need to know whether a unit can carry the rent before you sign. If the answer needs more context, the free commercial check and the £49 Standard Commercial Viability File turn the result into a practical decision path.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
@@ -238,7 +238,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                 <div className="rounded-3xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] p-4">
                   <p className="text-sm font-semibold text-stone-900 mb-1">What comes next</p>
                   <p className="text-sm text-[var(--yieldlens-muted)] leading-6">
-                    The free check gives a fast snapshot. The Standard file turns it into a decision memo.
+                    The free check gives a fast snapshot. The £49 Standard Commercial Viability File turns it into a decision memo.
                   </p>
                 </div>
               </div>
@@ -442,7 +442,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
           <SectionTitle
             eyebrow="How YieldLens helps"
             title="The free check gives a fast affordability snapshot."
-            description="The £49 Standard file turns the result into a decision memo with stress-test interpretation, negotiation levers, evidence checklist, and lease questions."
+            description="The £49 Standard Commercial Viability File turns the result into a decision memo with stress-test interpretation, negotiation levers, evidence checklist, and lease questions."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-positive)]`}>
@@ -460,7 +460,7 @@ export default function CommercialRentAffordabilityCalculatorPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Standard file
+                £49 Standard Commercial Viability File
               </p>
               <BulletList
                 items={[

@@ -375,7 +375,7 @@ export default function CommercialHeadsOfTermsBeforeSigningPage() {
               </ul>
             </div>
             <div className={`${surfaceCardClass} border-t border-t-[var(--yieldlens-caution)]`}>
-              <h2 className="text-lg font-semibold text-stone-950 mb-3">Standard file</h2>
+              <h2 className="text-lg font-semibold text-stone-950 mb-3">£49 Standard Commercial Viability File</h2>
               <ul className="space-y-2 text-sm text-stone-700 leading-7">
                 <li>Assumption review</li>
                 <li>Stress-test interpretation</li>

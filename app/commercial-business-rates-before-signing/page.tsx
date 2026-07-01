@@ -215,7 +215,7 @@ export default function CommercialBusinessRatesBeforeSigningPage() {
                 Commercial business rates
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial business rates before signing a lease
+                Commercial business rates before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
                 Business rates can materially change the true monthly cost of a commercial site. A unit can look affordable on headline rent, but become tighter once rates, service charge, insurance, utilities and opening costs are included.
@@ -247,7 +247,7 @@ export default function CommercialBusinessRatesBeforeSigningPage() {
               </div>
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-300">
                 <Link href="/commercial-lease-checklist-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial lease checklist
+                Commercial lease checklist before signing
                 </Link>
                 <Link href="/commercial-lease-costs-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease costs before signing
@@ -480,7 +480,7 @@ export default function CommercialBusinessRatesBeforeSigningPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Standard file
+                £49 Standard Commercial Viability File
               </p>
               <ul className="space-y-2 text-sm leading-6 text-[var(--yieldlens-muted)]">
                 <li className="flex gap-2">
@@ -510,7 +510,7 @@ export default function CommercialBusinessRatesBeforeSigningPage() {
               Run a free commercial check
             </TrackedCtaLink>
             <Link href="/viability-file" className={secondaryCtaClass}>
-              View viability file
+              £49 Standard Commercial Viability File
             </Link>
           </div>
         </div>

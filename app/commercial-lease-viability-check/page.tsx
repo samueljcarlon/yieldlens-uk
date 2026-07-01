@@ -431,7 +431,7 @@ export default function CommercialLeaseViabilityPage() {
           <SectionTitle
             eyebrow="What YieldLens does"
             title="The free check gives a fast viability snapshot."
-            description="The £49 Standard file turns the result into a structured decision memo with stress-test interpretation, negotiation levers, evidence checklist, and lease questions."
+            description="The £49 Standard Commercial Viability File turns the result into a structured decision memo with stress-test interpretation, negotiation levers, evidence checklist, and lease questions."
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -450,7 +450,7 @@ export default function CommercialLeaseViabilityPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Standard file
+                £49 Standard Commercial Viability File
               </p>
               <BulletList
                 items={[
@@ -661,7 +661,7 @@ export default function CommercialLeaseViabilityPage() {
           <SectionTitle
             eyebrow="What YieldLens does"
             title="The free check gives a fast viability snapshot."
-            description="The £49 Standard file turns the result into a structured decision memo with stress-test interpretation, negotiation levers, evidence checklist, and lease questions."
+            description="The £49 Standard Commercial Viability File turns the result into a structured decision memo with stress-test interpretation, negotiation levers, evidence checklist, and lease questions."
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -680,7 +680,7 @@ export default function CommercialLeaseViabilityPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Standard file
+                £49 Standard Commercial Viability File
               </p>
               <BulletList
                 items={[
@@ -775,7 +775,7 @@ export default function CommercialLeaseViabilityPage() {
                 A fast snapshot is useful, but the lease needs a decision memo.
               </h2>
               <p className="text-sm text-stone-300 leading-7 max-w-2xl">
-                The free check gives the headline viability view. The Standard file turns that result into stress-test interpretation, negotiation levers, evidence questions, and a printable memo you can use before signing.
+                The free check gives the headline viability view. The £49 Standard Commercial Viability File turns that result into stress-test interpretation, negotiation levers, evidence questions, and a printable memo you can use before signing.
               </p>
 
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -812,10 +812,10 @@ export default function CommercialLeaseViabilityPage() {
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link href="/viability-file" className={secondaryCtaClass}>
-                  View viability file
+                  £49 Standard Commercial Viability File
                 </Link>
-                <Link href="/how-it-works" className={secondaryCtaClass}>
-                  Learn how it works
+                <Link href="/commercial-lease-checklist-before-signing" className={secondaryCtaClass}>
+                  Commercial lease checklist before signing
                 </Link>
               </div>
             </div>

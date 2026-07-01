@@ -210,7 +210,7 @@ export default function CommercialPersonalGuaranteeBeforeSigningPage() {
                 Commercial personal guarantee
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial personal guarantees before signing a lease
+                Commercial personal guarantee before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
                 A personal guarantee can change the risk of a commercial lease. Even if the business case looks workable, a guarantee may increase the downside for the person signing if rent, costs, trading, or exit assumptions go wrong.
@@ -463,7 +463,7 @@ export default function CommercialPersonalGuaranteeBeforeSigningPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Standard file
+                £49 Standard Commercial Viability File
               </p>
               <ul className="space-y-2 text-sm leading-6 text-[var(--yieldlens-muted)]">
                 <li className="flex gap-2">
@@ -493,7 +493,7 @@ export default function CommercialPersonalGuaranteeBeforeSigningPage() {
               Run a free commercial check
             </TrackedCtaLink>
             <Link href="/viability-file" className={heroSecondaryCtaClass}>
-              View viability file
+              £49 Standard Commercial Viability File
             </Link>
           </div>
           <p className="mt-4 text-sm text-[var(--yieldlens-muted)] leading-7">

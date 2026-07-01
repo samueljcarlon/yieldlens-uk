@@ -19,16 +19,16 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks',
+  title: 'Commercial Lease Checklist Before Signing | YieldLens UK',
   description:
-    'Check rent, lease length, service charge, business rates, permitted use, assignment, subletting, personal guarantees, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
+    'Compare the main commercial lease issues before signing: costs, heads of terms, rent-free timing, deposit, service charge, fit-out, business rates, rent review, break clause, repairing obligations, permitted use, lease length, assignment, and personal guarantees.',
   alternates: {
     canonical: '/commercial-lease-checklist-before-signing',
   },
   openGraph: {
-    title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks | YieldLens UK',
+    title: 'Commercial Lease Checklist Before Signing | YieldLens UK',
     description:
-      'Check rent, lease length, service charge, business rates, permitted use, assignment, subletting, personal guarantees, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
+      'Compare the main commercial lease issues before signing: costs, heads of terms, rent-free timing, deposit, service charge, fit-out, business rates, rent review, break clause, repairing obligations, permitted use, lease length, assignment, and personal guarantees.',
     url: 'https://yieldlens.co.uk/commercial-lease-checklist-before-signing',
   },
 };
@@ -322,10 +322,10 @@ export default function CommercialLeaseChecklistPage() {
                 Commercial lease checklist before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
-                What should I check before signing a commercial lease? Cover both lease terms and commercial affordability. A unit can look attractive but become fragile once rent, lease length, service charge, business rates, fit-out, deposit, stock, staffing, and weak early trade are included.
+                Use this hub to compare the main lease questions before signing. A unit can look attractive but become fragile once rent, lease length, service charge, business rates, fit-out, deposit, stock, staffing, and weak early trade are included.
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
-                This page gives a practical pre-signing checklist, then points you towards the free commercial check and the £49 Standard file if you want a structured decision memo.
+                Start with the issue that matters most, then use the free commercial check and the £49 Standard Commercial Viability File if you want a structured decision memo.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
@@ -580,7 +580,7 @@ export default function CommercialLeaseChecklistPage() {
           <SectionTitle
             eyebrow="How YieldLens helps"
             title="Use YieldLens to pressure-test the numbers before signing."
-            description="The free check gives a viability snapshot. The £49 Standard file turns the result into a decision memo with negotiation levers, evidence checklist, and lease questions."
+            description="The free check gives a viability snapshot. The £49 Standard Commercial Viability File turns the result into a decision memo with negotiation levers, evidence checklist, and lease questions."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-positive)]`}>
@@ -598,7 +598,7 @@ export default function CommercialLeaseChecklistPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Standard file
+                £49 Standard Commercial Viability File
               </p>
               <BulletList
                 items={[

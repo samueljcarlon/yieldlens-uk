@@ -456,7 +456,7 @@ export default function CommercialAssignmentSublettingBeforeSigningPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Standard file
+                £49 Standard Commercial Viability File
               </p>
               <ul className="space-y-2 text-sm leading-6 text-[var(--yieldlens-muted)]">
                 <li className="flex gap-2">
@@ -486,7 +486,7 @@ export default function CommercialAssignmentSublettingBeforeSigningPage() {
               Run a free commercial check
             </TrackedCtaLink>
             <Link href="/viability-file" className={heroSecondaryCtaClass}>
-              View viability file
+              £49 Standard Commercial Viability File
             </Link>
           </div>
           <p className="mt-4 text-sm text-[var(--yieldlens-muted)] leading-7">

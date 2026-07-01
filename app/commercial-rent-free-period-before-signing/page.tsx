@@ -201,7 +201,7 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
                 Commercial rent-free period
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial rent-free periods before signing a lease
+                Commercial rent-free period before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
                 A rent-free period can be more than a small incentive. For a new commercial tenant, it can change the opening cash buffer, fit-out pressure, early trading runway and whether the site can carry the rent after launch.
@@ -236,7 +236,7 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
                   Commercial lease costs before signing
                 </Link>
                 <Link href="/commercial-lease-checklist-before-signing" className="underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial lease checklist
+                  Commercial lease checklist before signing
                 </Link>
                 <Link href="/commercial-lease-viability-check" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease viability check
@@ -411,7 +411,7 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
               Run a free commercial check
             </TrackedCtaLink>
             <Link href="/viability-file" className={heroSecondaryCtaClass}>
-              View viability file
+                £49 Standard Commercial Viability File
             </Link>
           </div>
         </div>
@@ -426,18 +426,18 @@ export default function CommercialRentFreePeriodBeforeSigningPage() {
           />
           <div className={`${surfaceCardClass} p-5 sm:p-6`}>
             <p className="text-sm text-[var(--yieldlens-muted)] leading-7">
-              If the rent-free period changes the picture enough to keep the site in play, the sample file shows the format and the Standard file turns the result into a decision-support memo after the free check.
+              If the rent-free period changes the picture enough to keep the site in play, the sample file shows the format and the £49 Standard Commercial Viability File turns the result into a decision-support memo after the free check.
             </p>
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <TrackedCtaLink
                 href="/sample-commercial-viability-file"
                 eventName="commercial_home_cta_clicked"
                 pagePath="/commercial-rent-free-period-before-signing"
-                ctaLabel="See sample viability file"
+                ctaLabel="View sample viability file"
                 pageType="seo_page"
                 className={heroPrimaryCtaClass}
               >
-                See sample viability file
+                View sample viability file
               </TrackedCtaLink>
               <Link href="/commercial-lease-costs-before-signing" className={secondaryCtaClass}>
                 Commercial lease costs before signing

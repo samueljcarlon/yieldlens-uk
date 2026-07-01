@@ -160,8 +160,8 @@ const workflowSteps = [
   },
   {
     step: '3',
-    title: 'Unlock the Standard file for £49',
-    text: 'Use the saved result to unlock the Standard file for £49, then print or save it as PDF.',
+    title: 'Unlock the Standard Commercial Viability File for £49',
+    text: 'Use the saved result to unlock the Standard Commercial Viability File for £49, then print or save it as PDF.',
   },
 ];
 
@@ -241,7 +241,7 @@ function ComparisonRowCard({
         </div>
         <div>
           <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold mb-1">
-            Standard file
+            £49 Standard Commercial Viability File
           </p>
           <p className="text-stone-700">{paidValue}</p>
         </div>
@@ -331,22 +331,22 @@ export default function ViabilityFilePage() {
                   href="/check?mode=commercial"
                   eventName="viability_file_page_cta_clicked"
                   pagePath="/viability-file"
-                  ctaLabel="Start with a free commercial check"
+                  ctaLabel="Run a free commercial check"
                   pageType="product_page"
                   className={heroPrimaryCtaClass}
                 >
-                  Start with a free commercial check
+                  Run a free commercial check
                 </TrackedCtaLink>
 
                 <TrackedCtaLink
                   href="/sample-commercial-viability-file"
                   eventName="viability_file_page_cta_clicked"
                   pagePath="/viability-file"
-                  ctaLabel="View sample file"
+                  ctaLabel="View sample viability file"
                   pageType="product_page"
                   className={heroSecondaryCtaClass}
                 >
-                  View sample file
+                  View sample viability file
                 </TrackedCtaLink>
 
               </div>
@@ -544,7 +544,7 @@ export default function ViabilityFilePage() {
                 <tr className="border-b border-stone-200 bg-stone-50 text-left">
                   <th className="px-4 py-3 font-semibold text-stone-700">What you get</th>
                   <th className="px-4 py-3 font-semibold text-stone-700">Free check</th>
-                  <th className="px-4 py-3 font-semibold text-stone-700">Standard file, £49</th>
+                  <th className="px-4 py-3 font-semibold text-stone-700">£49 Standard Commercial Viability File</th>
                 </tr>
               </thead>
               <tbody>
@@ -629,11 +629,11 @@ export default function ViabilityFilePage() {
       <section className="bg-stone-100 border-y border-stone-200">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
-            Unlock the Standard file from your result
+            Unlock the Standard Commercial Viability File from your result
           </p>
 
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
-            Start with the free commercial check, then unlock the Standard file from the results page.
+            Run a free commercial check first, then unlock the Standard Commercial Viability File from the results page.
           </h2>
 
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
@@ -645,22 +645,22 @@ export default function ViabilityFilePage() {
               href="/check?mode=commercial"
               eventName="viability_file_page_cta_clicked"
               pagePath="/viability-file"
-              ctaLabel="Start with a free commercial check"
+              ctaLabel="Run a free commercial check"
               pageType="product_page"
               className="w-full sm:w-auto min-h-[48px] bg-[#5e7f5b] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#4f6d4c]"
             >
-              Start with a free commercial check
+              Run a free commercial check
             </TrackedCtaLink>
 
             <TrackedCtaLink
               href="/sample-commercial-viability-file"
               eventName="viability_file_page_cta_clicked"
               pagePath="/viability-file"
-              ctaLabel="View sample file"
+              ctaLabel="View sample viability file"
               pageType="product_page"
               className="w-full sm:w-auto min-h-[48px] border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400"
             >
-              View sample file
+              View sample viability file
             </TrackedCtaLink>
 
           </div>

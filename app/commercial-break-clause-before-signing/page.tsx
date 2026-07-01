@@ -209,7 +209,7 @@ export default function CommercialBreakClauseBeforeSigningPage() {
                 Commercial break clause
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6 text-white">
-                Commercial break clauses before signing a lease
+                Commercial break clause before signing
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-6 leading-8">
                 A break clause can change the downside of a commercial lease. If trading is weaker than expected, opening cash is tight, lease length is long, or rent review risk is unclear, exit flexibility can matter as much as the starting rent.
@@ -382,7 +382,7 @@ export default function CommercialBreakClauseBeforeSigningPage() {
           <SectionTitle
             eyebrow="How YieldLens helps"
             title="Use the free commercial check to test the downside pressure."
-            description="The free check puts the rent, opening cash, and downside trading together. The £49 Standard file turns the result into a decision memo."
+            description="The free check puts the rent, opening cash, and downside trading together. The £49 Standard Commercial Viability File turns the result into a decision memo."
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
@@ -441,18 +441,18 @@ export default function CommercialBreakClauseBeforeSigningPage() {
           />
           <div className={`${surfaceCardClass} p-5 sm:p-6`}>
             <p className="text-sm text-[var(--yieldlens-muted)] leading-7">
-              If the break clause changes the downside enough to keep the site in play, the sample file shows the format and the Standard file turns the result into a decision-support memo after the free check.
+              If the break clause changes the downside enough to keep the site in play, the sample file shows the format and the £49 Standard Commercial Viability File turns the result into a decision-support memo after the free check.
             </p>
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <TrackedCtaLink
                 href="/sample-commercial-viability-file"
                 eventName="commercial_home_cta_clicked"
                 pagePath="/commercial-break-clause-before-signing"
-                ctaLabel="See sample viability file"
+                ctaLabel="View sample viability file"
                 pageType="seo_page"
                 className={heroPrimaryCtaClass}
               >
-                See sample viability file
+                View sample viability file
               </TrackedCtaLink>
               <Link href="/commercial-rent-review-before-signing" className={heroSecondaryCtaClass}>
                 Commercial rent review before signing

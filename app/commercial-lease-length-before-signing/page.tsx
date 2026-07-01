@@ -432,7 +432,7 @@ export default function CommercialLeaseLengthBeforeSigningPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-fragile)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Standard file
+                £49 Standard Commercial Viability File
               </p>
               <ul className="space-y-2 text-sm text-[var(--yieldlens-muted)] leading-7">
                 <li>• Stress-test interpretation, negotiation levers, evidence checklist, and lease questions.</li>
