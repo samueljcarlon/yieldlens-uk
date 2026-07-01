@@ -115,6 +115,10 @@ const termRows = [
     text: 'If the concept changes, ask how easy it will be to transfer or let the lease later.',
   },
   {
+    title: 'Personal guarantee',
+    text: 'If a guarantee is required, the wording and scope should be understood before the deal is treated as settled.',
+  },
+  {
     title: 'Deposit',
     text: 'Cash tied up at the start reduces working capital before trade has proved itself.',
   },
@@ -181,14 +185,14 @@ const relatedLinks = [
     description: 'Check how the deposit changes working capital.',
   },
   {
-    href: '/commercial-rent-review-before-signing',
-    label: 'Commercial rent review before signing',
-    description: 'Check whether future rent increases could tighten the deal.',
+    href: '/commercial-lease-length-before-signing',
+    label: 'Commercial lease length before signing',
+    description: 'Check whether the commitment period matches the business plan.',
   },
   {
-    href: '/commercial-assignment-subletting-before-signing',
-    label: 'Commercial assignment and subletting before signing',
-    description: 'Check whether the lease can still be transferred if the concept changes.',
+    href: '/commercial-personal-guarantee-before-signing',
+    label: 'Commercial personal guarantee before signing',
+    description: 'Check whether a personal guarantee is being required.',
   },
 ];
 

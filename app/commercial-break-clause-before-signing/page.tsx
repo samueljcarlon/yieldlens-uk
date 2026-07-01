@@ -163,8 +163,8 @@ const exampleRows = [
 const relatedLinks = [
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
   { href: '/commercial-rent-review-before-signing', label: 'Commercial rent review before signing' },
-  { href: '/commercial-lease-length-before-signing', label: 'Commercial lease length before signing' },
   { href: '/commercial-assignment-subletting-before-signing', label: 'Commercial assignment and subletting before signing' },
+  { href: '/commercial-personal-guarantee-before-signing', label: 'Commercial personal guarantee before signing' },
   { href: '/commercial-lease-viability-check', label: 'Commercial lease viability check' },
 ];
 

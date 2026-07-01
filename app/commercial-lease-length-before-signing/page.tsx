@@ -186,9 +186,9 @@ const relatedLinks = [
     description: 'Pressure-test the site after the lease term is understood.',
   },
   {
-    href: '/viability-file',
-    label: 'Standard commercial viability file',
-    description: 'See the printable decision memo built from the free check.',
+    href: '/commercial-personal-guarantee-before-signing',
+    label: 'Commercial personal guarantee before signing',
+    description: 'Check whether the downside is also personal.',
   },
 ];
 

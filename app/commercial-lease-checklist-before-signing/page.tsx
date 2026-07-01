@@ -21,14 +21,14 @@ import {
 export const metadata: Metadata = {
   title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks',
   description:
-    'Check rent, lease length, service charge, business rates, permitted use, assignment, subletting, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
+    'Check rent, lease length, service charge, business rates, permitted use, assignment, subletting, personal guarantees, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
   alternates: {
     canonical: '/commercial-lease-checklist-before-signing',
   },
   openGraph: {
     title: 'Commercial Lease Checklist Before Signing | Rent and Viability Checks | YieldLens UK',
     description:
-      'Check rent, lease length, service charge, business rates, permitted use, assignment, subletting, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
+      'Check rent, lease length, service charge, business rates, permitted use, assignment, subletting, personal guarantees, fit-out, deposit, break clause, repair obligations, and affordability before signing a commercial lease.',
     url: 'https://yieldlens.co.uk/commercial-lease-checklist-before-signing',
   },
 };
@@ -143,7 +143,7 @@ const questionGroups = [
   },
   {
     title: 'Lease terms',
-    text: 'Is service charge capped or variable? Who pays for repairs? Is the lease length right for the plan? Can rent increase at review? Is there a break clause? Can the lease be assigned or sublet? Are landlord works documented?',
+    text: 'Is service charge capped or variable? Who pays for repairs? Is the lease length right for the plan? Can rent increase at review? Is there a break clause? Can the lease be assigned or sublet? Is a personal guarantee required? Are landlord works documented?',
   },
   {
     title: 'Trading evidence',
@@ -225,6 +225,12 @@ const guideIndexRows = [
     label: 'Commercial assignment and subletting before signing',
   },
   {
+    issue: 'Personal guarantee',
+    why: 'It can turn a lease problem into a personal downside.',
+    href: '/commercial-personal-guarantee-before-signing',
+    label: 'Commercial personal guarantee before signing',
+  },
+  {
     issue: 'Repairing obligations',
     why: 'Hidden repair exposure can change the economics.',
     href: '/commercial-repairing-obligations-before-signing',
@@ -235,7 +241,7 @@ const guideIndexRows = [
 const faqItems = [
   {
     q: 'What should I check before signing a commercial lease?',
-    a: 'Start with rent burden, break-even customers or sales, upfront cash, downside trading, service charge, rent review, lease length, repairing obligations, break clauses, assignment and subletting, and permitted use. Then ask a solicitor to review the legal terms.',
+    a: 'Start with rent burden, break-even customers or sales, upfront cash, downside trading, service charge, rent review, lease length, repairing obligations, break clauses, assignment and subletting, personal guarantees, and permitted use. Then ask a solicitor to review the legal terms.',
   },
   {
     q: 'Should I sign a lease based only on rent?',

@@ -163,6 +163,7 @@ const verifyItems = [
   'Lease length',
   'Break clause',
   'Repair obligations',
+  'Personal guarantees',
   'Permitted use',
   'Licensing or planning where relevant',
   'Realistic revenue evidence',
@@ -724,9 +725,13 @@ export default function CommercialLeaseViabilityPage() {
                 Where it fits in the funnel
               </p>
               <p className="text-sm text-[var(--yieldlens-muted)] leading-7 mb-4">
-                If exit flexibility is the issue, see the{' '}
+                If exit flexibility or personal downside is the issue, see the{' '}
                 <Link href="/commercial-assignment-subletting-before-signing" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
                   commercial assignment and subletting guide
+                </Link>
+                {' '}and the{' '}
+                <Link href="/commercial-personal-guarantee-before-signing" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
+                  commercial personal guarantee guide
                 </Link>
                 {' '}before signing.
               </p>

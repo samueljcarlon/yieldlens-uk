@@ -167,7 +167,7 @@ const relatedLinks = [
   { href: '/commercial-heads-of-terms-before-signing', label: 'Commercial heads of terms before signing' },
   { href: '/commercial-lease-costs-before-signing', label: 'Commercial lease costs before signing' },
   { href: '/commercial-rent-free-period-before-signing', label: 'Commercial rent-free period before signing' },
-  { href: '/commercial-fit-out-costs-before-signing', label: 'Commercial fit-out costs before signing' },
+  { href: '/commercial-personal-guarantee-before-signing', label: 'Commercial personal guarantee before signing' },
   { href: '/commercial-lease-checklist-before-signing', label: 'Commercial lease checklist before signing' },
 ];
 
