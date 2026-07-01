@@ -722,18 +722,14 @@ export default function CommercialLeaseViabilityPage() {
 
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-caution)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">
-                Where it fits in the funnel
+                Lease points to check alongside viability
               </p>
               <p className="text-sm text-[var(--yieldlens-muted)] leading-7 mb-4">
-                If exit flexibility or personal downside is the issue, see the{' '}
-                <Link href="/commercial-assignment-subletting-before-signing" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
-                  commercial assignment and subletting guide
+                Start with the{' '}
+                <Link href="/commercial-lease-checklist-before-signing" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
+                  commercial lease checklist before signing
                 </Link>
-                {' '}and the{' '}
-                <Link href="/commercial-personal-guarantee-before-signing" className="text-[var(--yieldlens-caution)] font-medium hover:underline">
-                  commercial personal guarantee guide
-                </Link>
-                {' '}before signing.
+                {' '}hub, then check costs, heads of terms, rent review, break clause, and lease length before you rely on the viability result.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {commercialLinks.map((link, index) => (

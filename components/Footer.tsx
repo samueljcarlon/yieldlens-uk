@@ -79,7 +79,7 @@ export default function Footer() {
 
             <div className="space-y-2.5">
               <Link href="/commercial-lease-checklist-before-signing" className={linkClass}>
-                Commercial lease checklist
+                Before signing checklist
               </Link>
               <Link href="/how-much-rent-can-a-cafe-afford" className={linkClass}>
                 Cafe rent affordability

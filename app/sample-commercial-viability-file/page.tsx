@@ -643,6 +643,13 @@ export default function SampleCommercialViabilityFilePage() {
             eyebrow="Evidence needed before signing"
             title="Trading, cost, and lease evidence that should be checked first."
           />
+          <p className="mb-6 text-sm text-stone-600 leading-7">
+            If the sample points you toward a lease question you have not checked yet, start with the{' '}
+            <Link href="/commercial-lease-checklist-before-signing" className="text-[var(--yieldlens-caution)] font-medium underline decoration-stone-300 underline-offset-4 hover:decoration-[var(--yieldlens-caution)]">
+              commercial lease checklist before signing
+            </Link>
+            .
+          </p>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {evidenceSections.map((section) => (
             <div key={section.title} className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm">

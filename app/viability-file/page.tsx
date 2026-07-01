@@ -287,39 +287,24 @@ export default function ViabilityFilePage() {
               </p>
 
               <p className="text-sm text-stone-300 max-w-2xl mb-4 leading-7">
-                If you are still comparing sites, start with the before-signing guides for heads of terms, costs, rent-free timing, lease length, assignment and subletting, personal guarantees, deposit pressure, repair risk, and exit flexibility.
+                If you are still comparing sites, start with the commercial lease checklist before signing. The same issues then appear in the paid memo as cost, cash, and exit checks.
               </p>
 
               <div className="mb-6 flex flex-wrap gap-3 text-sm text-stone-300">
+                <Link href="/commercial-lease-checklist-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Commercial lease checklist before signing
+                </Link>
                 <Link href="/commercial-heads-of-terms-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial heads of terms before signing
                 </Link>
                 <Link href="/commercial-lease-costs-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease costs before signing
                 </Link>
-                <Link href="/commercial-business-rates-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial business rates before signing
-                </Link>
-                <Link href="/commercial-rent-free-period-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial rent-free period before signing
-                </Link>
                 <Link href="/commercial-lease-length-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease length before signing
                 </Link>
-                <Link href="/commercial-assignment-subletting-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial assignment and subletting before signing
-                </Link>
                 <Link href="/commercial-personal-guarantee-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial personal guarantee before signing
-                </Link>
-                <Link href="/commercial-lease-deposit-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial lease deposit before signing
-                </Link>
-                <Link href="/commercial-repairing-obligations-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial repairing obligations before signing
-                </Link>
-                <Link href="/commercial-break-clause-before-signing" className="text-[#DCCDA8] underline decoration-white/30 underline-offset-4 hover:text-white">
-                  Commercial break clause before signing
                 </Link>
               </div>
 

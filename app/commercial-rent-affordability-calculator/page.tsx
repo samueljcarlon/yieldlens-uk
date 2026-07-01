@@ -584,6 +584,34 @@ export default function CommercialRentAffordabilityCalculatorPage() {
         </div>
       </section>
 
+      <section className="bg-stone-100 border-y border-stone-200">
+        <div className="max-w-6xl mx-auto px-4 py-10">
+          <div className="max-w-3xl mb-5">
+            <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
+              Before signing guides
+            </p>
+            <p className="text-sm text-stone-600 leading-7">
+              If the rent is still borderline, check the cost guides that sit behind the affordability screen.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {relatedLinks.map((link, index) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`rounded-3xl border border-stone-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-[var(--yieldlens-caution)] ${
+                  index === 0
+                    ? 'shadow-[0_10px_24px_rgba(15,23,42,0.04)]'
+                    : 'shadow-sm'
+                }`}
+              >
+                <p className="font-semibold text-stone-900 mb-1">{link.label}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <FaqSection
         eyebrow="Frequently asked questions"
         title="Common questions about commercial rent affordability."

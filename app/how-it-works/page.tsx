@@ -157,6 +157,29 @@ const noDoClaims = [
   'Not a replacement for reviewing the lease, speaking to advisers, or checking local evidence.',
 ];
 
+const beforeSigningLinks = [
+  {
+    href: '/commercial-lease-checklist-before-signing',
+    label: 'Commercial lease checklist before signing',
+    description: 'Use the hub that groups the main lease checks.',
+  },
+  {
+    href: '/commercial-heads-of-terms-before-signing',
+    label: 'Commercial heads of terms before signing',
+    description: 'Check the early deal points before the lease gets expensive.',
+  },
+  {
+    href: '/commercial-lease-costs-before-signing',
+    label: 'Commercial lease costs before signing',
+    description: 'Check the full cost stack before you commit to the lease.',
+  },
+  {
+    href: '/commercial-break-clause-before-signing',
+    label: 'Commercial break clause before signing',
+    description: 'Check the exit route if trading weakens after opening.',
+  },
+];
+
 function SectionTitle({
   eyebrow,
   title,
@@ -409,6 +432,35 @@ export default function HowItWorksPage() {
               >
                 {item}
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-stone-100 border-y border-stone-200">
+        <div className="max-w-6xl mx-auto px-4 py-10">
+          <div className="max-w-3xl mb-5">
+            <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
+              Before signing guides
+            </p>
+            <p className="text-sm text-stone-600 leading-7">
+              Before the assumptions harden, check the lease questions that sit behind the numbers.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {beforeSigningLinks.map((link, index) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`rounded-3xl border border-stone-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-[var(--yieldlens-caution)] ${
+                  index === 0
+                    ? 'shadow-[0_10px_24px_rgba(15,23,42,0.04)]'
+                    : 'shadow-sm'
+                }`}
+              >
+                <p className="font-semibold text-stone-900 mb-1">{link.label}</p>
+                <p className="text-sm text-stone-600 leading-6">{link.description}</p>
+              </Link>
             ))}
           </div>
         </div>
