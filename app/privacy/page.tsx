@@ -64,7 +64,7 @@ export default function PrivacyPage() {
           </ul>
           <p className="mt-3">
             We also use browser storage to show your latest check and report
-            preview on your own device.
+            snapshot on your own device.
           </p>
         </section>
 
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
           <SectionTitle eyebrow="3. Why we use it" title="How the information is used" />
           <p className="mt-3">
             We use the information to calculate the check, save your result,
-            display the report preview, return the Standard file to the saved
+            display the report snapshot, return the Standard file to the saved
             commercial result, and improve the product.
           </p>
           <p className="mt-3">
@@ -124,7 +124,7 @@ export default function PrivacyPage() {
           </p>
           <p className="mt-3">
             The app also uses browser storage to remember your latest check and
-            show your results, report preview, and local admin data on your own
+            show your results, report snapshot, and local admin data on your own
             device.
           </p>
           <p className="mt-3">

@@ -189,6 +189,10 @@ export default function HomePage() {
                 signing a commercial lease.
               </p>
 
+              <p className="text-sm text-stone-400 max-w-2xl mb-8 leading-7">
+                No account required. Takes around 2 minutes. Sample available before payment.
+              </p>
+
               <div className="flex flex-wrap gap-2 mb-8">
                 {['Rent burden', 'Break-even customers', 'Opening cash', 'Downside trading', 'Lease questions'].map((item) => (
                   <span

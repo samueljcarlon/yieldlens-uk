@@ -99,7 +99,7 @@ export default function TermsPage() {
           </p>
           <p className="mt-3">
             Any placeholder assumptions are shown in the results and report
-            preview. They should be treated cautiously.
+            snapshot. They should be treated cautiously.
           </p>
         </section>
 

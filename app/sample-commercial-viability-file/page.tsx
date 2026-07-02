@@ -334,7 +334,7 @@ export default function SampleCommercialViabilityFilePage() {
                 Sample Standard commercial viability file
               </h1>
               <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                See the kind of analysis included in the £49 paid file after a free commercial check. This is a separate illustrative case, not the same preview used on the homepage.
+                See the kind of analysis included in the £49 Standard Commercial Viability File after a free commercial check. This is a separate illustrative case, not the same sample used on the homepage.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink

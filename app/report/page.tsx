@@ -704,7 +704,7 @@ export default function ReportPage() {
           </h1>
 
           <p className="text-sm text-stone-500 mb-6">
-            Run a free commercial check first, then the printable report preview will appear here.
+            Run a free commercial check first, then the printable viability file will appear here.
           </p>
 
           <Link
@@ -730,7 +730,7 @@ export default function ReportPage() {
       <div className="print-hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
           <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-1">
-            Viability file preview
+            Viability file snapshot
           </p>
           <h1 className="text-2xl font-bold text-stone-900">
             YieldLens UK viability file

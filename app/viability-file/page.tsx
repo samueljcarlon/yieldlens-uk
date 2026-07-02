@@ -524,7 +524,7 @@ export default function ViabilityFilePage() {
           <SectionTitle
             eyebrow="Free vs paid"
             title="The free check gives the numbers. The paid file turns them into a decision memo."
-            description="The comparison below keeps the offer honest. The free check is the screen. The paid file is the printable pressure-test and action plan. The sample file is a separate redacted example, not the same case as the homepage preview."
+            description="The comparison below keeps the offer honest. The free check is the screen. The paid file is the printable pressure-test and action plan. The sample file is a separate redacted example, not the same case as the homepage sample."
           />
 
           <div className="grid gap-3 md:hidden">
