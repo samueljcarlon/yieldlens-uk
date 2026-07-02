@@ -11,14 +11,14 @@ import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
 import { disclaimerClass, heroSecondaryCtaClass, heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Sample Commercial Viability File | YieldLens UK',
+  title: 'Sample Commercial Viability File',
   description:
     'View a redacted sample of the YieldLens UK Standard commercial viability file before running a free commercial check.',
   alternates: {
     canonical: '/sample-commercial-viability-file',
   },
   openGraph: {
-    title: 'Sample Commercial Viability File | YieldLens UK',
+    title: 'Sample Commercial Viability File',
     description:
       'See what the £49 Standard commercial viability file looks like using a redacted sample case before running a free commercial check.',
     url: 'https://yieldlens.co.uk/sample-commercial-viability-file',

@@ -5,14 +5,14 @@ import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
-  title: 'How Much Rent Can a Cafe Afford? | YieldLens UK',
+  title: 'How Much Rent Can a Cafe Afford?',
   description:
     'Work out whether a cafe rent is affordable by checking rent burden, break-even customers, average spend, upfront cash, downside trading, and lease risk before signing.',
   alternates: {
     canonical: 'https://yieldlens.co.uk/how-much-rent-can-a-cafe-afford',
   },
   openGraph: {
-    title: 'How Much Rent Can a Cafe Afford? | YieldLens UK',
+    title: 'How Much Rent Can a Cafe Afford?',
     description:
       'Pressure-test whether a cafe lease can carry the rent before signing by checking rent burden, customers, cash, downside trading, and lease risk.',
     url: 'https://yieldlens.co.uk/how-much-rent-can-a-cafe-afford',

@@ -6,14 +6,14 @@ import ToolConversionPanel from '@/components/ToolConversionPanel';
 import { heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Property Cash Flow Calculator | Rent, Costs and Monthly Surplus | YieldLens UK',
+  title: 'Property Cash Flow Calculator | Rent, Costs and Monthly Surplus',
   description:
     'Check whether rental income still leaves monthly surplus after mortgage, service charge, ground rent, insurance, maintenance, management fees, and void periods. YieldLens UK does not provide a valuation.',
   alternates: {
     canonical: '/property-cash-flow-calculator',
   },
   openGraph: {
-    title: 'Property Cash Flow Calculator | Rent, Costs and Monthly Surplus | YieldLens UK',
+    title: 'Property Cash Flow Calculator | Rent, Costs and Monthly Surplus',
     description:
       'Check whether rental income still leaves monthly surplus after mortgage costs, service charge, ground rent, management, maintenance, and void periods.',
     url: 'https://yieldlens.co.uk/property-cash-flow-calculator',

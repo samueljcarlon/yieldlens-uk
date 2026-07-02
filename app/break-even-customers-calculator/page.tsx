@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: '/break-even-customers-calculator',
   },
   openGraph: {
-    title: 'Break-Even Customers Calculator | Commercial Rent and Daily Trade | YieldLens UK',
+    title: 'Break-Even Customers Calculator | Commercial Rent and Daily Trade',
     description:
       'Estimate customers per day needed to cover rent, operating costs, and lease pressure before signing a commercial lease.',
     url: 'https://yieldlens.co.uk/break-even-customers-calculator',

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: '/commercial-lease-survival-calculator',
   },
   openGraph: {
-    title: 'Commercial Lease Survival Calculator | Weak Trading Stress Test | YieldLens UK',
+    title: 'Commercial Lease Survival Calculator | Weak Trading Stress Test',
     description:
       'Stress-test whether a commercial lease can survive a weak start after rent, fit-out, deposit, staffing, supplier costs, and other setup pressure are included.',
     url: 'https://yieldlens.co.uk/commercial-lease-survival-calculator',

@@ -19,14 +19,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Costs Before Signing | YieldLens UK',
+  title: 'Commercial Lease Costs Before Signing',
   description:
     'Check the rent, deposit, fit-out, service charge, legal fees, opening cash and downside trading pressure before committing to a commercial lease.',
   alternates: {
     canonical: '/commercial-lease-costs-before-signing',
   },
   openGraph: {
-    title: 'Commercial Lease Costs Before Signing | YieldLens UK',
+    title: 'Commercial Lease Costs Before Signing',
     description:
       'Check the rent, deposit, fit-out, service charge, legal fees, opening cash and downside trading pressure before committing to a commercial lease.',
     url: 'https://yieldlens.co.uk/commercial-lease-costs-before-signing',

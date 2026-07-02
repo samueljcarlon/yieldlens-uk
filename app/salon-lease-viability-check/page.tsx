@@ -5,14 +5,14 @@ import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
-  title: 'Salon Lease Viability Check | YieldLens UK',
+  title: 'Salon Lease Viability Check',
   description:
     'Check whether a salon lease can carry the rent, treatment capacity, average spend, staffing, fit-out, upfront cash, downside trading, and lease risks before committing.',
   alternates: {
     canonical: 'https://yieldlens.co.uk/salon-lease-viability-check',
   },
   openGraph: {
-    title: 'Salon Lease Viability Check | YieldLens UK',
+    title: 'Salon Lease Viability Check',
     description:
       'Pressure-test whether a salon lease can carry the rent, treatment capacity, opening cash, staffing, and lease obligations before you commit.',
     url: 'https://yieldlens.co.uk/salon-lease-viability-check',

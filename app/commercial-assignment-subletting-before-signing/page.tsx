@@ -18,14 +18,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Assignment and Subletting Before Signing | YieldLens UK',
+  title: 'Commercial Assignment and Subletting Before Signing',
   description:
     'Check how assignment, subletting and exit restrictions can affect commercial lease viability before signing.',
   alternates: {
     canonical: '/commercial-assignment-subletting-before-signing',
   },
   openGraph: {
-    title: 'Commercial Assignment and Subletting Before Signing | YieldLens UK',
+    title: 'Commercial Assignment and Subletting Before Signing',
     description:
       'Check how assignment, subletting and exit restrictions can affect commercial lease viability before signing.',
     url: 'https://yieldlens.co.uk/commercial-assignment-subletting-before-signing',

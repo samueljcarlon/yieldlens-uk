@@ -19,14 +19,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Checklist Before Signing | YieldLens UK',
+  title: 'Commercial Lease Checklist Before Signing',
   description:
     'Compare the main commercial lease issues before signing: costs, heads of terms, rent-free timing, deposit, service charge, fit-out, business rates, rent review, break clause, repairing obligations, permitted use, lease length, assignment, and personal guarantees.',
   alternates: {
     canonical: '/commercial-lease-checklist-before-signing',
   },
   openGraph: {
-    title: 'Commercial Lease Checklist Before Signing | YieldLens UK',
+    title: 'Commercial Lease Checklist Before Signing',
     description:
       'Compare the main commercial lease issues before signing: costs, heads of terms, rent-free timing, deposit, service charge, fit-out, business rates, rent review, break clause, repairing obligations, permitted use, lease length, assignment, and personal guarantees.',
     url: 'https://yieldlens.co.uk/commercial-lease-checklist-before-signing',
@@ -68,6 +68,117 @@ const faqStructuredData = {
         '@type': 'Answer',
         text: 'YieldLens does not review legal documents. It helps you structure the commercial numbers and questions before you commit to a lease.',
       },
+    },
+  ],
+};
+
+const itemListStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Commercial lease issues to check before signing',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Commercial lease costs before signing',
+      url: 'https://yieldlens.co.uk/commercial-lease-costs-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Commercial heads of terms before signing',
+      url: 'https://yieldlens.co.uk/commercial-heads-of-terms-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Commercial rent-free period before signing',
+      url: 'https://yieldlens.co.uk/commercial-rent-free-period-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: 'Commercial lease deposit before signing',
+      url: 'https://yieldlens.co.uk/commercial-lease-deposit-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 5,
+      name: 'Commercial service charge before signing',
+      url: 'https://yieldlens.co.uk/commercial-service-charge-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 6,
+      name: 'Commercial fit-out costs before signing',
+      url: 'https://yieldlens.co.uk/commercial-fit-out-costs-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 7,
+      name: 'Commercial business rates before signing',
+      url: 'https://yieldlens.co.uk/commercial-business-rates-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 8,
+      name: 'Commercial rent review before signing',
+      url: 'https://yieldlens.co.uk/commercial-rent-review-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 9,
+      name: 'Commercial break clause before signing',
+      url: 'https://yieldlens.co.uk/commercial-break-clause-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 10,
+      name: 'Commercial repairing obligations before signing',
+      url: 'https://yieldlens.co.uk/commercial-repairing-obligations-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 11,
+      name: 'Commercial permitted use before signing',
+      url: 'https://yieldlens.co.uk/commercial-permitted-use-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 12,
+      name: 'Commercial lease length before signing',
+      url: 'https://yieldlens.co.uk/commercial-lease-length-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 13,
+      name: 'Commercial assignment and subletting before signing',
+      url: 'https://yieldlens.co.uk/commercial-assignment-subletting-before-signing',
+    },
+    {
+      '@type': 'ListItem',
+      position: 14,
+      name: 'Commercial personal guarantee before signing',
+      url: 'https://yieldlens.co.uk/commercial-personal-guarantee-before-signing',
+    },
+  ],
+};
+
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://yieldlens.co.uk',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Commercial lease checklist before signing',
+      item: 'https://yieldlens.co.uk/commercial-lease-checklist-before-signing',
     },
   ],
 };
@@ -301,7 +412,7 @@ function BulletList({ items }: { items: string[] }) {
 export default function CommercialLeaseChecklistPage() {
   return (
     <div className="bg-[var(--yieldlens-page)] text-stone-900">
-      <JsonLd data={faqStructuredData} />
+      <JsonLd data={[faqStructuredData, itemListStructuredData, breadcrumbStructuredData]} />
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/commercial-lease-checklist-before-signing"

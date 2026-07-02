@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     canonical: '/commercial-lease-viability-check',
   },
   openGraph: {
-    title: 'Commercial Lease Viability Check | Can the Site Carry the Rent? | YieldLens UK',
+    title: 'Commercial Lease Viability Check | Can the Site Carry the Rent?',
     description:
       'Pressure-test whether a commercial site can carry the rent before you sign. YieldLens checks rent burden, break-even customers, opening cash, downside trading, lease questions, and survival runway.',
     url: 'https://yieldlens.co.uk/commercial-lease-viability-check',

@@ -6,14 +6,14 @@ import TrackedCtaLink from '@/components/TrackedCtaLink';
 import { disclaimerClass, heroSecondaryCtaClass, heroPrimaryCtaClass, surfaceCardClass, surfaceCardSoftClass, tableShellClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Standard Commercial Viability File | YieldLens UK',
+  title: 'Standard Commercial Viability File',
   description:
     'Standard commercial viability file, £49. A printable decision-support memo built from the saved commercial check assumptions.',
   alternates: {
     canonical: '/viability-file',
   },
   openGraph: {
-    title: 'Standard Commercial Viability File | YieldLens UK',
+    title: 'Standard Commercial Viability File',
     description:
       'A £49 printable decision-support memo built from the saved commercial check assumptions before signing.',
     url: 'https://yieldlens.co.uk/viability-file',

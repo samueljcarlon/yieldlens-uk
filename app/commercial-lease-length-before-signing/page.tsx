@@ -18,14 +18,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Length Before Signing | YieldLens UK',
+  title: 'Commercial Lease Length Before Signing',
   description:
     'Check how lease length, break clauses, rent reviews and fit-out payback can affect commercial lease viability before signing.',
   alternates: {
     canonical: '/commercial-lease-length-before-signing',
   },
   openGraph: {
-    title: 'Commercial Lease Length Before Signing | YieldLens UK',
+    title: 'Commercial Lease Length Before Signing',
     description:
       'Check how lease length, break clauses, rent reviews and fit-out payback can affect commercial lease viability before signing.',
     url: 'https://yieldlens.co.uk/commercial-lease-length-before-signing',

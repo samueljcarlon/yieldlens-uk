@@ -19,14 +19,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Deposit Before Signing | YieldLens UK',
+  title: 'Commercial Lease Deposit Before Signing',
   description:
     'Check how a commercial lease deposit affects opening cash, working capital, fit-out pressure and lease viability before signing.',
   alternates: {
     canonical: '/commercial-lease-deposit-before-signing',
   },
   openGraph: {
-    title: 'Commercial Lease Deposit Before Signing | YieldLens UK',
+    title: 'Commercial Lease Deposit Before Signing',
     description:
       'Check how a commercial lease deposit affects opening cash, working capital, fit-out pressure and lease viability before signing.',
     url: 'https://yieldlens.co.uk/commercial-lease-deposit-before-signing',

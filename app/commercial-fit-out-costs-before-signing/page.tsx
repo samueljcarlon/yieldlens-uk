@@ -19,14 +19,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Fit-Out Costs Before Signing | YieldLens UK',
+  title: 'Commercial Fit-Out Costs Before Signing',
   description:
     'Check how fit-out costs, setup costs, opening cash and launch delays can affect commercial lease viability before signing.',
   alternates: {
     canonical: '/commercial-fit-out-costs-before-signing',
   },
   openGraph: {
-    title: 'Commercial Fit-Out Costs Before Signing | YieldLens UK',
+    title: 'Commercial Fit-Out Costs Before Signing',
     description:
       'Check how fit-out costs, setup costs, opening cash and launch delays can affect commercial lease viability before signing.',
     url: 'https://yieldlens.co.uk/commercial-fit-out-costs-before-signing',

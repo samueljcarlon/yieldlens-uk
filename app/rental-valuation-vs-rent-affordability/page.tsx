@@ -17,14 +17,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Rental Valuation vs Rent Affordability | What a Valuation Misses | YieldLens UK',
+  title: 'Rental Valuation vs Rent Affordability | What a Valuation Misses',
   description:
     'Understand the difference between estimated rental value, rent affordability, and commercial lease viability before relying on a rent figure. YieldLens focuses on affordability, not valuation.',
   alternates: {
     canonical: '/rental-valuation-vs-rent-affordability',
   },
   openGraph: {
-    title: 'Rental Valuation vs Rent Affordability | What a Valuation Misses | YieldLens UK',
+    title: 'Rental Valuation vs Rent Affordability | What a Valuation Misses',
     description:
       'Understand the difference between estimated rental value, rent affordability, and commercial lease viability before relying on a rent figure. YieldLens focuses on affordability, not valuation.',
     url: 'https://yieldlens.co.uk/rental-valuation-vs-rent-affordability',

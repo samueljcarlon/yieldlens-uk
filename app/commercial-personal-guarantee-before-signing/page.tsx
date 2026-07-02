@@ -18,14 +18,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Personal Guarantee Before Signing | YieldLens UK',
+  title: 'Commercial Personal Guarantee Before Signing',
   description:
     'Check how a personal guarantee, director guarantee, deposit and lease terms can affect downside risk before signing a commercial lease.',
   alternates: {
     canonical: '/commercial-personal-guarantee-before-signing',
   },
   openGraph: {
-    title: 'Commercial Personal Guarantee Before Signing | YieldLens UK',
+    title: 'Commercial Personal Guarantee Before Signing',
     description:
       'Check how a personal guarantee, director guarantee, deposit and lease terms can affect downside risk before signing a commercial lease.',
     url: 'https://yieldlens.co.uk/commercial-personal-guarantee-before-signing',

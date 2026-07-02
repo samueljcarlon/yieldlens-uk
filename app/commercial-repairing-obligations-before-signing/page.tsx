@@ -18,14 +18,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Repairing Obligations Before Signing | YieldLens UK',
+  title: 'Commercial Repairing Obligations Before Signing',
   description:
     'Check how repairing obligations, FRI wording, condition risk and dilapidations can affect commercial lease viability before signing.',
   alternates: {
     canonical: '/commercial-repairing-obligations-before-signing',
   },
   openGraph: {
-    title: 'Commercial Repairing Obligations Before Signing | YieldLens UK',
+    title: 'Commercial Repairing Obligations Before Signing',
     description:
       'Check how repairing obligations, FRI wording, condition risk and dilapidations can affect commercial lease viability before signing.',
     url: 'https://yieldlens.co.uk/commercial-repairing-obligations-before-signing',

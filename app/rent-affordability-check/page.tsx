@@ -12,14 +12,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Rent Affordability Check | Is This Rent Affordable? | YieldLens UK',
+  title: 'Rent Affordability Check | Is This Rent Affordable?',
   description:
     'Check whether rent is affordable against income, bills, and commitments. If you arrived from rental valuation search terms, use YieldLens UK to test whether the number really fits the budget.',
   alternates: {
     canonical: '/rent-affordability-check',
   },
   openGraph: {
-    title: 'Rent Affordability Check | Is This Rent Affordable? | YieldLens UK',
+    title: 'Rent Affordability Check | Is This Rent Affordable?',
     description:
       'Check whether rent is affordable against income, bills, and commitments. Use YieldLens UK when you need to test the number rather than rely on a rental valuation.',
     url: 'https://yieldlens.co.uk/rent-affordability-check',

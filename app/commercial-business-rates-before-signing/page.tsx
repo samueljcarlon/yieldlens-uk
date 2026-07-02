@@ -19,14 +19,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Business Rates Before Signing | YieldLens UK',
+  title: 'Commercial Business Rates Before Signing',
   description:
     'Check how business rates can affect commercial rent affordability, monthly cost base and lease viability before signing.',
   alternates: {
     canonical: '/commercial-business-rates-before-signing',
   },
   openGraph: {
-    title: 'Commercial Business Rates Before Signing | YieldLens UK',
+    title: 'Commercial Business Rates Before Signing',
     description:
       'Check how business rates can affect commercial rent affordability, monthly cost base and lease viability before signing.',
     url: 'https://yieldlens.co.uk/commercial-business-rates-before-signing',

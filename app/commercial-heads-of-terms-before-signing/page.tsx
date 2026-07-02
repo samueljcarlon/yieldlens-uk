@@ -18,14 +18,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Heads of Terms Before Signing | YieldLens UK',
+  title: 'Commercial Heads of Terms Before Signing',
   description:
     'Check rent, deposit, rent-free period, lease length, service charge, break clause, rent review and opening cash before agreeing commercial lease heads of terms.',
   alternates: {
     canonical: '/commercial-heads-of-terms-before-signing',
   },
   openGraph: {
-    title: 'Commercial Heads of Terms Before Signing | YieldLens UK',
+    title: 'Commercial Heads of Terms Before Signing',
     description:
       'Check rent, deposit, rent-free period, lease length, service charge, break clause, rent review and opening cash before agreeing commercial lease heads of terms.',
     url: 'https://yieldlens.co.uk/commercial-heads-of-terms-before-signing',

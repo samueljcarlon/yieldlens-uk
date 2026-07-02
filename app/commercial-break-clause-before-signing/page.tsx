@@ -18,14 +18,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Break Clause Before Signing | YieldLens UK',
+  title: 'Commercial Break Clause Before Signing',
   description:
     'Check how a commercial lease break clause, rent review timing and exit flexibility can affect lease viability before signing.',
   alternates: {
     canonical: '/commercial-break-clause-before-signing',
   },
   openGraph: {
-    title: 'Commercial Break Clause Before Signing | YieldLens UK',
+    title: 'Commercial Break Clause Before Signing',
     description:
       'Check how a commercial lease break clause, rent review timing and exit flexibility can affect lease viability before signing.',
     url: 'https://yieldlens.co.uk/commercial-break-clause-before-signing',

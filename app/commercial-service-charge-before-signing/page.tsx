@@ -19,14 +19,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Service Charge Before Signing | YieldLens UK',
+  title: 'Commercial Service Charge Before Signing',
   description:
     'Check how service charge, insurance, shared costs and variable lease costs affect commercial rent affordability before signing a lease.',
   alternates: {
     canonical: '/commercial-service-charge-before-signing',
   },
   openGraph: {
-    title: 'Commercial Service Charge Before Signing | YieldLens UK',
+    title: 'Commercial Service Charge Before Signing',
     description:
       'Check how service charge, insurance, shared costs and variable lease costs affect commercial rent affordability before signing a lease.',
     url: 'https://yieldlens.co.uk/commercial-service-charge-before-signing',

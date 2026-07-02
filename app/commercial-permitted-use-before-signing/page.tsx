@@ -18,14 +18,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Permitted Use Before Signing | YieldLens UK',
+  title: 'Commercial Permitted Use Before Signing',
   description:
     'Check how permitted use, planning, licensing and lease restrictions can affect commercial lease viability before signing.',
   alternates: {
     canonical: '/commercial-permitted-use-before-signing',
   },
   openGraph: {
-    title: 'Commercial Permitted Use Before Signing | YieldLens UK',
+    title: 'Commercial Permitted Use Before Signing',
     description:
       'Check how permitted use, planning, licensing and lease restrictions can affect commercial lease viability before signing.',
     url: 'https://yieldlens.co.uk/commercial-permitted-use-before-signing',

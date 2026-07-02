@@ -5,14 +5,14 @@ import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
-  title: 'Restaurant Lease Viability Check | YieldLens UK',
+  title: 'Restaurant Lease Viability Check',
   description:
     'Check whether a restaurant lease can carry the rent, break-even covers, average spend, staffing, upfront cash, downside trading, and lease risks before committing.',
   alternates: {
     canonical: 'https://yieldlens.co.uk/restaurant-lease-viability-check',
   },
   openGraph: {
-    title: 'Restaurant Lease Viability Check | YieldLens UK',
+    title: 'Restaurant Lease Viability Check',
     description:
       'Pressure-test whether a restaurant lease can carry the rent, covers, opening cash, staffing, and lease obligations before you commit.',
     url: 'https://yieldlens.co.uk/restaurant-lease-viability-check',

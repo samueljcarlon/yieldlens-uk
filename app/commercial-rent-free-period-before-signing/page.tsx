@@ -19,14 +19,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Rent-Free Period Before Signing | YieldLens UK',
+  title: 'Commercial Rent-Free Period Before Signing',
   description:
     'Understand how a rent-free period, fit-out period or landlord incentive can affect opening cash, rent burden and commercial lease viability before signing.',
   alternates: {
     canonical: '/commercial-rent-free-period-before-signing',
   },
   openGraph: {
-    title: 'Commercial Rent-Free Period Before Signing | YieldLens UK',
+    title: 'Commercial Rent-Free Period Before Signing',
     description:
       'Understand how a rent-free period, fit-out period or landlord incentive can affect opening cash, rent burden and commercial lease viability before signing.',
     url: 'https://yieldlens.co.uk/commercial-rent-free-period-before-signing',

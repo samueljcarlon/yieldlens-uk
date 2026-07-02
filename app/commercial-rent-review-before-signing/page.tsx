@@ -18,14 +18,14 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Rent Review Before Signing | YieldLens UK',
+  title: 'Commercial Rent Review Before Signing',
   description:
     'Check how rent review clauses, future rent increases and lease wording can affect commercial rent affordability before signing.',
   alternates: {
     canonical: '/commercial-rent-review-before-signing',
   },
   openGraph: {
-    title: 'Commercial Rent Review Before Signing | YieldLens UK',
+    title: 'Commercial Rent Review Before Signing',
     description:
       'Check how rent review clauses, future rent increases and lease wording can affect commercial rent affordability before signing.',
     url: 'https://yieldlens.co.uk/commercial-rent-review-before-signing',

@@ -12,7 +12,7 @@ import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
 import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
 
 export const metadata: Metadata = {
-  title: 'Standard Commercial Viability File | YieldLens UK',
+  title: 'Standard Commercial Viability File',
   description:
     '£49 printable commercial decision memo built from the free check, with rent burden, cash pressure, downside risk, negotiation levers, and lease questions.',
   robots: {

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: '/commercial-rent-burden-calculator',
   },
   openGraph: {
-    title: 'Commercial Rent Burden Calculator | Rent as Share of Revenue | YieldLens UK',
+    title: 'Commercial Rent Burden Calculator | Rent as Share of Revenue',
     description:
       'See commercial rent as a share of revenue, judge rent pressure, and pressure-test whether a commercial lease can carry the rent before signing.',
     url: 'https://yieldlens.co.uk/commercial-rent-burden-calculator',

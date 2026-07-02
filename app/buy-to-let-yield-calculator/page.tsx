@@ -4,14 +4,14 @@ import JsonLd from '@/components/JsonLd';
 import { heroPrimaryCtaClass, heroSecondaryCtaClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Buy-to-Let Yield Calculator UK | YieldLens UK',
+  title: 'Buy-to-Let Yield Calculator UK',
   description:
     'Use the YieldLens UK buy-to-let yield calculator to estimate rental yield, cash flow, ownership costs, and downside risk before buying a UK rental property.',
   alternates: {
     canonical: '/buy-to-let-yield-calculator',
   },
   openGraph: {
-    title: 'Buy-to-Let Yield Calculator UK | YieldLens UK',
+    title: 'Buy-to-Let Yield Calculator UK',
     description:
       'Estimate rental yield, buy-to-let cash flow, known ownership costs, and downside risk before buying a rental property.',
     url: 'https://yieldlens.co.uk/buy-to-let-yield-calculator',
