@@ -9,6 +9,10 @@ export interface FunnelAttributionSnapshot {
   last_page_type?: string;
   last_mode?: string;
   last_seen_at?: string;
+  landing_page?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
   referrer_type?: FunnelReferrerType;
   referrer_host?: string;
 }
@@ -122,6 +126,10 @@ function readSnapshot(): FunnelAttributionSnapshot {
       last_page_type: safeString(parsed.last_page_type),
       last_mode: safeString(parsed.last_mode),
       last_seen_at: safeString(parsed.last_seen_at),
+      landing_page: normalizeFunnelPath(parsed.landing_page as string | undefined),
+      utm_source: safeString(parsed.utm_source),
+      utm_medium: safeString(parsed.utm_medium),
+      utm_campaign: safeString(parsed.utm_campaign),
       referrer_type: (safeString(parsed.referrer_type) as FunnelReferrerType) || undefined,
       referrer_host: safeString(parsed.referrer_host).toLowerCase(),
     };
@@ -158,6 +166,11 @@ export function captureFunnelTouch({
   const referrerHost = getReferrerHost(referrerValue);
   const previousPagePath = normalizeFunnelPath(existing.last_page_path);
   const inferredReferrerType = classifyReferrer(referrerValue, currentHost);
+  const searchParams = new URLSearchParams(window.location.search);
+  const utmSource = safeString(searchParams.get('utm_source'));
+  const utmMedium = safeString(searchParams.get('utm_medium'));
+  const utmCampaign = safeString(searchParams.get('utm_campaign'));
+  const landingPageParam = normalizeFunnelPath(searchParams.get('landing_page'));
   const referrerType =
     inferredReferrerType === 'direct' && previousPagePath && previousPagePath !== normalizedPagePath
       ? 'internal'
@@ -172,6 +185,10 @@ export function captureFunnelTouch({
     last_page_type: safeString(pageType),
     last_mode: safeString(mode) || existing.last_mode,
     last_seen_at: now,
+    landing_page: existing.landing_page || landingPageParam || existing.first_page_path || normalizedPagePath,
+    utm_source: existing.utm_source || utmSource,
+    utm_medium: existing.utm_medium || utmMedium,
+    utm_campaign: existing.utm_campaign || utmCampaign,
     referrer_type: referrerType,
     referrer_host:
       referrerHost ||
@@ -224,6 +241,10 @@ export function buildFunnelAttributionMetadata(
     page_type: currentPageType || undefined,
     mode: currentMode || undefined,
     source_page: sourcePage || undefined,
+    landing_page: snapshot.landing_page || sourcePage || currentPagePath || undefined,
+    utm_source: snapshot.utm_source || undefined,
+    utm_medium: snapshot.utm_medium || undefined,
+    utm_campaign: snapshot.utm_campaign || undefined,
     current_page_path: currentPagePath || undefined,
     current_page_type: currentPageType || undefined,
     current_mode: currentMode || undefined,

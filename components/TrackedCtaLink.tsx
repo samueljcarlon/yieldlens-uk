@@ -10,6 +10,7 @@ interface TrackedCtaLinkProps {
   eventName: string;
   pagePath: string;
   ctaLabel: string;
+  ctaLocation?: string;
   pageType: string;
   children: ReactNode;
 }
@@ -20,6 +21,7 @@ export default function TrackedCtaLink({
   eventName,
   pagePath,
   ctaLabel,
+  ctaLocation = 'body',
   pageType,
   children,
 }: TrackedCtaLinkProps) {
@@ -31,9 +33,12 @@ export default function TrackedCtaLink({
       result_label: ctaLabel,
       result_band: 'cta_click',
       metadata: {
+        source_path: pagePath,
         page_path: pagePath,
         cta_label: ctaLabel,
+        cta_location: ctaLocation,
         destination: href,
+        destination_path: href,
         funnel_area: 'commercial',
         page_type: pageType,
       },

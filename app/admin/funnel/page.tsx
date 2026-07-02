@@ -210,6 +210,8 @@ function summarizeSafeMetadata(event: ToolEvent): string {
     'funnel_area',
     'mode',
     'source_page',
+    'source_path',
+    'landing_page',
     'current_page_path',
     'current_page_type',
     'current_mode',
@@ -222,7 +224,12 @@ function summarizeSafeMetadata(event: ToolEvent): string {
     'referrer_type',
     'referrer_host',
     'cta_label',
+    'cta_location',
     'destination',
+    'destination_path',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
     'result_band',
   ];
 
@@ -315,6 +322,35 @@ function countFirstTouchRows(sourceEvents: ToolEvent[], keys: string[]) {
     .slice(0, 5);
 }
 
+function PathList({
+  title,
+  helper,
+  rows,
+}: {
+  title: string;
+  helper: string;
+  rows: Array<{ path: string; count: number }>;
+}) {
+  return (
+    <div className="bg-stone-50 border border-stone-200 rounded-xl p-5">
+      <p className="font-semibold text-stone-950 mb-1">{title}</p>
+      <p className="text-xs text-stone-500 mb-4">{helper}</p>
+      <div className="space-y-3">
+        {rows.length > 0 ? (
+          rows.map((row) => (
+            <div key={row.path} className="flex items-start justify-between gap-3 text-sm border-b border-stone-100 pb-2">
+              <span className="text-stone-600 break-all">{row.path}</span>
+              <span className="font-semibold text-stone-950 shrink-0">{row.count}</span>
+            </div>
+          ))
+        ) : (
+          <p className="text-sm text-stone-500">No data yet.</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function AdminFunnelPage() {
   const [adminPin, setAdminPin] = useState('');
   const [events, setEvents] = useState<ToolEvent[]>([]);
@@ -403,23 +439,35 @@ export default function AdminFunnelPage() {
 
     const firstTouchPriority = ['first_page_path', 'source_page', 'current_page_path', 'page_path'];
 
+    const commercialStartLandingRows = countFirstTouchRows(
+      selectedRangeEvents.filter((event) => event.eventName === 'commercial_check_started'),
+      ['landing_page', ...firstTouchPriority]
+    );
+
+    const sampleClickLandingRows = countFirstTouchRows(
+      selectedRangeEvents.filter((event) => event.eventName === 'results_viability_file_requested_clicked'),
+      ['landing_page', ...firstTouchPriority]
+    );
+
     const submissionSourceRows = countFirstTouchRows(
       selectedRangeEvents.filter((event) => event.eventName === 'commercial_check_submitted'),
-      firstTouchPriority
+      ['source_page', 'current_page_path', 'page_path', 'landing_page', 'first_page_path']
     );
 
     const checkoutSourceRows = countFirstTouchRows(
       selectedRangeEvents.filter((event) => event.eventName === 'checkout_started'),
-      firstTouchPriority
+      ['source_page', 'current_page_path', 'page_path', 'landing_page', 'first_page_path']
     );
 
     const paymentSourceRows = countFirstTouchRows(
       selectedRangeEvents.filter((event) => event.eventName === 'payment_completed'),
-      firstTouchPriority
+      ['source_page', 'current_page_path', 'page_path', 'landing_page', 'first_page_path']
     );
 
     return {
       inboundLandingRows,
+      commercialStartLandingRows,
+      sampleClickLandingRows,
       submissionSourceRows,
       checkoutSourceRows,
       paymentSourceRows,
@@ -583,6 +631,36 @@ export default function AdminFunnelPage() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm mb-8">
+        <p className="font-semibold text-stone-950 mb-2">
+          Organic landing pages
+        </p>
+
+        <p className="text-sm text-stone-600 mb-4">
+          Where visitors land before starting the commercial flow, plus the pages that lead to sample and checkout clicks.
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <PathList
+            title="Check starts by landing page"
+            helper="Uses the earliest recorded landing page for each check-start event."
+            rows={attributionRows.commercialStartLandingRows}
+          />
+
+          <PathList
+            title="Sample-file clicks by landing page"
+            helper="Shows which landing pages most often lead to the sample click."
+            rows={attributionRows.sampleClickLandingRows}
+          />
+
+          <PathList
+            title="Checkout starts by source page"
+            helper="Shows the page used when checkout is created."
+            rows={attributionRows.checkoutSourceRows}
+          />
         </div>
       </div>
 

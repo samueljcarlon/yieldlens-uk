@@ -28,9 +28,12 @@ export default function ReportInterestButton({
           result_label: 'Unlock the £49 viability file',
           result_band: 'cta_click',
           metadata: {
+            source_path: '/results',
             page_path: '/results',
             cta_label: 'Unlock the £49 viability file',
+            cta_location: 'results',
             destination: '/thank-you',
+            destination_path: '/thank-you',
             funnel_area: 'commercial',
             page_type: 'results',
             mode: submission.mode,
