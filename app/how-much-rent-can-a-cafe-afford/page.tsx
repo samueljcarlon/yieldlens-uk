@@ -268,6 +268,9 @@ export default function CafeRentAffordabilityPage() {
               <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 Quick answer
               </p>
+              <p className="text-sm text-stone-300 leading-7 mb-4">
+                A cafe can afford rent only if expected sales, gross margin, staffing, rates, service charge, and opening cash leave enough room after fixed costs. Rent should be tested against revenue, break-even customers per day, and downside trading, not judged from the headline rent alone.
+              </p>
               <div className="space-y-3 text-sm text-stone-300 leading-7">
                 {quickAnswerPoints.map((item) => (
                   <p key={item}>{item}</p>
@@ -275,6 +278,47 @@ export default function CafeRentAffordabilityPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-12">
+        <SectionTitle
+          eyebrow="The key checks"
+          title="The rent question becomes clearer when the main pressures are separated."
+          description="These checks help show whether the cafe can carry the rent after the opening costs and weaker months are counted."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            {
+              title: 'Rent burden',
+              text: 'Rent as a share of expected monthly revenue. It shows how much room is left for staff, stock, and quieter trading.',
+            },
+            {
+              title: 'Break-even pressure',
+              text: 'Daily customers needed to cover the known monthly cost base. It turns the rent problem into a trading target.',
+            },
+            {
+              title: 'Opening cash',
+              text: 'Cash left after fit-out, deposit, legal fees, stock, and setup costs. Thin buffers create fragility even when the rent looks manageable.',
+            },
+            {
+              title: 'Occupancy cost',
+              text: 'Rent plus service charge and business rates. This is often the better test than rent on its own.',
+            },
+            {
+              title: 'Downside trading',
+              text: 'Whether the site still covers costs if revenue is weaker than expected. The best month is not the test.',
+            },
+            {
+              title: 'Lease questions',
+              text: 'Break clause, rent-free period, lease length, repair obligations, and permitted use can all change the risk.',
+            },
+          ].map((item) => (
+            <div key={item.title} className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+              <p className="font-semibold text-stone-900 mb-2">{item.title}</p>
+              <p className="text-sm text-stone-600 leading-6">{item.text}</p>
+            </div>
+          ))}
         </div>
       </section>
 

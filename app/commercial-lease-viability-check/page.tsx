@@ -152,6 +152,39 @@ const operatorExamples = [
   },
 ];
 
+const aiOverviewRows = [
+  {
+    check: 'Rent burden',
+    why: 'Shows how much revenue rent absorbs before the rest of the cost base is paid.',
+    where: 'Free check and Standard Commercial Viability File',
+  },
+  {
+    check: 'Break-even pressure',
+    why: 'Turns the lease into a trading target the operator can test against realistic demand.',
+    where: 'Free check and viability memo',
+  },
+  {
+    check: 'Opening cash',
+    why: 'Shows whether deposits, fit-out, fees, and opening stock leave enough buffer to trade.',
+    where: 'Free check and paid file',
+  },
+  {
+    check: 'Downside trading',
+    why: 'Checks whether the site survives weaker revenue instead of only the base case.',
+    where: 'Free check and viability memo',
+  },
+  {
+    check: 'Lease questions',
+    why: 'Break clause, lease length, repair obligations, and permitted use can change the result.',
+    where: 'Checklist hub and paid file',
+  },
+  {
+    check: 'Evidence checklist',
+    why: 'Comparable rents, costs, and trading evidence help show whether the assumptions are grounded.',
+    where: 'Checklist hub and Standard file',
+  },
+];
+
 const verifyItems = [
   'Comparable commercial rents',
   'Service charge',
@@ -331,6 +364,39 @@ export default function CommercialLeaseViabilityPage() {
         </div>
       </section>
 
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Quick answer"
+            title="A commercial lease is more viable when the numbers and the lease terms still work together."
+            description="The free check helps pressure-test rent burden, opening cash, break-even pressure, and downside trading before the lease gets expensive to unwind."
+          />
+          <p className="mb-6 text-sm text-[var(--yieldlens-muted)] leading-7 max-w-3xl">
+            YieldLens helps organise the assumptions behind the rent, rather than treating the headline rent in isolation. That makes it easier to compare the site with the trading plan, the opening cash stack, and the lease questions that could change the downside.
+          </p>
+          <div className="overflow-hidden rounded-3xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)]">
+            <table className="min-w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-stone-200 bg-white text-left">
+                  <th className="px-4 py-3 font-semibold text-stone-700">Check</th>
+                  <th className="px-4 py-3 font-semibold text-stone-700">Why it matters</th>
+                  <th className="px-4 py-3 font-semibold text-stone-700">Where YieldLens helps</th>
+                </tr>
+              </thead>
+              <tbody>
+                {aiOverviewRows.map((row) => (
+                  <tr key={row.check} className="border-b border-stone-200 align-top last:border-b-0">
+                    <td className="px-4 py-3 font-medium text-stone-950">{row.check}</td>
+                    <td className="px-4 py-3 text-stone-700 leading-6">{row.why}</td>
+                    <td className="px-4 py-3 text-stone-700 leading-6">{row.where}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       <section className={`${sectionBandClass} mt-8`}>
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
@@ -366,7 +432,7 @@ export default function CommercialLeaseViabilityPage() {
       <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="What to test"
+            eyebrow="The key checks"
             title="What a lease viability check should test"
             description="The check should answer the questions that matter before the lease becomes expensive to unwind."
           />

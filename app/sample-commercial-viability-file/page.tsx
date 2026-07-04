@@ -336,6 +336,12 @@ export default function SampleCommercialViabilityFilePage() {
               <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 See the kind of analysis included in the £49 Standard Commercial Viability File after a free commercial check. This is a separate illustrative case, not the same sample used on the homepage.
               </p>
+              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-2">
+                Quick answer
+              </p>
+              <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
+                The sample shows how the paid file turns a free check into a printable memo with rent burden, break-even pressure, opening cash, downside trading, lease questions, and evidence prompts. It is designed to show the structure, wording, and level of detail in the £49 Standard Commercial Viability File before you pay. This is a separate illustrative case, not the live result.
+              </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check?mode=commercial"
@@ -354,7 +360,7 @@ export default function SampleCommercialViabilityFilePage() {
                   £49 Standard Commercial Viability File
                 </Link>
                 <Link
-                  href="/how-it-works"
+                  href="/commercial-lease-checklist-before-signing"
                   className={heroSecondaryCtaClass}
                 >
                   Commercial lease checklist before signing
@@ -409,7 +415,7 @@ export default function SampleCommercialViabilityFilePage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="Executive summary"
+          eyebrow="The key checks"
           title="A fragile site that fails the opening capital test."
           description="The downside month still covers operating costs, but the site does not have enough cash after opening to absorb the fit-out and setup burden."
         />

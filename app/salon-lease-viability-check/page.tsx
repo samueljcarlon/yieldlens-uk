@@ -206,6 +206,9 @@ export default function SalonLeaseViabilityPage() {
               <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 Quick answer
               </p>
+              <p className="text-sm text-stone-300 leading-7 mb-4">
+                A salon lease is more viable when rent, treatment capacity, staffing, utilities, fit-out, and opening cash still work after weaker booking assumptions are included. The practical test is whether the business can carry the site once appointments ramp up slowly, not just once the room is full.
+              </p>
               <div className="space-y-3 text-sm text-stone-300 leading-7">
                 {quickAnswerPoints.map((item) => (
                   <p key={item}>{item}</p>
@@ -245,7 +248,7 @@ export default function SalonLeaseViabilityPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-14 sm:py-16">
         <SectionTitle
-          eyebrow="Salon operator lens"
+          eyebrow="The key checks"
           title="A salon site only works if the chairs, bookings, and treatment flow support the lease."
           description="For salons, treatment duration, chair utilisation, and repeat bookings often matter as much as the rent itself."
         />

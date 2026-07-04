@@ -285,6 +285,12 @@ export default function ViabilityFilePage() {
                 rerun the free commercial check so the file reflects the latest
                 numbers.
               </p>
+              <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-2">
+                Quick answer
+              </p>
+              <p className="text-sm text-stone-300 max-w-2xl mb-6 leading-7">
+                The £49 Standard Commercial Viability File turns the free check into a printable decision memo with assumptions, stress tests, lease questions, evidence prompts, and a clear view of what still needs verifying before signing. It is useful when the site deserves a deeper read but you want the numbers organised first.
+              </p>
 
               <p className="text-sm text-stone-300 max-w-2xl mb-4 leading-7">
                 If you are still comparing sites, start with the commercial lease checklist before signing. The same issues then appear in the paid memo as cost, cash, and exit checks.
@@ -406,7 +412,7 @@ export default function ViabilityFilePage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="What it can include"
+          eyebrow="The key checks"
           title="What the £49 file includes"
           description="The Standard commercial viability file turns the free check into a concise decision memo."
         />

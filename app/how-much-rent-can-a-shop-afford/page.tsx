@@ -209,6 +209,9 @@ export default function ShopRentAffordabilityPage() {
               <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 Quick answer
               </p>
+              <p className="text-sm text-stone-300 leading-7 mb-4">
+                A shop can afford rent only if expected sales, margin, staffing, stock, business rates, service charge, and opening cash can support the lease after fit-out and weaker trading are counted. The practical test is whether the unit can carry the rent once the full monthly cost stack is included.
+              </p>
               <div className="space-y-3 text-sm text-stone-300 leading-7">
                 {quickAnswerPoints.map((item) => (
                   <p key={item}>{item}</p>
@@ -221,7 +224,7 @@ export default function ShopRentAffordabilityPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="What drives the answer"
+          eyebrow="The key checks"
           title="There is no single safe rent figure."
           description="A shop’s affordable rent depends on the trading model and the lease terms around it."
         />

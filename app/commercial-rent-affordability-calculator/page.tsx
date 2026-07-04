@@ -126,6 +126,29 @@ const relatedLinks = [
   { href: '/how-much-rent-can-a-shop-afford', label: 'How much rent can a shop afford' },
 ];
 
+const comparisonRows = [
+  {
+    check: 'Rental valuation',
+    why: 'Estimates what a property might rent for using market evidence.',
+    where: 'YieldLens does not provide a formal valuation.',
+  },
+  {
+    check: 'Rent affordability',
+    why: 'Tests whether revenue, costs, and opening cash can support the rent.',
+    where: 'Commercial rent affordability calculator and free check.',
+  },
+  {
+    check: 'Commercial rent affordability',
+    why: 'Checks whether a shop, cafe, salon, restaurant, or other unit can carry the rent before signing.',
+    where: 'This page and the commercial calculator.',
+  },
+  {
+    check: 'Commercial lease viability',
+    why: 'Combines rent burden, break-even pressure, opening cash, downside risk, and lease questions.',
+    where: 'Commercial lease viability check and sample file.',
+  },
+];
+
 function SectionTitle({
   eyebrow,
   title,
@@ -255,6 +278,9 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             title="A business is more likely to afford the rent when there is room to breathe."
             description="The rent should leave enough room for staff, stock, utilities, service charge, and weaker trading months. Use 12% as a healthier screen and 18% as a caution threshold."
           />
+          <p className="mb-6 text-sm text-[var(--yieldlens-muted)] leading-7 max-w-3xl">
+            YieldLens helps pressure-test rent burden, opening cash, break-even pressure, downside trading, and lease questions before signing. The calculator is a bridge between a broad rent question and the full commercial viability check, not a valuation tool. It helps you decide whether the site deserves the free check or the £49 memo.
+          </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className={`${surfaceCardClass} p-6`}>
@@ -271,13 +297,34 @@ export default function CommercialRentAffordabilityCalculatorPage() {
               </div>
             </div>
           </div>
+
+          <div className="mt-10 overflow-hidden rounded-3xl border border-[var(--yieldlens-border)] bg-white">
+            <table className="min-w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-stone-200 bg-stone-50 text-left">
+                  <th className="px-4 py-3 font-semibold text-stone-700">Check</th>
+                  <th className="px-4 py-3 font-semibold text-stone-700">Why it matters</th>
+                  <th className="px-4 py-3 font-semibold text-stone-700">Where YieldLens helps</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row) => (
+                  <tr key={row.check} className="border-b border-stone-100 align-top last:border-b-0">
+                    <td className="px-4 py-3 font-medium text-stone-950">{row.check}</td>
+                    <td className="px-4 py-3 text-stone-700 leading-6">{row.why}</td>
+                    <td className="px-4 py-3 text-stone-700 leading-6">{row.where}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
       <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="What rent affordability should include"
+            eyebrow="The key checks"
             title="The result should cover the full lease pressure, not just the rent number."
             description="A practical affordability check needs to include revenue, costs, opening cash, and the weaker parts of trading."
           />

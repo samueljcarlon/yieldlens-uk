@@ -480,6 +480,9 @@ export default function CommercialLeaseChecklistPage() {
               <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-medium mb-3">
                 Quick answer
               </p>
+              <p className="text-sm text-stone-700 leading-7 mb-4">
+                Use the hub when you need a fast route into the lease issues that can change viability. YieldLens helps pressure-test rent burden, opening cash, break-even pressure, downside trading, and the key lease terms before signing, so you can decide which guide deserves deeper work first.
+              </p>
               <BulletList
                 items={[
                   'Check whether the site can carry the rent.',
@@ -585,7 +588,7 @@ export default function CommercialLeaseChecklistPage() {
       <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Checklist sections"
+            eyebrow="The key checks"
             title="What should the commercial lease checklist cover?"
             description="A useful checklist should cover affordability, setup cash, trading assumptions, lease terms, and the evidence behind them."
           />

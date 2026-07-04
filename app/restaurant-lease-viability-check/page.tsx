@@ -225,6 +225,9 @@ export default function RestaurantLeaseViabilityPage() {
               <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-3">
                 Quick answer
               </p>
+              <p className="text-sm text-stone-300 leading-7 mb-4">
+                A restaurant lease is more viable when rent, fit-out, staffing, service charge, business rates, and downside trading still leave enough room after opening. The real question is whether the concept can carry the site in normal and weaker trading scenarios.
+              </p>
               <div className="space-y-3 text-sm text-stone-300 leading-7">
                 {quickAnswerPoints.map((item) => (
                   <p key={item}>{item}</p>
@@ -263,9 +266,9 @@ export default function RestaurantLeaseViabilityPage() {
 
       <section className="max-w-6xl mx-auto px-4 py-14 sm:py-16">
         <SectionTitle
-          eyebrow="Restaurant operator lens"
+          eyebrow="The key checks"
           title="Restaurant rent has to survive more than a single busy service."
-          description="Covers, menu mix, kitchen layout, staffing, and licensing all influence whether the site can keep up once trading starts to vary by daypart."
+          description="These are the checks that matter before the rent number becomes a commitment."
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {restaurantOperatorChecks.map((item) => (
