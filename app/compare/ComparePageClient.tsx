@@ -132,25 +132,6 @@ function extractUkPostcode(value: string): string {
   return match[1].replace(/\s+/g, ' ').trim();
 }
 
-function getAddressLabel(location: string): string {
-  const trimmed = location.trim();
-  if (!trimmed) return 'Address not provided';
-
-  const postcode = extractUkPostcode(trimmed);
-  if (postcode && trimmed.toUpperCase() === postcode) return 'Address not provided';
-
-  return trimmed;
-}
-
-function getPostcodeLabel(location: string): string {
-  const postcode = extractUkPostcode(location);
-  return postcode || 'Postcode not provided';
-}
-
-function getLocationHasValue(location: string): boolean {
-  return location.trim() !== '';
-}
-
 function defaultSiteDraft(siteLabel: string): SiteDraft {
   return {
     siteLabel,
@@ -567,6 +548,19 @@ function siteDisplayLabel(result: CompareSiteResult): string {
   return result.siteLabel || 'Site';
 }
 
+function getCompareLocationEntered(draftLocation: string, result: CompareSiteResult): string {
+  const value = result.locationEntered?.trim() || draftLocation.trim() || result.addressLabel?.trim() || '';
+  return value;
+}
+
+function getComparePostcode(draftLocation: string, result: CompareSiteResult): string {
+  const location = draftLocation.trim() || result.locationEntered?.trim() || result.addressLabel?.trim() || '';
+  const detected = result.postcodeDetected?.trim() || extractUkPostcode(location);
+
+  if (detected) return detected;
+  return location ? 'Postcode not extracted' : '';
+}
+
 export default function ComparePageClient() {
   const [draft, setDraft] = useState<{ siteA: SiteDraft; siteB: SiteDraft }>({
     siteA: defaultSiteDraft('Site A'),
@@ -728,15 +722,15 @@ export default function ComparePageClient() {
                   Compare two sites
                 </a>
 
-                <TrackedCtaLink
-                  href="/check?mode=commercial"
-                  eventName="commercial_viability_page_cta_clicked"
-                  pagePath="/compare"
-                  ctaLabel="Run a single free commercial check"
-                  pageType="compare_page"
-                  className={heroSecondaryCtaClass}
-                >
-                  Run a single free commercial check
+              <TrackedCtaLink
+                href="/check?mode=commercial"
+                eventName="commercial_viability_page_cta_clicked"
+                pagePath="/compare"
+                ctaLabel="Check one site instead"
+                pageType="compare_page"
+                className={heroSecondaryCtaClass}
+              >
+                  Check one site instead
                 </TrackedCtaLink>
               </div>
 
@@ -810,11 +804,11 @@ export default function ComparePageClient() {
                 href="/check?mode=commercial"
                 eventName="commercial_viability_page_cta_clicked"
                 pagePath="/compare"
-                ctaLabel="Run a single free commercial check"
+                ctaLabel="Check one site instead"
                 pageType="compare_page"
                 className={`${secondaryCtaClass} w-full sm:w-auto`}
               >
-                Run a single free commercial check
+                Check one site instead
               </TrackedCtaLink>
             </div>
           </form>
@@ -913,12 +907,6 @@ export default function ComparePageClient() {
                     {currentComparison.siteAResult.businessTypeLabel}
                   </span>
                   <span className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-stone-700">
-                    {currentComparison.siteAResult.addressLabel}
-                  </span>
-                  <span className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-stone-700">
-                    {currentComparison.siteAResult.postcodeLabel}
-                  </span>
-                  <span className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-stone-700">
                     Lease length: {currentComparison.siteAResult.leaseLengthMonths ? `${currentComparison.siteAResult.leaseLengthMonths} months` : 'Not provided'}
                   </span>
                   <span className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-stone-700">
@@ -931,9 +919,27 @@ export default function ComparePageClient() {
                 </p>
 
                 <div className="space-y-4 mb-5">
-                  <p className="text-sm text-stone-600 leading-7">
-                    {currentComparison.siteAResult.locationContext}
-                  </p>
+                  <div className={`${surfaceCardSoftClass} p-4 text-sm leading-6 text-stone-700`}>
+                    {getCompareLocationEntered(currentComparison.draft.siteA.location, currentComparison.siteAResult) ? (
+                      <div className="space-y-1">
+                        <p>
+                          <span className="font-semibold text-stone-900">Location entered:</span>{' '}
+                          {getCompareLocationEntered(currentComparison.draft.siteA.location, currentComparison.siteAResult)}
+                        </p>
+                        <p>
+                          <span className="font-semibold text-stone-900">Postcode:</span>{' '}
+                          {getComparePostcode(currentComparison.draft.siteA.location, currentComparison.siteAResult) || 'Postcode not extracted'}
+                        </p>
+                        <p className="text-stone-600">
+                          YieldLens has not verified this location, but it can help organise checks such as business rates, nearby rent evidence, service charge, EPC, building condition, and permitted use.
+                        </p>
+                      </div>
+                    ) : (
+                      <p>
+                        No location was entered. Business rates, nearby rent evidence, service charge, and building-condition assumptions should be checked separately.
+                      </p>
+                    )}
+                  </div>
                   <div>
                     <p className="text-sm font-semibold text-stone-900 mb-2">
                       Location checks to verify
@@ -988,7 +994,7 @@ export default function ComparePageClient() {
                     label="Downside pressure"
                     value={
                       currentComparison.siteAResult.survivesSixBadMonths
-                        ? 'Pass'
+                        ? 'Lower downside pressure'
                         : currentComparison.siteAResult.monthlyBurnInDownside
                           ? `${formatCurrency(currentComparison.siteAResult.monthlyBurnInDownside)} burn/month`
                           : 'Not available'
@@ -1028,12 +1034,6 @@ export default function ComparePageClient() {
                     {currentComparison.siteBResult.businessTypeLabel}
                   </span>
                   <span className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-stone-700">
-                    {currentComparison.siteBResult.addressLabel}
-                  </span>
-                  <span className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-stone-700">
-                    {currentComparison.siteBResult.postcodeLabel}
-                  </span>
-                  <span className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-stone-700">
                     Lease length: {currentComparison.siteBResult.leaseLengthMonths ? `${currentComparison.siteBResult.leaseLengthMonths} months` : 'Not provided'}
                   </span>
                   <span className="rounded-full border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)] px-3 py-1 text-stone-700">
@@ -1046,9 +1046,27 @@ export default function ComparePageClient() {
                 </p>
 
                 <div className="space-y-4 mb-5">
-                  <p className="text-sm text-stone-600 leading-7">
-                    {currentComparison.siteBResult.locationContext}
-                  </p>
+                  <div className={`${surfaceCardSoftClass} p-4 text-sm leading-6 text-stone-700`}>
+                    {getCompareLocationEntered(currentComparison.draft.siteB.location, currentComparison.siteBResult) ? (
+                      <div className="space-y-1">
+                        <p>
+                          <span className="font-semibold text-stone-900">Location entered:</span>{' '}
+                          {getCompareLocationEntered(currentComparison.draft.siteB.location, currentComparison.siteBResult)}
+                        </p>
+                        <p>
+                          <span className="font-semibold text-stone-900">Postcode:</span>{' '}
+                          {getComparePostcode(currentComparison.draft.siteB.location, currentComparison.siteBResult) || 'Postcode not extracted'}
+                        </p>
+                        <p className="text-stone-600">
+                          YieldLens has not verified this location, but it can help organise checks such as business rates, nearby rent evidence, service charge, EPC, building condition, and permitted use.
+                        </p>
+                      </div>
+                    ) : (
+                      <p>
+                        No location was entered. Business rates, nearby rent evidence, service charge, and building-condition assumptions should be checked separately.
+                      </p>
+                    )}
+                  </div>
                   <div>
                     <p className="text-sm font-semibold text-stone-900 mb-2">
                       Location checks to verify
@@ -1103,7 +1121,7 @@ export default function ComparePageClient() {
                     label="Downside pressure"
                     value={
                       currentComparison.siteBResult.survivesSixBadMonths
-                        ? 'Pass'
+                        ? 'Lower downside pressure'
                         : currentComparison.siteBResult.monthlyBurnInDownside
                           ? `${formatCurrency(currentComparison.siteBResult.monthlyBurnInDownside)} burn/month`
                           : 'Not available'
@@ -1146,7 +1164,7 @@ export default function ComparePageClient() {
                   Next step
                 </p>
                 <p className="text-sm text-stone-700 leading-7">
-                  Need a decision memo for one site? Run the single-site flow for the option you want to take further. The £49 Standard Commercial Viability File is still for one selected site and turns the check into a printable decision memo.
+                  Need a decision memo for one site? Run the free commercial check for the option you want to take further. The £49 Standard Commercial Viability File is still for one selected site and turns the check into a printable decision memo.
                 </p>
                 <p className="mt-3 text-sm text-stone-700 leading-7">
                   Spend £49 before you spend £2,500+. Professional costs vary. £2,500+ is an indicative comparison, not a guaranteed cost or saving.
@@ -1211,24 +1229,24 @@ export default function ComparePageClient() {
                   <h3 className="text-2xl font-bold text-stone-900 mb-3">
                     Need a decision memo for one site?
                   </h3>
-                  <p className="text-sm text-stone-600 leading-7">
-                    The compare tool is a free first-pass screen. If one site still looks worth taking further, run the single-site free commercial check for that option and unlock the £49 Standard Commercial Viability File when you want the printable memo.
-                  </p>
-                  <p className="mt-3 text-sm text-stone-600 leading-7">
-                    YieldLens helps organise tailored evidence gaps, lease questions, assumptions, stress-test interpretation, and printable decision memo context for one selected site.
-                  </p>
-                </div>
+                <p className="text-sm text-stone-600 leading-7">
+                  The compare tool is a free first-pass screen. If one site still looks worth taking further, run the free commercial check for that option and unlock the £49 Standard Commercial Viability File when you want the printable memo.
+                </p>
+                <p className="mt-3 text-sm text-stone-600 leading-7">
+                  YieldLens helps organise tailored evidence gaps, lease questions, assumptions, stress-test interpretation, and printable decision memo context for one selected site.
+                </p>
+              </div>
 
-                <div className="flex flex-col gap-3 min-w-[240px]">
+              <div className="flex flex-col gap-3 min-w-[240px]">
                 <TrackedCtaLink
                   href="/check?mode=commercial"
                   eventName="commercial_viability_page_cta_clicked"
                   pagePath="/compare"
-                  ctaLabel="Run a single free commercial check"
+                  ctaLabel="Check one site instead"
                   pageType="compare_page"
                   className={`${primaryCtaClass} w-full sm:w-auto`}
                 >
-                  Run a single free commercial check
+                  Check one site instead
                 </TrackedCtaLink>
 
                 <TrackedCtaLink
@@ -1243,7 +1261,7 @@ export default function ComparePageClient() {
                 </TrackedCtaLink>
 
                   <Link href="/viability-file" className={`${secondaryCtaClass} w-full sm:w-auto`}>
-                    £49 Standard Commercial Viability File
+                    View the £49 Standard file
                   </Link>
                 </div>
               </div>

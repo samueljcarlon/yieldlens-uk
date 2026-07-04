@@ -20,17 +20,10 @@ export default function Header() {
           </Link>
 
           <Link
-            href="/buy-to-let-yield-calculator"
+            href="/compare"
             className="hover:text-stone-900 transition-colors"
           >
-            Buy-to-let
-          </Link>
-
-          <Link
-            href="/property-cash-flow-calculator"
-            className="hover:text-stone-900 transition-colors"
-          >
-            Cash flow
+            Compare sites
           </Link>
 
           <Link
@@ -65,11 +58,8 @@ export default function Header() {
               <Link href="/check?mode=commercial" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 Free commercial check
               </Link>
-              <Link href="/buy-to-let-yield-calculator" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
-                Buy-to-let
-              </Link>
-              <Link href="/property-cash-flow-calculator" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
-                Cash flow
+              <Link href="/compare" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
+                Compare sites
               </Link>
               <Link href="/sample-commercial-viability-file" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 Sample file

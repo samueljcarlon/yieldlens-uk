@@ -25,6 +25,8 @@ export interface CompareSiteResult {
   businessTypeKey: string;
   businessTypeLabel: string;
   businessTypeInfo: CommercialBusinessTypeInfo;
+  locationEntered: string;
+  postcodeDetected: string;
   addressLabel: string;
   postcodeLabel: string;
   hasLocation: boolean;
@@ -112,6 +114,8 @@ function normalizeBreakClause(value?: string): string {
 }
 
 function splitLocation(location?: string): {
+  locationEntered: string;
+  postcodeDetected: string;
   addressLabel: string;
   postcodeLabel: string;
   hasLocation: boolean;
@@ -119,6 +123,8 @@ function splitLocation(location?: string): {
   const raw = typeof location === 'string' ? location.trim() : '';
   if (!raw) {
     return {
+      locationEntered: '',
+      postcodeDetected: '',
       addressLabel: 'Address not provided',
       postcodeLabel: 'Postcode not provided',
       hasLocation: false,
@@ -127,17 +133,11 @@ function splitLocation(location?: string): {
 
   const postcode = extractUkPostcode(raw);
 
-  if (postcode && raw.toUpperCase() === postcode) {
-    return {
-      addressLabel: 'Address not provided',
-      postcodeLabel: postcode,
-      hasLocation: true,
-    };
-  }
-
   return {
+    locationEntered: raw,
+    postcodeDetected: postcode,
     addressLabel: raw,
-    postcodeLabel: postcode || 'Postcode not provided',
+    postcodeLabel: postcode || 'Postcode not extracted',
     hasLocation: true,
   };
 }
@@ -155,7 +155,7 @@ function buildLocationChecks(hasLocation: boolean): string[] {
   }
 
   return [
-    'No address or postcode was provided, so local checks such as business rates, nearby rent evidence, service charge, and building-condition assumptions need separate verification.',
+    'No location was entered, so local checks such as business rates, nearby rent evidence, service charge, and building-condition assumptions need separate verification.',
   ];
 }
 
@@ -310,9 +310,9 @@ function getBreakEvenPressureState(
 
   const monthlySurplus = monthlyRevenue - monthlyCostBase;
 
-  if (monthlySurplus > monthlyRevenue * 0.25) return 'Roomier';
+  if (monthlySurplus > monthlyRevenue * 0.25) return 'More room in the current assumptions';
   if (monthlySurplus >= 0) return 'Balanced';
-  if (monthlySurplus >= -monthlyRevenue * 0.1) return 'Tight';
+  if (monthlySurplus >= -monthlyRevenue * 0.1) return 'Needs caution';
   return 'High pressure';
 }
 
@@ -372,7 +372,9 @@ function buildPressurePoints({
   }
 
   if (hasNumber(monthlyBurnInDownside) && monthlyBurnInDownside > 0) {
-    points.push('The downside case still burns cash each month.');
+    if (survivesSixBadMonths === false) {
+      points.push('The downside case still burns cash each month.');
+    }
   } else if (survivesSixBadMonths === false) {
     points.push('The downside case does not survive six weak months on the current assumptions.');
   }
@@ -391,7 +393,7 @@ function buildPressurePoints({
 export function calculateCompareSiteResult(input: CompareSiteInput): CompareSiteResult {
   const businessTypeInfo = getCommercialBusinessTypeInfo(input.businessType);
   const businessTypeLabel = businessTypeInfo.label;
-  const { addressLabel, postcodeLabel, hasLocation } = splitLocation(input.location);
+  const { locationEntered, postcodeDetected, addressLabel, postcodeLabel, hasLocation } = splitLocation(input.location);
   const siteLabel = (input.siteLabel || 'Site').trim() || 'Site';
   const monthlyRent = safe(input.monthlyRent);
   const expectedMonthlyRevenue = safe(input.expectedMonthlyRevenue);
@@ -438,6 +440,8 @@ export function calculateCompareSiteResult(input: CompareSiteInput): CompareSite
     businessTypeKey: businessTypeInfo.key,
     businessTypeLabel,
     businessTypeInfo,
+    locationEntered,
+    postcodeDetected,
     addressLabel,
     postcodeLabel,
     hasLocation,
@@ -475,8 +479,8 @@ export function calculateCompareSiteResult(input: CompareSiteInput): CompareSite
     questions: buildQuestions(businessTypeInfo, hasLocation),
     locationChecks: buildLocationChecks(hasLocation),
     locationContext: hasLocation
-      ? 'Because an address or postcode was provided, local checks such as business rates, nearby rent evidence, service charge, EPC, building condition, and permitted use should be verified before relying on the result.'
-      : 'No address or postcode was provided, so local checks such as business rates, nearby rent evidence, service charge, and building-condition assumptions need separate verification.',
+      ? `Location entered: ${locationEntered}. YieldLens has not verified this location, but it can help organise checks such as business rates, nearby rent evidence, service charge, EPC, building condition, and permitted use.`
+      : 'No location was entered. Business rates, nearby rent evidence, service charge, and building-condition assumptions should be checked separately.',
   };
 }
 
@@ -513,10 +517,10 @@ export function compareSites(
 
   const summary =
     strongerSite === 'siteA'
-      ? `${siteALabel} appears stronger on a first-pass basis because it leaves more room after setup and carries less pressure on the current assumptions. ${siteBLabel} needs more evidence before relying on the result.`
+      ? `${siteALabel} appears stronger on a first-pass basis because it leaves more room after setup and has lower pressure on the current assumptions. ${siteBLabel} needs more evidence before relying on the result.`
       : strongerSite === 'siteB'
-        ? `${siteBLabel} appears stronger on a first-pass basis because it leaves more room after setup and carries less pressure on the current assumptions. ${siteALabel} needs more evidence before relying on the result.`
-        : 'Both sites are close enough that this is only a first-pass comparison. The better choice depends on stronger evidence for rent, opening cash, trading assumptions, and lease terms before either lease goes further.';
+        ? `${siteBLabel} appears stronger on a first-pass basis because it leaves more room after setup and has lower pressure on the current assumptions. ${siteALabel} needs more evidence before relying on the result.`
+        : 'Both sites are close enough that this is only a first-pass comparison. No clear gap shows on the submitted assumptions, so the better choice depends on stronger evidence for rent, opening cash, trading assumptions, and lease terms before either lease goes further.';
 
   const differenceLines: string[] = [];
 
@@ -539,8 +543,8 @@ export function compareSites(
   if (downsideA !== downsideB) {
     differenceLines.push(
       downsideA < downsideB
-        ? `${siteALabel} has less downside monthly burn on the current screening assumption.`
-        : `${siteBLabel} has less downside monthly burn on the current screening assumption.`
+        ? `${siteALabel} has lower downside pressure on the current screening assumptions.`
+        : `${siteBLabel} has lower downside pressure on the current screening assumptions.`
     );
   }
 

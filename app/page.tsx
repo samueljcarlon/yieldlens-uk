@@ -89,7 +89,7 @@ const supportingTools = [
     title: 'Commercial lease viability',
     desc: 'Pressure-test a commercial site, then review the sample memo and methodology if it still looks worth pursuing.',
     href: '/commercial-lease-viability-check',
-    cta: 'Explore commercial viability',
+    cta: 'Run a free commercial check',
     featured: true,
   },
   {
@@ -314,7 +314,7 @@ export default function HomePage() {
                   <p className="text-xs uppercase tracking-wide text-stone-400">
                     Six-month test
                   </p>
-                  <p className="text-2xl font-bold mt-1 text-[#DCCDA8]">Pass</p>
+                  <p className="text-2xl font-bold mt-1 text-[#DCCDA8]">Lower pressure</p>
                   <p className="mt-3 text-xs text-stone-400">The downside month still needs a buffer, not confidence alone.</p>
                 </div>
               </div>
@@ -524,13 +524,12 @@ export default function HomePage() {
               </p>
 
               <h2 className="text-3xl font-bold text-stone-900 mb-3">
-                Commercial is the main wedge. Other checks stay secondary.
+                Commercial lease viability is the core product.
               </h2>
 
             <p className="text-sm text-stone-600 leading-7">
-              YieldLens UK is built around commercial lease viability. The
-              supporting tools remain available for residential rent, yield,
-              and cash flow questions.
+              Start with commercial lease viability. Use the quick checks when
+              you need a fast rent, yield, or cash-flow view.
             </p>
           </div>
 
@@ -567,11 +566,11 @@ export default function HomePage() {
               >
                 {tool.featured ? (
                   <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
-                    Main product
+                    Core product
                   </p>
                 ) : (
                   <p className="text-xs uppercase tracking-widest text-stone-400 font-medium mb-3">
-                    Supporting tool
+                    Quick check
                   </p>
                 )}
                 <p className="font-semibold text-stone-900 mb-2">
