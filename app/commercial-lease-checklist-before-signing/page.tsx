@@ -731,6 +731,33 @@ export default function CommercialLeaseChecklistPage() {
 
       <section className={`${sectionBandClass}`}>
         <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Business-type rent checks"
+            title="Use the page that matches the unit type."
+            description="The checklist hub sits alongside the business-type affordability checks so the cluster stays connected."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {[
+              { title: 'How much rent can a cafe afford', href: '/how-much-rent-can-a-cafe-afford' },
+              { title: 'How much rent can a shop afford', href: '/how-much-rent-can-a-shop-afford' },
+              { title: 'How much rent can a takeaway afford', href: '/how-much-rent-can-a-takeaway-afford' },
+              { title: 'Restaurant lease viability check', href: '/restaurant-lease-viability-check' },
+              { title: 'Salon lease viability check', href: '/salon-lease-viability-check' },
+            ].map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className={`${surfaceCardClass} p-4 transition-all hover:-translate-y-0.5`}
+              >
+                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`${sectionBandClass}`}>
+        <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
             <div className={`${surfaceCardClass} p-5 sm:p-6 border-t-4 border-t-[var(--yieldlens-caution)]`}>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--yieldlens-caution)] mb-3">

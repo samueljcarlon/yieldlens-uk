@@ -768,6 +768,33 @@ export default function SampleCommercialViabilityFilePage() {
       </section>
 
       <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Business-type rent checks"
+            title="Use the page that matches the unit type."
+            description="The sample file sits alongside the business-type affordability checks so the cluster stays connected."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {[
+              { title: 'How much rent can a cafe afford', href: '/how-much-rent-can-a-cafe-afford' },
+              { title: 'How much rent can a shop afford', href: '/how-much-rent-can-a-shop-afford' },
+              { title: 'How much rent can a takeaway afford', href: '/how-much-rent-can-a-takeaway-afford' },
+              { title: 'Restaurant lease viability check', href: '/restaurant-lease-viability-check' },
+              { title: 'Salon lease viability check', href: '/salon-lease-viability-check' },
+            ].map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="rounded-3xl border border-[var(--yieldlens-border)] bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5"
+              >
+                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
             Next step

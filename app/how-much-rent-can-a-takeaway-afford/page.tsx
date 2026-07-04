@@ -149,6 +149,11 @@ const relatedLinks = [
     text: 'Use the shop page if the unit is retail-led rather than food-led.',
   },
   {
+    title: 'Salon lease viability check',
+    href: '/salon-lease-viability-check',
+    text: 'Use the salon page when chair capacity and treatment demand drive the question.',
+  },
+  {
     title: 'Restaurant lease viability check',
     href: '/restaurant-lease-viability-check',
     text: 'Use the restaurant page when covers, extraction, and kitchen fit-out are central.',
@@ -397,6 +402,44 @@ export default function TakeawayRentAffordabilityPage() {
 
       <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Business-type rent checks"
+            title="Use the pages that match the type of unit."
+            description="The takeaway page sits alongside the other business-type affordability checks so the cluster stays easy to navigate."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {[
+              {
+                title: 'How much rent can a cafe afford',
+                href: '/how-much-rent-can-a-cafe-afford',
+                text: 'Use the cafe page when covers, staffing, and daytime trade drive the rent question.',
+              },
+              {
+                title: 'How much rent can a shop afford',
+                href: '/how-much-rent-can-a-shop-afford',
+                text: 'Use the shop page when footfall, stock, and retail margin drive the model.',
+              },
+              {
+                title: 'Restaurant lease viability check',
+                href: '/restaurant-lease-viability-check',
+                text: 'Use the restaurant page when covers, extraction, and kitchen fit-out matter.',
+              },
+              {
+                title: 'Salon lease viability check',
+                href: '/salon-lease-viability-check',
+                text: 'Use the salon page when chair utilisation and treatment capacity drive the decision.',
+              },
+            ].map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="rounded-xl border border-[var(--yieldlens-border)] bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5"
+              >
+                <p className="text-sm font-semibold text-stone-900 mb-2">{item.title}</p>
+                <p className="text-sm text-[var(--yieldlens-muted)] leading-6">{item.text}</p>
+              </Link>
+            ))}
+          </div>
           <SectionTitle
             eyebrow="Related guides"
             title="Use the pages that match the decision."

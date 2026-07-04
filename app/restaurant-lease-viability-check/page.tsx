@@ -114,6 +114,16 @@ const commonMistakes = [
 
 const relatedPages = [
   {
+    title: 'How much rent can a cafe afford',
+    href: '/how-much-rent-can-a-cafe-afford',
+    text: 'Use the cafe page when daytime trade, covers, and staffing shape the question.',
+  },
+  {
+    title: 'How much rent can a shop afford',
+    href: '/how-much-rent-can-a-shop-afford',
+    text: 'Use the shop page when footfall, stock turnover, and retail margin drive the decision.',
+  },
+  {
     title: 'Salon lease viability check',
     href: '/salon-lease-viability-check',
     text: 'Use the salon page when treatment rooms, chair capacity, or chair-rent assumptions matter.',
@@ -548,6 +558,39 @@ export default function RestaurantLeaseViabilityPage() {
       </section>
 
       <section className="max-w-6xl mx-auto px-4 py-16">
+        <SectionTitle
+          eyebrow="Business-type rent checks"
+          title="Use the page that matches the site type."
+          description="Restaurant decisions usually sit alongside the other business-type affordability checks."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {[
+            {
+              title: 'How much rent can a cafe afford',
+              href: '/how-much-rent-can-a-cafe-afford',
+            },
+            {
+              title: 'How much rent can a shop afford',
+              href: '/how-much-rent-can-a-shop-afford',
+            },
+            {
+              title: 'How much rent can a takeaway afford',
+              href: '/how-much-rent-can-a-takeaway-afford',
+            },
+            {
+              title: 'Salon lease viability check',
+              href: '/salon-lease-viability-check',
+            },
+          ].map((item) => (
+            <Link
+              key={item.title}
+              href={item.href}
+              className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm hover:border-stone-300 transition-colors"
+            >
+              <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+            </Link>
+          ))}
+        </div>
         <SectionTitle
           eyebrow="Related pages"
           title="Use the restaurant page alongside the other commercial guides."

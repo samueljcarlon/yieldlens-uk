@@ -527,6 +527,39 @@ export default function SalonLeaseViabilityPage() {
       <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
+            eyebrow="Business-type rent checks"
+            title="Use the page that matches the unit."
+            description="The salon page sits alongside the other business-type affordability checks."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {[
+              {
+                title: 'How much rent can a cafe afford',
+                href: '/how-much-rent-can-a-cafe-afford',
+              },
+              {
+                title: 'How much rent can a shop afford',
+                href: '/how-much-rent-can-a-shop-afford',
+              },
+              {
+                title: 'How much rent can a takeaway afford',
+                href: '/how-much-rent-can-a-takeaway-afford',
+              },
+              {
+                title: 'Restaurant lease viability check',
+                href: '/restaurant-lease-viability-check',
+              },
+            ].map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm hover:border-stone-300 transition-colors"
+              >
+                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+              </Link>
+            ))}
+          </div>
+          <SectionTitle
             eyebrow="FAQ"
             title="Salon lease viability questions"
             description="Short answers for people deciding whether a salon site deserves a deeper look."

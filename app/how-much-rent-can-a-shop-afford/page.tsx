@@ -110,6 +110,29 @@ const relatedLinks = [
   },
 ];
 
+const businessTypeChecks = [
+  {
+    title: 'How much rent can a cafe afford',
+    href: '/how-much-rent-can-a-cafe-afford',
+    text: 'Use the cafe page when coffee-led trade, covers, and morning peaks drive the rent question.',
+  },
+  {
+    title: 'How much rent can a takeaway afford',
+    href: '/how-much-rent-can-a-takeaway-afford',
+    text: 'Use the takeaway page when delivery demand and platform costs matter more than retail footfall.',
+  },
+  {
+    title: 'Restaurant lease viability check',
+    href: '/restaurant-lease-viability-check',
+    text: 'Use the restaurant page when covers, extraction, and kitchen fit-out shape the decision.',
+  },
+  {
+    title: 'Salon lease viability check',
+    href: '/salon-lease-viability-check',
+    text: 'Use the salon page when treatment capacity and chair utilisation drive the site.',
+  },
+];
+
 const questionsBeforeSigning = [
   'What monthly sales are needed to cover rent and costs?',
   'What happens if sales are 15% to 25% lower than expected?',
@@ -357,6 +380,23 @@ export default function ShopRentAffordabilityPage() {
 
       <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="Business-type rent checks"
+            title="Use the page that matches the kind of unit."
+            description="The shop page works best when you want to compare it with other business-type affordability checks."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {businessTypeChecks.map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="rounded-xl border border-[var(--yieldlens-border)] bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5"
+              >
+                <p className="text-sm font-semibold text-stone-900 mb-2">{item.title}</p>
+                <p className="text-sm text-[var(--yieldlens-muted)] leading-6">{item.text}</p>
+              </Link>
+            ))}
+          </div>
           <SectionTitle
             eyebrow="Related guides"
             title="Use the pages that match the decision."
