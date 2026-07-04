@@ -44,6 +44,35 @@ Stripe webhook handling uses:
 - `STRIPE_WEBHOOK_SECRET`
 - webhook endpoint: `/api/stripe/webhook`
 
+## Google Ads conversions
+
+Google Ads tracking is optional. If these env vars are missing, nothing breaks:
+
+- `NEXT_PUBLIC_GOOGLE_ADS_ID`
+- `NEXT_PUBLIC_GOOGLE_ADS_CHECK_STARTED_LABEL`
+- `NEXT_PUBLIC_GOOGLE_ADS_CHECK_SUBMITTED_LABEL`
+- `NEXT_PUBLIC_GOOGLE_ADS_SAMPLE_CLICK_LABEL`
+- `NEXT_PUBLIC_GOOGLE_ADS_CHECKOUT_STARTED_LABEL`
+- `NEXT_PUBLIC_GOOGLE_ADS_PAYMENT_COMPLETED_LABEL`
+- `NEXT_PUBLIC_GOOGLE_ADS_PAID_FILE_OPENED_LABEL`
+
+Mapped events:
+
+- `commercial_check_started`
+- `commercial_check_submitted`
+- `results_viability_file_requested_clicked`
+- `checkout_started`
+- `payment_completed`
+- `paid_file_opened`
+
+After setting the env vars, test:
+
+- Run the free commercial check and confirm the start and submit conversions still fire.
+- Open the sample file CTA and confirm the sample click conversion fires if configured.
+- Start checkout and confirm the checkout conversion fires once.
+- Complete payment and confirm the payment conversion fires once with GBP 49 when available.
+- Open the paid file and confirm the open conversion fires if configured.
+
 For local testing, point Stripe CLI at the local webhook route:
 
 ```bash

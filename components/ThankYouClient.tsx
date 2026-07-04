@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getLatestSubmission } from '@/lib/storage';
 import { getFunnelAttributionSnapshot } from '@/lib/funnelAttribution';
+import { trackGoogleAdsConversion } from '@/lib/googleAds';
 
 export default function ThankYouClient({ requestId }: { requestId: string }) {
   const [continueHref, setContinueHref] = useState('/check');
@@ -56,6 +57,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
         throw new Error('Could not start checkout. Please try again.');
       }
 
+      trackGoogleAdsConversion('checkout_started', undefined, requestId);
       window.location.href = data.checkoutUrl;
     } catch {
       setCheckoutStatus('error');

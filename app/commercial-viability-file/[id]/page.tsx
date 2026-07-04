@@ -1664,6 +1664,8 @@ export default async function CommercialViabilityFilePage({
         pageType="paid_file"
         mode="commercial"
         eventLabel="Paid file opened"
+        googleAdsConversion="paid_file_opened"
+        googleAdsDedupeKey={request.id}
       />
       <style>{`
         @media print {

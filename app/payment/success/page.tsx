@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
+import GoogleAdsConversionTracker from '@/components/GoogleAdsConversionTracker';
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -52,6 +53,12 @@ export default async function PaymentSuccessPage({
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-16">
+      <GoogleAdsConversionTracker
+        eventName="payment_completed"
+        value={isReady ? 49 : undefined}
+        dedupeKey={isReady ? requestId : undefined}
+        enabled={isReady}
+      />
       <div className="bg-white border border-[var(--yieldlens-border)] rounded-2xl p-8 shadow-sm text-center">
         <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
           Checkout completed

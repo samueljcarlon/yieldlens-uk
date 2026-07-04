@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { captureFunnelTouch } from '@/lib/funnelAttribution';
 import { logToolEvent } from '@/lib/logToolEvent';
+import { trackGoogleAdsConversion, type GoogleAdsConversionEventName } from '@/lib/googleAds';
 
 interface FunnelEventTrackerProps {
   eventName: string;
@@ -12,6 +13,9 @@ interface FunnelEventTrackerProps {
   sourcePage?: string;
   eventLabel?: string;
   eventBand?: string;
+  googleAdsConversion?: GoogleAdsConversionEventName;
+  googleAdsValue?: number;
+  googleAdsDedupeKey?: string;
 }
 
 export default function FunnelEventTracker({
@@ -22,6 +26,9 @@ export default function FunnelEventTracker({
   sourcePage,
   eventLabel,
   eventBand = 'page_view',
+  googleAdsConversion,
+  googleAdsValue,
+  googleAdsDedupeKey,
 }: FunnelEventTrackerProps) {
   const hasTracked = useRef(false);
 
@@ -34,6 +41,10 @@ export default function FunnelEventTracker({
       pageType,
       mode,
     });
+
+    if (googleAdsConversion) {
+      trackGoogleAdsConversion(googleAdsConversion, googleAdsValue, googleAdsDedupeKey);
+    }
 
     void logToolEvent({
       event_name: eventName,
@@ -52,7 +63,18 @@ export default function FunnelEventTracker({
         current_mode: mode,
       },
     });
-  }, [eventBand, eventLabel, eventName, mode, pagePath, pageType, sourcePage]);
+  }, [
+    eventBand,
+    eventLabel,
+    eventName,
+    googleAdsConversion,
+    googleAdsDedupeKey,
+    googleAdsValue,
+    mode,
+    pagePath,
+    pageType,
+    sourcePage,
+  ]);
 
   return null;
 }

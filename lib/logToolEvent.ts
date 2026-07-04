@@ -1,5 +1,8 @@
+'use client';
+
 import { sanitizeToolEventMetadata } from '@/lib/safeToolEventMetadata';
 import { buildFunnelAttributionMetadata } from '@/lib/funnelAttribution';
+import { trackGoogleAdsConversion } from '@/lib/googleAds';
 
 export interface ToolEventPayload {
   event_name: string;
@@ -16,6 +19,16 @@ export async function logToolEvent(payload: ToolEventPayload): Promise<void> {
       pagePath: payload.page_path,
       metadata: payload.metadata,
     });
+
+    switch (payload.event_name) {
+      case 'commercial_check_started':
+      case 'commercial_check_submitted':
+      case 'results_viability_file_requested_clicked':
+        trackGoogleAdsConversion(payload.event_name);
+        break;
+      default:
+        break;
+    }
 
     await fetch('/api/tool-events', {
       method: 'POST',

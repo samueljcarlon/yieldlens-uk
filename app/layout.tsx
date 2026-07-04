@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 import AnalyticsProvider from '@/components/AnalyticsProvider';
+import GoogleAdsScripts from '@/components/GoogleAdsScripts';
 
 const siteStructuredData = [
   {
@@ -76,6 +77,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <GoogleAdsScripts />
         <AnalyticsProvider />
       </body>
     </html>
