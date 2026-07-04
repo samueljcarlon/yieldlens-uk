@@ -83,6 +83,48 @@ function getEventLabel(eventName: string): string {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
+function getReferrerHost(referrer: string | null): string {
+  if (!referrer || !referrer.trim()) return 'Not set';
+
+  try {
+    return new URL(referrer.trim()).hostname || 'Not set';
+  } catch {
+    return 'Not set';
+  }
+}
+
+function getMetaObject(event: ToolEvent): Record<string, unknown> {
+  if (!event.metadata || typeof event.metadata !== 'object' || Array.isArray(event.metadata)) {
+    return {};
+  }
+
+  return event.metadata as Record<string, unknown>;
+}
+
+function getMetaString(event: ToolEvent, key: string): string {
+  const value = getMetaObject(event)[key];
+  return typeof value === 'string' && value.trim() ? value.trim() : 'Not set';
+}
+
+function formatSafeFields(event: ToolEvent): Array<{ label: string; value: string }> {
+  const pagePath = event.pagePath?.trim() ? event.pagePath : 'Not set';
+
+  return [
+    { label: 'Created', value: formatDate(event.createdAt) },
+    { label: 'Event', value: event.eventName },
+    { label: 'Page path', value: pagePath },
+    { label: 'Source path', value: getMetaString(event, 'source_path') || getMetaString(event, 'landing_page') || pagePath },
+    { label: 'Current path', value: getMetaString(event, 'current_page_path') },
+    { label: 'Destination path', value: getMetaString(event, 'destination_path') || getMetaString(event, 'destination') },
+    { label: 'Referrer domain', value: getReferrerHost(event.referrer) },
+    { label: 'UTM source', value: getMetaString(event, 'utm_source') },
+    { label: 'UTM medium', value: getMetaString(event, 'utm_medium') },
+    { label: 'UTM campaign', value: getMetaString(event, 'utm_campaign') },
+    { label: 'CTA label', value: getMetaString(event, 'cta_label') },
+    { label: 'CTA location', value: getMetaString(event, 'cta_location') },
+  ];
+}
+
 const commercialCtaEventNames = [
   'commercial_home_cta_clicked',
   'commercial_viability_page_cta_clicked',
@@ -638,11 +680,16 @@ export default function ToolEventsAdminPage() {
             </div>
           </div>
 
-          <p className="font-semibold text-stone-900 mb-2">Metadata</p>
+          <p className="font-semibold text-stone-900 mb-2">Safe metadata</p>
 
-          <pre className="bg-stone-950 text-stone-100 rounded-lg p-4 text-xs overflow-auto max-h-80">
-            {JSON.stringify(selectedEvent.metadata, null, 2)}
-          </pre>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {formatSafeFields(selectedEvent).map((row) => (
+              <div key={row.label} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">{row.label}</p>
+                <p className="font-semibold text-stone-950 break-words">{row.value}</p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

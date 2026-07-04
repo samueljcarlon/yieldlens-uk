@@ -123,20 +123,16 @@ function getStringMeta(event: ToolEvent, key: string): string {
   return typeof value === 'string' && value.trim() ? value.trim() : '';
 }
 
-function getSafeReferrerPath(referrer: string | null): string {
+function getSafeReferrerHost(referrer: string | null): string {
   if (!referrer || !referrer.trim()) return '';
 
   const trimmed = referrer.trim();
 
   try {
     const url = new URL(trimmed);
-    if (url.pathname && url.pathname !== '/') {
-      return `${url.hostname}${url.pathname}`;
-    }
-
-    return url.hostname || trimmed;
+    return url.hostname || '';
   } catch {
-    return trimmed;
+    return '';
   }
 }
 
@@ -149,7 +145,7 @@ function getOrganicSourceLabel(event: ToolEvent): string {
 
   if (sourcePath) return sourcePath;
 
-  const referrerPath = getSafeReferrerPath(event.referrer);
+  const referrerPath = getSafeReferrerHost(event.referrer);
   if (referrerPath) return referrerPath;
 
   return 'unknown';
@@ -181,7 +177,7 @@ function getEventSafeFields(event: ToolEvent): SafeEventRow {
       getStringMeta(event, 'landing_page') ||
       getStringMeta(event, 'current_page_path') ||
       getStringMeta(event, 'page_path') ||
-      getSafeReferrerPath(event.referrer) ||
+      getSafeReferrerHost(event.referrer) ||
       'unknown',
     destinationPath: getOrganicDestinationLabel(event) || 'Not set',
     utmSource: getStringMeta(event, 'utm_source') || 'Not set',
@@ -195,9 +191,16 @@ function getEventSafeFields(event: ToolEvent): SafeEventRow {
 function getLocationLabel(submission: Submission): string {
   return (
     getTextValue(submission, 'postcode') ||
-    getTextValue(submission, 'address') ||
     'No location provided'
   );
+}
+
+function getAddressStatusLabel(submission: Submission): string {
+  return getTextValue(submission, 'address') ? 'Address captured' : 'No address captured';
+}
+
+function getContactStatusLabel(submission: Submission): string {
+  return getTextValue(submission, 'email') ? 'Contact captured' : 'No contact captured';
 }
 
 function getAddressLabel(submission: Submission): string {
@@ -288,6 +291,117 @@ function getLeadTags(submission: Submission): LeadTag[] {
   }
 
   return tags;
+}
+
+function formatFieldValue(value: unknown): string {
+  if (value === undefined || value === null || value === '') return 'Not provided';
+
+  if (typeof value === 'number') {
+    return new Intl.NumberFormat('en-GB', {
+      maximumFractionDigits: 2,
+    }).format(value);
+  }
+
+  if (typeof value === 'boolean') {
+    return value ? 'Yes' : 'No';
+  }
+
+  return String(value);
+}
+
+function getCommercialInputRows(input: unknown): Array<{ label: string; value: string }> {
+  if (!input || typeof input !== 'object') return [];
+
+  const record = input as Record<string, unknown>;
+
+  return [
+    { label: 'Business type', value: formatFieldValue(record.businessType) },
+    { label: 'Postcode', value: formatFieldValue(record.postcode) },
+    { label: 'Annual rent', value: formatFieldValue(record.annualRent) },
+    { label: 'Average spend', value: formatFieldValue(record.averageSpendPerCustomer) },
+    { label: 'Expected customers/day', value: formatFieldValue(record.expectedCustomersPerDay) },
+    { label: 'Opening days/month', value: formatFieldValue(record.openingDaysPerMonth) },
+    { label: 'Monthly staff costs', value: formatFieldValue(record.monthlyStaffCosts) },
+    { label: 'Utilities and other costs', value: formatFieldValue(record.monthlyUtilitiesAndOtherCosts) },
+    { label: 'Business rates', value: formatFieldValue(record.monthlyBusinessRates) },
+    { label: 'Fit-out budget', value: formatFieldValue(record.fitOutBudget) },
+    { label: 'Rent deposit', value: formatFieldValue(record.rentDeposit) },
+    { label: 'Legal fees', value: formatFieldValue(record.legalFees) },
+    { label: 'Opening stock', value: formatFieldValue(record.openingStock) },
+    { label: 'Other setup costs', value: formatFieldValue(record.otherSetupCosts) },
+    { label: 'Starting cash', value: formatFieldValue(record.startingCash) },
+    { label: 'Downside revenue %', value: formatFieldValue(record.downsideRevenuePercentage) },
+  ];
+}
+
+function getResidentialInputRows(input: unknown): Array<{ label: string; value: string }> {
+  if (!input || typeof input !== 'object') return [];
+
+  const record = input as Record<string, unknown>;
+
+  return [
+    { label: 'Property type', value: formatFieldValue(record.propertyType) },
+    { label: 'Postcode', value: formatFieldValue(record.postcode) },
+    { label: 'Bedrooms', value: formatFieldValue(record.bedrooms) },
+    { label: 'Purchase price', value: formatFieldValue(record.purchasePrice) },
+    { label: 'Monthly rent', value: formatFieldValue(record.monthlyRent) },
+    { label: 'Expected monthly rent', value: formatFieldValue(record.expectedMonthlyRent) },
+    { label: 'Service charge annual', value: formatFieldValue(record.serviceChargeAnnual) },
+    { label: 'Ground rent annual', value: formatFieldValue(record.groundRentAnnual) },
+    { label: 'Mortgage monthly cost', value: formatFieldValue(record.mortgageMonthlyCost) },
+    { label: 'Other monthly costs', value: formatFieldValue(record.otherMonthlyCosts) },
+  ];
+}
+
+function getCommercialResultRows(result: unknown): Array<{ label: string; value: string }> {
+  if (!result || typeof result !== 'object') return [];
+
+  const record = result as Record<string, unknown>;
+
+  return [
+    { label: 'Estimated monthly revenue', value: formatFieldValue(record.estimatedMonthlyRevenue) },
+    { label: 'Monthly rent', value: formatFieldValue(record.monthlyRent) },
+    { label: 'Estimated monthly cost base', value: formatFieldValue(record.estimatedMonthlyCostBase) },
+    { label: 'Rent burden', value: formatFieldValue(record.rentBurdenPercentage) },
+    { label: 'Break-even customers/day', value: formatFieldValue(record.breakEvenCustomersPerDay) },
+    { label: 'Upfront cash needed', value: formatFieldValue(record.upfrontCashNeeded) },
+    { label: 'Cash after opening', value: formatFieldValue(record.availableCashAfterOpening) },
+    { label: 'Downside monthly position', value: formatFieldValue(record.downsideMonthlyPosition) },
+    { label: 'Monthly burn in downside', value: formatFieldValue(record.monthlyBurnInDownside) },
+    { label: 'Survival months', value: formatFieldValue(record.survivalMonths) },
+    { label: 'Six-month test', value: formatFieldValue(record.survivesSixBadMonths ? 'Pass' : 'Fail') },
+  ];
+}
+
+function getResidentialResultRows(result: unknown): Array<{ label: string; value: string }> {
+  if (!result || typeof result !== 'object') return [];
+
+  const record = result as Record<string, unknown>;
+
+  return [
+    { label: 'Gross yield', value: formatFieldValue(record.grossYield) },
+    { label: 'Annual rental income', value: formatFieldValue(record.annualRentalIncome) },
+    { label: 'Monthly cash flow', value: formatFieldValue(record.monthlyCashFlow) },
+    { label: 'Annual cash flow', value: formatFieldValue(record.annualCashFlow) },
+    { label: 'Annual ownership costs', value: formatFieldValue(record.annualOwnershipCosts) },
+  ];
+}
+
+function renderSummaryRows(rows: Array<{ label: string; value: string }>) {
+  if (rows.length === 0) {
+    return <p className="text-sm text-stone-500">No summary data available.</p>;
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {rows.map((row) => (
+        <div key={row.label} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
+          <p className="text-[11px] uppercase tracking-wide text-stone-400">{row.label}</p>
+          <p className="font-semibold text-stone-950 break-words">{row.value}</p>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 function csvEscape(value: unknown): string {
@@ -480,7 +594,7 @@ function countOrganicCtaRows(events: ToolEvent[]): OrganicCtaRow[] {
         getStringMeta(event, 'landing_page') ||
         getStringMeta(event, 'current_page_path') ||
         getStringMeta(event, 'page_path') ||
-        getSafeReferrerPath(event.referrer) ||
+        getSafeReferrerHost(event.referrer) ||
         'unknown',
       ctaLabel: getStringMeta(event, 'cta_label') || 'unknown',
       ctaLocation: getStringMeta(event, 'cta_location') || 'unknown',
@@ -1142,11 +1256,11 @@ export default function AdminPage() {
                   </h2>
 
                   <p className="text-sm text-stone-500 mt-1">
-                    {getAddressLabel(submission)}
+                    {getAddressStatusLabel(submission)}
                   </p>
 
                   <p className="text-sm text-stone-500 mt-1">
-                    {getEmailLabel(submission)}
+                    {getContactStatusLabel(submission)}
                   </p>
 
                   <p className="text-sm text-stone-500 mt-1">
@@ -1202,7 +1316,7 @@ export default function AdminPage() {
               </h2>
 
               <p className="text-sm text-stone-500 mt-1">
-                {getEmailLabel(selectedSubmission)}
+                {getContactStatusLabel(selectedSubmission)}
               </p>
             </div>
 
@@ -1254,17 +1368,17 @@ export default function AdminPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
-              <p className="font-semibold text-stone-900 mb-2">Input data</p>
-              <pre className="bg-stone-950 text-stone-100 rounded-lg p-4 text-xs overflow-auto max-h-80">
-                {JSON.stringify(selectedSubmission.input, null, 2)}
-              </pre>
+              <p className="font-semibold text-stone-900 mb-2">Safe input summary</p>
+              {selectedSubmission.mode === 'commercial'
+                ? renderSummaryRows(getCommercialInputRows(selectedSubmission.input))
+                : renderSummaryRows(getResidentialInputRows(selectedSubmission.input))}
             </div>
 
             <div>
-              <p className="font-semibold text-stone-900 mb-2">Result data</p>
-              <pre className="bg-stone-950 text-stone-100 rounded-lg p-4 text-xs overflow-auto max-h-80">
-                {JSON.stringify(selectedSubmission.result, null, 2)}
-              </pre>
+              <p className="font-semibold text-stone-900 mb-2">Safe result summary</p>
+              {selectedSubmission.mode === 'commercial'
+                ? renderSummaryRows(getCommercialResultRows(selectedSubmission.result))
+                : renderSummaryRows(getResidentialResultRows(selectedSubmission.result))}
             </div>
           </div>
         </div>
