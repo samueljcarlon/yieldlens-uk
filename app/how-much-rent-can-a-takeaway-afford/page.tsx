@@ -61,6 +61,31 @@ const faqStructuredData = {
   })),
 };
 
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://yieldlens.co.uk',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Commercial rent affordability',
+      item: 'https://yieldlens.co.uk/commercial-rent-affordability-calculator',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'How much rent can a takeaway afford',
+      item: 'https://yieldlens.co.uk/how-much-rent-can-a-takeaway-afford',
+    },
+  ],
+};
+
 const quickAnswer = [
   'A takeaway can afford rent only if expected orders, average order value, gross margin, staffing, delivery-platform costs, business rates, service charge, equipment, and opening cash can support the lease.',
   'The rent should be tested against break-even orders and downside trading, not judged from the headline rent alone.',
@@ -207,6 +232,7 @@ export default function TakeawayRentAffordabilityPage() {
   return (
     <div className="bg-stone-50 text-stone-900">
       <JsonLd data={faqStructuredData} />
+      <JsonLd data={breadcrumbStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/how-much-rent-can-a-takeaway-afford"

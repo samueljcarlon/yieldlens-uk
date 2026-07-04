@@ -53,6 +53,31 @@ const faqStructuredData = {
   ],
 };
 
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://yieldlens.co.uk',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Commercial rent affordability',
+      item: 'https://yieldlens.co.uk/commercial-rent-affordability-calculator',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'How much rent can a shop afford',
+      item: 'https://yieldlens.co.uk/how-much-rent-can-a-shop-afford',
+    },
+  ],
+};
+
 const quickAnswerPoints = [
   'A shop can look affordable from the headline rent alone and still be too tight once sales, margin, staffing, rates, service charge, and fit-out are included.',
   'There is no single safe rent figure. The answer depends on expected monthly revenue, operating costs, opening cash, rent-free period, lease length, break clause, and downside trading.',
@@ -180,6 +205,7 @@ export default function ShopRentAffordabilityPage() {
   return (
     <div className="bg-stone-50 text-stone-900">
       <JsonLd data={faqStructuredData} />
+      <JsonLd data={breadcrumbStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/how-much-rent-can-a-shop-afford"

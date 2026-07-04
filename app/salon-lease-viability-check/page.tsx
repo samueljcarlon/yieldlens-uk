@@ -50,6 +50,31 @@ const faqStructuredData = {
   ],
 };
 
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://yieldlens.co.uk',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Commercial rent affordability',
+      item: 'https://yieldlens.co.uk/commercial-rent-affordability-calculator',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Salon lease viability check',
+      item: 'https://yieldlens.co.uk/salon-lease-viability-check',
+    },
+  ],
+};
+
 const quickAnswerPoints = [
   'A salon lease looks more viable when rent is not taking too much expected revenue.',
   'Break-even clients should sit comfortably below realistic clients per day.',
@@ -153,6 +178,7 @@ export default function SalonLeaseViabilityPage() {
   return (
     <div className="bg-stone-50 text-stone-900">
       <JsonLd data={faqStructuredData} />
+      <JsonLd data={breadcrumbStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/salon-lease-viability-check"

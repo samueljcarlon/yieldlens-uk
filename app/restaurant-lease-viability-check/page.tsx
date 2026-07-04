@@ -50,6 +50,31 @@ const faqStructuredData = {
   ],
 };
 
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://yieldlens.co.uk',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Commercial rent affordability',
+      item: 'https://yieldlens.co.uk/commercial-rent-affordability-calculator',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Restaurant lease viability check',
+      item: 'https://yieldlens.co.uk/restaurant-lease-viability-check',
+    },
+  ],
+};
+
 const quickAnswerPoints = [
   'A restaurant lease looks more viable when rent is not taking too much expected revenue.',
   'Break-even covers should sit comfortably below realistic covers, not just below the best case.',
@@ -187,6 +212,7 @@ export default function RestaurantLeaseViabilityPage() {
   return (
     <div className="bg-stone-50 text-stone-900">
       <JsonLd data={faqStructuredData} />
+      <JsonLd data={breadcrumbStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/restaurant-lease-viability-check"

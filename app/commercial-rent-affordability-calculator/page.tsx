@@ -79,6 +79,69 @@ const faqStructuredData = {
   })),
 };
 
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://yieldlens.co.uk',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Commercial rent affordability',
+      item: 'https://yieldlens.co.uk/commercial-rent-affordability-calculator',
+    },
+  ],
+};
+
+const businessTypeItemListStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Business-type rent checks',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'How much rent can a cafe afford',
+      item: 'https://yieldlens.co.uk/how-much-rent-can-a-cafe-afford',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'How much rent can a shop afford',
+      item: 'https://yieldlens.co.uk/how-much-rent-can-a-shop-afford',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'How much rent can a takeaway afford',
+      item: 'https://yieldlens.co.uk/how-much-rent-can-a-takeaway-afford',
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: 'How much rent can a barber shop afford',
+      item: 'https://yieldlens.co.uk/how-much-rent-can-a-barber-shop-afford',
+    },
+    {
+      '@type': 'ListItem',
+      position: 5,
+      name: 'Restaurant lease viability check',
+      item: 'https://yieldlens.co.uk/restaurant-lease-viability-check',
+    },
+    {
+      '@type': 'ListItem',
+      position: 6,
+      name: 'Salon lease viability check',
+      item: 'https://yieldlens.co.uk/salon-lease-viability-check',
+    },
+  ],
+};
+
 const quickAnswerBullets = [
   'Rent is not taking too much expected revenue.',
   'Break-even customers/day sits below realistic customers/day.',
@@ -187,6 +250,8 @@ export default function CommercialRentAffordabilityCalculatorPage() {
   return (
     <div className="bg-[var(--yieldlens-page)] text-stone-900">
       <JsonLd data={faqStructuredData} />
+      <JsonLd data={breadcrumbStructuredData} />
+      <JsonLd data={businessTypeItemListStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"
         pagePath="/commercial-rent-affordability-calculator"
