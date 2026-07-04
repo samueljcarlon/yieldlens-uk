@@ -110,18 +110,50 @@ const restaurantOperatorChecks = [
 ];
 
 const leaseTerms = [
-  'Rent-free period',
-  'Rent review',
-  'Service charge',
-  'Repairing obligations',
-  'Extraction and ventilation',
-  'Permitted use',
-  'Alcohol or licensing',
-  'Planning use',
-  'Break clause',
-  'Handover condition',
-  'Landlord works',
-  'Assignment and subletting',
+  {
+    title: 'Rent-free period',
+    text: 'A rent-free period at the start of the lease gives the restaurant time to fit out and reach trading stability before the full rent obligation begins. Confirm the length, whether it applies to all lease costs, and whether the landlord can claw it back if the lease ends early.',
+  },
+  {
+    title: 'Service charge',
+    text: 'A variable service charge can drift above the figure used in the check. Ask for the last two or three years of actual service charge demands and confirm whether the lease includes a cap or a schedule of services the charge must cover.',
+  },
+  {
+    title: 'Extraction and ventilation',
+    text: 'Restaurant extraction is often the most expensive and restricted element of the fit-out. Confirm whether the building can support the extraction load the concept requires, and who is responsible for the cost and maintenance of any shared flue or roof-level equipment.',
+  },
+  {
+    title: 'Permitted use',
+    text: 'The permitted use clause defines what the site can be used for. A tightly worded clause can prevent menu changes, concept pivots, or subletting. Confirm the class and whether there is flexibility within it.',
+  },
+  {
+    title: 'Repairing obligations',
+    text: 'A full repairing and insuring lease passes the cost of repairs to the tenant. Confirm the current condition of the site, ask for a schedule of condition, and understand what repair obligations could arise during the lease term.',
+  },
+  {
+    title: 'Break clause',
+    text: 'A break clause gives the business the option to exit the lease early if the trading case does not improve. Confirm when the break falls, what conditions must be met to exercise it, and whether any rent-free or incentive terms are tied to not triggering it.',
+  },
+  {
+    title: 'Rent review',
+    text: 'Understand when the first review falls and what mechanism applies, for example open market, RPI, or fixed uplift. An upward-only open market review can significantly increase the rent burden beyond the numbers used in the check.',
+  },
+  {
+    title: 'Lease length',
+    text: 'A longer lease increases total exposure if the site underperforms. Weigh the length against the break clause position and any landlord incentives that are linked to accepting a longer term.',
+  },
+  {
+    title: 'Assignment and subletting',
+    text: 'Confirm whether the lease can be assigned or sublet if the business needs to exit before the break clause. Restrictions on assignment can make an underperforming site difficult to exit without landlord consent.',
+  },
+  {
+    title: 'Handover condition',
+    text: 'Agree in writing what condition the site will be handed over in, including any existing fit-out that remains, outstanding repairs, and whether a schedule of condition will be prepared before the lease starts.',
+  },
+  {
+    title: 'Personal guarantee',
+    text: 'A personal guarantee makes the individual tenant personally liable for rent obligations if the business fails. Confirm whether the landlord requires one, whether it can be capped in time or amount, and what the implications are if the business structure changes.',
+  },
 ];
 
 const commonMistakes = [
@@ -459,12 +491,9 @@ export default function RestaurantLeaseViabilityPage() {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {leaseTerms.map((item) => (
-              <div key={item} className="rounded-xl border border-stone-200 bg-stone-50 p-5 shadow-sm">
-                <p className="text-sm font-semibold text-stone-900">{item}</p>
-                <p className="text-sm text-stone-700 leading-7 mt-2">
-                  Ask what the clause means in practice and whether it makes the
-                  site harder or easier to run commercially.
-                </p>
+              <div key={item.title} className="rounded-xl border border-stone-200 bg-stone-50 p-5 shadow-sm">
+                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+                <p className="text-sm text-stone-700 leading-7 mt-2">{item.text}</p>
               </div>
             ))}
           </div>

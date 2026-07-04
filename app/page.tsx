@@ -86,10 +86,10 @@ const howItWorks = [
 
 const supportingTools = [
   {
-    title: 'Commercial lease viability',
-    desc: 'Pressure-test a commercial site, then review the sample memo and methodology if it still looks worth pursuing.',
+    title: 'Commercial lease viability guide',
+    desc: 'Read about the commercial lease viability check and how it works, then run the free check when ready.',
     href: '/commercial-lease-viability-check',
-    cta: 'Run a free commercial check',
+    cta: 'Read the guide',
     featured: true,
   },
   {
@@ -326,6 +326,14 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
+
+            <p className="mt-3 text-sm text-stone-500 leading-6">
+              See the full paid file format in the{' '}
+              <Link href="/sample-commercial-viability-file" className="underline underline-offset-4 hover:text-stone-700">
+                sample Standard Commercial Viability File
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </section>
@@ -415,63 +423,6 @@ export default function HomePage() {
                 <p key={item}>{item}</p>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-stone-100 border-b border-stone-200">
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <div className="max-w-3xl mb-6">
-            <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
-              Why the £49 file exists
-            </p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
-              Spend £49 before you spend £2,500+.
-            </h2>
-            <p className="text-sm text-stone-600 leading-7">
-              Professional lease reviews, surveys and pre-signing checks can quickly cost £2,500+ before you commit to a site. YieldLens gives you a £49 first-pass viability screen so you can pressure-test rent burden, opening cash, break-even pressure and downside risk before deciding whether to take the lease further.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            {featureCards.map((card, index) => (
-              <div
-                key={card.title}
-                className={`${surfaceCardSoftClass} border-l-4 p-4 transition-colors hover:border-[var(--yieldlens-caution)] ${
-                  index % 5 === 0
-                    ? 'border-l-[var(--yieldlens-caution)]'
-                    : index % 5 === 1
-                      ? 'border-l-[var(--yieldlens-primary)]'
-                      : index % 5 === 2
-                        ? 'border-l-[var(--yieldlens-positive)]'
-                        : index % 5 === 3
-                          ? 'border-l-[var(--yieldlens-fragile)]'
-                          : 'border-l-[var(--yieldlens-risk)]'
-                } ${
-                  card.title === 'Rent burden'
-                    ? 'bg-white border-[var(--yieldlens-border)]'
-                    : card.title === 'Downside revenue'
-                      ? 'bg-amber-50 border-amber-200'
-                      : 'bg-white'
-                }`}
-              >
-                <div className="mb-3 flex items-center gap-2">
-                  <span
-                    className={`h-2 w-2 rounded-full ${
-                      card.title === 'Rent burden'
-                        ? 'bg-[var(--yieldlens-primary)]'
-                        : card.title === 'Downside revenue'
-                          ? 'bg-amber-500'
-                          : 'bg-stone-400'
-                    }`}
-                  />
-                  <p className="text-xs font-medium uppercase tracking-widest text-stone-500">
-                    Commercial check
-                  </p>
-                </div>
-                <p className="font-semibold text-stone-900 mb-2">{card.title}</p>
-                <p className="text-sm text-stone-600 leading-6">{card.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

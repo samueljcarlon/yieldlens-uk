@@ -139,15 +139,6 @@ export default function Footer() {
           </p>
 
           <p className="mt-2">
-            Questions about the product, access after payment, or privacy? Use
-            the contact page or email{' '}
-            <a href={supportHref} className="underline decoration-white/30 underline-offset-4 hover:decoration-white">
-              yieldlensuk@gmail.com
-            </a>
-            .
-          </p>
-
-          <p className="mt-2">
             © 2026 YieldLens UK. Commercial rent affordability and lease
             viability decision-support tool for UK commercial sites.
           </p>

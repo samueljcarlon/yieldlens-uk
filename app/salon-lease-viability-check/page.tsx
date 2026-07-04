@@ -110,18 +110,50 @@ const salonOperatorChecks = [
 ];
 
 const leaseTerms = [
-  'Rent-free period',
-  'Rent review',
-  'Service charge',
-  'Repairing obligations',
-  'Permitted use for beauty, hair, nails, treatments, or clinic-style services',
-  'Water, drainage, extraction, ventilation, and electrical capacity',
-  'Signage rights',
-  'Break clause',
-  'Handover condition',
-  'Landlord works',
-  'Assignment and subletting',
-  'Restrictions on treatments or operating hours',
+  {
+    title: 'Rent-free period',
+    text: 'A rent-free period gives the salon time to complete the fit-out, hire staff, and build an initial client base before the full rent obligation begins. Confirm how long it runs, whether it covers all outgoings, and what happens if the lease ends before an agreed minimum term.',
+  },
+  {
+    title: 'Service charge',
+    text: 'Service charges in salon premises can include shared building maintenance, common area cleaning, and management costs. Confirm what the charge covers, whether it is capped, and what the actual charge was in recent years.',
+  },
+  {
+    title: 'Fit-out and reinstatement',
+    text: 'Confirm whether the landlord expects the salon fit-out to be removed at the end of the lease and the site returned to shell condition. Reinstatement costs can be significant if the fit-out includes plumbing, partition walls, or specialist flooring.',
+  },
+  {
+    title: 'Permitted use',
+    text: 'A salon use may be permitted under a specific planning class. Confirm whether the permitted use clause allows for the treatment types planned, including any licensable treatments or regulated activities.',
+  },
+  {
+    title: 'Repairing obligations',
+    text: 'Understand whether the lease is full repairing and insuring or internal repairing only. Ask for a schedule of condition so the baseline is documented before the lease starts.',
+  },
+  {
+    title: 'Break clause',
+    text: 'A break clause protects the business if chair utilisation or bookings do not meet the assumptions in the check. Confirm the break date, any conditions attached to exercising it, and whether any lease incentives are forfeited if the break is used.',
+  },
+  {
+    title: 'Rent review',
+    text: 'Confirm when the rent is first reviewed and by what mechanism. Even a modest upward review can change the rent burden used in the check, particularly in the second or third year of the lease.',
+  },
+  {
+    title: 'Water and drainage',
+    text: "Salon operations typically require higher water usage than other retail occupiers. Confirm whether the building's drainage capacity is sufficient and whether there are any restrictions on the water supply connection.",
+  },
+  {
+    title: 'Assignment',
+    text: 'Confirm whether the lease can be transferred to another operator if the business needs to exit. A lease with restrictive assignment terms can be difficult and costly to exit if trading does not meet the plan.',
+  },
+  {
+    title: 'Handover condition',
+    text: 'Agree what condition the site will be in on the day the lease starts, including any existing pipework, cabling, or previous fit-out elements that will remain.',
+  },
+  {
+    title: 'Personal guarantee',
+    text: 'Confirm whether the landlord requires a personal guarantee and whether it can be limited in scope, duration, or value.',
+  },
 ];
 
 const commonMistakes = [
@@ -427,12 +459,9 @@ export default function SalonLeaseViabilityPage() {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {leaseTerms.map((item) => (
-              <div key={item} className="rounded-xl border border-stone-200 bg-stone-50 p-5 shadow-sm">
-                <p className="text-sm font-semibold text-stone-900">{item}</p>
-                <p className="text-sm text-stone-700 leading-7 mt-2">
-                  Ask what the clause means in practice and whether it makes the
-                  site harder or easier to run commercially.
-                </p>
+              <div key={item.title} className="rounded-xl border border-stone-200 bg-stone-50 p-5 shadow-sm">
+                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+                <p className="text-sm text-stone-700 leading-7 mt-2">{item.text}</p>
               </div>
             ))}
           </div>

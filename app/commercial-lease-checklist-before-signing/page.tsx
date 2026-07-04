@@ -595,6 +595,9 @@ export default function CommercialLeaseChecklistPage() {
             title="What should the commercial lease checklist cover?"
             description="A useful checklist should cover affordability, setup cash, trading assumptions, lease terms, and the evidence behind them."
           />
+          <p className="mb-6 text-sm text-stone-600 leading-7 max-w-4xl">
+            Not all of these need to be resolved at the same time. Check these early, before heads of terms are agreed, because heads of terms, rent-free period, deposit, and lease length are typically the earliest decisions. Confirm the remaining items during legal review.
+          </p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {checklistSections.map((section, index) => (
               <div

@@ -69,6 +69,27 @@ type SiteDraft = {
   breakClause: string;
 };
 
+const compareIllustrativePreview = [
+  {
+    label: 'Site A',
+    rentBurden: '19%',
+    breakEven: '38/day',
+    expectedCustomers: '70/day',
+    upfrontCashNeeded: '£64,000',
+    cashAfterOpening: '£11,000',
+    sixMonthTest: 'Pass',
+  },
+  {
+    label: 'Site B',
+    rentBurden: '28%',
+    breakEven: '61/day',
+    expectedCustomers: '70/day',
+    upfrontCashNeeded: '£91,000',
+    cashAfterOpening: '-£6,000',
+    sixMonthTest: 'Fail',
+  },
+] as const;
+
 interface CompareSnapshot {
   createdAt: string;
   draft: {
@@ -522,7 +543,7 @@ function SiteFormCard({
             </FieldBlock>
 
             <FieldBlock
-              label="Break clause"
+              label="Does the lease include a break clause?"
               optional
               helper="Use the current understanding if you know it."
             >
@@ -758,6 +779,58 @@ export default function ComparePageClient() {
       </section>
 
       <section className={`${sectionBandClass} print:hidden`} id="compare-form">
+        <div className="max-w-6xl mx-auto px-4 pt-14 sm:pt-16">
+          <div className={`${surfaceCardClass} p-5 sm:p-6 print:hidden`}>
+            <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
+              Example comparison output
+            </p>
+            <p className="text-sm text-stone-600 leading-7 mb-5">
+              This is an illustrative example using fictional assumptions. It shows the kind of side-by-side view the comparison produces.
+            </p>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {compareIllustrativePreview.map((site) => (
+                <div key={site.label} className={`${surfaceCardSoftClass} border border-stone-200 p-4`}>
+                  <p className="text-sm font-semibold text-stone-900 mb-4">{site.label} (fictional)</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-stone-400">Rent burden</p>
+                      <p className="font-semibold text-stone-900">{site.rentBurden}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-stone-400">Break-even</p>
+                      <p className="font-semibold text-stone-900">{site.breakEven}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-stone-400">Expected customers</p>
+                      <p className="font-semibold text-stone-900">{site.expectedCustomers}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-stone-400">Upfront cash needed</p>
+                      <p className="font-semibold text-stone-900">{site.upfrontCashNeeded}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-stone-400">Cash after opening</p>
+                      <p className="font-semibold text-stone-900">{site.cashAfterOpening}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-stone-400">Six-month test</p>
+                      <p className="font-semibold text-stone-900">{site.sixMonthTest}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-5 text-sm text-stone-700 leading-7">
+              Site A covers costs in the downside case with a positive cash buffer after opening. Site B carries a higher rent burden and an opening cash shortfall before trading begins.
+            </p>
+            <p className="mt-2 text-xs text-stone-500 leading-6">
+              Illustrative only. Not a real case. YieldLens UK provides indicative decision-support only.
+            </p>
+          </div>
+        </div>
+
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Compare two sites"
