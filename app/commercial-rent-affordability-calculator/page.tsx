@@ -123,6 +123,7 @@ const relatedLinks = [
   { href: '/commercial-service-charge-before-signing', label: 'Commercial service charge before signing' },
   { href: '/commercial-rent-burden-calculator', label: 'Commercial rent burden calculator' },
   { href: '/commercial-business-rates-before-signing', label: 'Commercial business rates before signing' },
+  { href: '/how-much-rent-can-a-shop-afford', label: 'How much rent can a shop afford' },
 ];
 
 function SectionTitle({

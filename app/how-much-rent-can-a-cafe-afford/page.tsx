@@ -146,6 +146,11 @@ const relatedTools = [
     text: 'See how monthly rent compares with expected revenue.',
   },
   {
+    title: 'How much rent can a shop afford',
+    href: '/how-much-rent-can-a-shop-afford',
+    text: 'Use the shop version when retail footfall and stock turnover drive the decision.',
+  },
+  {
     title: 'Break-even customers calculator',
     href: '/break-even-customers-calculator',
     text: 'Convert rent and costs into a daily customer target.',

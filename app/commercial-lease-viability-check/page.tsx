@@ -195,6 +195,11 @@ const commercialLinks = [
     text: 'Check whether the commitment period matches the trading plan.',
     href: '/commercial-lease-length-before-signing',
   },
+  {
+    title: 'How much rent can a shop afford',
+    text: 'Use this when the site is a shop or retail unit and the question is whether the rent can be carried.',
+    href: '/how-much-rent-can-a-shop-afford',
+  },
 ];
 
 function SectionTitle({
