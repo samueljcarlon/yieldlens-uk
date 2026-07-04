@@ -859,6 +859,31 @@ export default function CommercialLeaseViabilityPage() {
         </div>
       </section>
 
+      <section className="bg-white border-y border-[var(--yieldlens-border)]">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <SectionTitle
+            eyebrow="How to use the result"
+            title="Use the viability view to prepare the next conversation."
+            description="The result is a prompt to gather evidence and ask better questions, not a final decision on its own."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              'Identify weak assumptions before the lease gets expensive to unwind.',
+              'Gather evidence for the figures that look thin or optimistic.',
+              'Prepare questions for the agent, landlord, solicitor, or adviser.',
+              'Decide whether the site is worth taking further, not whether it is already certain.',
+            ].map((item, index) => (
+              <div
+                key={item}
+                className={`${surfaceCardSoftClass} border-l-4 ${index % 2 === 0 ? 'border-l-[var(--yieldlens-caution)]' : 'border-l-[var(--yieldlens-primary)]'} p-5 text-sm leading-7 text-stone-700`}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <FaqSection
         eyebrow="Frequently asked questions"
         title="Commercial lease viability FAQs"

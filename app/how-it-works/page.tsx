@@ -54,11 +54,27 @@ const freeCheckMetrics = [
   },
 ];
 
-const methodologyPoints = [
-  'YieldLens uses the assumptions entered by the user.',
-  'It compares rent, revenue, costs, opening cash, and downside trading pressure.',
-  'Thresholds are caution bands, not approvals or recommendations.',
-  'It does not estimate market value or replace comparables, legal review, tax advice, finance advice, surveys, or professional due diligence.',
+const methodologySteps = [
+  {
+    step: '1',
+    title: 'Enter the lease and trading assumptions',
+    desc: 'Add rent, revenue, costs, opening cash, and downside assumptions from the site you are checking.',
+  },
+  {
+    step: '2',
+    title: 'YieldLens organises the assumptions into a viability snapshot',
+    desc: 'The free check pulls the numbers, known lease costs, and evidence gaps into one view so the pressure points are easier to compare.',
+  },
+  {
+    step: '3',
+    title: 'Review rent burden, opening cash, break-even pressure, and downside risk',
+    desc: 'The snapshot shows whether the lease looks fragile once the opening and downside cases are included.',
+  },
+  {
+    step: '4',
+    title: 'Use the £49 file if you need a printable decision memo',
+    desc: 'The Standard Commercial Viability File turns the same result into a printable memo with lease questions to raise before signing.',
+  },
 ];
 
 const verificationPoints = [
@@ -149,12 +165,12 @@ const whatToVerify = [
 ];
 
 const noDoClaims = [
-  'Not financial advice.',
-  'Not legal advice.',
-  'Not tax advice.',
-  'Not a valuation.',
-  'Not a substitute for due diligence.',
-  'Not a replacement for reviewing the lease, speaking to advisers, or checking local evidence.',
+  'It does not value property.',
+  'It does not review lease documents.',
+  'It does not verify sales assumptions.',
+  'It does not check legal liability.',
+  'It does not check planning or licensing.',
+  'It does not replace a solicitor, surveyor, accountant, or professional adviser.',
 ];
 
 const beforeSigningLinks = [
@@ -420,17 +436,18 @@ export default function HowItWorksPage() {
       <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Methodology and thresholds"
-            title="The model is built for early screening."
-            description="It is designed to pressure-test the lease decision, not to model the whole property market."
+            eyebrow="Methodology"
+            title="How YieldLens checks commercial lease viability"
+            description="It is built for early screening, not for market valuation or full professional review."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {methodologyPoints.map((item, index) => (
-              <div
-                key={item}
-                className={`${surfaceCardClass} border-l-4 ${accentClass(index)} p-5 text-sm leading-7 text-stone-700`}
-              >
-                {item}
+            {methodologySteps.map((item, index) => (
+              <div key={item.step} className={`${surfaceCardClass} border-l-4 ${accentClass(index)} p-5`}>
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-caution)] font-semibold mb-2">
+                  Step {item.step}
+                </p>
+                <p className="text-sm font-semibold text-stone-900">{item.title}</p>
+                <p className="mt-2 text-sm text-stone-700 leading-7">{item.desc}</p>
               </div>
             ))}
           </div>

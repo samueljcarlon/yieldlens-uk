@@ -417,15 +417,13 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="max-w-3xl mb-6">
             <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
-              Proof and next step
+              Why the £49 file exists
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
-              The £49 Standard Commercial Viability File adds the pressure-test, not just more of the same numbers.
+              Spend £49 before you spend £2,500+.
             </h2>
             <p className="text-sm text-stone-600 leading-7">
-              The free result surfaces the pressure points. The £49 Standard Commercial Viability File turns
-              them into the structure needed to challenge the lease before heads of
-              terms become expensive.
+              Professional lease reviews, surveys and pre-signing checks can quickly cost £2,500+ before you commit to a site. YieldLens gives you a £49 first-pass viability screen so you can pressure-test rent burden, opening cash, break-even pressure and downside risk before deciding whether to take the lease further.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">

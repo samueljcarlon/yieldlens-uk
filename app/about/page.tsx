@@ -78,7 +78,7 @@ const whatItDoesNotDo = [
   'Not a valuation.',
   'Not legal advice.',
   'Not financial advice.',
-  'Not a replacement for reviewing the lease, checking local evidence, or speaking to professional advisers.',
+  'Not a replacement for reviewing the lease, checking local evidence, or speaking to a solicitor, surveyor, accountant, or other professional adviser.',
 ];
 
 const howItWorks = [
@@ -113,7 +113,7 @@ const trustPrinciples = [
 
 const founderNote = [
   'YieldLens UK was built by Sam Carlon to make commercial lease assumptions easier to challenge before operators commit to rent, fit-out, deposit, and legal costs.',
-  'The product is deliberately assumption-led. It does not replace professional due diligence, but it helps users organise the key commercial pressure points before signing.',
+  'The product is deliberately assumption-led. It is aimed at early-stage screening, not final professional advice, and it helps users organise the key commercial pressure points before signing.',
 ];
 
 function SectionTitle({
@@ -187,7 +187,8 @@ export default function AboutPage() {
               <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 Independent commercial rent and lease viability decision-support.
                 YieldLens UK helps operators pressure-test whether a commercial
-                site can carry the rent before they sign.
+                site can carry the rent before they sign. It is aimed at
+                early-stage screening, not final professional advice.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
@@ -376,10 +377,14 @@ export default function AboutPage() {
             description="A small amount of founder presence helps with accountability without turning the page into a personal profile."
           />
           <div className={`${surfaceCardSoftClass} p-6 sm:p-7 max-w-3xl`}>
-            <div className="space-y-4 text-sm leading-7 text-stone-700">
+              <div className="space-y-4 text-sm leading-7 text-stone-700">
               {founderNote.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
+              <p>
+                The focus is on rent burden, opening cash, break-even pressure,
+                and downside scenarios, so the next conversation is more grounded.
+              </p>
               <p>
                 <a
                   href="https://www.linkedin.com/in/sam-carlon-81729b222/"

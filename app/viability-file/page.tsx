@@ -440,9 +440,9 @@ export default function ViabilityFilePage() {
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="The key checks"
-          title="What the £49 file includes"
-          description="The Standard commercial viability file turns the free check into a concise decision memo."
+          eyebrow="Why the £49 file exists"
+          title="The Standard file turns the free snapshot into a printable decision memo."
+          description="The free check gives the fast view. The £49 file organises the same result into a decision memo before you spend more on legal review, surveys, and professional due diligence."
         />
 
         <p className="mb-6 text-sm text-stone-600 leading-7 max-w-3xl">
@@ -468,7 +468,7 @@ export default function ViabilityFilePage() {
       <section className="bg-white border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Objections and limits"
+            eyebrow="What it does not do"
             title="What the file does, and what it does not do."
             description="The page stays clear about the product boundary so users know what they are buying."
           />
@@ -487,10 +487,11 @@ export default function ViabilityFilePage() {
             <div className={`${surfaceCardSoftClass} p-5`}>
               <p className="text-sm font-semibold text-stone-900 mb-3">What it will not tell you</p>
               <ul className="space-y-2 text-sm text-stone-700 leading-7">
-                <li>• It does not confirm market rent.</li>
-                <li>• It does not review the lease wording.</li>
-                <li>• It does not replace legal, tax, finance, valuation, or property advice.</li>
-                <li>• It cannot use facts that were not entered into the free check.</li>
+                <li>• It does not value property.</li>
+                <li>• It does not review lease documents.</li>
+                <li>• It does not verify sales assumptions.</li>
+                <li>• It does not check legal liability, planning, licensing, or tax issues.</li>
+                <li>• It does not replace a solicitor, surveyor, accountant, or professional adviser.</li>
               </ul>
             </div>
           </div>

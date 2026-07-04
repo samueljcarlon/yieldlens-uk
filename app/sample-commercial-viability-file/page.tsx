@@ -773,9 +773,9 @@ export default function SampleCommercialViabilityFilePage() {
       <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Business-type rent checks"
-            title="Use the page that matches the unit type."
-            description="The sample file sits alongside the business-type affordability checks so the cluster stays connected."
+            eyebrow="Why the £49 file exists"
+            title="The sample shows how the £49 file turns a quick snapshot into a decision memo."
+            description="The free check gives the quick snapshot. The £49 Standard Commercial Viability File turns that result into an organised decision memo for legal review, surveys, and professional due diligence."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {[
@@ -801,16 +801,13 @@ export default function SampleCommercialViabilityFilePage() {
       <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
-            Next step
+            How to use the result
           </p>
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
-            Run your own commercial check, then request the paid file if the site still looks worth pursuing.
+            Use the result to decide what evidence to gather next.
           </h2>
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
-            The sample is a separate illustrative case that shows the pressure-test,
-            negotiation prompts, and due diligence structure used in the Standard
-            commercial viability file. After payment, the memo for the saved result
-            opens from the results flow and can be printed or saved as PDF.
+            The sample is a separate illustrative case that shows the pressure-test, negotiation prompts, and due diligence structure used in the Standard commercial viability file. Use the result to identify weak assumptions, gather evidence, prepare questions for the agent, landlord, solicitor, or adviser, and decide whether the site is worth taking further.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <TrackedCtaLink
@@ -827,7 +824,7 @@ export default function SampleCommercialViabilityFilePage() {
               href="/viability-file"
               className="w-full sm:w-auto min-h-[48px] border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400"
             >
-              Get your own £49 viability file
+              £49 Standard Commercial Viability File
             </Link>
             <Link
               href="/how-it-works"
