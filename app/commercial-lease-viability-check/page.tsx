@@ -233,6 +233,11 @@ const commercialLinks = [
     text: 'Use this when the site is a shop or retail unit and the question is whether the rent can be carried.',
     href: '/how-much-rent-can-a-shop-afford',
   },
+  {
+    title: 'How much rent can a takeaway afford',
+    text: 'Use this when delivery demand, extraction, and order volume drive the lease decision.',
+    href: '/how-much-rent-can-a-takeaway-afford',
+  },
 ];
 
 function SectionTitle({

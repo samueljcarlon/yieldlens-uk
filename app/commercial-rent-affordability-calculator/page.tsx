@@ -124,6 +124,7 @@ const relatedLinks = [
   { href: '/commercial-rent-burden-calculator', label: 'Commercial rent burden calculator' },
   { href: '/commercial-business-rates-before-signing', label: 'Commercial business rates before signing' },
   { href: '/how-much-rent-can-a-shop-afford', label: 'How much rent can a shop afford' },
+  { href: '/how-much-rent-can-a-takeaway-afford', label: 'How much rent can a takeaway afford' },
 ];
 
 const comparisonRows = [

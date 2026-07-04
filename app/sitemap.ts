@@ -33,6 +33,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/break-even-customers-calculator',
     '/commercial-lease-survival-calculator',
     '/how-much-rent-can-a-cafe-afford',
+    '/how-much-rent-can-a-takeaway-afford',
+    '/how-much-rent-can-a-shop-afford',
     '/rental-valuation-vs-rent-affordability',
     '/sample-commercial-viability-file',
     '/how-it-works',

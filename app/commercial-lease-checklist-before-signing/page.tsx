@@ -467,6 +467,9 @@ export default function CommercialLeaseChecklistPage() {
                 <Link href="/commercial-rent-affordability-calculator" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial rent affordability calculator
                 </Link>
+                <Link href="/how-much-rent-can-a-takeaway-afford" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  How much rent can a takeaway afford
+                </Link>
                 <Link href="/how-it-works" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   How it works
                 </Link>

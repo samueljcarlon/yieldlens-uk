@@ -119,6 +119,11 @@ const relatedPages = [
     text: 'Use the salon page when treatment rooms, chair capacity, or chair-rent assumptions matter.',
   },
   {
+    title: 'How much rent can a takeaway afford',
+    href: '/how-much-rent-can-a-takeaway-afford',
+    text: 'Use the takeaway page when delivery demand and extraction matter more than covers.',
+  },
+  {
     title: 'Commercial lease checklist before signing',
     href: '/commercial-lease-checklist-before-signing',
     text: 'Use the checklist to review rent, cash, and lease terms before you commit.',

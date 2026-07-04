@@ -151,6 +151,11 @@ const relatedTools = [
     text: 'Use the shop version when retail footfall and stock turnover drive the decision.',
   },
   {
+    title: 'How much rent can a takeaway afford',
+    href: '/how-much-rent-can-a-takeaway-afford',
+    text: 'Use the takeaway page when delivery demand and platform costs drive the question.',
+  },
+  {
     title: 'Break-even customers calculator',
     href: '/break-even-customers-calculator',
     text: 'Convert rent and costs into a daily customer target.',
