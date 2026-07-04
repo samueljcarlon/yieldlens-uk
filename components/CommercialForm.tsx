@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import type { CommercialInput } from '@/types/property';
+import {
+  getCommercialBusinessTypeInfo,
+  getCommercialBusinessTypeOptions,
+} from '@/lib/commercialBusinessType';
 
 interface Props {
   onSubmit: (input: CommercialInput) => Promise<void> | void;
@@ -132,6 +136,12 @@ export default function CommercialForm({ onSubmit }: Props) {
       set(key, event.target.value),
   });
 
+  const businessTypeInfo = getCommercialBusinessTypeInfo(form.businessType);
+  const businessTypeHelper = form.businessType
+    ? businessTypeInfo.helperText
+    : 'Select a business type so the result can frame covers, orders, appointments, sales, and opening cash.';
+  const businessTypeOptions = getCommercialBusinessTypeOptions();
+
   const validate = (): boolean => {
     const nextErrors: Record<string, string> = {};
 
@@ -157,6 +167,10 @@ export default function CommercialForm({ onSubmit }: Props) {
       nextErrors.openingDaysPerMonth = 'Opening days per month is required.';
     } else if (!isValidNumber(form.openingDaysPerMonth)) {
       nextErrors.openingDaysPerMonth = 'Enter a number for opening days per month.';
+    }
+
+    if (isBlank(form.businessType)) {
+      nextErrors.businessType = 'Select a business type.';
     }
 
     if (!isBlank(form.downsideRevenuePercentage) && !isValidNumber(form.downsideRevenuePercentage)) {
@@ -259,7 +273,7 @@ export default function CommercialForm({ onSubmit }: Props) {
       <FormSection
         eyebrow="Step 1"
         title="Site and rent"
-        description="Start with the rent and basic site details so YieldLens can estimate the lease pressure."
+        description="Start with the rent, site details, and business type so YieldLens can frame the lease pressure."
       >
         <FieldBlock label="Address" optional>
           <input type="text" className={inputClass} placeholder="e.g. 22 High Street" {...field('address')} />
@@ -275,20 +289,17 @@ export default function CommercialForm({ onSubmit }: Props) {
 
         <FieldBlock
           label="Business type"
-          optional
-          helper="Used to label the check and frame the commercial assumptions."
+          required
+          helper={businessTypeHelper}
+          error={errors.businessType}
         >
           <select className={inputClass} {...field('businessType')}>
             <option value="">Select type</option>
-            <option>Cafe</option>
-            <option>Bar</option>
-            <option>Restaurant</option>
-            <option>Salon</option>
-            <option>Gym</option>
-            <option>Takeaway</option>
-            <option>Retail</option>
-            <option>Office/studio</option>
-            <option>Other</option>
+            {businessTypeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </FieldBlock>
 
@@ -305,7 +316,7 @@ export default function CommercialForm({ onSubmit }: Props) {
       <FormSection
         eyebrow="Step 2"
         title="Trading assumptions"
-        description="These assumptions drive estimated revenue and break-even customers per day."
+        description={`These assumptions drive estimated revenue and ${businessTypeInfo.breakEvenLabel.toLowerCase()}.`}
       >
         <FieldBlock
           label="Average spend per customer (£)"
@@ -461,7 +472,8 @@ export default function CommercialForm({ onSubmit }: Props) {
 
         <p className="text-xs text-stone-500 leading-5 max-w-xl">
           Use estimates if you are still comparing sites. The result is only as
-          useful as the assumptions entered.
+          useful as the assumptions entered, especially the business type,
+          revenue, cost, and opening cash assumptions.
         </p>
       </div>
     </form>

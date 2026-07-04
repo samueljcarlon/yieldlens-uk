@@ -59,6 +59,14 @@ function getSourcePage(body: Record<string, unknown>): string {
   return normalizeFunnelPath(typeof sourcePage === 'string' ? sourcePage : '/thank-you') || '/thank-you';
 }
 
+function getBusinessType(body: Record<string, unknown>): string {
+  const businessType = body.businessType;
+
+  return typeof businessType === 'string' && businessType.trim() !== ''
+    ? businessType.trim()
+    : '';
+}
+
 function getCheckoutAttribution(body: Record<string, unknown>): Record<string, string> {
   const attribution = body.attribution;
 
@@ -112,6 +120,7 @@ export async function POST(request: NextRequest) {
     const reportRequestId =
       typeof body.reportRequestId === 'string' ? body.reportRequestId.trim() : '';
     const sourcePage = getSourcePage(body as Record<string, unknown>);
+    const businessType = getBusinessType(body as Record<string, unknown>);
     const attribution = getCheckoutAttribution(body as Record<string, unknown>);
 
     if (!reportRequestId) {
@@ -128,7 +137,7 @@ export async function POST(request: NextRequest) {
     const { data: reportRequest, error: fetchError } = await supabase
       .from('report_requests')
       .select(
-        'id, mode, email, requested_report_type, payment_status, stripe_checkout_session_id, customer_access_token'
+        'id, mode, email, requested_report_type, payment_status, stripe_checkout_session_id, customer_access_token, input_json'
       )
       .eq('id', reportRequestId)
       .maybeSingle();
@@ -169,6 +178,14 @@ export async function POST(request: NextRequest) {
     const currency = 'GBP';
     const productName = 'Standard commercial viability file';
     let customerAccessToken = reportRequest.customer_access_token as string | null;
+    const input = reportRequest.input_json && typeof reportRequest.input_json === 'object'
+      ? (reportRequest.input_json as Record<string, unknown>)
+      : {};
+    const requestBusinessType =
+      businessType ||
+      (typeof input.businessType === 'string' && input.businessType.trim() !== ''
+        ? input.businessType.trim()
+        : '');
 
     if (!customerAccessToken) {
       customerAccessToken = randomBytes(32).toString('hex');
@@ -206,6 +223,7 @@ export async function POST(request: NextRequest) {
         mode: reportRequest.mode,
         requested_report_type: reportRequest.requested_report_type,
         source_page: sourcePage,
+        ...(requestBusinessType ? { business_type: requestBusinessType } : {}),
         ...attribution,
       },
       payment_intent_data: {
@@ -214,6 +232,7 @@ export async function POST(request: NextRequest) {
           mode: reportRequest.mode,
           requested_report_type: reportRequest.requested_report_type,
           source_page: sourcePage,
+          ...(requestBusinessType ? { business_type: requestBusinessType } : {}),
           ...attribution,
         },
       },
@@ -270,6 +289,7 @@ export async function POST(request: NextRequest) {
         current_page_path: sourcePage,
         current_page_type: sourcePage.startsWith('/admin') ? 'admin' : 'checkout',
         current_mode: reportRequest.mode,
+        ...(requestBusinessType ? { business_type: requestBusinessType } : {}),
         ...attribution,
       },
       userAgent: request.headers.get('user-agent'),

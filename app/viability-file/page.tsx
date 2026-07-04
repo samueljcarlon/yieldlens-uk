@@ -283,13 +283,21 @@ export default function ViabilityFilePage() {
                 you sign. It is unlocked from a saved result, then opens as a
                 memo you can print or save as PDF. If your assumptions change,
                 rerun the free commercial check so the file reflects the latest
-                numbers.
+                numbers. It can also frame business-type assumptions such as
+                covers, orders, appointments, footfall, stock margin, and
+                chair utilisation where relevant.
               </p>
               <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-2">
                 Quick answer
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-6 leading-7">
                 The £49 Standard Commercial Viability File turns the free check into a printable decision memo with assumptions, stress tests, lease questions, evidence prompts, and a clear view of what still needs verifying before signing. It is useful when the site deserves a deeper read but you want the numbers organised first.
+              </p>
+
+              <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
+                That makes it easier to think in the language of the business:
+                covers, orders, appointments, footfall, stock margin, or chair
+                utilisation, rather than only the headline rent.
               </p>
 
               <p className="text-sm text-stone-300 max-w-2xl mb-4 leading-7">

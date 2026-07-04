@@ -312,6 +312,10 @@ export default function CommercialLeaseViabilityPage() {
                 It is built for people who need to know whether a cafe, restaurant, salon, shop, or other small commercial unit deserves a deeper look before they sign heads of terms.
               </p>
 
+              <p className="text-sm text-stone-300 max-w-3xl mb-8 leading-7">
+                It also helps when the real question is whether a cafe, restaurant, shop, takeaway, salon, barber shop, or other commercial site can carry the rent once covers, orders, appointments, footfall, and opening cash are tested.
+              </p>
+
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check?mode=commercial"

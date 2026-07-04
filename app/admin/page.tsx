@@ -57,6 +57,7 @@ interface SafeEventRow {
   utmCampaign: string;
   ctaLabel: string;
   ctaLocation: string;
+  businessType: string;
 }
 
 const organicEventNames = new Set([
@@ -185,6 +186,7 @@ function getEventSafeFields(event: ToolEvent): SafeEventRow {
     utmCampaign: getStringMeta(event, 'utm_campaign') || 'Not set',
     ctaLabel: getStringMeta(event, 'cta_label') || 'Not set',
     ctaLocation: getStringMeta(event, 'cta_location') || 'Not set',
+    businessType: getStringMeta(event, 'business_type') || 'Not set',
   };
 }
 
@@ -1106,6 +1108,7 @@ export default function AdminPage() {
                           <p><span className="text-stone-400">UTM campaign:</span> {row.utmCampaign}</p>
                           <p><span className="text-stone-400">CTA:</span> {row.ctaLabel}</p>
                           <p><span className="text-stone-400">CTA location:</span> {row.ctaLocation}</p>
+                          <p><span className="text-stone-400">Business type:</span> {row.businessType}</p>
                         </div>
                       </div>
                     ))

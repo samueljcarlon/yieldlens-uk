@@ -77,6 +77,7 @@ function getSafeAttributionFromMetadata(
     'referrer_type',
     'referrer_host',
     'source_page',
+    'business_type',
   ] as const;
 
   const result: Record<string, string> = {};

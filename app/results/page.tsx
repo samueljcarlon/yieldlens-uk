@@ -19,6 +19,11 @@ import FeedbackCtaPanel from '@/components/FeedbackCtaPanel';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import { primaryCtaClass } from '@/components/yieldLensUi';
 import { logToolEvent } from '@/lib/logToolEvent';
+import {
+  getCommercialBusinessTypeInfo,
+  getCommercialBusinessTypeLabel,
+  getCommercialBusinessTypeValue,
+} from '@/lib/commercialBusinessType';
 import RentBurdenGauge from '@/components/visuals/RentBurdenGauge';
 import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
 import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
@@ -51,6 +56,32 @@ function formatMonths(value?: number): string {
 
   return `${value.toFixed(1)} months`;
 }
+
+function getCommercialBusinessType(submission: Submission): string {
+  return getCommercialBusinessTypeValue(submission.input);
+}
+
+function getCommercialBusinessTypeInfoForSubmission(submission: Submission) {
+  return getCommercialBusinessTypeInfo(getCommercialBusinessType(submission));
+}
+
+const genericEvidenceChecks = [
+  'Comparable rent evidence',
+  'Service charge details',
+  'Business rates estimate',
+  'Fit-out or setup quote',
+  'Revenue assumption evidence',
+];
+
+const genericQuestions = [
+  'Is the service charge fixed, capped, or variable?',
+  'Are business rates included in the cost base?',
+  'Is there a rent-free period?',
+  'Is there a break clause?',
+  'What happens at rent review?',
+  'Is a personal guarantee required?',
+  'What evidence supports the revenue assumption?',
+];
 
 function getSubmissionTrackingKey(submissionId: string): string {
   return `yieldlens:commercial_check_submitted:${submissionId}`;
@@ -438,24 +469,6 @@ function getCommercialAssumptions(submission: Submission): Array<{ label: string
   ];
 }
 
-function getCommercialTakeawayQuestions(result: CommercialResult): string[] {
-  if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
-    return [
-      'Can fit-out, deposit, or landlord contribution be reduced enough to close the opening shortfall?',
-      'What evidence supports the expected customers per day and average spend?',
-      'Are business rates, service charge, insurance, utilities, repairs, and staffing fully included?',
-      'What lease terms, break clauses, rent reviews, repairing obligations, and permitted use restrictions apply?',
-    ];
-  }
-
-  return [
-    'What evidence supports the expected customers per day and average spend?',
-    'Are business rates, service charge, insurance, utilities, repairs, and staffing fully included?',
-    'What lease terms, break clauses, rent reviews, repairing obligations, and permitted use restrictions apply?',
-    'What trading evidence would make this case stronger or weaker before heads of terms?',
-  ];
-}
-
 function summaryToneClass(tone: SummaryTone): string {
   const tones = {
     neutral: 'border-stone-200 bg-white',
@@ -550,6 +563,7 @@ function CommercialSummaryCard({
 
 function CommercialPressureSummary({ submission }: { submission: Submission }) {
   const result = submission.result as CommercialResult;
+  const businessTypeInfo = getCommercialBusinessTypeInfoForSubmission(submission);
   const resultSummary = getCommercialResultSummary(result);
   const resultReason = getCommercialResultReason(result);
   const resultDrivers = getCommercialResultDrivers(result);
@@ -578,12 +592,19 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
               {resultSummary}
             </p>
 
+            <p className="mt-3 text-sm text-stone-300 leading-6 max-w-3xl">
+              {businessTypeInfo.summaryLine}
+            </p>
+
             <div className="mt-5 flex flex-wrap gap-2">
+              <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
+                Business type {businessTypeInfo.shortLabel}
+              </span>
               <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
                 Rent burden {formatPercent(result.rentBurdenPercentage)}
               </span>
               <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
-                Break-even {formatNumber(result.breakEvenCustomersPerDay)}/day
+                {businessTypeInfo.breakEvenLabel} {formatNumber(result.breakEvenCustomersPerDay)}
               </span>
               <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
                 {formatOpeningPosition(result)}
@@ -686,7 +707,7 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
               />
 
               <CommercialSummaryCard
-                label="Break-even/day"
+                label={businessTypeInfo.breakEvenLabel}
                 value={formatNumber(result.breakEvenCustomersPerDay)}
                 helper={getBreakEvenHelper(result)}
                 tone={getBreakEvenTone(result)}
@@ -794,8 +815,11 @@ function CommercialScenarioCard({
   );
 }
 
-function CommercialScenarioPressureTest({ result }: { result: CommercialResult }) {
-  const questions = getCommercialTakeawayQuestions(result);
+function CommercialScenarioPressureTest({ submission }: { submission: Submission }) {
+  const result = submission.result as CommercialResult;
+  const businessTypeInfo = getCommercialBusinessTypeInfoForSubmission(submission);
+  const evidenceChecks = [...genericEvidenceChecks, ...businessTypeInfo.evidenceGaps];
+  const questions = [...genericQuestions, ...businessTypeInfo.questions];
 
   return (
     <div className="rounded-[32px] border border-stone-200 bg-white p-5 sm:p-6 shadow-[0_10px_24px_rgba(15,23,42,0.05)]">
@@ -812,6 +836,10 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
           Use the free result to judge the broad shape of the deal: rent burden, break-even volume,
           opening cash, and downside survival. The paid file is where the lease gets pressure-tested properly.
         </p>
+
+        <p className="mt-3 text-sm text-[var(--yieldlens-muted)] leading-7 max-w-3xl">
+          That means the paid file can read as covers, orders, appointments, footfall, stock margin, or chair utilisation rather than only a rent ratio.
+        </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -821,7 +849,7 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
           helper={getRentBurdenHelper(result.rentBurdenPercentage)}
         />
         <MetricCard
-          label="Break-even/day"
+          label={businessTypeInfo.breakEvenLabel}
           value={formatNumber(result.breakEvenCustomersPerDay)}
           helper={getBreakEvenHelper(result)}
         />
@@ -840,16 +868,30 @@ function CommercialScenarioPressureTest({ result }: { result: CommercialResult }
         />
       </div>
 
-      <div className="mt-5 rounded-2xl border border-stone-200 bg-[var(--yieldlens-panel)] p-5">
-        <p className="font-semibold text-stone-950 mb-3">
-          What to check before relying on this
-        </p>
+      <div className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="rounded-2xl border border-stone-200 bg-[var(--yieldlens-panel)] p-5">
+          <p className="font-semibold text-stone-950 mb-3">
+            Evidence to check before relying on this result
+          </p>
 
-        <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
-          {questions.map((question) => (
-            <li key={question}>{question}</li>
-          ))}
-        </ol>
+          <ul className="space-y-2 text-sm text-stone-700 list-disc list-inside">
+            {evidenceChecks.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-2xl border border-stone-200 bg-[var(--yieldlens-panel)] p-5">
+          <p className="font-semibold text-stone-950 mb-3">
+            Questions before taking this lease further
+          </p>
+
+          <ol className="space-y-2 text-sm text-stone-700 list-decimal list-inside">
+            {questions.map((question) => (
+              <li key={question}>{question}</li>
+            ))}
+          </ol>
+        </div>
       </div>
     </div>
   );
@@ -875,6 +917,10 @@ export default function ResultsPage() {
 
     hasTrackedSubmission.current = true;
     markCommercialSubmissionTracked(submission.id);
+    const businessType =
+      submission.mode === 'commercial'
+        ? getCommercialBusinessTypeLabel(getCommercialBusinessType(submission))
+        : '';
 
     void logToolEvent({
       event_name: 'commercial_check_submitted',
@@ -895,6 +941,7 @@ export default function ResultsPage() {
         funnel_area: 'commercial',
         mode: 'commercial',
         source_page: '/check?mode=commercial',
+        ...(businessType ? { business_type: businessType } : {}),
       },
     });
   }, [submission]);
@@ -1009,7 +1056,7 @@ export default function ResultsPage() {
         {isResidential ? (
           <ScenarioPanel submission={submission} />
         ) : (
-          <CommercialScenarioPressureTest result={result as CommercialResult} />
+          <CommercialScenarioPressureTest submission={submission} />
         )}
       </div>
 
@@ -1032,6 +1079,12 @@ export default function ResultsPage() {
 
       <div className="mt-8 bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
         <p className="font-semibold text-stone-900 mb-3">What the £49 file adds</p>
+
+        <p className="text-sm text-[var(--yieldlens-muted)] leading-7 mb-4 max-w-3xl">
+          It organises the tailored evidence gaps, lease questions, assumptions, stress-test interpretation,
+          and printable memo around the business type you selected, so the file can read as covers, orders,
+          appointments, footfall, stock margin, or chair utilisation where relevant.
+        </p>
 
         <ol className="space-y-2 text-sm text-[var(--yieldlens-muted)] list-decimal list-inside">
           {result.nextSteps.map((step) => (

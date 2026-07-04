@@ -13,6 +13,7 @@ interface FunnelEventTrackerProps {
   sourcePage?: string;
   eventLabel?: string;
   eventBand?: string;
+  metadata?: Record<string, unknown>;
   googleAdsConversion?: GoogleAdsConversionEventName;
   googleAdsValue?: number;
   googleAdsDedupeKey?: string;
@@ -26,6 +27,7 @@ export default function FunnelEventTracker({
   sourcePage,
   eventLabel,
   eventBand = 'page_view',
+  metadata,
   googleAdsConversion,
   googleAdsValue,
   googleAdsDedupeKey,
@@ -61,12 +63,14 @@ export default function FunnelEventTracker({
         current_page_path: pagePath,
         current_page_type: pageType,
         current_mode: mode,
+        ...(metadata ?? {}),
       },
     });
   }, [
     eventBand,
     eventLabel,
     eventName,
+    metadata,
     googleAdsConversion,
     googleAdsDedupeKey,
     googleAdsValue,

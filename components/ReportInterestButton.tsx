@@ -5,6 +5,10 @@ import { useRouter } from 'next/navigation';
 import type { Submission } from '@/types/property';
 import { logToolEvent } from '@/lib/logToolEvent';
 import { primaryCtaClass } from '@/components/yieldLensUi';
+import {
+  getCommercialBusinessTypeLabel,
+  getCommercialBusinessTypeValue,
+} from '@/lib/commercialBusinessType';
 
 export default function ReportInterestButton({
   submission,
@@ -21,6 +25,12 @@ export default function ReportInterestButton({
 
     try {
       if (submission.mode === 'commercial') {
+        const rawBusinessType = getCommercialBusinessTypeValue(submission.input);
+        const businessType =
+          typeof rawBusinessType === 'string' && rawBusinessType.trim()
+            ? getCommercialBusinessTypeLabel(rawBusinessType)
+            : '';
+
         void logToolEvent({
           event_name: 'results_viability_file_requested_clicked',
           page_path: '/results',
@@ -38,6 +48,7 @@ export default function ReportInterestButton({
             page_type: 'results',
             mode: submission.mode,
             source_page: '/results',
+            ...(businessType ? { business_type: businessType } : {}),
           },
         });
       }

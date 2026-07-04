@@ -1664,6 +1664,7 @@ export default async function CommercialViabilityFilePage({
         pageType="paid_file"
         mode="commercial"
         eventLabel="Paid file opened"
+        metadata={context.businessType ? { business_type: context.businessType } : undefined}
         googleAdsConversion="paid_file_opened"
         googleAdsDedupeKey={request.id}
       />

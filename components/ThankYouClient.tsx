@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { getLatestSubmission } from '@/lib/storage';
 import { getFunnelAttributionSnapshot } from '@/lib/funnelAttribution';
 import { trackGoogleAdsConversion } from '@/lib/googleAds';
+import {
+  getCommercialBusinessTypeLabel,
+  getCommercialBusinessTypeValue,
+} from '@/lib/commercialBusinessType';
 
 export default function ThankYouClient({ requestId }: { requestId: string }) {
   const [continueHref, setContinueHref] = useState('/check');
@@ -37,12 +41,20 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
     setCheckoutError('');
 
     try {
+      const submission = getLatestSubmission();
+      const rawBusinessType = submission ? getCommercialBusinessTypeValue(submission.input) : '';
+      const businessType =
+        typeof rawBusinessType === 'string' && rawBusinessType.trim()
+          ? getCommercialBusinessTypeLabel(rawBusinessType)
+          : '';
+
       const response = await fetch('/api/report-payment/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           reportRequestId: requestId,
           sourcePage: '/thank-you',
+          ...(businessType ? { businessType } : {}),
           attribution: getFunnelAttributionSnapshot(),
         }),
       });
