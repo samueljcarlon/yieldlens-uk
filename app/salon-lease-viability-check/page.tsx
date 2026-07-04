@@ -531,7 +531,7 @@ export default function SalonLeaseViabilityPage() {
             title="Use the page that matches the unit."
             description="The salon page sits alongside the other business-type affordability checks."
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             {[
               {
                 title: 'How much rent can a cafe afford',
@@ -548,6 +548,10 @@ export default function SalonLeaseViabilityPage() {
               {
                 title: 'Restaurant lease viability check',
                 href: '/restaurant-lease-viability-check',
+              },
+              {
+                title: 'How much rent can a barber shop afford',
+                href: '/how-much-rent-can-a-barber-shop-afford',
               },
             ].map((item) => (
               <Link

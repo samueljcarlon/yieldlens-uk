@@ -117,6 +117,11 @@ const businessTypeChecks = [
     text: 'Use the cafe page when coffee-led trade, covers, and morning peaks drive the rent question.',
   },
   {
+    title: 'How much rent can a barber shop afford',
+    href: '/how-much-rent-can-a-barber-shop-afford',
+    text: 'Use the barber shop page when chair utilisation and appointments drive the decision.',
+  },
+  {
     title: 'How much rent can a takeaway afford',
     href: '/how-much-rent-can-a-takeaway-afford',
     text: 'Use the takeaway page when delivery demand and platform costs matter more than retail footfall.',

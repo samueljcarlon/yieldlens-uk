@@ -643,7 +643,7 @@ export default function CafeRentAffordabilityPage() {
             title="Use the page that matches the unit type."
             description="The cafe page sits alongside the other business-type affordability checks."
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             {[
               {
                 title: 'How much rent can a shop afford',
@@ -660,6 +660,10 @@ export default function CafeRentAffordabilityPage() {
               {
                 title: 'Salon lease viability check',
                 href: '/salon-lease-viability-check',
+              },
+              {
+                title: 'How much rent can a barber shop afford',
+                href: '/how-much-rent-can-a-barber-shop-afford',
               },
             ].map((item) => (
               <Link
