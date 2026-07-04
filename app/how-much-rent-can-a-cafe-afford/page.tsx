@@ -278,11 +278,11 @@ export default function CafeRentAffordabilityPage() {
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
                   pagePath="/how-much-rent-can-a-cafe-afford"
-                  ctaLabel="Run a free cafe rent check"
+                  ctaLabel="Run a free commercial check"
                   pageType="seo_page"
                   className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center"
                 >
-                  Run a free cafe rent check
+                  Run a free commercial check
                 </TrackedCtaLink>
                 <Link
                   href="/sample-commercial-viability-file"

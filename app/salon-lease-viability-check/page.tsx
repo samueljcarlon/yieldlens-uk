@@ -240,11 +240,11 @@ export default function SalonLeaseViabilityPage() {
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
                   pagePath="/salon-lease-viability-check"
-                  ctaLabel="Run a free salon lease check"
+                  ctaLabel="Run a free commercial check"
                   pageType="seo_page"
                   className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center"
                 >
-                  Run a free salon lease check
+                  Run a free commercial check
                 </TrackedCtaLink>
                 <Link
                   href="/sample-commercial-viability-file"

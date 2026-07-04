@@ -274,11 +274,11 @@ export default function RestaurantLeaseViabilityPage() {
                   href="/check?mode=commercial"
                   eventName="commercial_home_cta_clicked"
                   pagePath="/restaurant-lease-viability-check"
-                  ctaLabel="Run a free restaurant lease check"
+                  ctaLabel="Run a free commercial check"
                   pageType="seo_page"
                   className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center"
                 >
-                  Run a free restaurant lease check
+                  Run a free commercial check
                 </TrackedCtaLink>
                 <Link
                   href="/sample-commercial-viability-file"

@@ -331,7 +331,7 @@ export default function SampleCommercialViabilityFilePage() {
                 Separate illustrative sample file
               </p>
               <h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-6">
-                Sample Standard commercial viability file
+                Sample Standard Commercial Viability File
               </h1>
               <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-8 leading-8">
                 See the kind of analysis included in the £49 Standard Commercial Viability File after a free commercial check. This is a separate illustrative case, not the same sample used on the homepage.
@@ -384,7 +384,7 @@ export default function SampleCommercialViabilityFilePage() {
               <div className="flex items-start justify-between gap-4 mb-5">
                 <div>
                   <p className="text-xs uppercase tracking-[0.22em] text-[var(--yieldlens-caution)] font-semibold mb-1">
-                    Sample report cover
+                    Sample file cover
                   </p>
                   <p className="text-2xl font-bold text-stone-950">Fragile</p>
                   <p className="text-sm text-stone-500 mt-1">
