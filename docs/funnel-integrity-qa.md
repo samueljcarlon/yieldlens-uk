@@ -58,7 +58,7 @@ Compare pages and print buttons are currently observable through page view track
 - `checkout_started` is created server-side when checkout is actually initialised. The thank-you page only mirrors the Google Ads conversion label.
 - `payment_completed` is recorded in the Stripe webhook, which is the correct source of truth.
 - `paid_file_opened` is recorded when the paid file is actually opened after access is confirmed.
-- Safe metadata is already centralised in `lib/safeToolEventMetadata.ts` and strips anything outside the approved key set.
+- Safe metadata is already centralised in `lib/safeToolEventMetadata.ts` and strips anything outside the allowed key set.
 - Compare currently has page-view and CTA tracking, but no dedicated compare start or submission events.
 - Sample file clicks are visible, but they share an event name with the paid-file preview CTA and must be split by `cta_label` if analysed.
 
