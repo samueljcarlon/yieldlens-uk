@@ -10,15 +10,86 @@ import type {
 } from '@/types/property';
 import { clearSubmissions, getSubmissions } from '@/lib/storage';
 import { getRemoteSubmissions } from '@/lib/remoteSubmissions';
+import { getRemoteToolEvents, type ToolEvent } from '@/lib/toolEvents';
 import VerdictBadge from '@/components/VerdictBadge';
 
 type ViewSource = 'local' | 'remote';
 type VerdictFilter = 'all' | 'Strong candidate' | 'Worth investigating' | 'Marginal' | 'Weak' | 'Avoid';
+type AnalyticsRange = '7d' | '30d' | 'all';
 
 interface LeadTag {
   label: string;
   className: string;
 }
+
+interface OrganicSourceRow {
+  source: string;
+  checkStarts: number;
+  sampleClicks: number;
+  checkoutStarts: number;
+  payments: number;
+}
+
+interface OrganicUtmRow {
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  checkStarts: number;
+  checkoutStarts: number;
+  payments: number;
+}
+
+interface OrganicCtaRow {
+  sourcePath: string;
+  ctaLabel: string;
+  ctaLocation: string;
+  destinationPath: string;
+  count: number;
+}
+
+interface SafeEventRow {
+  createdAt: string;
+  eventName: string;
+  sourcePath: string;
+  destinationPath: string;
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  ctaLabel: string;
+  ctaLocation: string;
+}
+
+const organicEventNames = new Set([
+  'inbound_page_view',
+  'commercial_check_started',
+  'commercial_check_submitted',
+  'results_viability_file_requested_clicked',
+  'checkout_started',
+  'payment_completed',
+  'paid_file_opened',
+  'commercial_home_cta_clicked',
+  'commercial_viability_page_cta_clicked',
+  'commercial_lead_cta_clicked',
+  'commercial_funnel_cta_clicked',
+  'rent_burden_page_cta_clicked',
+  'break_even_page_cta_clicked',
+  'lease_survival_page_cta_clicked',
+  'viability_file_page_cta_clicked',
+  'conversion_cta_clicked',
+]);
+
+const organicCtaEventNames = new Set([
+  'commercial_home_cta_clicked',
+  'commercial_viability_page_cta_clicked',
+  'commercial_lead_cta_clicked',
+  'commercial_funnel_cta_clicked',
+  'rent_burden_page_cta_clicked',
+  'break_even_page_cta_clicked',
+  'lease_survival_page_cta_clicked',
+  'viability_file_page_cta_clicked',
+  'conversion_cta_clicked',
+  'results_viability_file_requested_clicked',
+]);
 
 function formatDate(value: string): string {
   return new Date(value).toLocaleString('en-GB', {
@@ -37,6 +108,88 @@ function getInputRecord(submission: Submission): Record<string, unknown> {
 function getTextValue(submission: Submission, key: string): string {
   const value = getInputRecord(submission)[key];
   return typeof value === 'string' && value.trim() ? value.trim() : '';
+}
+
+function getMetadataObject(event: ToolEvent): Record<string, unknown> {
+  if (!event.metadata || typeof event.metadata !== 'object' || Array.isArray(event.metadata)) {
+    return {};
+  }
+
+  return event.metadata as Record<string, unknown>;
+}
+
+function getStringMeta(event: ToolEvent, key: string): string {
+  const value = getMetadataObject(event)[key];
+  return typeof value === 'string' && value.trim() ? value.trim() : '';
+}
+
+function getSafeReferrerPath(referrer: string | null): string {
+  if (!referrer || !referrer.trim()) return '';
+
+  const trimmed = referrer.trim();
+
+  try {
+    const url = new URL(trimmed);
+    if (url.pathname && url.pathname !== '/') {
+      return `${url.hostname}${url.pathname}`;
+    }
+
+    return url.hostname || trimmed;
+  } catch {
+    return trimmed;
+  }
+}
+
+function getOrganicSourceLabel(event: ToolEvent): string {
+  const sourcePath =
+    getStringMeta(event, 'source_path') ||
+    getStringMeta(event, 'landing_page') ||
+    getStringMeta(event, 'current_page_path') ||
+    getStringMeta(event, 'page_path');
+
+  if (sourcePath) return sourcePath;
+
+  const referrerPath = getSafeReferrerPath(event.referrer);
+  if (referrerPath) return referrerPath;
+
+  return 'unknown';
+}
+
+function getOrganicDestinationLabel(event: ToolEvent): string {
+  return (
+    getStringMeta(event, 'destination_path') ||
+    getStringMeta(event, 'destination') ||
+    ''
+  );
+}
+
+function getOrganicCtaKey(event: ToolEvent): string {
+  return [
+    getStringMeta(event, 'source_path') || getStringMeta(event, 'landing_page') || getStringMeta(event, 'current_page_path') || getStringMeta(event, 'page_path') || 'unknown',
+    getStringMeta(event, 'cta_label') || 'unknown',
+    getStringMeta(event, 'cta_location') || 'unknown',
+    getStringMeta(event, 'destination_path') || getStringMeta(event, 'destination') || 'unknown',
+  ].join(' | ');
+}
+
+function getEventSafeFields(event: ToolEvent): SafeEventRow {
+  return {
+    createdAt: event.createdAt,
+    eventName: event.eventName,
+    sourcePath:
+      getStringMeta(event, 'source_path') ||
+      getStringMeta(event, 'landing_page') ||
+      getStringMeta(event, 'current_page_path') ||
+      getStringMeta(event, 'page_path') ||
+      getSafeReferrerPath(event.referrer) ||
+      'unknown',
+    destinationPath: getOrganicDestinationLabel(event) || 'Not set',
+    utmSource: getStringMeta(event, 'utm_source') || 'Not set',
+    utmMedium: getStringMeta(event, 'utm_medium') || 'Not set',
+    utmCampaign: getStringMeta(event, 'utm_campaign') || 'Not set',
+    ctaLabel: getStringMeta(event, 'cta_label') || 'Not set',
+    ctaLocation: getStringMeta(event, 'cta_location') || 'Not set',
+  };
 }
 
 function getLocationLabel(submission: Submission): string {
@@ -194,6 +347,160 @@ function exportSubmissionsToCsv(submissions: Submission[]) {
   URL.revokeObjectURL(url);
 }
 
+function formatRate(numerator: number, denominator: number): string {
+  if (denominator === 0) return 'Not enough data yet';
+
+  const rate = (numerator / denominator) * 100;
+  if (!Number.isFinite(rate)) return 'Not enough data yet';
+
+  return `${rate.toFixed(rate >= 10 ? 0 : 1)}%`;
+}
+
+function toDateRange(range: AnalyticsRange): Date | null {
+  if (range === 'all') return null;
+
+  const now = new Date();
+
+  if (range === '7d') {
+    return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  }
+
+  return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+}
+
+function isOrganicEvent(event: ToolEvent): boolean {
+  return organicEventNames.has(event.eventName);
+}
+
+function getDateFilteredOrganicEvents(events: ToolEvent[], range: AnalyticsRange): ToolEvent[] {
+  const cutoff = toDateRange(range);
+
+  return events.filter((event) => {
+    if (!isOrganicEvent(event)) return false;
+    if (!cutoff) return true;
+
+    return new Date(event.createdAt) >= cutoff;
+  });
+}
+
+function countOrganicSourceRows(events: ToolEvent[]): OrganicSourceRow[] {
+  const rows = new Map<string, OrganicSourceRow>();
+
+  for (const event of events) {
+    const eventName = event.eventName;
+    if (
+      eventName !== 'commercial_check_started' &&
+      eventName !== 'results_viability_file_requested_clicked' &&
+      eventName !== 'checkout_started' &&
+      eventName !== 'payment_completed'
+    ) {
+      continue;
+    }
+
+    const source = getOrganicSourceLabel(event);
+    const row = rows.get(source) ?? {
+      source,
+      checkStarts: 0,
+      sampleClicks: 0,
+      checkoutStarts: 0,
+      payments: 0,
+    };
+
+    if (eventName === 'commercial_check_started') row.checkStarts += 1;
+    if (eventName === 'results_viability_file_requested_clicked') row.sampleClicks += 1;
+    if (eventName === 'checkout_started') row.checkoutStarts += 1;
+    if (eventName === 'payment_completed') row.payments += 1;
+
+    rows.set(source, row);
+  }
+
+  return [...rows.values()]
+    .sort((a, b) => {
+      const aTotal = a.checkStarts + a.sampleClicks + a.checkoutStarts + a.payments;
+      const bTotal = b.checkStarts + b.sampleClicks + b.checkoutStarts + b.payments;
+      return bTotal - aTotal;
+    })
+    .slice(0, 12);
+}
+
+function countOrganicUtmRows(events: ToolEvent[]): OrganicUtmRow[] {
+  const rows = new Map<string, OrganicUtmRow>();
+
+  for (const event of events) {
+    if (
+      event.eventName !== 'commercial_check_started' &&
+      event.eventName !== 'checkout_started' &&
+      event.eventName !== 'payment_completed'
+    ) {
+      continue;
+    }
+
+    const utmSource = getStringMeta(event, 'utm_source');
+    const utmMedium = getStringMeta(event, 'utm_medium');
+    const utmCampaign = getStringMeta(event, 'utm_campaign');
+
+    if (!utmSource && !utmMedium && !utmCampaign) continue;
+
+    const key = [utmSource || 'unknown', utmMedium || 'unknown', utmCampaign || 'unknown'].join(' | ');
+    const row = rows.get(key) ?? {
+      utmSource: utmSource || 'unknown',
+      utmMedium: utmMedium || 'unknown',
+      utmCampaign: utmCampaign || 'unknown',
+      checkStarts: 0,
+      checkoutStarts: 0,
+      payments: 0,
+    };
+
+    if (event.eventName === 'commercial_check_started') row.checkStarts += 1;
+    if (event.eventName === 'checkout_started') row.checkoutStarts += 1;
+    if (event.eventName === 'payment_completed') row.payments += 1;
+
+    rows.set(key, row);
+  }
+
+  return [...rows.values()]
+    .sort((a, b) => {
+      const aTotal = a.checkStarts + a.checkoutStarts + a.payments;
+      const bTotal = b.checkStarts + b.checkoutStarts + b.payments;
+      return bTotal - aTotal;
+    })
+    .slice(0, 10);
+}
+
+function countOrganicCtaRows(events: ToolEvent[]): OrganicCtaRow[] {
+  const rows = new Map<string, OrganicCtaRow>();
+
+  for (const event of events) {
+    if (!organicCtaEventNames.has(event.eventName)) continue;
+
+    const rowKey = getOrganicCtaKey(event);
+    const row = rows.get(rowKey) ?? {
+      sourcePath:
+        getStringMeta(event, 'source_path') ||
+        getStringMeta(event, 'landing_page') ||
+        getStringMeta(event, 'current_page_path') ||
+        getStringMeta(event, 'page_path') ||
+        getSafeReferrerPath(event.referrer) ||
+        'unknown',
+      ctaLabel: getStringMeta(event, 'cta_label') || 'unknown',
+      ctaLocation: getStringMeta(event, 'cta_location') || 'unknown',
+      destinationPath: getOrganicDestinationLabel(event) || 'unknown',
+      count: 0,
+    };
+
+    row.count += 1;
+    rows.set(rowKey, row);
+  }
+
+  return [...rows.values()]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 12);
+}
+
+function getOrganicRecentRows(events: ToolEvent[]): SafeEventRow[] {
+  return events.slice(0, 20).map((event) => getEventSafeFields(event));
+}
+
 export default function AdminPage() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [modeFilter, setModeFilter] = useState<'all' | PropertyMode>('all');
@@ -201,6 +508,9 @@ export default function AdminPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [adminPin, setAdminPin] = useState('');
   const [source, setSource] = useState<ViewSource>('local');
+  const [analyticsEvents, setAnalyticsEvents] = useState<ToolEvent[]>([]);
+  const [analyticsLoaded, setAnalyticsLoaded] = useState(false);
+  const [analyticsRange, setAnalyticsRange] = useState<AnalyticsRange>('30d');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
@@ -248,6 +558,55 @@ export default function AdminPage() {
     };
   }, [submissions]);
 
+  const organicRangeEvents = useMemo(
+    () => (analyticsLoaded ? getDateFilteredOrganicEvents(analyticsEvents, analyticsRange) : []),
+    [analyticsEvents, analyticsLoaded, analyticsRange]
+  );
+
+  const organicSummary = useMemo(() => {
+    const checkStarts = organicRangeEvents.filter((event) => event.eventName === 'commercial_check_started').length;
+    const checkSubmissions = organicRangeEvents.filter((event) => event.eventName === 'commercial_check_submitted').length;
+    const sampleClicks = organicRangeEvents.filter((event) => event.eventName === 'results_viability_file_requested_clicked').length;
+    const checkoutStarts = organicRangeEvents.filter((event) => event.eventName === 'checkout_started').length;
+    const paymentsCompleted = organicRangeEvents.filter((event) => event.eventName === 'payment_completed').length;
+    const paidFilesOpened = organicRangeEvents.filter((event) => event.eventName === 'paid_file_opened').length;
+
+    return {
+      checkStarts,
+      checkSubmissions,
+      sampleClicks,
+      checkoutStarts,
+      paymentsCompleted,
+      paidFilesOpened,
+      stageRates: {
+        checkToSubmit: formatRate(checkSubmissions, checkStarts),
+        submitToCheckout: formatRate(checkoutStarts, checkSubmissions),
+        checkoutToPayment: formatRate(paymentsCompleted, checkoutStarts),
+        paymentToOpen: formatRate(paidFilesOpened, paymentsCompleted),
+      },
+    };
+  }, [organicRangeEvents]);
+
+  const organicSourceRows = useMemo(
+    () => countOrganicSourceRows(organicRangeEvents),
+    [organicRangeEvents]
+  );
+
+  const organicUtmRows = useMemo(
+    () => countOrganicUtmRows(organicRangeEvents),
+    [organicRangeEvents]
+  );
+
+  const organicCtaRows = useMemo(
+    () => countOrganicCtaRows(organicRangeEvents),
+    [organicRangeEvents]
+  );
+
+  const organicRecentRows = useMemo(
+    () => getOrganicRecentRows(organicRangeEvents),
+    [organicRangeEvents]
+  );
+
   const handleClearLocal = () => {
     clearSubmissions();
     setSubmissions([]);
@@ -259,11 +618,42 @@ export default function AdminPage() {
     setError('');
     setLoading(true);
     setSelectedSubmission(null);
+    setAnalyticsLoaded(false);
+    setAnalyticsEvents([]);
 
     try {
-      const remoteSubmissions = await getRemoteSubmissions(adminPin);
-      setSubmissions(remoteSubmissions);
-      setSource('remote');
+      const [submissionsResult, eventsResult] = await Promise.allSettled([
+        getRemoteSubmissions(adminPin),
+        getRemoteToolEvents(adminPin),
+      ]);
+
+      const errors: string[] = [];
+
+      if (submissionsResult.status === 'fulfilled') {
+        setSubmissions(submissionsResult.value);
+        setSource('remote');
+      } else {
+        errors.push(
+          submissionsResult.reason instanceof Error
+            ? submissionsResult.reason.message
+            : 'Failed to load submissions.'
+        );
+      }
+
+      if (eventsResult.status === 'fulfilled') {
+        setAnalyticsEvents(eventsResult.value);
+        setAnalyticsLoaded(true);
+      } else {
+        errors.push(
+          eventsResult.reason instanceof Error
+            ? eventsResult.reason.message
+            : 'Failed to load funnel analytics.'
+        );
+      }
+
+      if (errors.length > 0) {
+        setError(errors.join(' '));
+      }
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to load submissions.';
       setError(message);
@@ -291,7 +681,7 @@ export default function AdminPage() {
         </h1>
 
         <p className="text-sm text-stone-500 max-w-2xl">
-          View saved property checks, load remote Supabase submissions, search leads,
+          View saved property checks, load remote Supabase submissions and funnel analytics, search leads,
           filter by verdict, and export visible rows as CSV.
         </p>
 
@@ -337,10 +727,10 @@ export default function AdminPage() {
       </div>
 
       <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm mb-8">
-        <p className="font-semibold text-stone-900 mb-2">Load remote submissions</p>
+        <p className="font-semibold text-stone-900 mb-2">Load remote submissions and analytics</p>
 
         <p className="text-sm text-stone-500 mb-4">
-          Enter the admin PIN to view all submissions saved in the Supabase database.
+          Enter the admin PIN to load remote submissions and funnel analytics from Supabase.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3">
@@ -358,15 +748,271 @@ export default function AdminPage() {
             disabled={loading || !adminPin}
             className="bg-teal-700 text-white px-5 py-2 rounded text-sm font-medium hover:bg-teal-800 disabled:opacity-50"
           >
-            {loading ? 'Loading...' : 'Load remote'}
+            {loading ? 'Loading...' : 'Load remote data'}
           </button>
         </div>
 
         {error && <p className="text-sm text-red-600 mt-3">{error}</p>}
 
         <p className="text-xs text-stone-400 mt-3">
-          Current view: {source === 'remote' ? 'Supabase remote submissions' : 'local browser submissions'}
+          Current view: {source === 'remote' ? 'Supabase remote submissions and analytics' : 'local browser submissions'}
         </p>
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-wide text-teal-700 font-semibold mb-2">
+              Organic funnel
+            </p>
+
+            <h2 className="text-xl font-bold text-stone-900 mb-2">
+              SEO landing pages into the commercial check, sample file, checkout, payment, and opened file
+            </h2>
+
+            <p className="text-sm text-stone-500 max-w-3xl">
+              Counts below use tracked events only. They stay focused on the commercial journey and hide raw payment or customer data.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {(['7d', '30d', 'all'] as AnalyticsRange[]).map((range) => (
+              <button
+                key={range}
+                type="button"
+                onClick={() => setAnalyticsRange(range)}
+                className={`px-3 py-2 rounded text-sm border ${
+                  analyticsRange === range
+                    ? 'bg-teal-700 text-white border-teal-700'
+                    : 'bg-white text-stone-700 border-stone-300 hover:border-teal-500'
+                }`}
+              >
+                {range === '7d' ? '7 days' : range === '30d' ? '30 days' : 'All time'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {!analyticsLoaded ? (
+          <div className="mt-6 rounded-xl border border-dashed border-stone-300 bg-stone-50 p-5">
+            <p className="text-sm text-stone-600">Load remote data to view organic funnel activity.</p>
+          </div>
+        ) : organicRangeEvents.length === 0 ? (
+          <div className="mt-6 rounded-xl border border-dashed border-stone-300 bg-stone-50 p-5">
+            <p className="text-sm text-stone-600">No organic funnel activity yet.</p>
+          </div>
+        ) : (
+          <div className="mt-6 space-y-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+              <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Check started</p>
+                <p className="text-2xl font-bold text-stone-950 mt-1">{organicSummary.checkStarts}</p>
+              </div>
+              <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Check submitted</p>
+                <p className="text-2xl font-bold text-stone-950 mt-1">{organicSummary.checkSubmissions}</p>
+              </div>
+              <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Sample file clicks</p>
+                <p className="text-2xl font-bold text-stone-950 mt-1">{organicSummary.sampleClicks}</p>
+              </div>
+              <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Checkout started</p>
+                <p className="text-2xl font-bold text-stone-950 mt-1">{organicSummary.checkoutStarts}</p>
+              </div>
+              <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Payments</p>
+                <p className="text-2xl font-bold text-stone-950 mt-1">{organicSummary.paymentsCompleted}</p>
+              </div>
+              <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">File opened</p>
+                <p className="text-2xl font-bold text-stone-950 mt-1">{organicSummary.paidFilesOpened}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+              <div className="rounded-xl border border-stone-200 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Started to submitted</p>
+                <p className="text-xl font-bold text-stone-950 mt-1">{organicSummary.stageRates.checkToSubmit}</p>
+              </div>
+              <div className="rounded-xl border border-stone-200 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Submitted to checkout</p>
+                <p className="text-xl font-bold text-stone-950 mt-1">{organicSummary.stageRates.submitToCheckout}</p>
+              </div>
+              <div className="rounded-xl border border-stone-200 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Checkout to payment</p>
+                <p className="text-xl font-bold text-stone-950 mt-1">{organicSummary.stageRates.checkoutToPayment}</p>
+              </div>
+              <div className="rounded-xl border border-stone-200 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Payment to file open</p>
+                <p className="text-xl font-bold text-stone-950 mt-1">{organicSummary.stageRates.paymentToOpen}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+              <div className="rounded-xl border border-stone-200 p-5">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div>
+                    <p className="font-semibold text-stone-950">Top source pages</p>
+                    <p className="text-xs text-stone-500">Source path, landing page, current page, then referrer.</p>
+                  </div>
+                  <p className="text-xs text-stone-400">{organicSourceRows.length} rows</p>
+                </div>
+
+                <div className="space-y-3">
+                  {organicSourceRows.length > 0 ? (
+                    organicSourceRows.map((row) => (
+                      <div key={row.source} className="grid grid-cols-1 sm:grid-cols-5 gap-2 rounded-lg border border-stone-100 bg-stone-50 p-3 text-sm">
+                        <div className="sm:col-span-2">
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Page / source</p>
+                          <p className="text-stone-900 break-all">{row.source}</p>
+                        </div>
+                        <div>
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Check starts</p>
+                          <p className="font-semibold text-stone-950">{row.checkStarts}</p>
+                        </div>
+                        <div>
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Sample clicks</p>
+                          <p className="font-semibold text-stone-950">{row.sampleClicks}</p>
+                        </div>
+                        <div>
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Checkout starts</p>
+                          <p className="font-semibold text-stone-950">{row.checkoutStarts}</p>
+                        </div>
+                        <div className="sm:col-span-5">
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Payments</p>
+                          <p className="font-semibold text-stone-950">{row.payments}</p>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm text-stone-500">No organic funnel activity yet.</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-stone-200 p-5">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div>
+                    <p className="font-semibold text-stone-950">UTM summary</p>
+                    <p className="text-xs text-stone-500">Source, medium, and campaign combinations with commercial outcomes.</p>
+                  </div>
+                  <p className="text-xs text-stone-400">{organicUtmRows.length} rows</p>
+                </div>
+
+                <div className="space-y-3">
+                  {organicUtmRows.length > 0 ? (
+                    organicUtmRows.map((row) => (
+                      <div key={`${row.utmSource}|${row.utmMedium}|${row.utmCampaign}`} className="grid grid-cols-1 sm:grid-cols-5 gap-2 rounded-lg border border-stone-100 bg-stone-50 p-3 text-sm">
+                        <div className="sm:col-span-2">
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">UTM</p>
+                          <p className="text-stone-900 break-all">{row.utmSource} / {row.utmMedium} / {row.utmCampaign}</p>
+                        </div>
+                        <div>
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Check starts</p>
+                          <p className="font-semibold text-stone-950">{row.checkStarts}</p>
+                        </div>
+                        <div>
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Checkout starts</p>
+                          <p className="font-semibold text-stone-950">{row.checkoutStarts}</p>
+                        </div>
+                        <div>
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Payments</p>
+                          <p className="font-semibold text-stone-950">{row.payments}</p>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm text-stone-500">No UTM-attributed activity yet.</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+              <div className="rounded-xl border border-stone-200 p-5">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div>
+                    <p className="font-semibold text-stone-950">CTA performance</p>
+                    <p className="text-xs text-stone-500">Grouped by source path, label, location, and destination.</p>
+                  </div>
+                  <p className="text-xs text-stone-400">{organicCtaRows.length} rows</p>
+                </div>
+
+                <div className="space-y-3">
+                  {organicCtaRows.length > 0 ? (
+                    organicCtaRows.map((row) => (
+                      <div key={`${row.sourcePath}|${row.ctaLabel}|${row.ctaLocation}|${row.destinationPath}`} className="grid grid-cols-1 sm:grid-cols-4 gap-2 rounded-lg border border-stone-100 bg-stone-50 p-3 text-sm">
+                        <div className="sm:col-span-2">
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Source path</p>
+                          <p className="text-stone-900 break-all">{row.sourcePath}</p>
+                        </div>
+                        <div>
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">CTA label</p>
+                          <p className="text-stone-900 break-all">{row.ctaLabel}</p>
+                        </div>
+                        <div>
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">CTA location</p>
+                          <p className="text-stone-900 break-all">{row.ctaLocation}</p>
+                        </div>
+                        <div className="sm:col-span-4">
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Destination / count</p>
+                          <p className="font-semibold text-stone-950 break-all">{row.destinationPath} · {row.count}</p>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm text-stone-500">No CTA activity yet.</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-stone-200 p-5">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div>
+                    <p className="font-semibold text-stone-950">Recent safe events</p>
+                    <p className="text-xs text-stone-500">Safe fields only. No raw metadata or customer data.</p>
+                  </div>
+                  <p className="text-xs text-stone-400">{organicRecentRows.length} rows</p>
+                </div>
+
+                <div className="space-y-3">
+                  {organicRecentRows.length > 0 ? (
+                    organicRecentRows.map((row) => (
+                      <div key={`${row.createdAt}|${row.eventName}`} className="rounded-lg border border-stone-100 bg-stone-50 p-3 text-sm">
+                        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                          <p className="font-semibold text-stone-950 break-all">{row.eventName}</p>
+                          <p className="text-xs text-stone-500">{formatDate(row.createdAt)}</p>
+                        </div>
+                        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-stone-600">
+                          <p><span className="text-stone-400">Source:</span> {row.sourcePath}</p>
+                          <p><span className="text-stone-400">Destination:</span> {row.destinationPath}</p>
+                          <p><span className="text-stone-400">UTM source:</span> {row.utmSource}</p>
+                          <p><span className="text-stone-400">UTM medium:</span> {row.utmMedium}</p>
+                          <p><span className="text-stone-400">UTM campaign:</span> {row.utmCampaign}</p>
+                          <p><span className="text-stone-400">CTA:</span> {row.ctaLabel}</p>
+                          <p><span className="text-stone-400">CTA location:</span> {row.ctaLocation}</p>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm text-stone-500">No recent safe events yet.</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-stone-200 p-5 bg-stone-50">
+              <p className="font-semibold text-stone-950 mb-2">Detailed funnel view</p>
+              <p className="text-sm text-stone-600 mb-4">
+                For a deeper windowed breakdown, open the dedicated commercial funnel page.
+              </p>
+              <Link href="/admin/funnel" className="text-sm text-teal-700 font-medium hover:underline">
+                Open commercial funnel →
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm mb-8">
