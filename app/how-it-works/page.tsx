@@ -15,14 +15,14 @@ import {
 export const metadata: Metadata = {
   title: 'How YieldLens UK Works',
   description:
-    'Learn how YieldLens UK pressure-tests commercial leases with rent burden, break-even customers, opening cash, downside trading, and a paid decision memo before signing.',
+    'A commercial rent affordability and lease viability decision-support tool for UK commercial sites. Learn how YieldLens UK pressure-tests commercial leases with rent burden, break-even customers, opening cash, downside trading, and a paid decision memo before signing.',
   alternates: {
     canonical: '/how-it-works',
   },
   openGraph: {
     title: 'How YieldLens UK Works',
     description:
-      'Commercial lease pressure-tests before you commit. See how the free check, paid file, and sample report fit together.',
+      'A commercial rent affordability and lease viability decision-support tool for UK commercial sites. See how the free check, paid file, and sample report fit together.',
     url: 'https://yieldlens.co.uk/how-it-works',
   },
 };

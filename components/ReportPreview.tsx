@@ -28,9 +28,11 @@ Submission }) {
   return (
     <div className={`report-page max-w-2xl mx-auto ${surfaceCardClass} p-8 space-y-8 text-sm text-stone-700`}>
       <div className="border-b border-stone-200 pb-6">
-        <p className="text-xs text-stone-400 uppercase tracking-[0.22em] mb-2">YieldLens UK - Property Return Check</p>
+        <p className="text-xs text-stone-400 uppercase tracking-[0.22em] mb-2">
+          YieldLens UK - Commercial viability check
+        </p>
         <h1 className="text-2xl font-bold text-stone-900 mb-1">
-          {isRes ? 'Residential Return Check' : 'Commercial Site Check'}
+          {isRes ? 'Residential check' : 'Commercial site check'}
         </h1>
         <p className="text-stone-400 text-xs">Generated {dateStr}</p>
       </div>
@@ -233,11 +235,14 @@ text-stone-600">
 
       <div className="border-t border-stone-200 pt-5 text-xs text-stone-400 space-y-2">
         <p>
-          YieldLens UK provides indicative property return checks and decision-support analysis only.
+          YieldLens UK provides indicative decision-support only.
           It is not a valuation, financial advice, mortgage advice, legal advice, tax advice,
           or a substitute for professional due diligence.
         </p>
-        <p>YieldLens UK is an independent UK property analysis tool.</p>
+        <p>
+          YieldLens UK is a commercial rent affordability and lease viability
+          decision-support tool for UK commercial sites, with selected residential checks.
+        </p>
       </div>
     </div>
   );

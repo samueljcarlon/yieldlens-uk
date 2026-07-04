@@ -13,14 +13,14 @@ import FeedbackCtaPanel from '@/components/FeedbackCtaPanel';
 export const metadata: Metadata = {
   title: 'Contact YieldLens UK',
   description:
-    'Contact YieldLens UK about product questions, payment access, privacy queries, or report corrections.',
+    'Contact YieldLens UK, the commercial rent affordability and lease viability decision-support tool for UK commercial sites, about product questions, payment access, privacy queries, or report corrections.',
   alternates: {
     canonical: '/contact',
   },
   openGraph: {
     title: 'Contact YieldLens UK',
     description:
-      'Email YieldLens UK for product questions, payment access issues, privacy queries, or report corrections.',
+      'Email YieldLens UK for product questions, payment access issues, privacy queries, or report corrections about the commercial rent affordability and lease viability decision-support tool.',
     url: 'https://yieldlens.co.uk/contact',
   },
 };

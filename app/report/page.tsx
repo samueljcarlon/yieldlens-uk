@@ -954,14 +954,15 @@ export default function ReportPage() {
           </p>
 
         <p>
-          YieldLens UK provides indicative decision-support only. It is not financial
-          advice, legal advice, tax advice, a valuation, or a substitute for professional
-          due diligence.
+          YieldLens UK provides indicative decision-support only. It is a commercial
+          rent affordability and lease viability tool for UK commercial sites, with
+          selected residential checks. It is not financial advice, legal advice, tax
+          advice, a valuation, or a substitute for professional due diligence.
         </p>
 
         <p className="mt-2">
-          YieldLens UK is an independent UK property decision-support tool. Figures are based
-          on user-provided inputs and current indicative assumptions where live data is unavailable.
+          Figures are based on user-provided inputs and current indicative assumptions
+          where live data is unavailable.
         </p>
         </footer>
       </article>

@@ -13,7 +13,7 @@ const siteStructuredData = [
     name: 'YieldLens UK',
     url: 'https://yieldlens.co.uk',
     description:
-      'Independent UK commercial lease viability and rent affordability decision-support, with selected residential property checks.',
+      'A commercial rent affordability and lease viability decision-support tool for UK commercial sites, with selected residential property checks.',
   },
   {
     '@context': 'https://schema.org',
@@ -21,8 +21,9 @@ const siteStructuredData = [
     name: 'YieldLens UK',
     url: 'https://yieldlens.co.uk',
     description:
-      'Independent UK commercial lease viability and rent affordability decision-support.',
+      'A commercial rent affordability and lease viability decision-support tool for UK commercial sites, with selected residential property checks.',
     email: 'yieldlensuk@gmail.com',
+    sameAs: ['https://www.linkedin.com/in/sam-carlon-81729b222/'],
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer support',
@@ -33,13 +34,13 @@ const siteStructuredData = [
   },
   {
     '@context': 'https://schema.org',
-    '@type': 'WebApplication',
+    '@type': 'SoftwareApplication',
     name: 'YieldLens UK',
     url: 'https://yieldlens.co.uk',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
     description:
-      'Independent UK commercial lease viability and rent affordability decision-support with a free commercial check and optional £49 Standard commercial viability file.',
+      'A commercial rent affordability and lease viability decision-support tool for UK commercial sites, with a free commercial check and optional £49 Standard Commercial Viability File.',
   },
 ];
 
@@ -50,11 +51,11 @@ export const metadata: Metadata = {
     template: '%s | YieldLens UK',
   },
   description:
-    'Independent UK commercial lease viability and rent affordability decision-support, with selected residential property checks.',
+    'A commercial rent affordability and lease viability decision-support tool for UK commercial sites, with selected residential property checks.',
   openGraph: {
     title: 'YieldLens UK',
     description:
-      'Independent UK commercial lease viability and rent affordability decision-support, with selected residential property checks.',
+      'A commercial rent affordability and lease viability decision-support tool for UK commercial sites, with selected residential property checks.',
     url: 'https://yieldlens.co.uk',
     siteName: 'YieldLens UK',
     type: 'website',

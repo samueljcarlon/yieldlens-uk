@@ -103,8 +103,8 @@ export default function SeoLandingPage({
         </h2>
 
         <p className="text-sm text-[var(--yieldlens-muted)] text-center max-w-2xl mx-auto mb-8">
-          Use YieldLens UK when you need a quick, structured pressure test before
-          spending more time, money, or emotional energy on a property decision.
+          Use YieldLens UK when you need a quick, structured commercial pressure
+          test before spending more time, money, or emotional energy on a lease decision.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -171,8 +171,8 @@ export default function SeoLandingPage({
         </h2>
 
         <p className="text-sm text-[var(--yieldlens-muted)] text-center max-w-2xl mx-auto mb-8">
-          A property can look attractive until one or two assumptions move against
-          you. The check is designed to make those weak points obvious.
+          A commercial site can look attractive until one or two assumptions move
+          against you. The check is designed to make those weak points obvious.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

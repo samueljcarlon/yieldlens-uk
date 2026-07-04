@@ -14,10 +14,10 @@ export default function Footer() {
             </p>
 
             <p className="mt-4 max-w-sm text-sm leading-7 text-stone-300">
-              YieldLens UK provides indicative property pressure-tests and
-              decision-support analysis only. It is not financial advice, legal
-              advice, tax advice, a valuation, or a substitute for professional
-              due diligence.
+              YieldLens UK is a commercial rent affordability and lease
+              viability decision-support tool for UK commercial sites. It is
+              not financial advice, legal advice, tax advice, a valuation, or a
+              substitute for professional due diligence.
             </p>
 
             <p className="mt-4 max-w-sm text-sm leading-7 text-stone-400">
@@ -35,7 +35,10 @@ export default function Footer() {
               Commercial
             </p>
 
-            <div className="space-y-2.5">
+          <div className="space-y-2.5">
+              <Link href="/check?mode=commercial" className={linkClass}>
+                Free commercial check
+              </Link>
               <Link href="/commercial-lease-viability-check" className={linkClass}>
                 Commercial lease viability check
               </Link>
@@ -43,7 +46,7 @@ export default function Footer() {
                 Sample viability file
               </Link>
               <Link href="/viability-file" className={linkClass}>
-                £49 commercial viability file
+                £49 Standard Commercial Viability File
               </Link>
               <Link href="/contact" className={linkClass}>
                 Contact
@@ -79,7 +82,7 @@ export default function Footer() {
 
             <div className="space-y-2.5">
               <Link href="/commercial-lease-checklist-before-signing" className={linkClass}>
-                Before signing checklist
+                Commercial lease checklist
               </Link>
               <Link href="/how-much-rent-can-a-cafe-afford" className={linkClass}>
                 Cafe rent affordability
@@ -126,10 +129,10 @@ export default function Footer() {
 
         <div className="mt-10 border-t border-white/10 pt-6 text-xs leading-6 text-stone-400">
           <p>
-            YieldLens UK provides indicative property pressure-tests and
-            decision-support analysis only. It is not financial advice, legal
-            advice, tax advice, a valuation, or a substitute for professional
-            due diligence.
+            YieldLens UK is a commercial rent affordability and lease
+            viability decision-support tool for UK commercial sites. It is not
+            financial advice, legal advice, tax advice, a valuation, or a
+            substitute for professional due diligence.
           </p>
 
           <p className="mt-2">
@@ -142,7 +145,8 @@ export default function Footer() {
           </p>
 
           <p className="mt-2">
-            © 2026 YieldLens UK. Independent UK property decision-support tool.
+            © 2026 YieldLens UK. Commercial rent affordability and lease
+            viability decision-support tool for UK commercial sites.
           </p>
         </div>
       </div>

@@ -957,7 +957,7 @@ export default function ResultsPage() {
 
               <p className="text-sm sm:text-base text-stone-300 leading-7 max-w-3xl">
                 {isResidential
-                  ? 'A quick screen of the property return, ownership costs, and downside risk.'
+                  ? 'A quick screen of the rent, ownership costs, and downside risk.'
                   : 'A quick screen of rent burden, break-even customers, opening cash, downside trading, and lease pressure.'}
               </p>
             </div>
@@ -1171,9 +1171,10 @@ export default function ResultsPage() {
         <p className="font-semibold text-stone-900 mb-2">Important disclaimer</p>
 
         <p>
-          YieldLens UK provides indicative property return checks and decision-support
-          analysis only. It is not financial advice, legal advice, tax advice, a valuation,
-          or a substitute for professional due diligence.
+          YieldLens UK provides indicative decision-support only. It is a commercial
+          rent affordability and lease viability tool for UK commercial sites, with
+          selected residential checks. It is not financial advice, legal advice, tax
+          advice, a valuation, or a substitute for professional due diligence.
         </p>
       </div>
     </div>

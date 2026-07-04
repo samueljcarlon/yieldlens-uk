@@ -16,7 +16,7 @@ export default function Header() {
             href="/check?mode=commercial"
             className="hover:text-stone-900 transition-colors"
           >
-            Commercial check
+            Free commercial check
           </Link>
 
           <Link
@@ -63,7 +63,7 @@ export default function Header() {
 
             <div className={`absolute right-0 top-[calc(100%+0.5rem)] w-[min(18rem,calc(100vw-1rem))] max-h-[calc(100vh-6rem)] overflow-y-auto p-2 ${surfaceCardClass} shadow-[0_18px_44px_rgba(15,23,42,0.10)]`}>
               <Link href="/check?mode=commercial" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
-                Commercial check
+                Free commercial check
               </Link>
               <Link href="/buy-to-let-yield-calculator" className="block rounded-2xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50">
                 Buy-to-let
@@ -87,7 +87,7 @@ export default function Header() {
             href="/check?mode=commercial"
             className={`${primaryCtaClass} shrink-0 px-4 py-2.5 shadow-[0_12px_30px_rgba(22,101,52,0.20)]`}
           >
-            Run commercial check
+            Run a free commercial check
           </Link>
         </div>
       </div>

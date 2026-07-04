@@ -17,14 +17,14 @@ import {
 export const metadata: Metadata = {
   title: 'About YieldLens UK',
   description:
-    'Learn what YieldLens UK does, who it is for, and how it helps operators pressure-test commercial rent, lease viability, opening cash, and downside trading before signing.',
+    'A commercial rent affordability and lease viability decision-support tool for UK commercial sites. Learn what YieldLens UK does, who it is for, and how it helps operators pressure-test commercial rent, opening cash, and downside trading before signing.',
   alternates: {
     canonical: '/about',
   },
   openGraph: {
     title: 'About YieldLens UK',
     description:
-      'Independent commercial rent and lease viability decision-support for cafes, restaurants, salons, retailers, and first-time tenants.',
+      'A commercial rent affordability and lease viability decision-support tool for UK commercial sites, aimed at cafes, restaurants, salons, retailers, and first-time tenants.',
     url: 'https://yieldlens.co.uk/about',
   },
 };
@@ -35,7 +35,7 @@ const aboutStructuredData = {
   name: 'About YieldLens UK',
   url: 'https://yieldlens.co.uk/about',
   description:
-    'Independent commercial rent and lease viability decision-support for cafes, restaurants, salons, retailers, and first-time tenants.',
+    'A commercial rent affordability and lease viability decision-support tool for UK commercial sites, aimed at cafes, restaurants, salons, retailers, and first-time tenants.',
 };
 
 const whoItIsFor = [

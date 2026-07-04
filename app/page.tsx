@@ -8,14 +8,14 @@ import { primaryCtaClass, secondaryCtaClass, heroPrimaryCtaClass, heroSecondaryC
 export const metadata: Metadata = {
   title: 'YieldLens UK | Commercial Rent and Lease Viability Decision-Support',
   description:
-    'Independent UK commercial rent and lease viability decision-support. Run a free commercial check first, then unlock the optional £49 Standard Commercial Viability File if the site still deserves deeper scrutiny.',
+    'A commercial rent affordability and lease viability decision-support tool for UK commercial sites. Run a free commercial check first, then unlock the optional £49 Standard Commercial Viability File if the site still deserves deeper scrutiny.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'YieldLens UK | Commercial Rent and Lease Viability Decision-Support',
     description:
-      'Independent UK commercial rent and lease viability decision-support. Run a free commercial check first, then unlock the optional £49 Standard Commercial Viability File if the site still deserves deeper scrutiny.',
+      'A commercial rent affordability and lease viability decision-support tool for UK commercial sites. Run a free commercial check first, then unlock the optional £49 Standard Commercial Viability File if the site still deserves deeper scrutiny.',
     url: 'https://yieldlens.co.uk',
   },
 };
@@ -179,14 +179,14 @@ export default function HomePage() {
               </h1>
 
               <p className="text-base sm:text-lg text-stone-300 max-w-2xl mb-6 leading-8">
-                Free commercial check first. Optional £49 Standard commercial
-                viability file if the site deserves deeper scrutiny.
+                Free commercial check first. Optional £49 Standard Commercial
+                Viability File if the site deserves deeper scrutiny.
               </p>
 
               <p className="text-sm sm:text-base text-stone-300 max-w-2xl mb-8 leading-7">
-                YieldLens UK pressure-tests rent burden, break-even customers,
-                opening cash, downside trading, and lease questions before
-                signing a commercial lease.
+                YieldLens UK helps users pressure-test commercial rent, opening
+                cash, break-even pressure, and downside trading before deciding
+                whether a site is worth taking further.
               </p>
 
               <p className="text-sm text-stone-400 max-w-2xl mb-8 leading-7">
@@ -528,15 +528,15 @@ export default function HomePage() {
             </p>
           </div>
 
-          <TrackedCtaLink
+              <TrackedCtaLink
               href="/check?mode=commercial"
               eventName="commercial_home_cta_clicked"
               pagePath="/"
-              ctaLabel="Run commercial check"
+              ctaLabel="Run a free commercial check"
               pageType="homepage"
               className={primaryCtaClass}
             >
-              Run commercial check
+              Run a free commercial check
             </TrackedCtaLink>
           </div>
 
@@ -660,7 +660,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-xs text-stone-500 mt-4">
-              The Standard commercial viability file is £49 and opens from the saved result.
+              The Standard Commercial Viability File is £49 and opens from the saved result.
             </p>
           </div>
 
