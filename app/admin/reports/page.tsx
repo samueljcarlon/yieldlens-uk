@@ -77,6 +77,20 @@ function getLocation(request: ReportRequest): string {
   return request.postcode || request.address || 'No location provided';
 }
 
+function getListLocationTitle(request: ReportRequest): string {
+  if (request.postcode) return request.postcode;
+  if (request.address) return 'Location captured';
+
+  return 'No location provided';
+}
+
+function getListLocationLabel(request: ReportRequest): string {
+  if (request.postcode) return `Postcode: ${request.postcode}`;
+  if (request.address) return 'Address captured';
+
+  return 'No location provided';
+}
+
 const reportStatuses: ReportRequestStatus[] = [
   'requested',
   'reviewed',
@@ -730,11 +744,11 @@ export default function ReportRequestsAdminPage() {
                     </p>
 
                     <h2 className="text-lg font-semibold text-stone-900">
-                      {getLocation(request)}
+                      {getListLocationTitle(request)}
                     </h2>
 
                     <p className="text-sm text-stone-500 mt-1">
-                      {request.address || 'No address provided'}
+                      {getListLocationLabel(request)}
                     </p>
 
                     <p className="text-sm text-stone-500 mt-1">
