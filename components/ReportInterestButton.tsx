@@ -10,6 +10,16 @@ import {
   getCommercialBusinessTypeValue,
 } from '@/lib/commercialBusinessType';
 
+function getSubmissionTextValue(submission: Submission, key: string): string {
+  const input = submission.input as Record<string, unknown>;
+  const value = input[key];
+  return typeof value === 'string' && value.trim() ? value.trim() : '';
+}
+
+function hasSubmissionAddress(submission: Submission): boolean {
+  return getSubmissionTextValue(submission, 'address') !== '';
+}
+
 export default function ReportInterestButton({
   submission,
 }: {
@@ -48,6 +58,8 @@ export default function ReportInterestButton({
             page_type: 'results',
             mode: submission.mode,
             source_page: '/results',
+            postcode: getSubmissionTextValue(submission, 'postcode'),
+            has_address: hasSubmissionAddress(submission),
             ...(businessType ? { business_type: businessType } : {}),
           },
         });

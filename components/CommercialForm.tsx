@@ -25,6 +25,16 @@ function requireNum(val: string): number {
   return Number.isNaN(n) ? 0 : n;
 }
 
+function extractUkPostcode(value: string): string {
+  const match = value
+    .toUpperCase()
+    .match(/\b([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b/);
+
+  if (!match) return '';
+
+  return match[1].replace(/\s+/g, ' ').trim();
+}
+
 function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
@@ -141,6 +151,10 @@ export default function CommercialForm({ onSubmit }: Props) {
     ? businessTypeInfo.helperText
     : 'Select a business type so the result can frame covers, orders, appointments, sales, and opening cash.';
   const businessTypeOptions = getCommercialBusinessTypeOptions();
+  const addressHelper =
+    'Use the property address or postcode so YieldLens can organise local checks such as business rates, service charge, comparable rent evidence, and building-condition assumptions.';
+  const postcodeHelper =
+    'Use the postcode if you know it. If you only have the address, YieldLens can try to extract the postcode for v1.';
 
   const validate = (): boolean => {
     const nextErrors: Record<string, string> = {};
@@ -191,9 +205,12 @@ export default function CommercialForm({ onSubmit }: Props) {
     if (isSubmittingRef.current) return;
     if (!validate()) return;
 
+    const submittedAddress = form.address?.trim() || '';
+    const submittedPostcode = form.postcode?.trim() || extractUkPostcode(submittedAddress);
+
     const input: CommercialInput = {
-      address: form.address || undefined,
-      postcode: form.postcode || undefined,
+      address: submittedAddress || undefined,
+      postcode: submittedPostcode || undefined,
       listingUrl: form.listingUrl || undefined,
       businessType: form.businessType || undefined,
       annualRent: requireNum(form.annualRent ?? ''),
@@ -275,11 +292,11 @@ export default function CommercialForm({ onSubmit }: Props) {
         title="Site and rent"
         description="Start with the rent, site details, and business type so YieldLens can frame the lease pressure."
       >
-        <FieldBlock label="Address" optional>
+        <FieldBlock label="Address" optional helper={addressHelper}>
           <input type="text" className={inputClass} placeholder="e.g. 22 High Street" {...field('address')} />
         </FieldBlock>
 
-        <FieldBlock label="Postcode" optional>
+        <FieldBlock label="Postcode" optional helper={postcodeHelper}>
           <input type="text" className={inputClass} placeholder="e.g. EC1A 1BB" {...field('postcode')} />
         </FieldBlock>
 

@@ -433,7 +433,7 @@ function CommercialSiteSnapshot({
   return (
     <ReportSection
       title="Site snapshot"
-      intro="Submitted assumptions used to create this commercial viability file."
+      intro="Submitted assumptions used to create this commercial viability file. Keep the address and postcode in view when checking local rent evidence, business rates, EPC, and fit-out assumptions."
     >
       <ReportDataTable
         rows={[
@@ -574,6 +574,15 @@ function CommercialLeaseQuestions() {
         'Is permitted use confirmed?',
       ],
     },
+    {
+      title: 'Location evidence',
+      questions: [
+        'What nearby rent evidence supports the quoted rent?',
+        'What is the rateable value for the property?',
+        'Are there location-specific costs, restrictions, or fit-out issues to check?',
+        'Does the local footfall or trading pattern support the revenue assumption?',
+      ],
+    },
   ];
 
   return (
@@ -582,7 +591,7 @@ function CommercialLeaseQuestions() {
       intro="A focused checklist for the assumptions that most affect the commercial lease case."
       className="print:break-before-page"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
         {questionGroups.map((group) => (
           <div
             key={group.title}

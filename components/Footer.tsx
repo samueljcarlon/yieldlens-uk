@@ -35,12 +35,15 @@ export default function Footer() {
               Commercial
             </p>
 
-          <div className="space-y-2.5">
+            <div className="space-y-2.5">
               <Link href="/check?mode=commercial" className={linkClass}>
                 Free commercial check
               </Link>
               <Link href="/commercial-lease-viability-check" className={linkClass}>
                 Commercial lease viability check
+              </Link>
+              <Link href="/compare" className={linkClass}>
+                Compare two sites
               </Link>
               <Link href="/sample-commercial-viability-file" className={linkClass}>
                 Sample viability file

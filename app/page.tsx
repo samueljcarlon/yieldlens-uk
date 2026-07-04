@@ -93,6 +93,12 @@ const supportingTools = [
     featured: true,
   },
   {
+    title: 'Compare two sites',
+    desc: 'Compare two possible premises side by side before spending on deeper legal or survey work.',
+    href: '/compare',
+    cta: 'Compare two sites',
+  },
+  {
     title: 'How it works',
     desc: 'Learn how the free check, paid file, and sample report fit together before you start.',
     href: '/how-it-works',

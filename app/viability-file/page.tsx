@@ -291,13 +291,13 @@ export default function ViabilityFilePage() {
                 Quick answer
               </p>
               <p className="text-sm text-stone-300 max-w-2xl mb-6 leading-7">
-                The £49 Standard Commercial Viability File turns the free check into a printable decision memo with assumptions, stress tests, lease questions, evidence prompts, and a clear view of what still needs verifying before signing. It is useful when the site deserves a deeper read but you want the numbers organised first.
+                The £49 Standard Commercial Viability File turns the free check into a printable decision memo with assumptions, stress tests, lease questions, evidence prompts, and a clear view of what still needs verifying before signing. It is useful when the site deserves a deeper read but you want the numbers organised first, including location prompts such as nearby rent evidence, business rates, EPC, and building-condition assumptions.
               </p>
 
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
                 That makes it easier to think in the language of the business:
                 covers, orders, appointments, footfall, stock margin, or chair
-                utilisation, rather than only the headline rent.
+                utilisation, rather than only the headline rent. If you enter a postcode or address, it also keeps the local evidence prompts in view rather than leaving the file at a generic rent ratio.
               </p>
 
               <p className="text-sm text-stone-300 max-w-2xl mb-4 leading-7">

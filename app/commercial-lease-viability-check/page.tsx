@@ -204,6 +204,11 @@ const verifyItems = [
 
 const commercialLinks = [
   {
+    title: 'Compare two sites',
+    text: 'Compare two possible premises side by side before spending on deeper checks.',
+    href: '/compare',
+  },
+  {
     title: 'Commercial lease checklist before signing',
     text: 'Start with the central hub if you are still choosing which lease question to check first.',
     href: '/commercial-lease-checklist-before-signing',
@@ -314,6 +319,10 @@ export default function CommercialLeaseViabilityPage() {
 
               <p className="text-sm text-stone-300 max-w-3xl mb-8 leading-7">
                 It also helps when the real question is whether a cafe, restaurant, shop, takeaway, salon, barber shop, or other commercial site can carry the rent once covers, orders, appointments, footfall, and opening cash are tested.
+              </p>
+
+              <p className="text-sm text-stone-300 max-w-3xl mb-8 leading-7">
+                If you enter a postcode or address, the check also keeps local evidence prompts in view, such as comparable rent evidence, business rates, service charge, EPC, and building-condition assumptions.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">

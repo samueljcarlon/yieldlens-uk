@@ -342,6 +342,12 @@ export default function SampleCommercialViabilityFilePage() {
               <p className="text-sm text-stone-300 max-w-2xl mb-8 leading-7">
                 The sample shows how the paid file turns a free check into a printable memo with rent burden, break-even pressure, opening cash, downside trading, lease questions, and evidence prompts. It is designed to show the structure, wording, and level of detail in the £49 Standard Commercial Viability File before you pay. This is a separate illustrative case, not the live result.
               </p>
+              <p className="text-xs uppercase tracking-[0.18em] text-[#DCCDA8] font-semibold mb-2">
+                Location context
+              </p>
+              <p className="mt-0 text-xs text-stone-300 leading-6 max-w-2xl">
+                This sample also shows how a postcode or address can help the memo keep local rent evidence, business rates, EPC, and building-condition prompts in view without pretending to verify those inputs.
+              </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
                   href="/check?mode=commercial"

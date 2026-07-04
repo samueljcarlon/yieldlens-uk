@@ -296,6 +296,9 @@ export default function CommercialRentAffordabilityCalculatorPage() {
                 <Link href="/commercial-lease-viability-check" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial lease viability check
                 </Link>
+                <Link href="/compare" className="underline decoration-white/30 underline-offset-4 hover:text-white">
+                  Compare two sites
+                </Link>
                 <Link href="/commercial-rent-burden-calculator" className="underline decoration-white/30 underline-offset-4 hover:text-white">
                   Commercial rent burden calculator
                 </Link>

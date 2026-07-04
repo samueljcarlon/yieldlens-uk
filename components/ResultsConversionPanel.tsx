@@ -1,4 +1,6 @@
 'use client';
+
+import Link from 'next/link';
 import {
   disclaimerClass,
   primaryCtaClass,
@@ -249,6 +251,17 @@ export default function ResultsConversionPanel({
                 <p className="mt-4 text-xs text-stone-600 leading-5">
                   After payment, the saved result opens as the memo. You can print
                   it or save it as PDF.
+                </p>
+
+                <p className="mt-4 text-sm text-stone-300 leading-6">
+                  Need to compare two sites?{' '}
+                  <Link
+                    href="/compare"
+                    className="underline decoration-white/30 underline-offset-4 hover:text-white hover:decoration-white"
+                  >
+                    Compare two sites
+                  </Link>
+                  .
                 </p>
               </div>
             </div>

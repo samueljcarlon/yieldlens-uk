@@ -228,6 +228,8 @@ function getCommercialContext(request: ReportRequest) {
   const startingCash = toNumber(input.startingCash);
   const cashAfterOpening = toNumber(result.availableCashAfterOpening);
   const businessType = typeof input.businessType === 'string' && input.businessType.trim() ? input.businessType.trim() : null;
+  const postcode = typeof request.postcode === 'string' && request.postcode.trim() ? request.postcode.trim() : null;
+  const address = typeof request.address === 'string' && request.address.trim() ? request.address.trim() : null;
   const downsideRevenuePercentage = toNumber(result.downsideRevenuePercentage ?? input.downsideRevenuePercentage);
   const downsideMonthlyRevenue = toNumber(result.downsideMonthlyRevenue);
   const downsideMonthlyPosition = toNumber(result.downsideMonthlyPosition);
@@ -251,6 +253,8 @@ function getCommercialContext(request: ReportRequest) {
     startingCash,
     cashAfterOpening,
     businessType,
+    postcode,
+    address,
     downsideRevenuePercentage,
     downsideMonthlyRevenue,
     downsideMonthlyPosition,
@@ -1664,7 +1668,11 @@ export default async function CommercialViabilityFilePage({
         pageType="paid_file"
         mode="commercial"
         eventLabel="Paid file opened"
-        metadata={context.businessType ? { business_type: context.businessType } : undefined}
+        metadata={{
+          ...(context.businessType ? { business_type: context.businessType } : {}),
+          ...(context.postcode ? { postcode: context.postcode } : {}),
+          ...(context.address ? { has_address: true } : {}),
+        }}
         googleAdsConversion="paid_file_opened"
         googleAdsDedupeKey={request.id}
       />
@@ -1731,6 +1739,9 @@ export default async function CommercialViabilityFilePage({
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl leading-8">
                 A £49 decision memo that turns the saved commercial result into one printable report for negotiation and due diligence. It pulls the rent burden, break-even customers, opening capital stack, downside trading, lease questions, and next actions into one place.
+              </p>
+              <p className="mt-4 text-sm text-stone-300 max-w-2xl leading-7">
+                If the saved check includes a postcode or address, the memo keeps local evidence prompts in view too, such as nearby rent evidence, business rates, EPC, and building-condition assumptions.
               </p>
 
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl">

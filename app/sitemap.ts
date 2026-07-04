@@ -36,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/how-much-rent-can-a-barber-shop-afford',
     '/how-much-rent-can-a-takeaway-afford',
     '/how-much-rent-can-a-shop-afford',
+    '/compare',
     '/rental-valuation-vs-rent-affordability',
     '/sample-commercial-viability-file',
     '/how-it-works',

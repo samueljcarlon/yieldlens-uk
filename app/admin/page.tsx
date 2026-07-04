@@ -52,6 +52,7 @@ interface SafeEventRow {
   eventName: string;
   sourcePath: string;
   destinationPath: string;
+  postcode: string;
   utmSource: string;
   utmMedium: string;
   utmCampaign: string;
@@ -181,6 +182,7 @@ function getEventSafeFields(event: ToolEvent): SafeEventRow {
       getSafeReferrerHost(event.referrer) ||
       'unknown',
     destinationPath: getOrganicDestinationLabel(event) || 'Not set',
+    postcode: getStringMeta(event, 'postcode') || 'Not set',
     utmSource: getStringMeta(event, 'utm_source') || 'Not set',
     utmMedium: getStringMeta(event, 'utm_medium') || 'Not set',
     utmCampaign: getStringMeta(event, 'utm_campaign') || 'Not set',
@@ -1103,6 +1105,7 @@ export default function AdminPage() {
                         <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-stone-600">
                           <p><span className="text-stone-400">Source:</span> {row.sourcePath}</p>
                           <p><span className="text-stone-400">Destination:</span> {row.destinationPath}</p>
+                          <p><span className="text-stone-400">Postcode:</span> {row.postcode}</p>
                           <p><span className="text-stone-400">UTM source:</span> {row.utmSource}</p>
                           <p><span className="text-stone-400">UTM medium:</span> {row.utmMedium}</p>
                           <p><span className="text-stone-400">UTM campaign:</span> {row.utmCampaign}</p>

@@ -10,6 +10,14 @@ import {
   getCommercialBusinessTypeValue,
 } from '@/lib/commercialBusinessType';
 
+function getSubmissionTextValue(submission: ReturnType<typeof getLatestSubmission>, key: string): string {
+  if (!submission) return '';
+
+  const input = submission.input as Record<string, unknown>;
+  const value = input[key];
+  return typeof value === 'string' && value.trim() ? value.trim() : '';
+}
+
 export default function ThankYouClient({ requestId }: { requestId: string }) {
   const [continueHref, setContinueHref] = useState('/check');
   const [continueLabel, setContinueLabel] = useState('Run another check');
@@ -47,6 +55,8 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
         typeof rawBusinessType === 'string' && rawBusinessType.trim()
           ? getCommercialBusinessTypeLabel(rawBusinessType)
           : '';
+      const postcode = getSubmissionTextValue(submission, 'postcode');
+      const hasAddress = getSubmissionTextValue(submission, 'address') !== '';
 
       const response = await fetch('/api/report-payment/create-checkout-session', {
         method: 'POST',
@@ -55,6 +65,8 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
           reportRequestId: requestId,
           sourcePage: '/thank-you',
           ...(businessType ? { businessType } : {}),
+          ...(postcode ? { postcode } : {}),
+          hasAddress,
           attribution: getFunnelAttributionSnapshot(),
         }),
       });

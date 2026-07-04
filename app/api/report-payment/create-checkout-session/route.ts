@@ -4,6 +4,7 @@ import Stripe from 'stripe';
 import { NextRequest, NextResponse } from 'next/server';
 import { insertServerToolEvent } from '@/lib/serverToolEvents';
 import { normalizeFunnelPath } from '@/lib/funnelAttribution';
+import { getCommercialBusinessTypeLabel } from '@/lib/commercialBusinessType';
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -65,6 +66,32 @@ function getBusinessType(body: Record<string, unknown>): string {
   return typeof businessType === 'string' && businessType.trim() !== ''
     ? businessType.trim()
     : '';
+}
+
+function getPostcode(body: Record<string, unknown>, input: Record<string, unknown>): string {
+  const bodyPostcode = body.postcode;
+
+  if (typeof bodyPostcode === 'string' && bodyPostcode.trim() !== '') {
+    return bodyPostcode.trim().toUpperCase();
+  }
+
+  const inputPostcode = input.postcode;
+
+  return typeof inputPostcode === 'string' && inputPostcode.trim() !== ''
+    ? inputPostcode.trim().toUpperCase()
+    : '';
+}
+
+function getHasAddress(body: Record<string, unknown>, input: Record<string, unknown>): boolean {
+  const bodyHasAddress = body.hasAddress;
+
+  if (typeof bodyHasAddress === 'boolean') {
+    return bodyHasAddress;
+  }
+
+  const address = input.address;
+
+  return typeof address === 'string' && address.trim() !== '';
 }
 
 function getCheckoutAttribution(body: Record<string, unknown>): Record<string, string> {
@@ -181,11 +208,16 @@ export async function POST(request: NextRequest) {
     const input = reportRequest.input_json && typeof reportRequest.input_json === 'object'
       ? (reportRequest.input_json as Record<string, unknown>)
       : {};
+    const postcode = getPostcode(body as Record<string, unknown>, input);
+    const hasAddress = getHasAddress(body as Record<string, unknown>, input);
     const requestBusinessType =
       businessType ||
       (typeof input.businessType === 'string' && input.businessType.trim() !== ''
         ? input.businessType.trim()
         : '');
+    const requestBusinessTypeLabel = requestBusinessType
+      ? getCommercialBusinessTypeLabel(requestBusinessType)
+      : '';
 
     if (!customerAccessToken) {
       customerAccessToken = randomBytes(32).toString('hex');
@@ -223,7 +255,9 @@ export async function POST(request: NextRequest) {
         mode: reportRequest.mode,
         requested_report_type: reportRequest.requested_report_type,
         source_page: sourcePage,
-        ...(requestBusinessType ? { business_type: requestBusinessType } : {}),
+        ...(requestBusinessTypeLabel ? { business_type: requestBusinessTypeLabel } : {}),
+        ...(postcode ? { postcode } : {}),
+        has_address: hasAddress ? 'true' : 'false',
         ...attribution,
       },
       payment_intent_data: {
@@ -232,7 +266,9 @@ export async function POST(request: NextRequest) {
           mode: reportRequest.mode,
           requested_report_type: reportRequest.requested_report_type,
           source_page: sourcePage,
-          ...(requestBusinessType ? { business_type: requestBusinessType } : {}),
+          ...(requestBusinessTypeLabel ? { business_type: requestBusinessTypeLabel } : {}),
+          ...(postcode ? { postcode } : {}),
+          has_address: hasAddress ? 'true' : 'false',
           ...attribution,
         },
       },
@@ -289,7 +325,9 @@ export async function POST(request: NextRequest) {
         current_page_path: sourcePage,
         current_page_type: sourcePage.startsWith('/admin') ? 'admin' : 'checkout',
         current_mode: reportRequest.mode,
-        ...(requestBusinessType ? { business_type: requestBusinessType } : {}),
+        ...(requestBusinessTypeLabel ? { business_type: requestBusinessTypeLabel } : {}),
+        ...(postcode ? { postcode } : {}),
+        has_address: hasAddress,
         ...attribution,
       },
       userAgent: request.headers.get('user-agent'),

@@ -65,6 +65,21 @@ function getCommercialBusinessTypeInfoForSubmission(submission: Submission) {
   return getCommercialBusinessTypeInfo(getCommercialBusinessType(submission));
 }
 
+function getCommercialLocationValue(submission: Submission): string {
+  const input = submission.input as Record<string, unknown>;
+  const postcode = typeof input.postcode === 'string' && input.postcode.trim() ? input.postcode.trim() : '';
+  if (postcode) return postcode;
+
+  const address = typeof input.address === 'string' && input.address.trim() ? input.address.trim() : '';
+  if (address) return address;
+
+  return '';
+}
+
+function hasCommercialLocation(submission: Submission): boolean {
+  return getCommercialLocationValue(submission) !== '';
+}
+
 const genericEvidenceChecks = [
   'Comparable rent evidence',
   'Service charge details',
@@ -82,6 +97,28 @@ const genericQuestions = [
   'Is a personal guarantee required?',
   'What evidence supports the revenue assumption?',
 ];
+
+const locationEvidenceChecks = [
+  'Nearby rent evidence for the area',
+  'Business rates or rateable value estimate for the property',
+  'Building condition, EPC, and fit-out assumptions',
+  'Local service charge and utilities assumptions',
+];
+
+const locationQuestions = [
+  'What nearby rent evidence supports the quoted rent?',
+  'What is the rateable value for the property?',
+  'Are there location-specific costs, restrictions, or fit-out issues to check?',
+  'Does local footfall or trading pattern support the revenue assumption?',
+];
+
+function getLocationSpecificEvidenceChecks(submission: Submission): string[] {
+  return hasCommercialLocation(submission) ? locationEvidenceChecks : [];
+}
+
+function getLocationSpecificQuestions(submission: Submission): string[] {
+  return hasCommercialLocation(submission) ? locationQuestions : [];
+}
 
 function getSubmissionTrackingKey(submissionId: string): string {
   return `yieldlens:commercial_check_submitted:${submissionId}`;
@@ -354,6 +391,16 @@ function getCommercialResultSummary(result: CommercialResult): string {
   return 'The free result is a useful snapshot, but it still needs evidence around demand, costs, and lease terms.';
 }
 
+function getLocationContextSummary(submission: Submission): string {
+  const location = getCommercialLocationValue(submission);
+
+  if (!location) {
+    return 'No postcode or address was entered, so local evidence prompts stay general.';
+  }
+
+  return `Location context for ${location} helps keep rent evidence, business rates, EPC, and building-condition prompts tied to the submitted site.`;
+}
+
 function getCommercialResultReason(result: CommercialResult): string {
   if (hasNumber(result.availableCashAfterOpening) && result.availableCashAfterOpening < 0) {
     return 'The main reason is the opening cash stack: upfront costs appear higher than the starting cash.';
@@ -564,6 +611,7 @@ function CommercialSummaryCard({
 function CommercialPressureSummary({ submission }: { submission: Submission }) {
   const result = submission.result as CommercialResult;
   const businessTypeInfo = getCommercialBusinessTypeInfoForSubmission(submission);
+  const locationValue = getCommercialLocationValue(submission);
   const resultSummary = getCommercialResultSummary(result);
   const resultReason = getCommercialResultReason(result);
   const resultDrivers = getCommercialResultDrivers(result);
@@ -596,10 +644,19 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
               {businessTypeInfo.summaryLine}
             </p>
 
+            <p className="mt-3 text-sm text-stone-300 leading-6 max-w-3xl">
+              {getLocationContextSummary(submission)}
+            </p>
+
             <div className="mt-5 flex flex-wrap gap-2">
               <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
                 Business type {businessTypeInfo.shortLabel}
               </span>
+              {locationValue ? (
+                <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
+                  Location {locationValue}
+                </span>
+              ) : null}
               <span className="rounded-full border border-white/25 bg-white/0 px-3 py-1.5 text-xs font-semibold text-white">
                 Rent burden {formatPercent(result.rentBurdenPercentage)}
               </span>
@@ -818,8 +875,16 @@ function CommercialScenarioCard({
 function CommercialScenarioPressureTest({ submission }: { submission: Submission }) {
   const result = submission.result as CommercialResult;
   const businessTypeInfo = getCommercialBusinessTypeInfoForSubmission(submission);
-  const evidenceChecks = [...genericEvidenceChecks, ...businessTypeInfo.evidenceGaps];
-  const questions = [...genericQuestions, ...businessTypeInfo.questions];
+  const evidenceChecks = [
+    ...genericEvidenceChecks,
+    ...businessTypeInfo.evidenceGaps,
+    ...getLocationSpecificEvidenceChecks(submission),
+  ];
+  const questions = [
+    ...genericQuestions,
+    ...businessTypeInfo.questions,
+    ...getLocationSpecificQuestions(submission),
+  ];
 
   return (
     <div className="rounded-[32px] border border-stone-200 bg-white p-5 sm:p-6 shadow-[0_10px_24px_rgba(15,23,42,0.05)]">
@@ -840,6 +905,12 @@ function CommercialScenarioPressureTest({ submission }: { submission: Submission
         <p className="mt-3 text-sm text-[var(--yieldlens-muted)] leading-7 max-w-3xl">
           That means the paid file can read as covers, orders, appointments, footfall, stock margin, or chair utilisation rather than only a rent ratio.
         </p>
+
+        {hasCommercialLocation(submission) && (
+          <p className="mt-3 text-sm text-[var(--yieldlens-muted)] leading-7 max-w-3xl">
+            Because you entered a postcode or address, the file can also keep local rent evidence, business rates, EPC, and building-condition prompts in view.
+          </p>
+        )}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -941,6 +1012,8 @@ export default function ResultsPage() {
         funnel_area: 'commercial',
         mode: 'commercial',
         source_page: '/check?mode=commercial',
+        postcode: getCommercialLocationValue(submission),
+        has_address: hasCommercialLocation(submission),
         ...(businessType ? { business_type: businessType } : {}),
       },
     });
@@ -1081,9 +1154,10 @@ export default function ResultsPage() {
         <p className="font-semibold text-stone-900 mb-3">What the £49 file adds</p>
 
         <p className="text-sm text-[var(--yieldlens-muted)] leading-7 mb-4 max-w-3xl">
-          It organises the tailored evidence gaps, lease questions, assumptions, stress-test interpretation,
-          and printable memo around the business type you selected, so the file can read as covers, orders,
-          appointments, footfall, stock margin, or chair utilisation where relevant.
+          It organises the tailored evidence gaps, location checks, lease questions, assumptions,
+          stress-test interpretation, and printable memo around the business type you selected, so the
+          file can read as covers, orders, appointments, footfall, stock margin, or chair utilisation
+          where relevant.
         </p>
 
         <ol className="space-y-2 text-sm text-[var(--yieldlens-muted)] list-decimal list-inside">
