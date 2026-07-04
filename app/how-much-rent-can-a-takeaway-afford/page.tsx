@@ -420,6 +420,11 @@ export default function TakeawayRentAffordabilityPage() {
                 text: 'Use the shop page when footfall, stock, and retail margin drive the model.',
               },
               {
+                title: 'How much rent can a barber shop afford',
+                href: '/how-much-rent-can-a-barber-shop-afford',
+                text: 'Use the barber shop page when chair utilisation and appointments drive the lease check.',
+              },
+              {
                 title: 'Restaurant lease viability check',
                 href: '/restaurant-lease-viability-check',
                 text: 'Use the restaurant page when covers, extraction, and kitchen fit-out matter.',

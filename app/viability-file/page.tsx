@@ -672,6 +672,7 @@ export default function ViabilityFilePage() {
               { title: 'How much rent can a cafe afford', href: '/how-much-rent-can-a-cafe-afford' },
               { title: 'How much rent can a shop afford', href: '/how-much-rent-can-a-shop-afford' },
               { title: 'How much rent can a takeaway afford', href: '/how-much-rent-can-a-takeaway-afford' },
+              { title: 'How much rent can a barber shop afford', href: '/how-much-rent-can-a-barber-shop-afford' },
               { title: 'Restaurant lease viability check', href: '/restaurant-lease-viability-check' },
               { title: 'Salon lease viability check', href: '/salon-lease-viability-check' },
             ].map((item) => (
