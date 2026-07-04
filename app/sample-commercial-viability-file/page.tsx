@@ -366,6 +366,9 @@ export default function SampleCommercialViabilityFilePage() {
                   Commercial lease checklist before signing
                 </Link>
               </div>
+              <p className="mt-5 text-xs text-stone-300 leading-6 max-w-2xl">
+                This sample shows the kind of first-pass viability thinking a user can get before spending more on formal lease review, surveys and professional checks.
+              </p>
             </div>
             <div className={`${surfaceCardClass} bg-white p-5 sm:p-6 text-stone-900 shadow-[0_14px_34px_rgba(15,23,42,0.10)]`}>
               <div className="flex items-start justify-between gap-4 mb-5">

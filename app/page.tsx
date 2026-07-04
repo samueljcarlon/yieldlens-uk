@@ -324,6 +324,56 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-4 items-start">
+          <div className={`${surfaceCardClass} p-6 border-t-4 border-t-[var(--yieldlens-caution)]`}>
+            <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
+              Value comparison
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-3">
+              Spend £49 before you spend £2,500+.
+            </h2>
+            <p className="text-sm text-stone-600 leading-7">
+              Professional lease reviews, surveys and pre-signing checks can quickly cost £2,500+ before you commit to a site. YieldLens gives you a £49 first-pass viability screen so you can pressure-test rent burden, opening cash, break-even pressure and downside risk before deciding whether to take the lease further.
+            </p>
+          </div>
+
+          <div className={`${surfaceCardSoftClass} bg-[#F4F3F1] border border-stone-200 p-6`}>
+            <p className="text-xs uppercase tracking-widest text-[var(--yieldlens-caution)] font-medium mb-3">
+              Important limits
+            </p>
+            <p className="text-sm text-stone-600 leading-7">
+              YieldLens does not replace solicitors, surveyors, valuations or professional due diligence. It helps you test whether the numbers are worth taking further.
+            </p>
+            <p className="mt-3 text-xs text-stone-500 leading-6">
+              Professional costs vary by lease, property, location and scope. £2,500+ is an indicative comparison for legal review, surveys and pre-signing checks, not a guaranteed cost or saving.
+            </p>
+            <div className="mt-5 flex flex-col sm:flex-row gap-3">
+              <TrackedCtaLink
+                href="/check?mode=commercial"
+                eventName="commercial_home_cta_clicked"
+                pagePath="/"
+                ctaLabel="Run a free commercial check"
+                pageType="homepage"
+                className={heroPrimaryCtaClass}
+              >
+                Run a free commercial check
+              </TrackedCtaLink>
+              <TrackedCtaLink
+                href="/sample-commercial-viability-file"
+                eventName="commercial_home_cta_clicked"
+                pagePath="/"
+                ctaLabel="View sample viability file"
+                pageType="homepage"
+                className={heroSecondaryCtaClass}
+              >
+                View sample viability file
+              </TrackedCtaLink>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="max-w-6xl mx-auto px-4 py-14 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
           <div className={`${surfaceCardClass} p-6`}>

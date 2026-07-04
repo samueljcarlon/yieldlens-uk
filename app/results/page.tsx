@@ -1057,6 +1057,12 @@ export default function ResultsPage() {
             : 'The Standard commercial viability file adds stress tests, negotiation levers, lease questions, due diligence prompts, ranked actions, and a clearer final view before you commit. It is unlocked from this saved result, then opens as a memo you can print or save as PDF.'}
         </p>
 
+        {!isResidential && (
+          <p className="mt-3 text-xs text-stone-600 leading-6 max-w-3xl">
+            Spend £49 before you spend £2,500+ on the full pre-signing process. Professional lease reviews, surveys and pre-signing checks can quickly cost £2,500+ before you commit to a site.
+          </p>
+        )}
+
         <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
           <div className="rounded-[28px] border border-stone-200 bg-white p-5 shadow-sm">
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-3">
