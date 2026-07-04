@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import RentAffordabilityTool from '@/components/RentAffordabilityTool';
-import ToolConversionPanel from '@/components/ToolConversionPanel';
 import {
   heroPrimaryCtaClass,
   heroSecondaryCtaClass,
@@ -12,45 +11,45 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Rent Affordability Check | Is This Rent Affordable?',
+  title: 'Rent Affordability Check UK | YieldLens',
   description:
-    'Check whether rent is affordable against income, bills, and commitments. If you arrived from rental valuation search terms, use YieldLens UK to test whether the number really fits the budget.',
+    'Understand the difference between rental valuation, rent affordability and commercial lease viability. Run a free commercial rent affordability check.',
   alternates: {
     canonical: '/rent-affordability-check',
   },
   openGraph: {
-    title: 'Rent Affordability Check | Is This Rent Affordable?',
+    title: 'Rent Affordability Check UK | YieldLens',
     description:
-      'Check whether rent is affordable against income, bills, and commitments. Use YieldLens UK when you need to test the number rather than rely on a rental valuation.',
+      'Understand the difference between rental valuation, rent affordability and commercial lease viability. Run a free commercial rent affordability check.',
     url: 'https://yieldlens.co.uk/rent-affordability-check',
   },
 };
 
 const faqs = [
   {
-    question: 'How much rent can I afford?',
+    question: 'Is a rent affordability check the same as a rental valuation?',
     answer:
-      'A quick way to screen affordability is to compare monthly rent with monthly take-home income, then add bills, council tax, transport, and regular commitments. YieldLens UK shows rent-to-income ratio, housing cost ratio, disposable income, and a simple verdict.',
+      'No. A rental valuation estimates what a property might rent for. A rent affordability check asks whether that rent still works after income, costs and cash flow are included.',
   },
   {
-    question: 'Should rent be 30% of income?',
+    question: 'Does YieldLens provide a rental valuation?',
     answer:
-      'The 30% rent-to-income figure is a rough screening guide, not a rule. Some people can manage more, while others need a lower ratio because of bills, debt, travel costs, deposits, or unstable income.',
+      'No. YieldLens does not provide a formal rental valuation or market rent opinion. It helps compare a rent figure with the rest of the affordability picture.',
   },
   {
-    question: 'Does the calculator include bills?',
+    question: 'What does commercial rent affordability mean?',
     answer:
-      'Yes. You can add estimated bills, council tax, transport, debt payments, and other monthly costs to see a more realistic picture than rent alone.',
+      'It asks whether a shop, cafe, salon or restaurant can carry the rent after costs, cash flow pressure and opening spend are included.',
   },
   {
-    question: 'Is this a rental valuation?',
+    question: 'Can I check whether a shop or cafe can afford the rent?',
     answer:
-      'No. YieldLens UK does not provide a rental valuation. It helps compare a rent estimate with the rest of the monthly budget so you can pressure-test whether the number is workable.',
+      'Yes. Use the commercial rent affordability calculator or run the free commercial check if you are looking at a business site.',
   },
   {
-    question: 'Is this financial advice?',
+    question: 'Does YieldLens provide legal, valuation or financial advice?',
     answer:
-      'No. YieldLens UK provides indicative decision-support only. It is not financial advice, debt advice, legal advice, or a substitute for professional guidance.',
+      'No. YieldLens UK provides indicative decision-support only. It is not financial advice, legal advice, tax advice, mortgage advice, a valuation, or a substitute for professional due diligence.',
   },
 ];
 
@@ -102,18 +101,22 @@ const riskItems = [
   'The property is manageable only if all other costs stay unusually low.',
 ];
 
-const rentalValuationPoints = [
+const comparisonRows = [
   {
     title: 'Rental valuation',
-    text: 'A rental valuation tries to estimate what rent the market might support for the property.',
+    text: 'Estimates what a property might rent for and usually needs comparable market evidence.',
   },
   {
     title: 'Rent affordability',
-    text: 'A rent affordability check asks whether the tenant can carry that rent after the rest of the monthly budget is added.',
+    text: 'Tests whether rent is affordable against income, costs and cash flow.',
   },
   {
-    title: 'Use both together',
-    text: 'A rent estimate is useful, but it still needs to survive income, bills, transport, deposits, and other commitments.',
+    title: 'Commercial rent affordability',
+    text: 'Checks whether a shop, cafe, salon, restaurant or other commercial site can carry the rent before signing.',
+  },
+  {
+    title: 'Commercial lease viability',
+    text: 'Combines rent burden, opening cash, break-even pressure, downside risk and lease questions.',
   },
 ];
 
@@ -129,31 +132,21 @@ const practicalChecks = [
   'Realistic achievable rent',
 ];
 
-const bridgeLinks = [
+const toolChoices = [
   {
-    title: 'Rental valuation vs rent affordability',
-    text: 'Read the comparison page if you want the difference between market rent and affordability explained in one place.',
+    title: 'If you want a residential valuation',
+    text: 'YieldLens is not a valuation tool. Read the comparison page to see the difference before you choose the right path.',
     href: '/rental-valuation-vs-rent-affordability',
   },
   {
-    title: 'Property cash flow calculator',
-    text: 'Use this when you want to see whether rent still covers financing and ownership costs.',
-    href: '/property-cash-flow-calculator',
-  },
-  {
-    title: 'Commercial rent affordability calculator',
-    text: 'Use this for cafe, restaurant, salon, retail, and other business premises.',
+    title: 'If you are checking a commercial site',
+    text: 'Use the commercial rent affordability calculator or run the free commercial check for a fuller pressure-test.',
     href: '/commercial-rent-affordability-calculator',
   },
   {
-    title: 'Commercial lease viability check',
-    text: 'Use this when the real question is whether the site can carry the rent before you sign.',
-    href: '/check?mode=commercial',
-  },
-  {
-    title: 'Sample commercial viability file',
-    text: 'See how the commercial result turns into a printable decision memo before payment.',
-    href: '/sample-commercial-viability-file',
+    title: 'If you are about to sign a commercial lease',
+    text: 'Use the lease viability check and read the checklist before signing so the lease terms stay in view.',
+    href: '/commercial-lease-viability-check',
   },
 ];
 
@@ -205,29 +198,35 @@ export default function RentAffordabilityCheckPage() {
       <section className="bg-[var(--yieldlens-hero)] text-white border-b border-white/10">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-[#DCCDA8] mb-4">
-            Rent affordability calculator UK
+            Rent affordability check UK
           </p>
           <h1 className="text-4xl sm:text-6xl font-bold text-white leading-tight mb-6">
-            Check how much rent you can afford before you commit.
+            Rent affordability check
           </h1>
-              <p className="text-lg text-stone-300 max-w-3xl mx-auto mb-8 leading-8">
-            A rental valuation tells you what rent might be achievable. A rent
-            affordability check asks whether the numbers still work after costs,
-            voids, and finance. If you arrived here from rental valuation search
-            terms, this page answers the affordability question instead.
-              </p>
+          <p className="text-lg text-stone-300 max-w-3xl mx-auto mb-6 leading-8">
+            A rental valuation is not the same as rent affordability. YieldLens
+            focuses on whether rent can be supported by income, costs, cash flow
+            and downside pressure. For commercial sites, the question becomes
+            whether the lease can be carried before signing.
+          </p>
+          <p className="text-sm text-stone-300 max-w-3xl mx-auto mb-8 leading-7">
+            If you are checking a shop, cafe, salon or restaurant, use the
+            commercial tools below. If you want the residential calculator, keep
+            scrolling to the tool on this page.
+          </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="#calculator" className={heroPrimaryCtaClass}>
-              Use rent affordability calculator
+            <Link href="/check?mode=commercial" className={heroPrimaryCtaClass}>
+              Run a free commercial check
             </Link>
-            <Link href="/rental-valuation-vs-rent-affordability" className={heroSecondaryCtaClass}>
-              Rental value vs cash flow
+            <Link href="/sample-commercial-viability-file" className={heroSecondaryCtaClass}>
+              View sample viability file
             </Link>
           </div>
 
           <p className="text-xs text-stone-400 mt-5">
-            Indicative decision-support only. Not financial advice, debt advice, or a valuation.
+            Indicative decision-support only. Not financial advice, legal advice,
+            tax advice, mortgage advice, or a valuation.
           </p>
         </div>
       </section>
@@ -237,10 +236,10 @@ export default function RentAffordabilityCheckPage() {
           <SectionTitle
             eyebrow="Rental valuation vs affordability"
             title="A valuation estimate is not the same as a decision."
-            description="A rental valuation focuses on likely rent. Affordability checks whether that rent supports the tenant, the household, or the business case after real monthly costs are included."
+            description="Use the comparison below to decide whether you need a valuation-style estimate, a rent affordability screen, or a commercial lease viability check."
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {rentalValuationPoints.map((item, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            {comparisonRows.map((item, index) => (
               <div
                 key={item.title}
                 className={`${surfaceCardClass} border-l-4 ${accentClass(index)} p-5`}
@@ -258,20 +257,41 @@ export default function RentAffordabilityCheckPage() {
       <section className="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="The calculator"
-            title="Use the numbers that actually affect monthly pressure."
-            description="The aim is to pressure-test whether a rent estimate is workable once the rest of the budget is added."
+            eyebrow="Which tool should I use?"
+            title="Choose the page that matches the question."
+            description="Residential and commercial rent questions are related, but they are not the same. Use the page that matches the decision you are making."
           />
 
-          <RentAffordabilityTool />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {toolChoices.map((item, index) => (
+              <div key={item.title} className={`${surfaceCardClass} border-l-4 ${accentClass(index)} p-5`}>
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--yieldlens-caution)] font-semibold mb-2">
+                  {item.title}
+                </p>
+                <p className="text-sm text-stone-700 leading-7 mb-4">{item.text}</p>
+                <Link href={item.href} className="text-sm font-semibold text-[var(--yieldlens-primary)] hover:underline">
+                  Open this page
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-4 text-sm">
+            <Link href="/commercial-lease-checklist-before-signing" className="text-[var(--yieldlens-primary)] font-medium hover:underline">
+              Commercial lease checklist before signing
+            </Link>
+            <Link href="/sample-commercial-viability-file" className="text-[var(--yieldlens-primary)] font-medium hover:underline">
+              Sample commercial viability file
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 py-16">
+      <section id="calculator" className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle
-          eyebrow="Before relying on a rent estimate"
-          title="Check the full monthly picture before treating the figure as affordable."
-          description="A rent estimate is only useful if it still works after the rest of the monthly cost stack is added."
+          eyebrow="Residential calculator"
+          title="Use the calculator when you are checking a home rent number."
+          description="This is the affordability tool for residential budgets. It is still not a valuation."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -361,12 +381,28 @@ export default function RentAffordabilityCheckPage() {
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
             eyebrow="Commercial bridge"
-            title="For commercial units, use the commercial tools."
-            description="Residential affordability is only one part of the picture. Commercial users should use the commercial rent affordability calculator or run the commercial lease viability check."
+            title="If the site is commercial, switch to the commercial tools."
+            description="This page exists to separate rent affordability from valuation. If you are checking a shop, cafe, salon or restaurant, use the commercial tools instead."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {bridgeLinks.map((item, index) => (
+            {[
+              {
+                title: 'Commercial rent affordability calculator',
+                text: 'Check whether a business can carry the rent after costs and trading pressure are added.',
+                href: '/commercial-rent-affordability-calculator',
+              },
+              {
+                title: 'Commercial lease viability check',
+                text: 'Pressure-test rent burden, opening cash, break-even pressure and lease questions before signing.',
+                href: '/commercial-lease-viability-check',
+              },
+              {
+                title: 'Commercial lease checklist before signing',
+                text: 'Read the lease questions that often change the outcome before any commitment is made.',
+                href: '/commercial-lease-checklist-before-signing',
+              },
+            ].map((item, index) => (
               <Link
                 key={item.title}
                 href={item.href}
@@ -377,11 +413,21 @@ export default function RentAffordabilityCheckPage() {
               </Link>
             ))}
           </div>
+
+          <div className="mt-6">
+            <Link href="/rental-valuation-vs-rent-affordability" className="text-sm font-medium text-[var(--yieldlens-primary)] hover:underline">
+              Read the rental valuation comparison
+            </Link>
+          </div>
         </div>
       </section>
 
       <section className="max-w-6xl mx-auto px-4 py-16">
-        <SectionTitle eyebrow="FAQ" title="Rent affordability calculator questions" />
+        <SectionTitle
+          eyebrow="FAQ"
+          title="Rent affordability questions"
+          description="These answers separate valuation from affordability, then point commercial users to the right tool."
+        />
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
@@ -406,20 +452,19 @@ export default function RentAffordabilityCheckPage() {
             Next step
           </p>
           <h2 className="text-3xl font-bold text-white mb-4">
-            Run the free check before you rely on a rent number.
+            Run the free commercial check if the site is commercial.
           </h2>
           <p className="text-sm text-stone-300 leading-7 max-w-2xl mx-auto mb-8">
-            If you already have a rent estimate, use the calculator to see whether
-            it still works after the rest of the monthly budget is added. For
-            commercial units, the commercial rent affordability calculator and the
-            commercial lease viability check are the better fit.
+            If you already have a rent figure, use this page to separate valuation
+            from affordability. For a commercial site, the free commercial check
+            and the sample file are the better next steps.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/check?mode=residential" className={heroPrimaryCtaClass}>
-              Run rent affordability check
+            <Link href="/check?mode=commercial" className={heroPrimaryCtaClass}>
+              Run a free commercial check
             </Link>
-            <Link href="/commercial-rent-affordability-calculator" className={heroSecondaryCtaClass}>
-              Commercial rent affordability
+            <Link href="/sample-commercial-viability-file" className={heroSecondaryCtaClass}>
+              View sample viability file
             </Link>
           </div>
         </div>
