@@ -106,6 +106,14 @@ Do not add:
 - `app/admin/events/page.tsx` for raw safe events and CTA analysis.
 - `app/admin/reports/page.tsx` for request details. Full address remains in the detail view only, not the broad list.
 
+## Daily admin checks
+
+- Check today and the recent window for check starts, submissions, paid CTA clicks, checkout starts, payments, and file opens.
+- Compare source pages in admin with GSC page signal. Use `source_path` and `landing_page` to connect search entry pages to funnel activity.
+- Review business type counts to see which commercial pages are producing signal.
+- Keep the broad admin tables on safe fields only: event name, created_at, source_path, landing_page, page_path, cta_label, product_area, business_type, postcode, has_address, and UTM fields.
+- Do not show full address, tokens, Stripe IDs, request IDs, or raw metadata in broad admin tables.
+
 ## Manual test script
 
 | Test | Action | Expected event | Expected admin visibility | Sensitive-data check |

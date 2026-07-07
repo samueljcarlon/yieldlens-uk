@@ -12,6 +12,7 @@ import { clearSubmissions, getSubmissions } from '@/lib/storage';
 import { getRemoteSubmissions } from '@/lib/remoteSubmissions';
 import { getRemoteToolEvents, type ToolEvent } from '@/lib/toolEvents';
 import VerdictBadge from '@/components/VerdictBadge';
+import { getCommercialBusinessTypeLabel } from '@/lib/commercialBusinessType';
 
 type ViewSource = 'local' | 'remote';
 type VerdictFilter = 'all' | 'Strong candidate' | 'Worth investigating' | 'Marginal' | 'Weak' | 'Avoid';
@@ -28,6 +29,12 @@ interface OrganicSourceRow {
   sampleClicks: number;
   checkoutStarts: number;
   payments: number;
+}
+
+interface CommercialBusinessTypeRow {
+  businessType: string;
+  submissions: number;
+  hotLeads: number;
 }
 
 interface OrganicUtmRow {
@@ -59,6 +66,7 @@ interface SafeEventRow {
   ctaLabel: string;
   ctaLocation: string;
   businessType: string;
+  productArea: string;
 }
 
 const organicEventNames = new Set([
@@ -125,6 +133,26 @@ function getStringMeta(event: ToolEvent, key: string): string {
   return typeof value === 'string' && value.trim() ? value.trim() : '';
 }
 
+function formatBusinessTypeLabel(value: string): string {
+  const raw = value.trim();
+  if (!raw) return '';
+
+  const normalized = raw.toLowerCase().replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!normalized) return '';
+  if (normalized.includes('coffee')) return 'Coffee shop';
+  if (normalized.includes('cafe')) return 'Cafe';
+  if (normalized.includes('restaurant')) return 'Restaurant';
+  if (normalized.includes('nail')) return 'Nail salon';
+  if (normalized.includes('salon')) return 'Salon';
+  if (normalized.includes('barber')) return 'Barber shop';
+  if (normalized.includes('gym')) return 'Gym';
+  if (normalized === 'shop' || normalized.includes('retail')) return 'Shop / retail';
+  if (normalized.includes('takeaway')) return 'Takeaway';
+  if (normalized.includes('other')) return 'Other commercial site';
+
+  return getCommercialBusinessTypeLabel(raw);
+}
+
 function getSafeReferrerHost(referrer: string | null): string {
   if (!referrer || !referrer.trim()) return '';
 
@@ -182,13 +210,14 @@ function getEventSafeFields(event: ToolEvent): SafeEventRow {
       getSafeReferrerHost(event.referrer) ||
       'unknown',
     destinationPath: getOrganicDestinationLabel(event) || 'Not set',
-    postcode: getStringMeta(event, 'postcode') || 'Not set',
+    postcode: getStringMeta(event, 'postcode') || 'No postcode',
     utmSource: getStringMeta(event, 'utm_source') || 'Not set',
     utmMedium: getStringMeta(event, 'utm_medium') || 'Not set',
     utmCampaign: getStringMeta(event, 'utm_campaign') || 'Not set',
     ctaLabel: getStringMeta(event, 'cta_label') || 'Not set',
     ctaLocation: getStringMeta(event, 'cta_location') || 'Not set',
-    businessType: getStringMeta(event, 'business_type') || 'Not set',
+    businessType: formatBusinessTypeLabel(getStringMeta(event, 'business_type')) || 'Not set',
+    productArea: getStringMeta(event, 'product_area') || 'Not set',
   };
 }
 
@@ -220,7 +249,32 @@ function getUseCaseLabel(submission: Submission): string {
     return getTextValue(submission, 'userObjective') || 'Residential check';
   }
 
-  return getTextValue(submission, 'businessType') || 'Commercial check';
+  return formatBusinessTypeLabel(getTextValue(submission, 'businessType')) || 'Commercial check';
+}
+
+function countCommercialBusinessTypeRows(submissions: Submission[]): CommercialBusinessTypeRow[] {
+  const rows = new Map<string, CommercialBusinessTypeRow>();
+
+  for (const submission of submissions) {
+    if (submission.mode !== 'commercial') continue;
+
+    const businessType = formatBusinessTypeLabel(getTextValue(submission, 'businessType')) || 'Other commercial site';
+    const row = rows.get(businessType) ?? {
+      businessType,
+      submissions: 0,
+      hotLeads: 0,
+    };
+
+    row.submissions += 1;
+
+    if (getLeadTags(submission).some((tag) => tag.label === 'Hot lead')) {
+      row.hotLeads += 1;
+    }
+
+    rows.set(businessType, row);
+  }
+
+  return [...rows.values()].sort((a, b) => b.submissions - a.submissions);
 }
 
 function getLeadTags(submission: Submission): LeadTag[] {
@@ -422,7 +476,6 @@ function exportSubmissionsToCsv(submissions: Submission[]) {
     'createdAt',
     'mode',
     'email',
-    'address',
     'postcode',
     'useCase',
     'score',
@@ -439,7 +492,6 @@ function exportSubmissionsToCsv(submissions: Submission[]) {
       submission.createdAt,
       submission.mode,
       getEmailLabel(submission),
-      getAddressLabel(submission),
       getTextValue(submission, 'postcode'),
       getUseCaseLabel(submission),
       submission.score,
@@ -725,6 +777,11 @@ export default function AdminPage() {
     [organicRangeEvents]
   );
 
+  const commercialBusinessTypeRows = useMemo(
+    () => countCommercialBusinessTypeRows(submissions),
+    [submissions]
+  );
+
   const handleClearLocal = () => {
     clearSubmissions();
     setSubmissions([]);
@@ -842,6 +899,46 @@ export default function AdminPage() {
           <p className="text-xs uppercase tracking-wide text-stone-400">Hot leads</p>
           <p className="text-2xl font-bold text-stone-900">{counts.hotLeads}</p>
         </div>
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm mb-8">
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <p className="text-xs uppercase tracking-wide text-teal-700 font-semibold">
+              Commercial by business type
+            </p>
+            <h2 className="text-xl font-bold text-stone-900 mt-2">
+              Which commercial types are coming through?
+            </h2>
+            <p className="text-sm text-stone-500 max-w-3xl mt-2">
+              Use this with the funnel counts to see which business types are turning into checks, sample clicks, checkout starts, and paid-file opens.
+            </p>
+          </div>
+          <p className="text-xs text-stone-400">{commercialBusinessTypeRows.length} rows</p>
+        </div>
+
+        {commercialBusinessTypeRows.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+            {commercialBusinessTypeRows.map((row) => (
+              <div key={row.businessType} className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+                <p className="text-[11px] uppercase tracking-wide text-stone-400">Business type</p>
+                <p className="text-lg font-semibold text-stone-950 mt-1">{row.businessType}</p>
+                <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-wide text-stone-400">Submissions</p>
+                    <p className="font-semibold text-stone-950">{row.submissions}</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] uppercase tracking-wide text-stone-400">Hot leads</p>
+                    <p className="font-semibold text-stone-950">{row.hotLeads}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-stone-500">No commercial business-type data yet.</p>
+        )}
       </div>
 
       <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm mb-8">
@@ -1112,6 +1209,7 @@ export default function AdminPage() {
                           <p><span className="text-stone-400">CTA:</span> {row.ctaLabel}</p>
                           <p><span className="text-stone-400">CTA location:</span> {row.ctaLocation}</p>
                           <p><span className="text-stone-400">Business type:</span> {row.businessType}</p>
+                          <p><span className="text-stone-400">Product area:</span> {row.productArea}</p>
                         </div>
                       </div>
                     ))
@@ -1268,6 +1366,12 @@ export default function AdminPage() {
                   <p className="text-sm text-stone-500 mt-1">
                     {getContactStatusLabel(submission)}
                   </p>
+
+                  {submission.mode === 'commercial' && (
+                    <p className="text-sm text-stone-500 mt-1">
+                      Business type: {getUseCaseLabel(submission)}
+                    </p>
+                  )}
 
                   <p className="text-sm text-stone-500 mt-1">
                     Created {formatDate(submission.createdAt)}

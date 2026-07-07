@@ -103,7 +103,9 @@ The route list must not include:
 
 - Admin protection still works
 - Event counts look sane
-- No sensitive IDs or raw metadata in broad tables
+- Business type counts look sane
+- Source page counts look sane
+- No sensitive IDs, raw metadata, or full address in broad tables
 
 ## 5. Safety Scan Commands
 
@@ -221,4 +223,3 @@ Safety scan:
 ```bash
 rg -n "guaranteed saving|save £2,500|avoid solicitor|skip due diligence|replace professionals|formal valuation|investment advice|safe investment|recommended investment|approved|fake testimonial|fake review|fake rating|aggregateRating|ratingValue|samueljcarlon@gmail.com|229 Kilburn|\\x{2014}|\\x{2013}" docs scripts app components lib
 ```
-
