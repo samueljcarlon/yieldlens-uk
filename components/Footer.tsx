@@ -90,11 +90,20 @@ export default function Footer() {
               <Link href="/how-much-rent-can-a-cafe-afford" className={linkClass}>
                 Cafe rent affordability
               </Link>
+              <Link href="/how-much-rent-can-a-coffee-shop-afford" className={linkClass}>
+                Coffee shop rent affordability
+              </Link>
               <Link href="/restaurant-lease-viability-check" className={linkClass}>
                 Restaurant lease viability
               </Link>
               <Link href="/salon-lease-viability-check" className={linkClass}>
                 Salon lease viability
+              </Link>
+              <Link href="/how-much-rent-can-a-nail-salon-afford" className={linkClass}>
+                Nail salon rent affordability
+              </Link>
+              <Link href="/how-much-rent-can-a-gym-afford" className={linkClass}>
+                Gym rent affordability
               </Link>
             </div>
           </div>

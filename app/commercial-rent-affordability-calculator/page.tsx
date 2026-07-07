@@ -133,11 +133,29 @@ const businessTypeItemListStructuredData = {
       name: 'Restaurant lease viability check',
       item: 'https://yieldlens.co.uk/restaurant-lease-viability-check',
     },
-    {
+  {
       '@type': 'ListItem',
       position: 6,
       name: 'Salon lease viability check',
       item: 'https://yieldlens.co.uk/salon-lease-viability-check',
+    },
+    {
+      '@type': 'ListItem',
+      position: 7,
+      name: 'How much rent can a coffee shop afford',
+      item: 'https://yieldlens.co.uk/how-much-rent-can-a-coffee-shop-afford',
+    },
+    {
+      '@type': 'ListItem',
+      position: 8,
+      name: 'How much rent can a nail salon afford',
+      item: 'https://yieldlens.co.uk/how-much-rent-can-a-nail-salon-afford',
+    },
+    {
+      '@type': 'ListItem',
+      position: 9,
+      name: 'How much rent can a gym afford',
+      item: 'https://yieldlens.co.uk/how-much-rent-can-a-gym-afford',
     },
   ],
 };
@@ -598,13 +616,17 @@ export default function CommercialRentAffordabilityCalculatorPage() {
             title="Use the page that matches the unit type."
             description="The commercial calculator sits alongside the business-type pages so the cluster stays easy to navigate."
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               { title: 'How much rent can a cafe afford', href: '/how-much-rent-can-a-cafe-afford' },
+              { title: 'How much rent can a coffee shop afford', href: '/how-much-rent-can-a-coffee-shop-afford' },
               { title: 'How much rent can a shop afford', href: '/how-much-rent-can-a-shop-afford' },
               { title: 'How much rent can a takeaway afford', href: '/how-much-rent-can-a-takeaway-afford' },
               { title: 'How much rent can a barber shop afford', href: '/how-much-rent-can-a-barber-shop-afford' },
+              { title: 'How much rent can a nail salon afford', href: '/how-much-rent-can-a-nail-salon-afford' },
               { title: 'Salon lease viability check', href: '/salon-lease-viability-check' },
+              { title: 'How much rent can a gym afford', href: '/how-much-rent-can-a-gym-afford' },
+              { title: 'Restaurant lease viability check', href: '/restaurant-lease-viability-check' },
             ].map((item) => (
               <Link
                 key={item.title}
