@@ -23,6 +23,9 @@ Use this table to track whether the page is indexed, when indexing was requested
 | `/restaurant-lease-viability-check` | Critical | Restaurant lease viability |  |  |  |  |
 | `/salon-lease-viability-check` | Critical | Salon lease viability |  |  |  |  |
 | `/how-much-rent-can-a-cafe-afford` | Critical | Cafe rent affordability |  |  |  |  |
+| `/how-much-rent-can-a-coffee-shop-afford` | Critical | Coffee shop rent affordability |  |  |  |  |
+| `/how-much-rent-can-a-nail-salon-afford` | Critical | Nail salon rent affordability |  |  |  |  |
+| `/how-much-rent-can-a-gym-afford` | Critical | Gym rent affordability |  |  |  |  |
 | `/commercial-lease-checklist-before-signing` | Critical | Before-signing checklist hub |  |  |  |  |
 | `/compare` | High | First-pass comparison of two commercial sites |  |  |  |  |
 | `/how-much-rent-can-a-shop-afford` | High | Shop or retail rent affordability |  |  |  |  |
@@ -90,6 +93,9 @@ If clicks happen:
 Target pages:
 - `/commercial-rent-affordability-calculator`
 - `/how-much-rent-can-a-cafe-afford`
+- `/how-much-rent-can-a-coffee-shop-afford`
+- `/how-much-rent-can-a-nail-salon-afford`
+- `/how-much-rent-can-a-gym-afford`
 - `/how-much-rent-can-a-shop-afford`
 - `/how-much-rent-can-a-takeaway-afford`
 - `/how-much-rent-can-a-barber-shop-afford`
@@ -98,6 +104,9 @@ Queries:
 - commercial rent affordability calculator
 - commercial rent burden calculator
 - how much rent can a cafe afford
+- how much rent can a coffee shop afford
+- how much rent can a nail salon afford
+- how much rent can a gym afford
 - how much rent can a shop afford
 - how much rent can a takeaway afford
 - how much rent can a barber shop afford

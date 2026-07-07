@@ -31,7 +31,7 @@ New features should be paused unless they directly fix conversion, trust, or bro
 - Commercial rent affordability calculator
 - Commercial lease checklist before signing
 - Commercial before-signing cluster
-- Business-type pages for cafe, shop, takeaway, barber shop, restaurant, and salon
+- Business-type pages for cafe, coffee shop, shop, takeaway, barber shop, restaurant, salon, nail salon, and gym
 
 ### Tracking and admin
 - Organic funnel tracking
@@ -57,6 +57,7 @@ New features should be paused unless they directly fix conversion, trust, or bro
 - Compare feature gives a useful first-pass screen
 - SEO has early commercial and niche signals
 - AI Overview and source-panel signal has appeared for restaurant lease viability
+- Controlled next-step business-type tests now include coffee shop, nail salon, and gym pages after early signal from cafe, restaurant, salon, and barber pages
 
 ## 4. Known rough edges to watch
 
@@ -68,6 +69,7 @@ New features should be paused unless they directly fix conversion, trust, or bro
 - No paid ads for now because budget is tight
 - No manual outreach or Reddit strategy
 - Residential and rental valuation traffic is noisy and not core product intent
+- New controlled business-type SEO tests should stay narrow until GSC and funnel data show which pages deserve more attention
 
 ## 5. Intentional deferrals
 
@@ -81,6 +83,7 @@ New features should be paused unless they directly fix conversion, trust, or bro
 | Accounts or saved dashboards | V1 does not need a workspace | Compare usage proves repeat behaviour |
 | Multi-site workspace | Compare is only a first-pass screen | Compare usage becomes meaningful |
 | More SEO pages | Current clusters still need proof | Current clusters are indexed and showing signal |
+| Controlled next-step business-type pages | Early signal exists but traffic is still tiny | New pages show impressions, position, and check-start signal |
 | B2B or API product | Not proven yet | First unaffiliated paying customer or repeat demand |
 | Custom PDF generation | Current print flow is enough | Print flow no longer meets customer needs |
 
@@ -126,6 +129,7 @@ Check weekly:
 - Sample file clicks
 - Checkout starts
 - Payment completions
+- Coffee shop, nail salon, and gym page impressions and check starts
 
 Pages and queries to watch:
 - restaurant lease viability check

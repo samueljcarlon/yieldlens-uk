@@ -16,6 +16,7 @@ The current route list covers:
 - the commercial check and compare pages
 - the sample file and paid-file explanation pages
 - the restaurant, salon, cafe, shop, takeaway, and barber shop pages
+- the coffee shop, nail salon, and gym pages
 - the commercial lease checklist and supporting before-signing pages
 - trust pages such as About, Contact, Terms, Privacy, and How it works
 - `sitemap.xml` and `robots.txt`
