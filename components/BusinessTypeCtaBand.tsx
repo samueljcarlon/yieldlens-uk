@@ -1,10 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 interface BusinessTypeCtaBandProps {
   pagePath: string;
+  businessType: string;
   copy: string;
   sampleLabel?: string;
   compareHref?: string;
@@ -14,6 +14,7 @@ interface BusinessTypeCtaBandProps {
 
 export default function BusinessTypeCtaBand({
   pagePath,
+  businessType,
   copy,
   sampleLabel = 'View the sample Standard Commercial Viability File.',
   compareHref = '/compare',
@@ -36,9 +37,21 @@ export default function BusinessTypeCtaBand({
             </p>
             <p className="mt-2 text-sm text-stone-600 leading-7">
               Want to see what the paid file looks like first?{' '}
-              <Link href="/sample-commercial-viability-file" className="font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]">
+              <TrackedCtaLink
+                href="/sample-commercial-viability-file"
+                eventName="commercial_viability_page_cta_clicked"
+                pagePath={pagePath}
+                ctaLabel="business_page_sample_file_cta"
+                ctaLocation="business_page_cta_band"
+                pageType="seo_page"
+                metadata={{
+                  business_type: businessType,
+                  product_area: 'business_type_page',
+                }}
+                className="font-medium text-[var(--yieldlens-caution)] hover:text-[var(--yieldlens-primary)]"
+              >
                 {sampleLabel}
-              </Link>
+              </TrackedCtaLink>
             </p>
           </div>
           <div className="flex flex-col gap-3 lg:items-end">
@@ -46,19 +59,32 @@ export default function BusinessTypeCtaBand({
               href="/check?mode=commercial"
               eventName="commercial_home_cta_clicked"
               pagePath={pagePath}
-              ctaLabel="Run a free commercial check"
+              ctaLabel="business_page_free_check_cta"
               pageType="seo_page"
+              metadata={{
+                business_type: businessType,
+                product_area: 'business_type_page',
+              }}
               className="inline-flex items-center justify-center rounded-xl bg-[var(--yieldlens-primary)] px-6 py-3 text-sm font-semibold text-stone-950 hover:bg-[var(--yieldlens-primary-hover)] transition-colors"
             >
               Run a free commercial check
             </TrackedCtaLink>
             {showCompare ? (
-              <Link
+              <TrackedCtaLink
                 href={compareHref}
+                eventName="commercial_viability_page_cta_clicked"
+                pagePath={pagePath}
+                ctaLabel="business_page_compare_cta"
+                ctaLocation="business_page_cta_band"
+                pageType="seo_page"
+                metadata={{
+                  business_type: businessType,
+                  product_area: 'business_type_page',
+                }}
                 className="inline-flex items-center justify-center rounded-xl border border-stone-300 bg-stone-50 px-6 py-3 text-sm font-medium text-stone-700 hover:border-stone-400 hover:bg-stone-100 transition-colors"
               >
                 {compareLabel}
-              </Link>
+              </TrackedCtaLink>
             ) : null}
           </div>
         </div>

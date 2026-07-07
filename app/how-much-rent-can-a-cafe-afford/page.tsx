@@ -799,6 +799,7 @@ export default function CafeRentAffordabilityPage() {
 
       <BusinessTypeCtaBand
         pagePath="/how-much-rent-can-a-cafe-afford"
+        businessType="cafe"
         copy="Use the free commercial check to test daily customers, average spend, costs, and opening cash before spending time or money on the next stage."
         compareLabel="Comparing two possible sites? Compare two sites before taking one further."
       />

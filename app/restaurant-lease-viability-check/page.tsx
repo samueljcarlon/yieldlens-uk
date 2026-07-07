@@ -715,6 +715,7 @@ export default function RestaurantLeaseViabilityPage() {
 
       <BusinessTypeCtaBand
         pagePath="/restaurant-lease-viability-check"
+        businessType="restaurant"
         copy="Use the free commercial check to test covers, staffing, food costs, and fit-out before spending time or money on the next stage."
         compareLabel="Comparing two possible sites? Compare two sites before taking one further."
       />

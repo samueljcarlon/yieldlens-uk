@@ -517,6 +517,7 @@ export default function ShopRentAffordabilityPage() {
 
       <BusinessTypeCtaBand
         pagePath="/how-much-rent-can-a-shop-afford"
+        businessType="shop"
         copy="Use the free commercial check to test footfall, conversion, stock margin, staffing, and opening cash before spending time or money on the next stage."
         compareLabel="Comparing two possible sites? Compare two sites before taking one further."
       />

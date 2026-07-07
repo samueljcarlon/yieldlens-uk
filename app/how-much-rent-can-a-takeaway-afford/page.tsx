@@ -540,6 +540,7 @@ export default function TakeawayRentAffordabilityPage() {
 
       <BusinessTypeCtaBand
         pagePath="/how-much-rent-can-a-takeaway-afford"
+        businessType="takeaway"
         copy="Use the free commercial check to test order volume, delivery fees, equipment, fit-out, and opening cash before spending time or money on the next stage."
         compareLabel="Comparing two possible sites? Compare two sites before taking one further."
       />

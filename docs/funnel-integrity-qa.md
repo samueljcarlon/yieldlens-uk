@@ -32,7 +32,7 @@ Compare page viewed
 | `commercial_check_submitted` | `app/results/page.tsx` | Fires once after a commercial submission is loaded and not yet tracked | `page_path`, `page_type`, `funnel_area`, `mode`, `source_page`, `postcode`, `has_address`, `business_type` | Funnel stage 2 and submission counts | Guarded by local tracking state and submission ID tracking to reduce duplicate fires. |
 | `results_viability_file_requested_clicked` | `components/ReportInterestButton.tsx` and results CTA surfaces | Fires on paid-file CTA click | `source_path`, `page_path`, `cta_label`, `cta_location`, `destination`, `destination_path`, `funnel_area`, `mode`, `source_page`, `postcode`, `has_address`, `business_type` | Funnel stage for sample or paid-file intent | This is the paid-file request signal. It fires before the request is sent so click intent is captured even if the request fails. |
 | `results_report_preview_clicked` | `components/ResultsConversionPanel.tsx` and `app/results/page.tsx` | Fires on sample file link clicks and paid-file preview CTAs | `source_path`, `page_path`, `cta_label`, `cta_location`, `destination`, `destination_path`, `funnel_area`, `page_type` | Raw event view, CTA analysis | This single event name currently covers both the sample file and the paid-file preview CTA. Use `cta_label` to separate them. |
-| `commercial_viability_page_cta_clicked` | `TrackedCtaLink` instances on compare and bridge surfaces | Fires on bridge CTAs such as `Check one site instead` | `source_path`, `page_path`, `cta_label`, `cta_location`, `destination`, `destination_path`, `funnel_area`, `page_type` | Source page and bridge CTA analysis | Useful for understanding whether users exit compare or SEO pages back into the main check. |
+| `commercial_viability_page_cta_clicked` | `TrackedCtaLink` instances on compare, sample, and bridge surfaces | Fires on bridge CTAs such as `Check one site instead` and business-page sample file clicks | `source_path`, `page_path`, `cta_label`, `cta_location`, `destination`, `destination_path`, `funnel_area`, `page_type`, `business_type`, `product_area` | Source page and bridge CTA analysis | Useful for understanding whether users exit compare or SEO pages back into the main check. Business pages use `business_page_free_check_cta`, `business_page_sample_file_cta`, and `business_page_compare_cta` labels. |
 | `checkout_started` | `app/api/report-payment/create-checkout-session/route.ts` | Fires when Stripe checkout is actually created | `page_path`, `page_type`, `funnel_area`, `mode`, `source_page`, `current_page_path`, `current_page_type`, `current_mode`, `business_type`, `postcode`, `has_address`, attribution fields | Funnel stage 4 and checkout starts | Server-side event. Also mirrored into Google Ads conversion tracking from the thank-you page. |
 | `payment_completed` | `app/api/stripe/webhook/route.ts` | Fires when Stripe confirms payment completion | `page_path`, `page_type`, `funnel_area`, `mode`, `source_page`, `current_page_path`, `current_page_type`, `current_mode`, `report_request_stage`, `business_type`, `postcode`, `has_address` | Funnel stage 5 and payment counts | Server-side webhook event. This is the source of truth for paid conversions. |
 | `paid_file_opened` | `app/commercial-viability-file/[id]/page.tsx` | Fires when paid file access is confirmed and the memo opens | `page_path`, `page_type`, `funnel_area`, `mode`, `business_type`, `postcode`, `has_address` | Funnel stage 6 and paid-file opens | Server-side safe metadata plus client-side Google Ads conversion dedupe. |
@@ -61,6 +61,7 @@ Compare pages and print buttons are currently observable through page view track
 - Safe metadata is already centralised in `lib/safeToolEventMetadata.ts` and strips anything outside the allowed key set.
 - Compare currently has page-view and CTA tracking, but no dedicated compare start or submission events.
 - Sample file clicks are visible, but they share an event name with the paid-file preview CTA and must be split by `cta_label` if analysed.
+- The ranking business-type pages are also conversion source pages. Use `source_path`, `page_path`, `cta_label`, and `business_type` to connect search entry pages to the free check, sample file, compare, checkout, and paid-file steps.
 
 ## Safe metadata rules
 
@@ -83,6 +84,7 @@ Allowed fields in the funnel are intentionally narrow:
 - `destination_path`
 - `mode`
 - `funnel_area`
+- `product_area`
 
 Do not add:
 
@@ -118,6 +120,7 @@ Do not add:
 - Check the funnel page and raw events page daily while the product is in observe mode.
 - Use the report detail view only when a specific saved result needs address or postcode review.
 - Treat compare and sample-file usage as supporting signals, not as the primary paid funnel.
+- For the business-type pages, read the chain as: impression -> click -> free check start -> free check submission -> sample or paid CTA -> checkout -> payment.
 - Keep title, description, CTA, and event names stable unless there is a clear bug.
 
 ## Safety reminder

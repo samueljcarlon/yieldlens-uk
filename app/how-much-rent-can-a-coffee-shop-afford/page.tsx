@@ -521,6 +521,7 @@ export default function CoffeeShopRentAffordabilityPage() {
 
       <BusinessTypeCtaBand
         pagePath="/how-much-rent-can-a-coffee-shop-afford"
+        businessType="coffee_shop"
         copy="Use the free commercial check to test daily customers, average spend, gross margin, and opening cash before spending time or money on the next stage."
         compareLabel="Comparing two possible sites? Compare two sites before taking one further."
       />

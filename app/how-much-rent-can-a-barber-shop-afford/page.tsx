@@ -450,6 +450,7 @@ export default function BarberShopRentAffordabilityPage() {
 
       <BusinessTypeCtaBand
         pagePath="/how-much-rent-can-a-barber-shop-afford"
+        businessType="barber_shop"
         copy="Use the free commercial check to test chair utilisation, cuts per day, average spend, staffing, and opening cash before spending time or money on the next stage."
         showCompare={false}
       />

@@ -514,6 +514,7 @@ export default function GymRentAffordabilityPage() {
 
       <BusinessTypeCtaBand
         pagePath="/how-much-rent-can-a-gym-afford"
+        businessType="gym"
         copy="Use the free commercial check to test memberships, equipment, staff costs, and slower ramp-up before spending time or money on the next stage."
         compareLabel="Comparing two possible sites? Compare two sites before taking one further."
       />

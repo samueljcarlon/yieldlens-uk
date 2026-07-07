@@ -120,6 +120,8 @@ function formatSafeFields(event: ToolEvent): Array<{ label: string; value: strin
     { label: 'UTM source', value: getMetaString(event, 'utm_source') },
     { label: 'UTM medium', value: getMetaString(event, 'utm_medium') },
     { label: 'UTM campaign', value: getMetaString(event, 'utm_campaign') },
+    { label: 'Business type', value: getMetaString(event, 'business_type') },
+    { label: 'Product area', value: getMetaString(event, 'product_area') },
     { label: 'CTA label', value: getMetaString(event, 'cta_label') },
     { label: 'CTA location', value: getMetaString(event, 'cta_location') },
   ];

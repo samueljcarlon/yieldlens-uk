@@ -662,6 +662,7 @@ export default function SalonLeaseViabilityPage() {
 
       <BusinessTypeCtaBand
         pagePath="/salon-lease-viability-check"
+        businessType="salon"
         copy="Use the free commercial check to test bookings, chair and treatment-room utilisation, staffing, and opening cash before spending time or money on the next stage."
         compareLabel="Comparing two possible sites? Compare two sites before taking one further."
       />

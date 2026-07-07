@@ -27,6 +27,7 @@ const SAFE_METADATA_KEYS = new Set([
   'destination',
   'destination_path',
   'business_type',
+  'product_area',
   'postcode',
   'has_address',
   'utm_source',

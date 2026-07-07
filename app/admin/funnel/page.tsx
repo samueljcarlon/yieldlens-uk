@@ -230,6 +230,8 @@ function summarizeSafeMetadata(event: ToolEvent): string {
     'utm_source',
     'utm_medium',
     'utm_campaign',
+    'business_type',
+    'product_area',
     'result_band',
   ];
 

@@ -514,6 +514,7 @@ export default function NailSalonRentAffordabilityPage() {
 
       <BusinessTypeCtaBand
         pagePath="/how-much-rent-can-a-nail-salon-afford"
+        businessType="nail_salon"
         copy="Use the free commercial check to test appointment capacity, utilisation, staffing, and opening cash before spending time or money on the next stage."
         showCompare={false}
       />

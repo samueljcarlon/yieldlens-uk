@@ -9,6 +9,7 @@ YieldLens UK is now in observe, bug-fix and signal-tuning mode. This note turns 
 - Page expansion is paused until the current pages show which clusters Google understands.
 - Wrong-intent rental valuation traffic should not drive strategy.
 - The goal is to improve the pages already on the site before adding anything new.
+- Several of the ranking business-type pages are also conversion source pages. Use `source_path` and `page_path` from funnel events to connect GSC page signal to admin funnel activity instead of reading search data in isolation.
 
 ## 2. Indexing checklist
 
