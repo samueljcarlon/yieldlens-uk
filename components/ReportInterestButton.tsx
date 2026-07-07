@@ -45,12 +45,12 @@ export default function ReportInterestButton({
           event_name: 'results_viability_file_requested_clicked',
           page_path: '/results',
           tool_name: 'commercial_funnel',
-          result_label: 'Unlock the £49 viability file',
+          result_label: 'Unlock the £49 Standard file',
           result_band: 'cta_click',
             metadata: {
               source_path: '/results',
               page_path: '/results',
-              cta_label: 'Unlock the £49 viability file',
+              cta_label: 'Unlock the £49 Standard file',
               cta_location: 'results',
               destination: '/thank-you',
               destination_path: '/thank-you',
@@ -107,7 +107,7 @@ export default function ReportInterestButton({
         {status === 'loading'
           ? 'Preparing your file...'
           : submission.mode === 'commercial'
-            ? 'Unlock the £49 viability file'
+            ? 'Unlock the £49 Standard file'
             : 'Request full viability file'}
       </button>
 

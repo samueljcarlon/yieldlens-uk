@@ -1738,7 +1738,7 @@ export default async function CommercialViabilityFilePage({
                 Standard commercial viability file
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl leading-8">
-                A £49 decision memo that turns the saved commercial result into one printable report for negotiation and due diligence. It pulls the rent burden, break-even customers, opening capital stack, downside trading, lease questions, and next actions into one place.
+                A £49 decision memo that turns the saved commercial result into one printable memo for negotiation and due diligence. It pulls the rent burden, break-even customers, opening capital stack, downside trading, lease questions, and next actions into one place.
               </p>
               <p className="mt-4 text-sm text-stone-300 max-w-2xl leading-7">
                 If the saved check includes a postcode or address, the memo keeps local evidence prompts in view too, such as nearby rent evidence, business rates, EPC, and building-condition assumptions.

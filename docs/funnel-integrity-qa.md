@@ -63,6 +63,8 @@ Compare pages and print buttons are currently observable through page view track
 - Sample file clicks are visible, but they share an event name with the paid-file preview CTA and must be split by `cta_label` if analysed.
 - The ranking business-type pages are also conversion source pages. Use `source_path`, `page_path`, `cta_label`, and `business_type` to connect search entry pages to the free check, sample file, compare, checkout, and paid-file steps.
 - On the results page, `business_type` context should shape the memo-style bridge and paid-file interpretation. `source_path` and `landing_page` stay for attribution only and should not be shown publicly.
+- The paid-file bridge stays for one selected site only, and the sample file is the proof asset before payment.
+- Checkout metadata should stay safe and narrow. Keep `business_type`, `source_path`, `landing_page`, `page_path`, `cta_label`, `product_area`, and related safe attribution only.
 - The paid-file CTA remains for one selected site only. Compare remains a screening tool, not a two-site paid file.
 
 ## Safe metadata rules

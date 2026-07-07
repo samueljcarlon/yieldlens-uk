@@ -65,12 +65,14 @@ export default async function PaymentSuccessPage({
         </p>
 
         <h1 className="text-3xl font-bold text-stone-900 mb-4">
-          {isReady ? 'Your commercial viability file is ready to open.' : 'Payment received. Your file is being unlocked.'}
+          {isReady
+            ? 'Your payment has been received. Your file is ready to open.'
+            : 'Payment received. Your file is being unlocked.'}
         </h1>
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">
           {isReady
-            ? 'Open the Standard file from this page. You can print it or save it as PDF for negotiation and due diligence. If your assumptions change later, rerun the free commercial check and unlock the latest saved result again.'
+            ? 'Open the Standard file from this page. You can print it or save it as PDF for negotiation and due diligence. If your assumptions change later, rerun the free commercial check and unlock the latest saved result again. If access does not appear, email yieldlensuk@gmail.com with the email used at checkout, the approximate payment time, and a short description of the issue.'
             : 'Payment received. Your file may take a few seconds to unlock. Refresh this page shortly, then open the file from this page. If access does not appear, email yieldlensuk@gmail.com with the email used at checkout, the approximate payment time, and a short description of the issue. Please do not send card details or other sensitive payment information.'}
         </p>
 
@@ -96,11 +98,11 @@ export default async function PaymentSuccessPage({
               href={fileHref}
               className="bg-[var(--yieldlens-primary)] text-white px-5 py-2.5 rounded text-sm font-medium hover:bg-[var(--yieldlens-primary-hover)]"
             >
-              Open your viability file
+              Open the Standard file
             </Link>
           ) : (
             <span className="inline-flex items-center justify-center bg-[var(--yieldlens-primary)] text-white px-5 py-2.5 rounded text-sm font-medium opacity-70">
-              Open your viability file
+              Open the Standard file
             </span>
           )}
 

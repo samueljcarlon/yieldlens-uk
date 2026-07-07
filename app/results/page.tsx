@@ -1238,6 +1238,34 @@ export default function ResultsPage() {
         </p>
 
         {!isResidential && (
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-[#5b7d58] font-semibold mb-2">
+                What you get
+              </p>
+              <ul className="space-y-1.5 text-sm text-stone-700 leading-6">
+                <li>Executive summary and verdict</li>
+                <li>Business-type interpretation</li>
+                <li>Location checks to verify</li>
+                <li>Stress-test notes and evidence gaps</li>
+                <li>Lease questions and negotiation prompts</li>
+                <li>Printable decision memo for one selected site</li>
+              </ul>
+            </div>
+
+            <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-[#5b7d58] font-semibold mb-2">
+                What it does not do
+              </p>
+              <ul className="space-y-1.5 text-sm text-stone-700 leading-6">
+                <li>It does not replace legal, valuation, survey, or professional due diligence</li>
+                <li>It does not verify local rent, rates, EPC, planning, licensing, or sales</li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {!isResidential && (
           <p className="mt-3 text-xs text-stone-600 leading-6 max-w-3xl">
             Spend £49 before you spend £2,500+. Professional costs vary. £2,500+ is an indicative comparison, not a guaranteed cost or saving.
           </p>
@@ -1265,14 +1293,14 @@ export default function ResultsPage() {
                   className="inline-flex w-full items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)] sm:w-auto"
                   eventName="results_report_preview_clicked"
                   pagePath="/results"
-                  ctaLabel="Get the negotiation and due diligence file"
+                  ctaLabel="Unlock the £49 Standard file"
                   pageType="results"
                   metadata={{
                     business_type: businessTypeInfo.shortLabel,
                     product_area: 'results_paid_bridge',
                   }}
                 >
-                  Unlock the £49 viability file
+                  Unlock the £49 Standard file
                 </TrackedCtaLink>
               )}
             </div>

@@ -203,7 +203,7 @@ export async function POST(request: NextRequest) {
 
     const amountDuePence = 4900;
     const currency = 'GBP';
-    const productName = 'Standard commercial viability file';
+    const productName = '£49 Standard Commercial Viability File';
     let customerAccessToken = reportRequest.customer_access_token as string | null;
     const input = reportRequest.input_json && typeof reportRequest.input_json === 'object'
       ? (reportRequest.input_json as Record<string, unknown>)
@@ -275,14 +275,16 @@ export async function POST(request: NextRequest) {
       line_items: [
         {
           quantity: 1,
-          price_data: {
-            currency: 'gbp',
-            unit_amount: amountDuePence,
-            product_data: {
-              name: productName,
+            price_data: {
+              currency: 'gbp',
+              unit_amount: amountDuePence,
+              product_data: {
+                name: productName,
+                description:
+                  'First-pass commercial rent affordability and lease viability decision-support file for one selected UK commercial site.',
+              },
             },
           },
-        },
       ],
     });
 

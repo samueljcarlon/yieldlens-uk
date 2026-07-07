@@ -99,7 +99,7 @@ export default function ThankYouClient({ requestId }: { requestId: string }) {
         </p>
 
         <h1 className="text-3xl font-bold text-stone-900 mb-4">
-          Your report request has been received.
+          Your file request has been received.
         </h1>
 
         <p className="text-sm text-stone-600 leading-7 max-w-2xl mx-auto">
