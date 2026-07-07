@@ -20,25 +20,30 @@ export const metadata: Metadata = {
   },
 };
 
-const productStructuredData = {
+const pageStructuredData = {
   '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: 'Standard commercial viability file',
+  '@type': 'WebPage',
+  name: 'Standard Commercial Viability File',
   description:
-    'A £49 decision-support file that organises the saved commercial result, stress-test interpretation, negotiation levers, evidence checklist, lease questions, and printable memo before signing a commercial lease.',
-  brand: {
-    '@type': 'Brand',
-    name: 'YieldLens UK',
-  },
-  category: 'Decision-support file',
-  offers: {
-    '@type': 'Offer',
-    price: '49',
-    priceCurrency: 'GBP',
-    availability: 'https://schema.org/OnlineOnly',
-    url: 'https://yieldlens.co.uk/viability-file',
-  },
+    'A £49 printable decision-support memo built from the saved commercial check assumptions before signing a commercial lease.',
+  url: 'https://yieldlens.co.uk/viability-file',
 };
+
+const softwareApplicationStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'YieldLens UK Standard Commercial Viability File',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  description:
+    'First-pass commercial rent affordability and lease viability decision-support file for one selected UK commercial site.',
+  url: 'https://yieldlens.co.uk/viability-file',
+};
+
+const structuredData = [
+  pageStructuredData,
+  softwareApplicationStructuredData,
+];
 
 const faqStructuredData = {
   '@context': 'https://schema.org',
@@ -253,7 +258,7 @@ function ComparisonRowCard({
 export default function ViabilityFilePage() {
   return (
     <div className="bg-stone-50">
-      <JsonLd data={productStructuredData} />
+      <JsonLd data={structuredData} />
       <JsonLd data={faqStructuredData} />
       <FunnelEventTracker
         eventName="inbound_page_view"
