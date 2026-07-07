@@ -47,22 +47,23 @@ export default function ReportInterestButton({
           tool_name: 'commercial_funnel',
           result_label: 'Unlock the £49 viability file',
           result_band: 'cta_click',
-          metadata: {
-            source_path: '/results',
-            page_path: '/results',
-            cta_label: 'Unlock the £49 viability file',
-            cta_location: 'results',
-            destination: '/thank-you',
-            destination_path: '/thank-you',
-            funnel_area: 'commercial',
-            page_type: 'results',
-            mode: submission.mode,
-            source_page: '/results',
-            postcode: getSubmissionTextValue(submission, 'postcode'),
-            has_address: hasSubmissionAddress(submission),
-            ...(businessType ? { business_type: businessType } : {}),
-          },
-        });
+            metadata: {
+              source_path: '/results',
+              page_path: '/results',
+              cta_label: 'Unlock the £49 viability file',
+              cta_location: 'results',
+              destination: '/thank-you',
+              destination_path: '/thank-you',
+              funnel_area: 'commercial',
+              page_type: 'results',
+              mode: submission.mode,
+              source_page: '/results',
+              product_area: 'results_paid_bridge',
+              postcode: getSubmissionTextValue(submission, 'postcode'),
+              has_address: hasSubmissionAddress(submission),
+              ...(businessType ? { business_type: businessType } : {}),
+            },
+          });
       }
 
       const response = await fetch('/api/report-interest', {

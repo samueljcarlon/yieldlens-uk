@@ -391,6 +391,44 @@ function getCommercialResultSummary(result: CommercialResult): string {
   return 'The free result is a useful snapshot, but it still needs evidence around demand, costs, and lease terms.';
 }
 
+function getBusinessTypeContextLine(info: ReturnType<typeof getCommercialBusinessTypeInfo>): string {
+  switch (info.key) {
+    case 'cafe':
+      return 'This result uses the cafe assumptions you submitted, including rent, revenue, costs and opening cash.';
+    case 'restaurant':
+      return 'This result uses the restaurant assumptions you submitted, including rent, revenue, costs and opening cash.';
+    case 'salon':
+      return 'This result uses the salon assumptions you submitted, including rent, revenue, costs and opening cash.';
+    case 'barber_shop':
+      return 'This result uses the barber shop assumptions you submitted, including rent, revenue, costs and opening cash.';
+    case 'shop_retail':
+      return 'This result uses the shop or retail assumptions you submitted, including rent, revenue, costs and opening cash.';
+    case 'takeaway':
+      return 'This result uses the takeaway assumptions you submitted, including rent, revenue, costs and opening cash.';
+    default:
+      return 'This result uses the commercial-site assumptions you submitted, including rent, revenue, costs and opening cash.';
+  }
+}
+
+function getBusinessTypeBridgeLine(info: ReturnType<typeof getCommercialBusinessTypeInfo>): string {
+  switch (info.key) {
+    case 'cafe':
+      return 'For a cafe, it helps organise customer-volume assumptions, quieter-period pressure, staffing, service charge, rates and opening-cash checks.';
+    case 'restaurant':
+      return 'For a restaurant, it helps organise covers, food-cost assumptions, staffing, fit-out, service charge, rates, downside trading and lease-risk questions.';
+    case 'salon':
+      return 'For a salon, it helps organise booking capacity, chair or treatment-room utilisation, staffing, fit-out, rates, service charge and lease-risk questions.';
+    case 'barber_shop':
+      return 'For a barber shop, it helps organise chair utilisation, cuts or appointments per day, average spend, staffing, quieter periods and opening-cash checks.';
+    case 'shop_retail':
+      return 'For a shop, it helps organise footfall, conversion, stock margin, staffing, service charge, rates and cash tied up in stock.';
+    case 'takeaway':
+      return 'For a takeaway, it helps organise order volume, average order value, delivery-platform costs, equipment, extraction or ventilation checks, rates and opening-cash pressure.';
+    default:
+      return 'For this type of commercial site, it helps organise the assumptions, evidence gaps and lease questions that need checking before taking the site further.';
+  }
+}
+
 function getLocationContextSummary(submission: Submission): string {
   const location = getCommercialLocationValue(submission);
 
@@ -616,6 +654,8 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
   const resultReason = getCommercialResultReason(result);
   const resultDrivers = getCommercialResultDrivers(result);
   const assumptions = getCommercialAssumptions(submission);
+  const businessTypeContextLine = getBusinessTypeContextLine(businessTypeInfo);
+  const businessTypeBridgeLine = getBusinessTypeBridgeLine(businessTypeInfo);
 
   return (
     <section className="mb-8 overflow-hidden rounded-[32px] border border-stone-200 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
@@ -642,6 +682,10 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
 
             <p className="mt-3 text-sm text-stone-300 leading-6 max-w-3xl">
               {businessTypeInfo.summaryLine}
+            </p>
+
+            <p className="mt-3 text-sm text-stone-300 leading-6 max-w-3xl">
+              {businessTypeContextLine}
             </p>
 
             <p className="mt-3 text-sm text-stone-300 leading-6 max-w-3xl">
@@ -672,16 +716,20 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
             </div>
 
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              <TrackedCtaLink
-                href="/report"
-                className={`${primaryCtaClass} w-full sm:w-auto`}
-                eventName="results_report_preview_clicked"
-                pagePath="/results"
-                ctaLabel="Unlock the £49 Standard file"
-                pageType="results"
-              >
-                Unlock the £49 Standard file
-              </TrackedCtaLink>
+            <TrackedCtaLink
+              href="/report"
+              className={`${primaryCtaClass} w-full sm:w-auto`}
+              eventName="results_report_preview_clicked"
+              pagePath="/results"
+              ctaLabel="Unlock the £49 Standard file"
+              pageType="results"
+              metadata={{
+                business_type: businessTypeInfo.shortLabel,
+                product_area: 'results_paid_bridge',
+              }}
+            >
+              Unlock the £49 Standard file
+            </TrackedCtaLink>
 
               <Link
                 href="/check?mode=commercial"
@@ -1060,6 +1108,8 @@ export default function ResultsPage() {
   const result = submission.result;
   const commercialResultSummary = isResidential ? undefined : getCommercialResultSummary(result as CommercialResult);
   const email = getEmail(submission);
+  const businessTypeInfo = getCommercialBusinessTypeInfoForSubmission(submission);
+  const businessTypeBridgeLine = getBusinessTypeBridgeLine(businessTypeInfo);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
@@ -1154,10 +1204,13 @@ export default function ResultsPage() {
         <p className="font-semibold text-stone-900 mb-3">What the £49 file adds</p>
 
         <p className="text-sm text-[var(--yieldlens-muted)] leading-7 mb-4 max-w-3xl">
-          It organises the tailored evidence gaps, location checks, lease questions, assumptions,
-          stress-test interpretation, and printable memo around the business type you selected, so the
-          file can read as covers, orders, appointments, footfall, stock margin, or chair utilisation
-          where relevant.
+          The £49 Standard Commercial Viability File turns this first-pass result into a printable
+          decision memo for one selected site. It adds business-type interpretation, location checks to
+          verify, stress-test notes, evidence gaps, lease questions and negotiation prompts.
+        </p>
+
+        <p className="text-sm text-[var(--yieldlens-muted)] leading-7 mb-4 max-w-3xl">
+          {businessTypeBridgeLine}
         </p>
 
         <ol className="space-y-2 text-sm text-[var(--yieldlens-muted)] list-decimal list-inside">
@@ -1169,7 +1222,7 @@ export default function ResultsPage() {
 
       <div className="mt-8 bg-white border border-stone-200 rounded-2xl p-6 sm:p-7 shadow-sm">
         <p className="text-xs uppercase tracking-[0.22em] text-green-700 font-semibold mb-2">
-          {isResidential ? 'Commercial file for commercial checks only' : 'Unlock the £49 viability file'}
+          {isResidential ? 'Commercial file for commercial checks only' : 'Need a decision memo before taking this site further?'}
         </p>
 
         <h2 className="text-xl font-bold text-stone-900 mb-2">
@@ -1181,12 +1234,12 @@ export default function ResultsPage() {
         <p className="text-sm text-stone-700 leading-7 max-w-3xl">
           {isResidential
             ? 'Your residential check has been saved. Use the residential tools and cash flow pages to keep pressure-testing the property, or run the commercial check if you are assessing a lease decision.'
-            : 'The Standard commercial viability file adds stress tests, negotiation levers, lease questions, due diligence prompts, ranked actions, and a clearer final view before you commit. It is unlocked from this saved result, then opens as a memo you can print or save as PDF.'}
+            : 'The Standard Commercial Viability File adds stress tests, negotiation levers, lease questions, due diligence prompts, ranked actions, and a clearer final view before you commit. It is unlocked from this saved result, then opens as a memo you can print or save as PDF.'}
         </p>
 
         {!isResidential && (
           <p className="mt-3 text-xs text-stone-600 leading-6 max-w-3xl">
-            Spend £49 before you spend £2,500+ on the full pre-signing process. Professional lease reviews, surveys and pre-signing checks can quickly cost £2,500+ before you commit to a site.
+            Spend £49 before you spend £2,500+. Professional costs vary. £2,500+ is an indicative comparison, not a guaranteed cost or saving.
           </p>
         )}
 
@@ -1214,6 +1267,10 @@ export default function ResultsPage() {
                   pagePath="/results"
                   ctaLabel="Get the negotiation and due diligence file"
                   pageType="results"
+                  metadata={{
+                    business_type: businessTypeInfo.shortLabel,
+                    product_area: 'results_paid_bridge',
+                  }}
                 >
                   Unlock the £49 viability file
                 </TrackedCtaLink>
@@ -1250,7 +1307,7 @@ export default function ResultsPage() {
 
           <div className="rounded-[28px] border border-stone-200 bg-[var(--yieldlens-panel)] p-5 shadow-sm">
             <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold mb-2">
-              Sample file proof
+              Sample viability file proof
             </p>
 
             <p className="text-sm text-stone-700 leading-7">
@@ -1262,7 +1319,7 @@ export default function ResultsPage() {
               href="/sample-commercial-viability-file"
               className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)] sm:w-auto"
             >
-              View sample file
+              View sample viability file
             </Link>
           </div>
         </div>
@@ -1273,6 +1330,7 @@ export default function ResultsPage() {
             score={submission.score}
             verdictLabel={submission.verdict.label}
             resultSummary={commercialResultSummary}
+            businessTypeLabel={businessTypeInfo.shortLabel}
           />
         </div>
 

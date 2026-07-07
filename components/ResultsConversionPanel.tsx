@@ -16,6 +16,7 @@ interface ResultsConversionPanelProps {
   score: number;
   verdictLabel: string;
   resultSummary?: string;
+  businessTypeLabel?: string;
 }
 
 const residentialItems = [
@@ -119,6 +120,7 @@ export default function ResultsConversionPanel({
   score,
   verdictLabel,
   resultSummary,
+  businessTypeLabel,
 }: ResultsConversionPanelProps) {
   const isResidential = mode === 'residential';
   const items = isResidential ? residentialItems : commercialItems;
@@ -232,6 +234,10 @@ export default function ResultsConversionPanel({
                     pagePath="/results"
                     ctaLabel="Unlock the £49 Standard file"
                     pageType="results"
+                    metadata={{
+                      ...(businessTypeLabel ? { business_type: businessTypeLabel } : {}),
+                      product_area: 'results_page',
+                    }}
                   >
                     Unlock the £49 Standard file
                   </TrackedCtaLink>
@@ -241,10 +247,14 @@ export default function ResultsConversionPanel({
                     className={`${secondaryCtaClass} w-full sm:w-auto`}
                     eventName="results_report_preview_clicked"
                     pagePath="/results"
-                    ctaLabel="View sample file"
+                    ctaLabel="View sample viability file"
                     pageType="results"
+                    metadata={{
+                      ...(businessTypeLabel ? { business_type: businessTypeLabel } : {}),
+                      product_area: 'results_page',
+                    }}
                   >
-                    View sample file
+                    View sample viability file
                   </TrackedCtaLink>
                 </div>
 
