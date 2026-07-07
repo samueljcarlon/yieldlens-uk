@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
 
 export const metadata: Metadata = {
   title: 'Salon Lease Viability Check',
@@ -658,6 +659,12 @@ export default function SalonLeaseViabilityPage() {
           </div>
         </div>
       </section>
+
+      <BusinessTypeCtaBand
+        pagePath="/salon-lease-viability-check"
+        copy="Use the free commercial check to test bookings, chair and treatment-room utilisation, staffing, and opening cash before spending time or money on the next stage."
+        compareLabel="Comparing two possible sites? Compare two sites before taking one further."
+      />
 
       <section className="max-w-6xl mx-auto px-4 py-16">
         <SectionTitle

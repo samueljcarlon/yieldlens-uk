@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
 import FaqSection from '@/components/FaqSection';
 import {
   disclaimerClass,
@@ -516,6 +517,12 @@ export default function CoffeeShopRentAffordabilityPage() {
         description="Short answers for people who need a clearer view of rent, cash flow and lease pressure before signing."
         faqs={faqItems}
         sectionClassName="bg-[var(--yieldlens-panel)] border-y border-[var(--yieldlens-border)]"
+      />
+
+      <BusinessTypeCtaBand
+        pagePath="/how-much-rent-can-a-coffee-shop-afford"
+        copy="Use the free commercial check to test daily customers, average spend, gross margin, and opening cash before spending time or money on the next stage."
+        compareLabel="Comparing two possible sites? Compare two sites before taking one further."
       />
     </div>
   );

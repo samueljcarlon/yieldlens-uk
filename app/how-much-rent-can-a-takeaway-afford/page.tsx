@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
 import FaqSection from '@/components/FaqSection';
 
 export const metadata: Metadata = {
@@ -536,6 +537,12 @@ export default function TakeawayRentAffordabilityPage() {
           </div>
         </div>
       </section>
+
+      <BusinessTypeCtaBand
+        pagePath="/how-much-rent-can-a-takeaway-afford"
+        copy="Use the free commercial check to test order volume, delivery fees, equipment, fit-out, and opening cash before spending time or money on the next stage."
+        compareLabel="Comparing two possible sites? Compare two sites before taking one further."
+      />
     </div>
   );
 }

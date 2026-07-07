@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
 
 export const metadata: Metadata = {
   title: 'How Much Rent Can a Barber Shop Afford? | YieldLens UK',
@@ -446,6 +447,12 @@ export default function BarberShopRentAffordabilityPage() {
           </div>
         </div>
       </section>
+
+      <BusinessTypeCtaBand
+        pagePath="/how-much-rent-can-a-barber-shop-afford"
+        copy="Use the free commercial check to test chair utilisation, cuts per day, average spend, staffing, and opening cash before spending time or money on the next stage."
+        showCompare={false}
+      />
     </div>
   );
 }

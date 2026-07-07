@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
 
 export const metadata: Metadata = {
   title: 'How Much Rent Can a Cafe Afford?',
@@ -795,6 +796,12 @@ export default function CafeRentAffordabilityPage() {
           </div>
         </div>
       </section>
+
+      <BusinessTypeCtaBand
+        pagePath="/how-much-rent-can-a-cafe-afford"
+        copy="Use the free commercial check to test daily customers, average spend, costs, and opening cash before spending time or money on the next stage."
+        compareLabel="Comparing two possible sites? Compare two sites before taking one further."
+      />
     </div>
   );
 }
