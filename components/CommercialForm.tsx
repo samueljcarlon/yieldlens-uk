@@ -9,10 +9,11 @@ import {
 
 interface Props {
   onSubmit: (input: CommercialInput) => Promise<void> | void;
+  initialBusinessType?: string;
 }
 
-function isBlank(value: string): boolean {
-  return value.trim() === '';
+function isBlank(value?: string | null): boolean {
+  return !value || value.trim() === '';
 }
 
 function parseNum(val: string): number | undefined {
@@ -116,8 +117,10 @@ function FieldBlock({
   );
 }
 
-export default function CommercialForm({ onSubmit }: Props) {
-  const [form, setForm] = useState<Record<string, string>>({});
+export default function CommercialForm({ onSubmit, initialBusinessType }: Props) {
+  const [form, setForm] = useState<Record<string, string>>(
+    initialBusinessType ? { businessType: initialBusinessType } : {}
+  );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isMountedRef = useRef(true);
@@ -155,6 +158,9 @@ export default function CommercialForm({ onSubmit }: Props) {
     'Use the property address or postcode so YieldLens can organise local checks such as business rates, service charge, comparable rent evidence, and building-condition assumptions.';
   const postcodeHelper =
     'Use the postcode if you know it. If you only have the address, YieldLens can try to extract the postcode for v1.';
+  const businessTypePrefillNote = initialBusinessType
+    ? 'Business type preselected from the page you came from. You can change it.'
+    : '';
 
   const validate = (): boolean => {
     const nextErrors: Record<string, string> = {};
@@ -307,7 +313,7 @@ export default function CommercialForm({ onSubmit }: Props) {
         <FieldBlock
           label="Business type"
           required
-          helper={businessTypeHelper}
+          helper={businessTypePrefillNote ? `${businessTypeHelper} ${businessTypePrefillNote}` : businessTypeHelper}
           error={errors.businessType}
         >
           <select className={inputClass} {...field('businessType')}>

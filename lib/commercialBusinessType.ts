@@ -1,10 +1,13 @@
 export type CommercialBusinessTypeKey =
   | 'cafe'
+  | 'coffee_shop'
   | 'restaurant'
-  | 'shop_retail'
-  | 'takeaway'
   | 'salon'
+  | 'nail_salon'
   | 'barber_shop'
+  | 'gym'
+  | 'shop'
+  | 'takeaway'
   | 'other';
 
 export interface CommercialBusinessTypeInfo {
@@ -24,11 +27,14 @@ export const COMMERCIAL_BUSINESS_TYPE_OPTIONS: Array<{
   label: string;
 }> = [
   { value: 'cafe', label: 'Cafe' },
+  { value: 'coffee_shop', label: 'Coffee shop' },
   { value: 'restaurant', label: 'Restaurant' },
-  { value: 'shop_retail', label: 'Shop / retail' },
-  { value: 'takeaway', label: 'Takeaway' },
   { value: 'salon', label: 'Salon' },
+  { value: 'nail_salon', label: 'Nail salon' },
   { value: 'barber_shop', label: 'Barber shop' },
+  { value: 'gym', label: 'Gym' },
+  { value: 'shop', label: 'Shop / retail' },
+  { value: 'takeaway', label: 'Takeaway' },
   { value: 'other', label: 'Other commercial site' },
 ];
 
@@ -52,6 +58,25 @@ const BUSINESS_TYPE_INFO: Record<CommercialBusinessTypeKey, CommercialBusinessTy
     ],
     assumptionHints: ['Covers/customers', 'Staffing', 'Service charge', 'Rates', 'Opening cash'],
   },
+  coffee_shop: {
+    key: 'coffee_shop',
+    label: 'Coffee shop',
+    shortLabel: 'Coffee shop',
+    breakEvenLabel: 'Break-even customers/day',
+    helperText:
+      'Include daily customers, average spend, gross margin, staffing, service charge, rates, fit-out or equipment, and opening cash in your assumptions.',
+    summaryLine:
+      'For a coffee shop, daily customers, average spend, gross margin, and quieter weekday trade often matter more than the headline rent.',
+    evidenceGaps: [
+      'Expected daily customers',
+      'Average spend and gross margin assumptions',
+    ],
+    questions: [
+      'How do quieter weekdays affect the customer target?',
+      'Are service charge and business rates included in the cost base?',
+    ],
+    assumptionHints: ['Daily customers', 'Average spend', 'Gross margin', 'Staffing', 'Opening cash'],
+  },
   restaurant: {
     key: 'restaurant',
     label: 'Restaurant',
@@ -71,8 +96,84 @@ const BUSINESS_TYPE_INFO: Record<CommercialBusinessTypeKey, CommercialBusinessTy
     ],
     assumptionHints: ['Covers', 'Food costs', 'Staffing', 'Fit-out', 'Service charge'],
   },
-  shop_retail: {
-    key: 'shop_retail',
+  salon: {
+    key: 'salon',
+    label: 'Salon',
+    shortLabel: 'Salon',
+    breakEvenLabel: 'Break-even bookings/day',
+    helperText:
+      'Think about chairs or treatment rooms, utilisation, staffing, fit-out, rates, and service charge.',
+    summaryLine:
+      'For a salon, chair or treatment-room utilisation and appointment volume decide whether the lease feels manageable.',
+    evidenceGaps: [
+      'Chair or treatment-room utilisation',
+      'Appointment capacity',
+    ],
+    questions: [
+      'How many chairs or treatment rooms need to be active?',
+      'What appointment capacity is realistic on quieter days?',
+    ],
+    assumptionHints: ['Chairs or treatment rooms', 'Utilisation', 'Staffing', 'Fit-out', 'Service charge'],
+  },
+  nail_salon: {
+    key: 'nail_salon',
+    label: 'Nail salon',
+    shortLabel: 'Nail salon',
+    breakEvenLabel: 'Break-even appointments/day',
+    helperText:
+      'Include appointment capacity, technician utilisation, treatment time, staffing assumptions, fit-out, water or electrical needs, service charge, rates, and opening cash in your assumptions.',
+    summaryLine:
+      'For a nail salon, appointment capacity and technician utilisation often matter more than the headline rent.',
+    evidenceGaps: [
+      'Appointment capacity',
+      'Technician utilisation and treatment timing',
+    ],
+    questions: [
+      'How many appointments can the salon actually process on quieter days?',
+      'Are water, electrical, and fit-out needs already included?',
+    ],
+    assumptionHints: ['Appointments', 'Technician utilisation', 'Staffing', 'Fit-out', 'Opening cash'],
+  },
+  barber_shop: {
+    key: 'barber_shop',
+    label: 'Barber shop',
+    shortLabel: 'Barber shop',
+    breakEvenLabel: 'Break-even appointments/day',
+    helperText:
+      'Think about chair utilisation, appointments, walk-ins, average spend, staffing, and fit-out.',
+    summaryLine:
+      'For a barber shop, chair utilisation, walk-ins, and appointment volume matter more than a simple rent rule of thumb.',
+    evidenceGaps: [
+      'Chair utilisation',
+      'Walk-in versus appointment mix',
+    ],
+    questions: [
+      'How many appointments or cuts are needed per day?',
+      'What walk-in versus appointment mix is realistic?',
+    ],
+    assumptionHints: ['Chair utilisation', 'Appointments', 'Walk-ins', 'Average spend', 'Fit-out'],
+  },
+  gym: {
+    key: 'gym',
+    label: 'Gym',
+    shortLabel: 'Gym',
+    breakEvenLabel: 'Break-even memberships/day',
+    helperText:
+      'Include memberships, class capacity, personal training income, equipment, staffing, service charge, rates, and opening cash in your assumptions.',
+    summaryLine:
+      'For a gym, memberships, class capacity, equipment, staffing, and slower ramp-up often matter more than the headline rent.',
+    evidenceGaps: [
+      'Monthly memberships target',
+      'Class capacity or PT capacity',
+    ],
+    questions: [
+      'How slowly might memberships ramp up?',
+      'Are equipment and staff costs fully included?',
+    ],
+    assumptionHints: ['Memberships', 'Class capacity', 'PT income', 'Staffing', 'Opening cash'],
+  },
+  shop: {
+    key: 'shop',
     label: 'Shop / retail',
     shortLabel: 'Shop / retail',
     breakEvenLabel: 'Break-even sales/day',
@@ -109,44 +210,6 @@ const BUSINESS_TYPE_INFO: Record<CommercialBusinessTypeKey, CommercialBusinessTy
     ],
     assumptionHints: ['Orders', 'Average order value', 'Delivery-platform costs', 'Equipment', 'Extraction'],
   },
-  salon: {
-    key: 'salon',
-    label: 'Salon',
-    shortLabel: 'Salon',
-    breakEvenLabel: 'Break-even bookings/day',
-    helperText:
-      'Think about chairs or treatment rooms, utilisation, staffing, fit-out, rates, and service charge.',
-    summaryLine:
-      'For a salon, chair or treatment-room utilisation and appointment volume decide whether the lease feels manageable.',
-    evidenceGaps: [
-      'Chair or treatment-room utilisation',
-      'Appointment capacity',
-    ],
-    questions: [
-      'How many chairs or treatment rooms need to be active?',
-      'What appointment capacity is realistic on quieter days?',
-    ],
-    assumptionHints: ['Chairs or treatment rooms', 'Utilisation', 'Staffing', 'Fit-out', 'Service charge'],
-  },
-  barber_shop: {
-    key: 'barber_shop',
-    label: 'Barber shop',
-    shortLabel: 'Barber shop',
-    breakEvenLabel: 'Break-even appointments/day',
-    helperText:
-      'Think about chair utilisation, appointments, walk-ins, average spend, staffing, and fit-out.',
-    summaryLine:
-      'For a barber shop, chair utilisation, walk-ins, and appointment volume matter more than a simple rent rule of thumb.',
-    evidenceGaps: [
-      'Chair utilisation',
-      'Walk-in versus appointment mix',
-    ],
-    questions: [
-      'How many appointments or cuts are needed per day?',
-      'What walk-in versus appointment mix is realistic?',
-    ],
-    assumptionHints: ['Chair utilisation', 'Appointments', 'Walk-ins', 'Average spend', 'Fit-out'],
-  },
   other: {
     key: 'other',
     label: 'Other commercial site',
@@ -169,32 +232,57 @@ const BUSINESS_TYPE_INFO: Record<CommercialBusinessTypeKey, CommercialBusinessTy
   },
 };
 
-function normalizeCommercialBusinessTypeKey(value?: string | null): CommercialBusinessTypeKey {
+export function parseCommercialBusinessTypeKey(
+  value?: string | null
+): CommercialBusinessTypeKey | null {
   const raw = typeof value === 'string' ? value.trim().toLowerCase() : '';
 
-  if (!raw) return 'other';
+  if (!raw) return null;
 
   const normalized = raw.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ');
 
-  if (normalized.includes('cafe') || normalized.includes('coffee')) return 'cafe';
-  if (normalized.includes('restaurant')) return 'restaurant';
-  if (normalized.includes('shop / retail') || normalized.includes('shop retail')) return 'shop_retail';
+  if (normalized === 'other' || normalized.includes('other commercial')) return 'other';
+  if (normalized === 'coffee shop' || normalized === 'coffee shop/retail' || normalized === 'coffee shop retail') {
+    return 'coffee_shop';
+  }
+  if (normalized.includes('coffee shop')) return 'coffee_shop';
+  if (normalized === 'coffee_shop') return 'coffee_shop';
+  if (normalized.includes('nail salon')) return 'nail_salon';
+  if (normalized === 'nail_salon') return 'nail_salon';
+  if (normalized === 'gym' || normalized.includes('gym')) return 'gym';
   if (
     normalized === 'shop' ||
     normalized === 'retail' ||
+    normalized === 'shop / retail' ||
+    normalized === 'shop retail' ||
+    normalized === 'shop_retail' ||
     normalized.includes('retail unit') ||
     normalized.includes('retail shop') ||
     normalized.includes('shop and retail')
   ) {
-    return 'shop_retail';
+    return 'shop';
   }
+  if (normalized.includes('cafe')) return 'cafe';
+  if (normalized === 'cafe') return 'cafe';
+  if (normalized.includes('restaurant')) return 'restaurant';
   if (normalized.includes('takeaway')) return 'takeaway';
-  if (normalized.includes('salon')) return 'salon';
   if (normalized.includes('barber shop') || normalized.includes('barbershop') || normalized.includes('barber')) {
     return 'barber_shop';
   }
 
-  return 'other';
+  return null;
+}
+
+function normalizeCommercialBusinessTypeKey(value?: string | null): CommercialBusinessTypeKey {
+  return parseCommercialBusinessTypeKey(value) ?? 'other';
+}
+
+export function getCommercialCheckHref(value?: string | null): string {
+  const key = parseCommercialBusinessTypeKey(value);
+
+  if (!key) return '/check?mode=commercial';
+
+  return `/check?mode=commercial&businessType=${encodeURIComponent(key)}`;
 }
 
 export function getCommercialBusinessTypeInfo(

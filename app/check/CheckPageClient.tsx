@@ -23,8 +23,10 @@ function createId(): string {
 
 export default function CheckPageClient({
   initialMode,
+  initialBusinessType,
 }: {
   initialMode: PropertyMode;
+  initialBusinessType?: string;
 }) {
   const router = useRouter();
   const [mode, setMode] = useState<PropertyMode>(initialMode);
@@ -47,9 +49,10 @@ export default function CheckPageClient({
         funnel_area: 'commercial',
         mode: 'commercial',
         source_page: '/check?mode=commercial',
+        ...(initialBusinessType ? { business_type: initialBusinessType } : {}),
       },
     });
-  }, [mode]);
+  }, [mode, initialBusinessType]);
 
   const handleResidentialSubmit = async (input: ResidentialInput) => {
     const result = calculateResidentialResult(input);
@@ -104,7 +107,7 @@ export default function CheckPageClient({
       {mode === 'residential' ? (
         <ResidentialForm onSubmit={handleResidentialSubmit} />
       ) : (
-        <CommercialForm onSubmit={handleCommercialSubmit} />
+        <CommercialForm onSubmit={handleCommercialSubmit} initialBusinessType={initialBusinessType} />
       )}
     </div>
   );

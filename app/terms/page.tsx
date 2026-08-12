@@ -30,7 +30,7 @@ export default function TermsPage() {
       </h1>
 
       <p className="text-sm text-stone-500 mb-8">
-        Last updated: 8 June 2026
+        Last updated: 12 August 2026
       </p>
 
       <div className="bg-white border border-[var(--yieldlens-border)] rounded-2xl p-6 shadow-sm space-y-8 text-sm text-stone-700 leading-7">
@@ -91,7 +91,21 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <SectionTitle eyebrow="5. Placeholder assumptions" title="Where live data is not available" />
+          <SectionTitle eyebrow="5. Carlon Analytics requests" title="A request is reviewed before any bespoke work starts" />
+          <p className="mt-3">
+            YieldLens may provide a route to request deeper commercial underwriting
+            under the Carlon Analytics name. Submitting that intake is a request for
+            review only. It is not an automatic purchase, acceptance of an engagement,
+            or promise that work will be undertaken.
+          </p>
+          <p className="mt-3">
+            Any scope, fee, evidence requirements, deliverables, or timetable for
+            bespoke work should be confirmed separately before that work begins.
+          </p>
+        </section>
+
+        <section>
+          <SectionTitle eyebrow="6. Placeholder assumptions" title="Where live data is not available" />
           <p className="mt-3">
             Some MVP scores use placeholder assumptions where live data is not
             yet connected. These include local demand, transport, local
@@ -104,7 +118,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <SectionTitle eyebrow="6. No guarantee" title="No promise of outcome" />
+          <SectionTitle eyebrow="7. No guarantee" title="No promise of outcome" />
           <p className="mt-3">
             YieldLens UK does not guarantee any rent, yield, sale price, profit,
             cash flow, business revenue, customer volume, or investment outcome.
@@ -113,7 +127,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <SectionTitle eyebrow="7. Professional checks still required" title="Use the results alongside proper due diligence" />
+          <SectionTitle eyebrow="8. Professional checks still required" title="Use the results alongside proper due diligence" />
           <p className="mt-3">
             Before making a property or business decision, you should check
             comparable market evidence, lease terms, service charges, business
@@ -123,7 +137,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <SectionTitle eyebrow="8. Availability" title="The product may change as it develops" />
+          <SectionTitle eyebrow="9. Availability" title="The product may change as it develops" />
           <p className="mt-3">
             YieldLens UK may change, pause, or remove features as the product
             develops. The current product may still contain assumptions and
@@ -133,7 +147,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <SectionTitle eyebrow="9. Contact" title="Questions and support" />
+          <SectionTitle eyebrow="10. Contact" title="Questions and support" />
           <p className="mt-3">
             For questions, use the contact page or email yieldlensuk@gmail.com.
             If something looks unclear, ask before paying or signing so the

@@ -4,6 +4,7 @@ import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
+import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 
 export const metadata: Metadata = {
   title: 'Salon Lease Viability Check',
@@ -238,7 +239,7 @@ export default function SalonLeaseViabilityPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
-                  href="/check?mode=commercial"
+                  href={getCommercialCheckHref('salon')}
                   eventName="commercial_home_cta_clicked"
                   pagePath="/salon-lease-viability-check"
                   ctaLabel="Run a free commercial check"
@@ -674,7 +675,7 @@ export default function SalonLeaseViabilityPage() {
         />
         <div className="flex flex-col sm:flex-row gap-3">
           <TrackedCtaLink
-            href="/check?mode=commercial"
+              href={getCommercialCheckHref('salon')}
             eventName="commercial_home_cta_clicked"
             pagePath="/salon-lease-viability-check"
             ctaLabel="Run a free salon lease check"

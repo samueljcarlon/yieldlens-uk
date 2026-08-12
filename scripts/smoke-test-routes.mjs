@@ -8,6 +8,7 @@ const routes = [
   { path: '/compare', required: true },
   { path: '/viability-file', required: true },
   { path: '/sample-commercial-viability-file', required: true },
+  { path: '/carlon-analytics/commercial-underwriting', required: true },
   { path: '/commercial-lease-viability-check', required: true },
   { path: '/commercial-rent-affordability-calculator', required: true },
   { path: '/restaurant-lease-viability-check', required: true },

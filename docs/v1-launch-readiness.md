@@ -275,7 +275,7 @@ Do not over-plan V4 to V7 until V1 proves demand.
 - Support email unchanged
 - No em dash characters
 - No personal Gmail except `yieldlensuk@gmail.com` where intentionally shown
-- No 229 Kilburn or private examples
+- No private addresses or private examples
 
 ### Analytics
 - Check started event

@@ -4,6 +4,7 @@ import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
+import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 
 export const metadata: Metadata = {
   title: 'How Much Rent Can a Cafe Afford?',
@@ -276,7 +277,7 @@ export default function CafeRentAffordabilityPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
-                  href="/check?mode=commercial"
+                  href={getCommercialCheckHref('cafe')}
                   eventName="commercial_home_cta_clicked"
                   pagePath="/how-much-rent-can-a-cafe-afford"
                   ctaLabel="Run a free commercial check"
@@ -639,7 +640,7 @@ export default function CafeRentAffordabilityPage() {
         </div>
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
           <TrackedCtaLink
-            href="/check?mode=commercial"
+            href={getCommercialCheckHref('cafe')}
             eventName="commercial_home_cta_clicked"
             pagePath="/how-much-rent-can-a-cafe-afford"
             ctaLabel="Run a free cafe rent check"
@@ -772,7 +773,7 @@ export default function CafeRentAffordabilityPage() {
           />
           <div className="flex flex-col sm:flex-row gap-3">
             <TrackedCtaLink
-              href="/check?mode=commercial"
+              href={getCommercialCheckHref('cafe')}
               eventName="commercial_home_cta_clicked"
               pagePath="/how-much-rent-can-a-cafe-afford"
               ctaLabel="Run a free cafe rent check"

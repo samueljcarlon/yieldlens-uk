@@ -9,9 +9,12 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-14">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.3fr_1fr_1fr_1fr_0.9fr]">
           <div>
-            <p className="text-lg font-semibold tracking-tight">
-              YieldLens <span className="text-[#DCCDA8]">UK</span>
-            </p>
+            <div>
+              <p className="text-lg font-semibold tracking-tight">YieldLens</p>
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#DCCDA8]">
+                Carlon Investment Group
+              </p>
+            </div>
 
             <p className="mt-4 max-w-sm text-sm leading-7 text-stone-300">
               YieldLens UK is a commercial rent affordability and lease
@@ -50,6 +53,9 @@ export default function Footer() {
               </Link>
               <Link href="/viability-file" className={linkClass}>
                 £49 Standard Commercial Viability File
+              </Link>
+              <Link href="/carlon-analytics/commercial-underwriting?source=footer" className={linkClass}>
+                Full commercial underwriting
               </Link>
               <Link href="/contact" className={linkClass}>
                 Contact
@@ -148,7 +154,7 @@ export default function Footer() {
           </p>
 
           <p className="mt-2">
-            © 2026 YieldLens UK. Commercial rent affordability and lease
+            © 2026 YieldLens | Carlon Investment Group. Commercial rent affordability and lease
             viability decision-support tool for UK commercial sites.
           </p>
         </div>

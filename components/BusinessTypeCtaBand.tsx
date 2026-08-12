@@ -1,6 +1,7 @@
 'use client';
 
 import TrackedCtaLink from '@/components/TrackedCtaLink';
+import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 
 interface BusinessTypeCtaBandProps {
   pagePath: string;
@@ -56,7 +57,7 @@ export default function BusinessTypeCtaBand({
           </div>
           <div className="flex flex-col gap-3 lg:items-end">
             <TrackedCtaLink
-              href="/check?mode=commercial"
+              href={getCommercialCheckHref(businessType)}
               eventName="commercial_home_cta_clicked"
               pagePath={pagePath}
               ctaLabel="business_page_free_check_cta"

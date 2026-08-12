@@ -836,6 +836,18 @@ export default function SampleCommercialViabilityFilePage() {
             >
               £49 Standard Commercial Viability File
             </Link>
+            <TrackedCtaLink
+              href="/carlon-analytics/commercial-underwriting?source=sample_file"
+              eventName="carlon_analytics_underwriting_clicked"
+              pagePath="/sample-commercial-viability-file"
+              ctaLabel="Request full underwriting"
+              ctaLocation="sample_file_footer"
+              pageType="sample_file"
+              metadata={{ product_area: 'carlon_analytics' }}
+              className="w-full sm:w-auto min-h-[48px] bg-stone-950 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
+            >
+              Request full underwriting
+            </TrackedCtaLink>
             <Link
               href="/how-it-works"
               className="w-full sm:w-auto min-h-[48px] border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400"

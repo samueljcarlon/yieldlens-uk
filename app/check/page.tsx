@@ -1,5 +1,6 @@
 import CheckPageClient from './CheckPageClient';
 import { disclaimerClass, surfaceCardClass, surfaceCardSoftClass } from '@/components/yieldLensUi';
+import { parseCommercialBusinessTypeKey } from '@/lib/commercialBusinessType';
 
 const commercialHighlights = [
   'Rent burden',
@@ -13,10 +14,14 @@ const commercialHighlights = [
 export default function CheckPage({
   searchParams,
 }: {
-  searchParams?: { mode?: string | string[] };
+  searchParams?: { mode?: string | string[]; businessType?: string | string[] };
 }) {
+  const getSingleValue = (value?: string | string[]): string | undefined =>
+    Array.isArray(value) ? value[0] : value;
+
   const initialMode = searchParams?.mode === 'residential' ? 'residential' : 'commercial';
   const commercialMode = initialMode === 'commercial';
+  const initialBusinessType = parseCommercialBusinessTypeKey(getSingleValue(searchParams?.businessType)) ?? undefined;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 sm:py-12">
@@ -74,7 +79,7 @@ export default function CheckPage({
             revenue, and cost scenarios.
           </p>
 
-          <CheckPageClient initialMode={initialMode} />
+          <CheckPageClient initialMode={initialMode} initialBusinessType={initialBusinessType} />
         </div>
 
         <aside className="lg:sticky lg:top-24 space-y-4">

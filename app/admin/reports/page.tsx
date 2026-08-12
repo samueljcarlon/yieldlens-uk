@@ -217,6 +217,46 @@ function getCommercialInputRows(input: unknown): Array<{ label: string; value: s
   ];
 }
 
+function getCarlonAnalyticsInputRows(input: unknown): Array<{ label: string; value: string }> {
+  if (!input || typeof input !== 'object') return [];
+
+  const record = input as Record<string, unknown>;
+  const raw = record.carlonAnalyticsIntake;
+  if (!raw || typeof raw !== 'object') return [];
+  const intake = raw as Record<string, unknown>;
+
+  const documents = Array.isArray(intake.documentsReady)
+    ? intake.documentsReady.join(', ') || 'None marked'
+    : 'None marked';
+
+  return [
+    { label: 'Contact name', value: formatFieldValue(intake.contactName) },
+    { label: 'Phone', value: formatFieldValue(intake.phone) },
+    { label: 'Business / trading name', value: formatFieldValue(intake.businessName) },
+    { label: 'Business type', value: formatFieldValue(intake.businessType) },
+    { label: 'Decision stage', value: formatFieldValue(intake.currentStage) },
+    { label: 'Target decision date', value: formatFieldValue(intake.targetDecisionDate) },
+    { label: 'Annual rent', value: formatFieldValue(intake.annualRent) },
+    { label: 'Lease term years', value: formatFieldValue(intake.leaseTermYears) },
+    { label: 'Rent-free months', value: formatFieldValue(intake.rentFreeMonths) },
+    { label: 'Annual service charge', value: formatFieldValue(intake.annualServiceCharge) },
+    { label: 'Annual business rates', value: formatFieldValue(intake.annualBusinessRates) },
+    { label: 'Personal guarantee', value: formatFieldValue(intake.personalGuarantee) },
+    { label: 'Target monthly revenue', value: formatFieldValue(intake.targetMonthlyRevenue) },
+    { label: 'Gross margin %', value: formatFieldValue(intake.grossMarginPercentage) },
+    { label: 'Monthly staff costs', value: formatFieldValue(intake.monthlyStaffCosts) },
+    { label: 'Fit-out budget', value: formatFieldValue(intake.fitOutBudget) },
+    { label: 'Equipment budget', value: formatFieldValue(intake.equipmentBudget) },
+    { label: 'Own cash available', value: formatFieldValue(intake.startingCash) },
+    { label: 'External funding', value: formatFieldValue(intake.externalFundingAmount) },
+    { label: 'Funding rate %', value: formatFieldValue(intake.fundingInterestRate) },
+    { label: 'Documents ready', value: documents },
+    { label: 'Evidence notes', value: formatFieldValue(intake.evidenceNotes) },
+    { label: 'Key concerns', value: formatFieldValue(intake.keyConcerns) },
+    { label: 'Additional notes', value: formatFieldValue(intake.additionalNotes) },
+  ];
+}
+
 function getCommercialResultRows(result: unknown): Array<{ label: string; value: string }> {
   if (!result || typeof result !== 'object') return [];
 
@@ -276,6 +316,20 @@ function getPriorityLabel(request: ReportRequest): {
   label: string;
   className: string;
 } {
+  if (request.requestedReportType === 'carlon_analytics_underwriting') {
+    if (request.leadQuality === 'priority' || request.leadQuality === 'high') {
+      return {
+        label: 'Analytics · high intent',
+        className: 'bg-green-50 text-green-800 border-green-200',
+      };
+    }
+
+    return {
+      label: 'Analytics · warm',
+      className: 'bg-teal-50 text-teal-800 border-teal-200',
+    };
+  }
+
   if (request.score >= 80) {
     return {
       label: 'High priority',
@@ -362,15 +416,23 @@ export default function ReportRequestsAdminPage() {
       total: requests.length,
       residential: requests.filter((request) => request.mode === 'residential').length,
       commercial: requests.filter((request) => request.mode === 'commercial').length,
-      warmOrBetter: requests.filter((request) => request.score >= 65).length,
+      warmOrBetter: requests.filter((request) =>
+        request.score >= 65 ||
+        request.leadQuality === 'warm' ||
+        request.leadQuality === 'high' ||
+        request.leadQuality === 'priority'
+      ).length,
     };
   }, [requests]);
 
   const selectedPaymentStatus = selectedRequest?.paymentStatus ?? null;
   const selectedPaymentStatusLabel = getPaymentStatusLabel(selectedPaymentStatus);
   const selectedPaymentTone = getPaymentStatusTone(selectedPaymentStatus);
+  const isStandardPaidProduct =
+    selectedRequest?.requestedReportType === 'standard_pdf' ||
+    selectedRequest?.requestedReportType === 'standard_viability_file';
   const canOpenViabilityFile =
-    selectedRequest?.mode === 'commercial' && selectedRequest?.paymentStatus === 'paid';
+    selectedRequest?.mode === 'commercial' && isStandardPaidProduct && selectedRequest?.paymentStatus === 'paid';
 
   const handleStatusChange = async (requestId: string, nextStatus: ReportRequestStatus) => {
     setError('');
@@ -1045,7 +1107,7 @@ export default function ReportRequestsAdminPage() {
                 </p>
               </div>
 
-            {selectedRequest.mode === 'commercial' && selectedRequest.paymentStatus !== 'paid' ? (
+            {selectedRequest.mode === 'commercial' && isStandardPaidProduct && selectedRequest.paymentStatus !== 'paid' ? (
               <button
                 type="button"
                 onClick={handleCreateTestCheckout}
@@ -1054,14 +1116,18 @@ export default function ReportRequestsAdminPage() {
                 >
                   {checkoutLoading ? 'Creating checkout...' : 'Create test checkout'}
                 </button>
-              ) : selectedRequest.mode === 'commercial' ? (
+              ) : selectedRequest.mode === 'commercial' && isStandardPaidProduct ? (
                 <p className="text-xs text-green-700 font-medium">
                   Checkout already completed.
+                </p>
+              ) : selectedRequest?.requestedReportType === 'carlon_analytics_underwriting' ? (
+                <p className="text-xs text-stone-600 font-medium">
+                  Bespoke underwriting is quoted after scope review; no automatic checkout is created.
                 </p>
               ) : null}
             </div>
 
-            {selectedRequest.mode === 'commercial' && (
+            {selectedRequest.mode === 'commercial' && isStandardPaidProduct && (
               <div className="mb-3">
                 {canOpenViabilityFile ? (
                   <Link
@@ -1124,6 +1190,25 @@ export default function ReportRequestsAdminPage() {
               <p className="text-sm text-red-600 mt-3">{checkoutError}</p>
             )}
           </div>
+
+          {selectedRequest.requestedReportType === 'carlon_analytics_underwriting' && (
+            <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-4">
+              <div className="mb-3">
+                <p className="font-semibold text-green-950">Carlon Analytics underwriting intake</p>
+                <p className="mt-1 text-xs leading-5 text-green-800">
+                  Review the deeper operating, funding and lease assumptions below before quoting or beginning the analysis.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {getCarlonAnalyticsInputRows(selectedRequest.input).map((row) => (
+                  <div key={row.label} className="rounded-lg border border-green-200 bg-white p-3">
+                    <p className="text-xs uppercase tracking-wide text-green-700">{row.label}</p>
+                    <p className="mt-1 text-sm font-semibold text-stone-900 break-words">{row.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {selectedRequest.mode === 'commercial' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">

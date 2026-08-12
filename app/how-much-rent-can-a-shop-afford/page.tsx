@@ -4,6 +4,7 @@ import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
+import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 
 export const metadata: Metadata = {
   title: 'How Much Rent Can a Shop Afford? | YieldLens UK',
@@ -237,7 +238,7 @@ export default function ShopRentAffordabilityPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
-                  href="/check?mode=commercial"
+                  href={getCommercialCheckHref('shop')}
                   eventName="commercial_home_cta_clicked"
                   pagePath="/how-much-rent-can-a-shop-afford"
                   ctaLabel="Run a free commercial check"
@@ -505,7 +506,7 @@ export default function ShopRentAffordabilityPage() {
             case still make sense.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/check?mode=commercial" className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center">
+            <Link href={getCommercialCheckHref('shop')} className="bg-[var(--yieldlens-primary)] text-stone-950 px-6 py-3 rounded font-semibold hover:bg-[var(--yieldlens-primary-hover)] transition-colors text-sm text-center">
               Run a free commercial check
             </Link>
             <Link href="/sample-commercial-viability-file" className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded font-medium hover:bg-white/15 transition-colors text-sm text-center">

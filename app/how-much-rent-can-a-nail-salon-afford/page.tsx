@@ -5,6 +5,7 @@ import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
 import FaqSection from '@/components/FaqSection';
+import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 import {
   disclaimerClass,
   heroBackdropClass,
@@ -258,7 +259,7 @@ export default function NailSalonRentAffordabilityPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
-                  href="/check?mode=commercial"
+                  href={getCommercialCheckHref('nail_salon')}
                   eventName="commercial_home_cta_clicked"
                   pagePath="/how-much-rent-can-a-nail-salon-afford"
                   ctaLabel="Run a free commercial check"
@@ -485,7 +486,7 @@ export default function NailSalonRentAffordabilityPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <TrackedCtaLink
-              href="/check?mode=commercial"
+              href={getCommercialCheckHref('nail_salon')}
               eventName="commercial_home_cta_clicked"
               pagePath="/how-much-rent-can-a-nail-salon-afford"
               ctaLabel="Run a free commercial check"

@@ -4,6 +4,7 @@ import JsonLd from '@/components/JsonLd';
 import FunnelEventTracker from '@/components/FunnelEventTracker';
 import TrackedCtaLink from '@/components/TrackedCtaLink';
 import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
+import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 
 export const metadata: Metadata = {
   title: 'How Much Rent Can a Barber Shop Afford? | YieldLens UK',
@@ -195,7 +196,7 @@ export default function BarberShopRentAffordabilityPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
-                  href="/check?mode=commercial"
+                  href={getCommercialCheckHref('barber_shop')}
                   eventName="commercial_home_cta_clicked"
                   pagePath="/how-much-rent-can-a-barber-shop-afford"
                   ctaLabel="Run a free commercial check"
@@ -429,7 +430,7 @@ export default function BarberShopRentAffordabilityPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <TrackedCtaLink
-              href="/check?mode=commercial"
+              href={getCommercialCheckHref('barber_shop')}
               eventName="commercial_home_cta_clicked"
               pagePath="/how-much-rent-can-a-barber-shop-afford"
               ctaLabel="Run a free commercial check"

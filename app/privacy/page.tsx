@@ -30,7 +30,7 @@ export default function PrivacyPage() {
       </h1>
 
       <p className="text-sm text-stone-500 mb-8">
-        Last updated: 8 June 2026
+        Last updated: 12 August 2026
       </p>
 
       <div className="bg-white border border-[var(--yieldlens-border)] rounded-2xl p-6 shadow-sm space-y-8 text-sm text-stone-700 leading-7">
@@ -50,8 +50,9 @@ export default function PrivacyPage() {
         <section>
           <SectionTitle eyebrow="2. What information we collect" title="The information you enter" />
           <p className="mt-3">
-            When you use the check or request the Standard commercial viability
-            file, we may collect the information you enter into the form or
+            When you use the check, request the Standard commercial viability
+            file, or request deeper commercial underwriting through Carlon
+            Analytics, we may collect the information you enter into the form or
             payment handoff, including:
           </p>
           <ul className="list-disc list-inside mt-3 space-y-1">
@@ -61,6 +62,9 @@ export default function PrivacyPage() {
             <li>residential or commercial assumptions</li>
             <li>purchase price, rent, revenue, costs, and break-even inputs</li>
             <li>the calculated score, verdict, risk flags, and report output</li>
+            <li>contact name, phone number, and business or trading name where provided</li>
+            <li>lease terms, gross margin, operating costs, opening capital, and funding assumptions entered into a Carlon Analytics intake</li>
+            <li>which supporting documents you say are available and any evidence notes you provide</li>
           </ul>
           <p className="mt-3">
             We also use browser storage to show your latest check and report
@@ -73,7 +77,9 @@ export default function PrivacyPage() {
           <p className="mt-3">
             We use the information to calculate the check, save your result,
             display the report snapshot, return the Standard file to the saved
-            commercial result, and improve the product.
+            commercial result, review a Carlon Analytics underwriting request,
+            identify evidence gaps, decide what follow-up information is needed,
+            prepare a scope or quote where appropriate, and improve the product.
           </p>
           <p className="mt-3">
             We do not sell your personal information.
@@ -108,9 +114,9 @@ export default function PrivacyPage() {
         <section>
           <SectionTitle eyebrow="6. How long we keep it" title="Retention" />
           <p className="mt-3">
-            During MVP testing, we expect to keep submitted checks for up to 12
-            months unless deletion is requested earlier. This period may change
-            as the product develops.
+            During MVP testing, we expect to keep submitted checks and Carlon
+            Analytics intake requests for up to 12 months unless deletion is
+            requested earlier. This period may change as the product develops.
           </p>
         </section>
 

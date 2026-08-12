@@ -395,13 +395,19 @@ function getBusinessTypeContextLine(info: ReturnType<typeof getCommercialBusines
   switch (info.key) {
     case 'cafe':
       return 'This result uses the cafe assumptions you submitted, including rent, revenue, costs and opening cash.';
+    case 'coffee_shop':
+      return 'This result uses the coffee shop assumptions you submitted, including rent, revenue, costs and opening cash.';
     case 'restaurant':
       return 'This result uses the restaurant assumptions you submitted, including rent, revenue, costs and opening cash.';
     case 'salon':
       return 'This result uses the salon assumptions you submitted, including rent, revenue, costs and opening cash.';
+    case 'nail_salon':
+      return 'This result uses the nail salon assumptions you submitted, including rent, revenue, costs and opening cash.';
     case 'barber_shop':
       return 'This result uses the barber shop assumptions you submitted, including rent, revenue, costs and opening cash.';
-    case 'shop_retail':
+    case 'gym':
+      return 'This result uses the gym assumptions you submitted, including rent, revenue, costs and opening cash.';
+    case 'shop':
       return 'This result uses the shop or retail assumptions you submitted, including rent, revenue, costs and opening cash.';
     case 'takeaway':
       return 'This result uses the takeaway assumptions you submitted, including rent, revenue, costs and opening cash.';
@@ -414,13 +420,19 @@ function getBusinessTypeBridgeLine(info: ReturnType<typeof getCommercialBusiness
   switch (info.key) {
     case 'cafe':
       return 'For a cafe, it helps organise customer-volume assumptions, quieter-period pressure, staffing, service charge, rates and opening-cash checks.';
+    case 'coffee_shop':
+      return 'For a coffee shop, it helps organise customer-volume assumptions, average spend, staffing, quieter weekday pressure, service charge, rates and opening-cash checks.';
     case 'restaurant':
       return 'For a restaurant, it helps organise covers, food-cost assumptions, staffing, fit-out, service charge, rates, downside trading and lease-risk questions.';
     case 'salon':
       return 'For a salon, it helps organise booking capacity, chair or treatment-room utilisation, staffing, fit-out, rates, service charge and lease-risk questions.';
+    case 'nail_salon':
+      return 'For a nail salon, it helps organise appointment capacity, technician utilisation, staffing, fit-out, water or electrical needs, service charge, rates and opening-cash checks.';
     case 'barber_shop':
       return 'For a barber shop, it helps organise chair utilisation, cuts or appointments per day, average spend, staffing, quieter periods and opening-cash checks.';
-    case 'shop_retail':
+    case 'gym':
+      return 'For a gym, it helps organise memberships, class capacity, equipment, staffing, service charge, rates and slower-ramp-up pressure.';
+    case 'shop':
       return 'For a shop, it helps organise footfall, conversion, stock margin, staffing, service charge, rates and cash tied up in stock.';
     case 'takeaway':
       return 'For a takeaway, it helps organise order volume, average order value, delivery-platform costs, equipment, extraction or ventilation checks, rates and opening-cash pressure.';
@@ -1351,6 +1363,33 @@ export default function ResultsPage() {
             </Link>
           </div>
         </div>
+
+        {!isResidential ? (
+          <section className="mt-8 rounded-[28px] border border-stone-200 bg-stone-950 p-6 sm:p-7 text-white shadow-sm">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-green-300 font-semibold">
+              Carlon Analytics
+            </p>
+            <h2 className="mt-2 text-2xl font-bold">Need a full operating and lease underwriting?</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-stone-300">
+              The £49 file organises the YieldLens screen for negotiation and due diligence. Full underwriting goes deeper into gross margin, staffing, operating costs, opening capital, funding, cash runway and lease exposure.
+            </p>
+            <p className="mt-3 max-w-3xl text-xs leading-6 text-stone-400">
+              Requesting a review is not a purchase. Carlon Analytics reviews the scope and evidence gaps before quoting.
+            </p>
+            <TrackedCtaLink
+              href="/carlon-analytics/commercial-underwriting?source=results"
+              className="mt-5 inline-flex w-full sm:w-auto items-center justify-center rounded-2xl border border-white/15 bg-white px-5 py-3 text-sm font-semibold text-stone-950 transition hover:bg-stone-100"
+              eventName="carlon_analytics_underwriting_clicked"
+              pagePath="/results"
+              ctaLabel="Request full underwriting"
+              ctaLocation="post_paid_file_offer"
+              pageType="results"
+              metadata={{ product_area: 'carlon_analytics', business_type: businessTypeInfo.shortLabel }}
+            >
+              Request full underwriting
+            </TrackedCtaLink>
+          </section>
+        ) : null}
 
         <div className="mt-8">
           <ResultsConversionPanel

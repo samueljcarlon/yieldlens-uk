@@ -47,7 +47,6 @@ export const exampleSubmission: Submission = {
   createdAt: new Date().toISOString(),
   input: {
     address: 'Example London property',
-    postcode: 'NW6 7JG',
     propertyType: 'Flat',
     bedrooms: 2,
     userObjective: 'Buy-to-let',

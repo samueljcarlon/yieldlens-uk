@@ -112,7 +112,7 @@ The route list must not include:
 Run these exact commands:
 
 ```bash
-rg -n "guaranteed saving|save £2,500|avoid solicitor|skip due diligence|replace professionals|formal valuation|investment advice|safe investment|recommended investment|approved|fake testimonial|fake review|fake rating|aggregateRating|ratingValue|samueljcarlon@gmail.com|229 Kilburn|\\x{2014}|\\x{2013}" app components lib docs scripts
+rg -n "guaranteed saving|save £2,500|avoid solicitor|skip due diligence|replace professionals|formal valuation|investment advice|safe investment|recommended investment|approved|fake testimonial|fake review|fake rating|aggregateRating|ratingValue|samueljcarlon@gmail.com|private address|\\x{2014}|\\x{2013}" app components lib docs scripts
 ```
 
 ```bash
@@ -221,5 +221,5 @@ rg -n "pre-release|smoke:routes|npm run build|git diff --check|commercial_check_
 Safety scan:
 
 ```bash
-rg -n "guaranteed saving|save £2,500|avoid solicitor|skip due diligence|replace professionals|formal valuation|investment advice|safe investment|recommended investment|approved|fake testimonial|fake review|fake rating|aggregateRating|ratingValue|samueljcarlon@gmail.com|229 Kilburn|\\x{2014}|\\x{2013}" docs scripts app components lib
+rg -n "guaranteed saving|save £2,500|avoid solicitor|skip due diligence|replace professionals|formal valuation|investment advice|safe investment|recommended investment|approved|fake testimonial|fake review|fake rating|aggregateRating|ratingValue|samueljcarlon@gmail.com|private address|\\x{2014}|\\x{2013}" docs scripts app components lib
 ```

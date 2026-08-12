@@ -10,6 +10,7 @@ import RentBurdenGauge from '@/components/visuals/RentBurdenGauge';
 import OpeningCashWaterfall from '@/components/visuals/OpeningCashWaterfall';
 import BreakEvenComparison from '@/components/visuals/BreakEvenComparison';
 import DownsideSurvivalCard from '@/components/visuals/DownsideSurvivalCard';
+import TrackedCtaLink from '@/components/TrackedCtaLink';
 
 export const metadata: Metadata = {
   title: 'Standard Commercial Viability File',
@@ -2241,26 +2242,35 @@ export default async function CommercialViabilityFilePage({
       <section className="bg-green-50 border-y border-green-200 customer-print-section customer-print-hide">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-green-700 font-medium mb-3">
-            Next step
+            Carlon Analytics
           </p>
           <h2 className="text-3xl font-bold text-stone-900 mb-4">
-            Turn the snapshot into a fuller commercial memo if you need to revisit the site.
+            Need a deeper underwriting before you commit to the lease?
           </h2>
-          <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-8">
-            Keep pressure-testing the lease terms and assumptions before you commit.
+          <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-3">
+            Full underwriting adds gross margin, staffing, operating costs, opening capital, funding, cash runway and lease exposure to the site-level pressure test in this memo.
+          </p>
+          <p className="text-xs text-stone-600 leading-6 max-w-2xl mx-auto mb-8">
+            Requesting a review is not a purchase. The scope and evidence gaps are reviewed before any quote or work begins.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <TrackedCtaLink
+              href="/carlon-analytics/commercial-underwriting?source=paid_file"
+              eventName="carlon_analytics_underwriting_clicked"
+              pagePath="/commercial-viability-file"
+              ctaLabel="Request full underwriting"
+              ctaLocation="paid_file_footer"
+              pageType="paid_file"
+              metadata={{ product_area: 'carlon_analytics' }}
+              className="bg-stone-950 text-white px-6 py-3 rounded font-medium hover:bg-stone-800 transition-colors text-sm"
+            >
+              Request full underwriting
+            </TrackedCtaLink>
             <Link
               href="/check?mode=commercial"
-              className="bg-green-700 text-white px-6 py-3 rounded font-medium hover:bg-green-800 transition-colors text-sm"
-            >
-              Run a free commercial check
-            </Link>
-            <Link
-              href="/"
               className="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded font-medium hover:border-stone-400 transition-colors text-sm"
             >
-              Back to homepage
+              Run another commercial check
             </Link>
           </div>
         </div>
