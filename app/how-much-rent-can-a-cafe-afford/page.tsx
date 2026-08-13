@@ -9,7 +9,7 @@ import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 export const metadata: Metadata = {
   title: 'How Much Rent Can a Cafe Afford?',
   description:
-    'Work out whether a cafe rent is affordable by checking rent burden, break-even customers, average spend, upfront cash, downside trading, and lease risk before signing.',
+    'See how much rent a cafe can afford by comparing rent with turnover, customers, staffing, rates, service charge, opening cash and downside trading. Run a free check.',
   alternates: {
     canonical: 'https://yieldlens.co.uk/how-much-rent-can-a-cafe-afford',
   },
@@ -212,7 +212,7 @@ const relatedTools = [
 const exampleSummary = [
   { label: 'Business type', value: 'Cafe' },
   { label: 'Address', value: 'Redacted high street site' },
-  { label: 'Postcode', value: 'NW6 sample' },
+  { label: 'Location', value: 'Illustrative London high street' },
   { label: 'Annual rent', value: '£60,000' },
   { label: 'Monthly rent', value: '£5,000' },
   { label: 'Expected customers/day', value: '80' },
@@ -270,10 +270,11 @@ export default function CafeRentAffordabilityPage() {
                 How much rent can a cafe afford?
               </h1>
               <p className="text-lg text-stone-300 max-w-2xl mb-8 leading-8">
-                A cafe lease is not just about whether you can pay the monthly
-                rent. You need to check rent burden, daily customers, average
-                spend, staffing, rates, opening costs, downside trading, and
-                lease terms before committing.
+                How much rent a cafe can afford depends on expected sales and gross
+                margin leaving enough room for staffing, stock, business rates,
+                service charge, utilities, and other operating costs. Test the
+                rent against turnover, daily customers, opening cash, and weaker
+                trading before committing.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <TrackedCtaLink
@@ -393,15 +394,17 @@ export default function CafeRentAffordabilityPage() {
           <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
             <p className="text-sm font-semibold text-stone-900 mb-4">Interpretation</p>
             <p className="text-sm text-stone-700 leading-7">
-              Twenty percent means the rent takes a high share of expected
-              revenue. The site might still work, but it needs stronger confidence
-              in footfall, average spend, and lease terms.
+              At £24,960 of expected monthly sales, £5,000 monthly rent is about
+                20% of revenue. Using YieldLens's indicative screening thresholds,
+                12% would be about £3,000 per month and 18% about £4,500 per month.
+                The site might still work, but it needs stronger trading evidence
+                or better lease terms.
             </p>
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { label: 'Healthier', value: '12%' },
-                { label: 'Caution', value: '18%' },
-                { label: 'High pressure', value: 'Above 18%' },
+                { label: 'Healthier screen', value: '≈ £3,000/mo at 12%' },
+                { label: 'Caution screen', value: '≈ £4,500/mo at 18%' },
+                { label: 'Example rent', value: '£5,000/mo at 20%' },
               ].map((item) => (
                 <div key={item.label} className="rounded-lg border border-stone-200 bg-white p-4">
                   <p className="text-xs uppercase tracking-wide text-stone-400 font-medium">{item.label}</p>
@@ -416,24 +419,27 @@ export default function CafeRentAffordabilityPage() {
       <section className="bg-[#F4F3F1] border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Break-even customers"
-            title="Convert the rent problem into a customer problem."
-            description="Rent affordability is easier to understand when the monthly cost base becomes a daily customer target."
+            eyebrow="Screening break-even customers"
+            title="Convert the known cost base into an indicative customer target."
+            description="This is a first-pass screening figure based on the costs entered. A full operating break-even also depends on gross margin and variable costs."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="rounded-xl border border-stone-200 bg-stone-50 p-6">
               <p className="text-sm font-semibold text-stone-900 mb-3">Break-even example</p>
               <p className="text-sm text-stone-700 leading-7">
                 If the known monthly cost base is £14,100 and average spend is
-                £12 across 26 opening days, break-even is about 45 customers/day.
+                £12 across 26 opening days, the first-pass screening figure is
+                about 45 customers/day before allowing for gross margin and other
+                variable costs.
               </p>
             </div>
             <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold text-stone-900 mb-3">What it means</p>
               <p className="text-sm text-stone-700 leading-7">
-                If expected customers/day is 80, the site has headroom on paper,
-                but the 80/day assumption needs evidence. Rent can look affordable
-                only if trading is real, not just optimistic.
+                If expected customers/day is 80, the site has headroom on this
+                first-pass screen, but the 80/day assumption needs evidence and
+                the full operating case still needs gross margin and variable
+                costs. Trading has to be achievable, not just optimistic.
               </p>
             </div>
           </div>
@@ -741,7 +747,7 @@ export default function CafeRentAffordabilityPage() {
               },
               {
                 q: 'How many customers does a cafe need to cover rent?',
-                a: 'That depends on the rent, the monthly cost base, the average spend, and the number of opening days. Convert the lease into a break-even customers/day figure to see what the site needs.',
+                a: 'That depends on rent, the cost base, average spend, opening days, gross margin and variable costs. YieldLens can turn the known cost base into an indicative customers-per-day screening figure before a fuller operating break-even is assessed.',
               },
               {
                 q: 'Is annual rent enough to judge a cafe lease?',
@@ -768,8 +774,8 @@ export default function CafeRentAffordabilityPage() {
       <section className="bg-stone-950 text-white">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <SectionTitle
-            eyebrow="Pressure-test the cafe rent before you commit."
-            title="Start with the free check, then explore the sample and methodology."
+            eyebrow="Have a cafe site in mind?"
+            title="Check whether the rent works with your own trading assumptions."
           />
           <div className="flex flex-col sm:flex-row gap-3">
             <TrackedCtaLink
