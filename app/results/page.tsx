@@ -733,14 +733,14 @@ function CommercialPressureSummary({ submission }: { submission: Submission }) {
               className={`${primaryCtaClass} w-full sm:w-auto`}
               eventName="results_report_preview_clicked"
               pagePath="/results"
-              ctaLabel="Unlock the £49 Standard file"
+              ctaLabel="Preview the free viability snapshot"
               pageType="results"
               metadata={{
                 business_type: businessTypeInfo.shortLabel,
-                product_area: 'results_paid_bridge',
+                product_area: 'results_free_snapshot_preview',
               }}
             >
-              Unlock the £49 Standard file
+              Preview the free viability snapshot
             </TrackedCtaLink>
 
               <Link
@@ -1305,14 +1305,14 @@ export default function ResultsPage() {
                   className="inline-flex w-full items-center justify-center rounded-2xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-700 shadow-sm transition-all hover:border-stone-400 hover:bg-[var(--yieldlens-panel)] sm:w-auto"
                   eventName="results_report_preview_clicked"
                   pagePath="/results"
-                  ctaLabel="Unlock the £49 Standard file"
+                  ctaLabel="Preview the free viability snapshot"
                   pageType="results"
                   metadata={{
                     business_type: businessTypeInfo.shortLabel,
-                    product_area: 'results_paid_bridge',
+                    product_area: 'results_free_snapshot_preview',
                   }}
                 >
-                  Unlock the £49 Standard file
+                  Preview the free viability snapshot
                 </TrackedCtaLink>
               )}
             </div>

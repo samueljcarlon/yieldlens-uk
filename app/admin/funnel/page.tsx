@@ -38,15 +38,26 @@ type RangeSnapshot = {
 };
 
 const inboundPages = [
-  { path: '/how-it-works', label: 'How it works' },
-  { path: '/how-much-rent-can-a-cafe-afford', label: 'Cafe rent guide' },
+  { path: '/', label: 'Homepage' },
+  { path: '/commercial-rent-affordability-calculator', label: 'Rent affordability calculator' },
+  { path: '/commercial-rent-burden-calculator', label: 'Rent burden calculator' },
+  { path: '/break-even-customers-calculator', label: 'Break-even calculator' },
+  { path: '/commercial-lease-survival-calculator', label: 'Lease survival calculator' },
+  { path: '/commercial-lease-viability-check', label: 'Commercial viability guide' },
   { path: '/commercial-lease-checklist-before-signing', label: 'Lease checklist' },
+  { path: '/how-much-rent-can-a-cafe-afford', label: 'Cafe rent guide' },
+  { path: '/how-much-rent-can-a-coffee-shop-afford', label: 'Coffee shop rent guide' },
   { path: '/restaurant-lease-viability-check', label: 'Restaurant viability' },
+  { path: '/how-much-rent-can-a-gym-afford', label: 'Gym rent guide' },
+  { path: '/how-much-rent-can-a-shop-afford', label: 'Shop rent guide' },
+  { path: '/how-much-rent-can-a-barber-shop-afford', label: 'Barber rent guide' },
+  { path: '/how-much-rent-can-a-nail-salon-afford', label: 'Nail salon rent guide' },
+  { path: '/how-much-rent-can-a-takeaway-afford', label: 'Takeaway rent guide' },
   { path: '/salon-lease-viability-check', label: 'Salon viability' },
-  { path: '/commercial-lease-viability-check', label: 'Commercial viability' },
+  { path: '/compare', label: 'Compare two sites' },
   { path: '/sample-commercial-viability-file', label: 'Sample file' },
   { path: '/viability-file', label: 'Viability file' },
-  { path: '/', label: 'Homepage' },
+  { path: '/how-it-works', label: 'How it works' },
 ];
 
 const stageDefinitions = [
@@ -67,8 +78,8 @@ const stageDefinitions = [
   },
   {
     key: 'results_viability_file_requested_clicked',
-    label: 'Paid file requested',
-    helper: 'Tracked from the results page request button.',
+    label: 'Paid-file CTA clicked',
+    helper: 'Tracked when the £49 Standard file CTA is clicked on the results page.',
   },
   {
     key: 'checkout_started',
@@ -92,6 +103,7 @@ const relevantEventNames = new Set([
   'commercial_check_started',
   'commercial_check_submitted',
   'results_viability_file_requested_clicked',
+  'results_report_preview_clicked',
   'checkout_started',
   'payment_completed',
   'paid_file_opened',
@@ -446,7 +458,7 @@ export default function AdminFunnelPage() {
       ['landing_page', ...firstTouchPriority]
     );
 
-    const sampleClickLandingRows = countFirstTouchRows(
+    const paidCtaLandingRows = countFirstTouchRows(
       selectedRangeEvents.filter((event) => event.eventName === 'results_viability_file_requested_clicked'),
       ['landing_page', ...firstTouchPriority]
     );
@@ -469,7 +481,7 @@ export default function AdminFunnelPage() {
     return {
       inboundLandingRows,
       commercialStartLandingRows,
-      sampleClickLandingRows,
+      paidCtaLandingRows,
       submissionSourceRows,
       checkoutSourceRows,
       paymentSourceRows,
@@ -642,7 +654,7 @@ export default function AdminFunnelPage() {
         </p>
 
         <p className="text-sm text-stone-600 mb-4">
-          Where visitors land before starting the commercial flow, plus the pages that lead to sample and checkout clicks.
+          Where visitors land before starting the commercial flow, plus the pages that lead to £49 paid-file CTA clicks and checkout starts.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -653,9 +665,9 @@ export default function AdminFunnelPage() {
           />
 
           <PathList
-            title="Sample-file clicks by landing page"
-            helper="Shows which landing pages most often lead to the sample click."
-            rows={attributionRows.sampleClickLandingRows}
+            title="Paid-file CTA clicks by landing page"
+            helper="Shows which landing pages most often lead to a click on the £49 Standard file CTA."
+            rows={attributionRows.paidCtaLandingRows}
           />
 
           <PathList

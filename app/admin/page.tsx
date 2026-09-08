@@ -26,7 +26,7 @@ interface LeadTag {
 interface OrganicSourceRow {
   source: string;
   checkStarts: number;
-  sampleClicks: number;
+  paidFileCtaClicks: number;
   checkoutStarts: number;
   payments: number;
 }
@@ -571,13 +571,13 @@ function countOrganicSourceRows(events: ToolEvent[]): OrganicSourceRow[] {
     const row = rows.get(source) ?? {
       source,
       checkStarts: 0,
-      sampleClicks: 0,
+      paidFileCtaClicks: 0,
       checkoutStarts: 0,
       payments: 0,
     };
 
     if (eventName === 'commercial_check_started') row.checkStarts += 1;
-    if (eventName === 'results_viability_file_requested_clicked') row.sampleClicks += 1;
+    if (eventName === 'results_viability_file_requested_clicked') row.paidFileCtaClicks += 1;
     if (eventName === 'checkout_started') row.checkoutStarts += 1;
     if (eventName === 'payment_completed') row.payments += 1;
 
@@ -586,8 +586,8 @@ function countOrganicSourceRows(events: ToolEvent[]): OrganicSourceRow[] {
 
   return [...rows.values()]
     .sort((a, b) => {
-      const aTotal = a.checkStarts + a.sampleClicks + a.checkoutStarts + a.payments;
-      const bTotal = b.checkStarts + b.sampleClicks + b.checkoutStarts + b.payments;
+      const aTotal = a.checkStarts + a.paidFileCtaClicks + a.checkoutStarts + a.payments;
+      const bTotal = b.checkStarts + b.paidFileCtaClicks + b.checkoutStarts + b.payments;
       return bTotal - aTotal;
     })
     .slice(0, 12);
@@ -736,7 +736,7 @@ export default function AdminPage() {
   const organicSummary = useMemo(() => {
     const checkStarts = organicRangeEvents.filter((event) => event.eventName === 'commercial_check_started').length;
     const checkSubmissions = organicRangeEvents.filter((event) => event.eventName === 'commercial_check_submitted').length;
-    const sampleClicks = organicRangeEvents.filter((event) => event.eventName === 'results_viability_file_requested_clicked').length;
+    const paidFileCtaClicks = organicRangeEvents.filter((event) => event.eventName === 'results_viability_file_requested_clicked').length;
     const checkoutStarts = organicRangeEvents.filter((event) => event.eventName === 'checkout_started').length;
     const paymentsCompleted = organicRangeEvents.filter((event) => event.eventName === 'payment_completed').length;
     const paidFilesOpened = organicRangeEvents.filter((event) => event.eventName === 'paid_file_opened').length;
@@ -744,7 +744,7 @@ export default function AdminPage() {
     return {
       checkStarts,
       checkSubmissions,
-      sampleClicks,
+      paidFileCtaClicks,
       checkoutStarts,
       paymentsCompleted,
       paidFilesOpened,
@@ -911,7 +911,7 @@ export default function AdminPage() {
               Which commercial types are coming through?
             </h2>
             <p className="text-sm text-stone-500 max-w-3xl mt-2">
-              Use this with the funnel counts to see which business types are turning into checks, sample clicks, checkout starts, and paid-file opens.
+              Use this with the funnel counts to see which business types are turning into checks, paid-file CTA clicks, checkout starts, and paid-file opens.
             </p>
           </div>
           <p className="text-xs text-stone-400">{commercialBusinessTypeRows.length} rows</p>
@@ -1029,7 +1029,7 @@ export default function AdminPage() {
               </div>
               <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
                 <p className="text-[11px] uppercase tracking-wide text-stone-400">Sample file clicks</p>
-                <p className="text-2xl font-bold text-stone-950 mt-1">{organicSummary.sampleClicks}</p>
+                <p className="text-2xl font-bold text-stone-950 mt-1">{organicSummary.paidFileCtaClicks}</p>
               </div>
               <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
                 <p className="text-[11px] uppercase tracking-wide text-stone-400">Checkout started</p>
@@ -1087,8 +1087,8 @@ export default function AdminPage() {
                           <p className="font-semibold text-stone-950">{row.checkStarts}</p>
                         </div>
                         <div>
-                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Sample clicks</p>
-                          <p className="font-semibold text-stone-950">{row.sampleClicks}</p>
+                          <p className="text-[11px] uppercase tracking-wide text-stone-400">Paid-file CTA clicks</p>
+                          <p className="font-semibold text-stone-950">{row.paidFileCtaClicks}</p>
                         </div>
                         <div>
                           <p className="text-[11px] uppercase tracking-wide text-stone-400">Checkout starts</p>

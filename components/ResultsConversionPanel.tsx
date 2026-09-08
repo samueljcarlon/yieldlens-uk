@@ -232,14 +232,14 @@ export default function ResultsConversionPanel({
                     className={`${primaryCtaClass} w-full sm:w-auto`}
                     eventName="results_report_preview_clicked"
                     pagePath="/results"
-                    ctaLabel="Unlock the £49 Standard file"
+                    ctaLabel="Preview the free viability snapshot"
                     pageType="results"
                     metadata={{
                       ...(businessTypeLabel ? { business_type: businessTypeLabel } : {}),
                       product_area: 'results_page',
                     }}
                   >
-                    Unlock the £49 Standard file
+                    Preview the free viability snapshot
                   </TrackedCtaLink>
 
                   <TrackedCtaLink
@@ -251,7 +251,7 @@ export default function ResultsConversionPanel({
                     pageType="results"
                     metadata={{
                       ...(businessTypeLabel ? { business_type: businessTypeLabel } : {}),
-                      product_area: 'results_page',
+                      product_area: 'results_sample_file',
                     }}
                   >
                     View sample viability file
