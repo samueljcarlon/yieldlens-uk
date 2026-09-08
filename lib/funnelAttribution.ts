@@ -5,6 +5,8 @@ export interface FunnelAttributionSnapshot {
   first_page_type?: string;
   first_mode?: string;
   first_seen_at?: string;
+  first_referrer_type?: FunnelReferrerType;
+  first_referrer_host?: string;
   last_page_path?: string;
   last_page_type?: string;
   last_mode?: string;
@@ -122,6 +124,9 @@ function readSnapshot(): FunnelAttributionSnapshot {
       first_page_type: safeString(parsed.first_page_type),
       first_mode: safeString(parsed.first_mode),
       first_seen_at: safeString(parsed.first_seen_at),
+      first_referrer_type:
+        (safeString(parsed.first_referrer_type) as FunnelReferrerType) || undefined,
+      first_referrer_host: safeString(parsed.first_referrer_host).toLowerCase(),
       last_page_path: normalizeFunnelPath(parsed.last_page_path as string | undefined),
       last_page_type: safeString(parsed.last_page_type),
       last_mode: safeString(parsed.last_mode),
@@ -181,6 +186,12 @@ export function captureFunnelTouch({
     first_page_type: existing.first_page_type || safeString(pageType),
     first_mode: existing.first_mode || safeString(mode),
     first_seen_at: existing.first_seen_at || now,
+    first_referrer_type:
+      existing.first_referrer_type ||
+      (inferredReferrerType === 'internal' ? undefined : inferredReferrerType),
+    first_referrer_host:
+      existing.first_referrer_host ||
+      (inferredReferrerType === 'internal' ? '' : referrerHost),
     last_page_path: normalizedPagePath,
     last_page_type: safeString(pageType),
     last_mode: safeString(mode) || existing.last_mode,
@@ -253,6 +264,8 @@ export function buildFunnelAttributionMetadata(
     first_page_type: snapshot.first_page_type || undefined,
     first_mode: snapshot.first_mode || undefined,
     first_seen_at: snapshot.first_seen_at || undefined,
+    first_referrer_type: snapshot.first_referrer_type || undefined,
+    first_referrer_host: snapshot.first_referrer_host || undefined,
     last_page_path: snapshot.last_page_path || undefined,
     last_page_type: snapshot.last_page_type || undefined,
     last_mode: snapshot.last_mode || undefined,

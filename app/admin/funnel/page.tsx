@@ -230,6 +230,8 @@ function summarizeSafeMetadata(event: ToolEvent): string {
     'first_page_path',
     'first_page_type',
     'first_mode',
+    'first_referrer_type',
+    'first_referrer_host',
     'last_page_path',
     'last_page_type',
     'last_mode',
@@ -505,7 +507,7 @@ export default function AdminFunnelPage() {
 
   const trackingGaps = useMemo(() => {
     const gaps = [
-      'Older events may not have first_page_path, last_page_path, or referrer_host.',
+      'Older events may not have first_page_path, first_referrer_type, first_referrer_host, last_page_path, or referrer_host.',
       'inbound_page_view now stores first-touch and last-touch attribution, but legacy rows can still be incomplete.',
       'commercial_check_started and commercial_check_submitted now carry safe attribution metadata, but earlier rows may not.',
       'results_viability_file_requested_clicked now carries safe attribution metadata, but earlier rows may not.',
