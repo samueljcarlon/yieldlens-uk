@@ -72,6 +72,9 @@ export default function Footer() {
             </p>
 
             <div className="space-y-2.5">
+              <Link href="/commercial-rent-affordability-calculator" className={linkClass}>
+                Commercial rent affordability
+              </Link>
               <Link href="/commercial-rent-burden-calculator" className={linkClass}>
                 Rent burden calculator
               </Link>
@@ -110,6 +113,15 @@ export default function Footer() {
               </Link>
               <Link href="/how-much-rent-can-a-gym-afford" className={linkClass}>
                 Gym rent affordability
+              </Link>
+              <Link href="/how-much-rent-can-a-takeaway-afford" className={linkClass}>
+                Takeaway rent affordability
+              </Link>
+              <Link href="/how-much-rent-can-a-shop-afford" className={linkClass}>
+                Shop rent affordability
+              </Link>
+              <Link href="/how-much-rent-can-a-barber-shop-afford" className={linkClass}>
+                Barber shop rent affordability
               </Link>
             </div>
           </div>

@@ -6,7 +6,7 @@ import VerdictBadge from '@/components/VerdictBadge';
 import { primaryCtaClass, secondaryCtaClass, heroPrimaryCtaClass, heroSecondaryCtaClass, surfaceCardClass, surfaceCardSoftClass, disclaimerClass } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'YieldLens UK | Commercial Rent and Lease Viability Decision-Support',
+  title: 'Commercial Rent and Lease Viability Decision-Support',
   description:
     'A commercial rent affordability and lease viability decision-support tool for UK commercial sites. Run a free commercial check first, then unlock the optional £49 Standard Commercial Viability File if the site still deserves deeper scrutiny.',
   alternates: {
@@ -86,53 +86,99 @@ const howItWorks = [
 
 const supportingTools = [
   {
-    title: 'Commercial lease viability guide',
-    desc: 'Read about the commercial lease viability check and how it works, then run the free check when ready.',
-    href: '/commercial-lease-viability-check',
-    cta: 'Read the guide',
+    title: 'Commercial rent affordability calculator',
+    desc: 'Check whether expected revenue, operating costs, opening cash, and downside trading can realistically carry the proposed rent.',
+    href: '/commercial-rent-affordability-calculator',
+    cta: 'Check rent affordability',
     featured: true,
   },
   {
+    title: 'Commercial rent burden calculator',
+    desc: 'See how much expected revenue is absorbed by rent before the rest of the operating cost base is paid.',
+    href: '/commercial-rent-burden-calculator',
+    cta: 'Calculate rent burden',
+  },
+  {
+    title: 'Break-even customers calculator',
+    desc: 'Turn the monthly cost base into the customer volume or trading level the site needs to break even.',
+    href: '/break-even-customers-calculator',
+    cta: 'Check break-even pressure',
+  },
+  {
     title: 'Compare two sites',
-    desc: 'Compare two possible premises side by side before spending on deeper legal or survey work.',
+    desc: 'Compare two possible commercial premises side by side before spending on deeper legal, survey, or fit-out work.',
     href: '/compare',
     cta: 'Compare two sites',
   },
   {
-    title: 'How it works',
-    desc: 'Learn how the free check, paid file, and sample report fit together before you start.',
-    href: '/how-it-works',
-    cta: 'Read the methodology',
+    title: 'Commercial lease viability guide',
+    desc: 'Work through rent, opening cash, downside trading, and the lease questions that can change whether a site deserves further scrutiny.',
+    href: '/commercial-lease-viability-check',
+    cta: 'Read the viability guide',
   },
   {
-    title: 'Cafe rent affordability',
-    desc: 'Use the cafe guide to compare rent burden, break-even customers, opening cash, and the paid memo.',
-    href: '/how-much-rent-can-a-cafe-afford',
-    cta: 'Read cafe rent guide',
+    title: 'Commercial lease survival calculator',
+    desc: 'Pressure-test how long the opening cash buffer could survive if early trading comes in below the expected case.',
+    href: '/commercial-lease-survival-calculator',
+    cta: 'Test downside survival',
   },
+];
+
+const businessTypeChecks = [
+  {
+    title: 'Cafe',
+    href: '/how-much-rent-can-a-cafe-afford',
+  },
+  {
+    title: 'Takeaway',
+    href: '/how-much-rent-can-a-takeaway-afford',
+  },
+  {
+    title: 'Restaurant',
+    href: '/restaurant-lease-viability-check',
+  },
+  {
+    title: 'Gym',
+    href: '/how-much-rent-can-a-gym-afford',
+  },
+  {
+    title: 'Shop',
+    href: '/how-much-rent-can-a-shop-afford',
+  },
+  {
+    title: 'Barber shop',
+    href: '/how-much-rent-can-a-barber-shop-afford',
+  },
+  {
+    title: 'Nail salon',
+    href: '/how-much-rent-can-a-nail-salon-afford',
+  },
+  {
+    title: 'Coffee shop',
+    href: '/how-much-rent-can-a-coffee-shop-afford',
+  },
+  {
+    title: 'Salon',
+    href: '/salon-lease-viability-check',
+  },
+];
+
+const residentialTools = [
   {
     title: 'Residential property check',
-    desc: 'Screen a residential rent, purchase, or buy-to-let decision with yield, cash flow, assumptions, and risk flags.',
     href: '/check?mode=residential',
-    cta: 'Run residential check',
   },
   {
-    title: 'Rent affordability calculator',
-    desc: 'Sanity-check rent against income and wider living-cost pressure before committing to a residential tenancy.',
+    title: 'Residential rent affordability',
     href: '/rent-affordability-check',
-    cta: 'Explore rent affordability',
   },
   {
-    title: 'Property cash flow calculator',
-    desc: 'Check whether a property produces monthly surplus after mortgage, service charge, ground rent, and known ownership costs.',
+    title: 'Property cash flow',
     href: '/property-cash-flow-calculator',
-    cta: 'Explore cash flow',
   },
   {
-    title: 'Buy-to-let yield calculator',
-    desc: 'Estimate gross yield, ownership costs, monthly cash flow, and downside risk before spending serious time on a rental property.',
+    title: 'Buy-to-let yield',
     href: '/buy-to-let-yield-calculator',
-    cta: 'Explore buy-to-let',
   },
 ];
 
@@ -537,6 +583,66 @@ export default function HomePage() {
                 </span>
               </Link>
             ))}
+          </div>
+
+
+          <div className="mt-12 border-t border-stone-200 pt-10">
+            <div className="max-w-3xl mb-6">
+              <p className="text-xs font-medium uppercase tracking-widest text-[var(--yieldlens-caution)] mb-3">
+                Business-specific rent checks
+              </p>
+              <h3 className="text-2xl font-bold text-stone-900 mb-3">
+                Pressure-test the unit against the economics of the business.
+              </h3>
+              <p className="text-sm text-stone-600 leading-7">
+                Different operators carry rent differently. Start with the guide closest
+                to the business model, then run the free commercial check with the actual
+                site assumptions.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {businessTypeChecks.map((business) => (
+                <Link
+                  key={business.href}
+                  href={business.href}
+                  className={`${surfaceCardSoftClass} p-4 transition-all hover:-translate-y-0.5 hover:border-[var(--yieldlens-caution)]`}
+                >
+                  <p className="font-semibold text-stone-900">
+                    {business.title}
+                  </p>
+                  <span className="mt-2 inline-block text-sm text-[var(--yieldlens-caution)] font-medium">
+                    Check rent viability →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-10 rounded-2xl border border-stone-200 bg-stone-100/70 p-5 sm:p-6">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+              <div className="max-w-2xl">
+                <p className="text-xs font-medium uppercase tracking-widest text-stone-500 mb-2">
+                  Residential property tools
+                </p>
+                <p className="text-sm text-stone-600 leading-6">
+                  YieldLens is primarily focused on commercial lease viability.
+                  Residential checks remain available as separate supporting tools.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-x-5 gap-y-3">
+                {residentialTools.map((tool) => (
+                  <Link
+                    key={tool.href}
+                    href={tool.href}
+                    className="text-sm font-medium text-stone-700 hover:text-[var(--yieldlens-caution)]"
+                  >
+                    {tool.title} →
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

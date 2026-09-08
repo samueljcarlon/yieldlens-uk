@@ -13,7 +13,7 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'How YieldLens UK Works',
+  title: 'How YieldLens Works',
   description:
     'A commercial rent affordability and lease viability decision-support tool for UK commercial sites. Learn how YieldLens UK pressure-tests commercial leases with rent burden, break-even customers, opening cash, downside trading, and a paid decision memo before signing.',
   alternates: {

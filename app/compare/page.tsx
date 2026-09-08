@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     canonical: '/compare',
   },
   openGraph: {
-    title: 'Compare Two Commercial Sites | YieldLens UK',
+    title: 'Compare Two Commercial Sites',
     description:
       'Compare two commercial premises on rent burden, opening cash, break-even pressure, downside risk and evidence gaps before signing.',
     url: 'https://yieldlens.co.uk/compare',

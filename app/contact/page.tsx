@@ -11,7 +11,7 @@ import {
 import FeedbackCtaPanel from '@/components/FeedbackCtaPanel';
 
 export const metadata: Metadata = {
-  title: 'Contact YieldLens UK',
+  title: 'Contact',
   description:
     'Contact YieldLens UK, the commercial rent affordability and lease viability decision-support tool for UK commercial sites, about product questions, payment access, privacy queries, or report corrections.',
   alternates: {

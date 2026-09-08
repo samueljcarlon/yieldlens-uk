@@ -8,7 +8,7 @@ import FaqSection from '@/components/FaqSection';
 import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 
 export const metadata: Metadata = {
-  title: 'How Much Rent Can a Takeaway Afford? | YieldLens UK',
+  title: 'How Much Rent Can a Takeaway Afford?',
   description:
     'Check whether a takeaway unit can carry the rent before signing. Test rent burden, break-even orders, opening cash, fit-out costs and downside risk.',
   alternates: {

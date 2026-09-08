@@ -7,7 +7,7 @@ import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
 import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 
 export const metadata: Metadata = {
-  title: 'How Much Rent Can a Barber Shop Afford? | YieldLens UK',
+  title: 'How Much Rent Can a Barber Shop Afford?',
   description:
     'Check whether a barber shop can carry the rent before signing. Test chair utilisation, rent burden, opening cash, break-even pressure and downside risk.',
   alternates: {

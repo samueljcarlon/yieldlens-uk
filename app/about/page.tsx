@@ -15,7 +15,7 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'About YieldLens UK',
+  title: 'About',
   description:
     'A commercial rent affordability and lease viability decision-support tool for UK commercial sites. Learn what YieldLens UK does, who it is for, and how it helps operators pressure-test commercial rent, opening cash, and downside trading before signing.',
   alternates: {
