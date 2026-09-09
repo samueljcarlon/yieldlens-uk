@@ -929,6 +929,103 @@ function getNegotiationLevers(request: ReportRequest): Array<{
   ];
 }
 
+type PriorityAction = {
+  title: string;
+  priority: 'High' | 'Medium' | 'Low';
+  why: string;
+  action: string;
+};
+
+function getPriorityActionPlan(request: ReportRequest): PriorityAction[] {
+  const assessment = getFinalAssessment(request);
+  const figures = getCommercialContext(request);
+  const negotiationLevers = getNegotiationLevers(request);
+
+  const priorityOrder: Record<'High' | 'Medium' | 'Low', number> = {
+    High: 0,
+    Medium: 1,
+    Low: 2,
+  };
+
+  const findLever = (title: string) =>
+    negotiationLevers.find((item) => item.title === title) ?? null;
+
+  let topLever = null;
+
+  if (figures.cashAfterOpening !== null && figures.cashAfterOpening < 0) {
+    // If the file fails because opening capital is short, lead with a lever
+    // that directly improves the opening cash stack.
+    topLever =
+      findLever('Rent-free period') ??
+      findLever('Landlord fit-out contribution') ??
+      findLever('Reduced deposit');
+  } else if (figures.rentBurden !== null && figures.rentBurden > 18) {
+    // If rent itself is the main pressure point, lead with the quantified rent lever.
+    topLever = findLever('Lower headline rent');
+  } else if (!figures.survivesSixBadMonths) {
+    // If downside resilience is weak, reduce the monthly burden first.
+    topLever =
+      findLever('Lower headline rent') ??
+      findLever('Break clause');
+  } else if (
+    figures.cashAfterOpening !== null &&
+    figures.cashAfterOpening < 15000
+  ) {
+    // A positive but thin opening buffer makes upfront support more relevant
+    // than a generic rent negotiation.
+    topLever =
+      findLever('Rent-free period') ??
+      findLever('Reduced deposit');
+  }
+
+  if (!topLever) {
+    topLever =
+      [...negotiationLevers].sort(
+        (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
+      )[0] ?? null;
+  }
+
+  const proceeding = assessment.verdict.toLowerCase().startsWith('proceed');
+
+  const actions: PriorityAction[] = [
+    {
+      title: proceeding
+        ? 'Move into deeper due diligence'
+        : 'Resolve the main decision issue',
+      priority: 'High',
+      why: assessment.reason,
+      action: assessment.nextStep,
+    },
+  ];
+
+  if (topLever) {
+    actions.push({
+      title: `Negotiate: ${topLever.title}`,
+      priority: topLever.priority,
+      why: topLever.whyItMatters,
+      action: topLever.askFor,
+    });
+  }
+
+  actions.push({
+    title: 'Verify the assumptions that could change the verdict',
+    priority: 'High',
+    why: assessment.verify,
+    action:
+      'Gather the evidence, update the assumptions, and rerun the commercial check before signing or committing to deeper professional costs.',
+  });
+
+  return actions
+    .map((item, index) => ({ item, index }))
+    .sort(
+      (a, b) =>
+        priorityOrder[a.item.priority] - priorityOrder[b.item.priority] ||
+        a.index - b.index
+    )
+    .map(({ item }) => item)
+    .slice(0, 3);
+}
+
 function getEvidenceSections(request: ReportRequest): Array<{
   title: string;
   context: string;
@@ -1995,6 +2092,69 @@ export default async function CommercialViabilityFilePage({
           <p className="mt-4 text-xs text-stone-400 leading-6 max-w-4xl">
             The formal table keeps the score, rent burden, opening cash, downside case, and survival test in one place so the weak point is obvious.
           </p>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-16 customer-print-section">
+        <SectionTitle
+          eyebrow="Priority action plan"
+          title="The three actions to take next."
+          description="Ranked from the current commercial result so the file turns the analysis into a practical next-step plan."
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {getPriorityActionPlan(request).map((item, index) => {
+            const priorityTone =
+              item.priority === 'High'
+                ? 'border-rose-200 bg-rose-50 text-rose-900'
+                : item.priority === 'Medium'
+                  ? 'border-amber-200 bg-amber-50 text-amber-900'
+                  : 'border-stone-200 bg-stone-50 text-stone-700';
+
+            return (
+              <div
+                key={`${item.title}-${index}`}
+                className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm customer-print-card"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-semibold">
+                      Action {index + 1}
+                    </p>
+                    <p className="mt-1 text-lg font-semibold text-stone-900">
+                      {item.title}
+                    </p>
+                  </div>
+
+                  <span
+                    className={`shrink-0 rounded-full border px-2.5 py-1 text-[11px] font-semibold ${priorityTone}`}
+                  >
+                    {item.priority}
+                  </span>
+                </div>
+
+                <div className="mt-5 space-y-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold">
+                      Why this matters
+                    </p>
+                    <p className="mt-1 text-sm text-stone-700 leading-7">
+                      {item.why}
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+                    <p className="text-xs uppercase tracking-[0.18em] text-stone-400 font-semibold">
+                      What to do
+                    </p>
+                    <p className="mt-1 text-sm text-stone-700 leading-7">
+                      {item.action}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 

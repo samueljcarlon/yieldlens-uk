@@ -84,6 +84,7 @@ const commercialFileItems = [
   'Rent-free periods and lease incentives',
   'Negotiation levers',
   'Evidence checklist before signing',
+  'Ranked action plan',
 ];
 
 const proofBlocks = [

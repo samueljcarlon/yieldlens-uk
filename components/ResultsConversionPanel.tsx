@@ -74,6 +74,7 @@ const paidFileChecklist = [
   'Stress-test interpretation',
   'Negotiation levers and lease questions',
   'Evidence checklist and next steps',
+  'Ranked action plan',
   'Printable file',
 ];
 
