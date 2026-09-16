@@ -750,6 +750,15 @@ export default function CarlonAnalyticsUnderwritingWorkspacePage() {
               ← Back to report requests
             </Link>
 
+            {request && review ? (
+              <Link
+                href={`/admin/reports/${request.id}/underwriting-memo`}
+                className="font-medium text-green-300 hover:text-green-200"
+              >
+                Preview client memo →
+              </Link>
+            ) : null}
+
             {request ? (
               <span className="text-xs text-stone-400">
                 Request {request.id.slice(0, 8).toUpperCase()}
