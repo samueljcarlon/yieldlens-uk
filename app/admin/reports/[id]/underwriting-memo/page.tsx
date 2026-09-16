@@ -617,6 +617,25 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
               </div>
             ) : null}
 
+            {metrics.impliedMonthlyRevenue !== null &&
+            metrics.revenueConsistencyDifferencePct !== null ? (
+              <div className="mt-5 rounded-xl border border-stone-200 bg-stone-50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">
+                  Revenue assumption cross-check
+                </p>
+
+                <p className="mt-2 text-sm leading-6 text-stone-700">
+                  Average spend, customer volume and opening days imply monthly
+                  revenue of {formatCurrency(metrics.impliedMonthlyRevenue)},
+                  compared with the stated target of{' '}
+                  {formatCurrency(metrics.revenue)} ({metrics.revenueConsistencyDifferencePct > 0
+                    ? '+'
+                    : ''}
+                  {metrics.revenueConsistencyDifferencePct.toFixed(1)}%).
+                </p>
+              </div>
+            ) : null}
+
             <p className="mt-4 text-xs leading-5 text-stone-500">
               Composite figures are shown only where the required supplied
               inputs are complete. Blank intake fields are treated as unknown,
