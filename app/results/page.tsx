@@ -1371,10 +1371,10 @@ export default function ResultsPage() {
             </p>
             <h2 className="mt-2 text-2xl font-bold">Need a full operating and lease underwriting?</h2>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-stone-300">
-              The £49 file organises the YieldLens screen for negotiation and due diligence. Full underwriting goes deeper into gross margin, staffing, operating costs, opening capital, funding, cash runway and lease exposure.
+              The £49 file organises the YieldLens screen for negotiation and due diligence. Carlon Analytics goes deeper into gross margin, staffing, operating costs, opening capital, funding, cash runway and lease exposure. Standard one-site scope is £295 and includes an analyst-reviewed decision memo plus one clarification round.
             </p>
             <p className="mt-3 max-w-3xl text-xs leading-6 text-stone-400">
-              Requesting a review is not a purchase. Carlon Analytics reviews the scope and evidence gaps before quoting.
+              Requesting a review is not a purchase. Standard scope is confirmed before work begins; multi-site or materially more complex assignments are quoted separately.
             </p>
             <TrackedCtaLink
               href="/carlon-analytics/commercial-underwriting?source=results"

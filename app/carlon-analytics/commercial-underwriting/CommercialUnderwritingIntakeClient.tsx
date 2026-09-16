@@ -357,16 +357,89 @@ export default function CommercialUnderwritingIntakeClient({ sourcePage }: { sou
           Commercial lease &amp; business underwriting
         </h1>
         <p className="mt-5 max-w-3xl text-sm sm:text-base leading-7 text-stone-300">
-          This is the deeper layer after a YieldLens screen: gross margin, operating costs, staffing, opening capital, funding, cash pressure and lease exposure are reviewed together before you commit.
+          This is the deeper layer after a YieldLens screen: gross margin, operating costs, staffing, opening capital, funding, cash pressure and lease exposure are reviewed together before you commit. Standard scope is £295 for one UK site and one business concept.
         </p>
         <div className="mt-6 grid gap-3 sm:grid-cols-3 text-sm">
-          {['No payment at this stage', 'CORE fields first; add what you know', 'Assumptions are reviewed before use'].map((item) => (
+          {['Standard scope £295', 'Target 3 working days after evidence', 'No payment at intake'].map((item) => (
             <div key={item} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-stone-200">
               {item}
             </div>
           ))}
         </div>
       </div>
+
+      <section className={`${surfaceCardClass} mt-6 p-5 sm:p-7`}>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#5b7d58] font-semibold">
+              Standard underwriting scope
+            </p>
+
+            <h2 className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-stone-950">
+              A deeper decision review for one commercial site.
+            </h2>
+
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-stone-600">
+              The £49 YieldLens file structures the screening result. The Carlon Analytics
+              review goes further into the operating model, funding position and lease
+              exposure, then brings the evidence and sensitivities together into an
+              analyst-reviewed decision memo.
+            </p>
+
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-700">
+              {[
+                'Operating model, gross margin and cost-base review',
+                'Opening capital, funding requirement and cash runway',
+                'Downside sensitivities and commercial pressure points',
+                'Lease-cost exposure and negotiation priorities',
+                'Proceed, renegotiate or pause decision view',
+                'One clarification round after delivery',
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-stone-200 bg-stone-950 p-5 text-white">
+            <p className="text-xs uppercase tracking-[0.2em] text-green-300 font-semibold">
+              Standard scope
+            </p>
+
+            <p className="mt-3 text-4xl font-bold tracking-tight">£295</p>
+
+            <p className="mt-2 text-sm leading-6 text-stone-300">
+              One UK commercial site and one business concept.
+            </p>
+
+            <div className="mt-5 space-y-3 text-sm text-stone-200">
+              <p>
+                <span className="font-semibold text-white">Turnaround:</span>{' '}
+                target 3 working days after the required evidence is received and scope is confirmed.
+              </p>
+
+              <p>
+                <span className="font-semibold text-white">Evidence:</span>{' '}
+                documents are requested separately after the intake where needed.
+              </p>
+
+              <p>
+                <span className="font-semibold text-white">Complex work:</span>{' '}
+                multi-site or materially wider assignments are quoted separately before work starts.
+              </p>
+            </div>
+
+            <p className="mt-5 border-t border-white/10 pt-4 text-xs leading-5 text-stone-400">
+              Commercial decision-support only. It is not legal advice, a property valuation,
+              tax advice or regulated financial advice.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {prefilled ? (
         <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 p-4 text-sm leading-6 text-green-900">
@@ -564,11 +637,11 @@ export default function CommercialUnderwritingIntakeClient({ sourcePage }: { sou
 
         <div className="rounded-[28px] border border-stone-200 bg-white p-5 sm:p-7 shadow-sm">
           <p className="text-sm leading-7 text-stone-600">
-            By submitting, you are asking Carlon Analytics to review the information for potential commercial underwriting work. The figures remain unverified assumptions until supporting evidence is reviewed. This is not legal, tax, valuation or regulated financial advice.
+            Submitting this form is a request for scope review, not a purchase. If the case fits the standard one-site scope, the fee is £295. We may ask for supporting evidence before confirming the engagement. The figures remain unverified assumptions until supporting evidence is reviewed. This is not legal, tax, valuation or regulated financial advice.
           </p>
           {errorMessage ? <p className="mt-3 text-sm text-red-600">{errorMessage}</p> : null}
           <button type="submit" disabled={status === 'submitting' || !canSubmit} className={`${primaryCtaClass} mt-5 w-full sm:w-auto`}>
-            {status === 'submitting' ? 'Submitting...' : 'Request full underwriting review'}
+            {status === 'submitting' ? 'Submitting...' : 'Request standard-scope review'}
           </button>
         </div>
       </form>

@@ -2408,10 +2408,10 @@ export default async function CommercialViabilityFilePage({
             Need a deeper underwriting before you commit to the lease?
           </h2>
           <p className="text-sm text-stone-700 leading-7 max-w-2xl mx-auto mb-3">
-            Full underwriting adds gross margin, staffing, operating costs, opening capital, funding, cash runway and lease exposure to the site-level pressure test in this memo.
+            Full underwriting adds gross margin, staffing, operating costs, opening capital, funding, cash runway and lease exposure to the site-level pressure test in this memo. Standard one-site scope is £295, with a target 3-working-day turnaround after the required evidence is received and the scope is confirmed.
           </p>
           <p className="text-xs text-stone-600 leading-6 max-w-2xl mx-auto mb-8">
-            Requesting a review is not a purchase. The scope and evidence gaps are reviewed before any quote or work begins.
+            Requesting a review is not a purchase. The scope and evidence gaps are reviewed before the engagement is confirmed or any work begins.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <TrackedCtaLink

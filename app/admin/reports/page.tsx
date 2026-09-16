@@ -1122,7 +1122,7 @@ export default function ReportRequestsAdminPage() {
                 </p>
               ) : selectedRequest?.requestedReportType === 'carlon_analytics_underwriting' ? (
                 <p className="text-xs text-stone-600 font-medium">
-                  Bespoke underwriting is quoted after scope review; no automatic checkout is created.
+                  Standard one-site scope is £295 after review; complex or multi-site work is quoted separately. No automatic checkout is created.
                 </p>
               ) : null}
             </div>
