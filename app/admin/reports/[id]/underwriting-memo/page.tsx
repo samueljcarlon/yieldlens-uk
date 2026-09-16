@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 
 import {
   getRemoteReportRequests,
+  updateReportRequest,
   type ReportRequest,
 } from '@/lib/reportRequests';
 
@@ -344,7 +345,9 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
   const [review, setReview] = useState<CarlonAnalyticsReview | null>(null);
 
   const [loading, setLoading] = useState(false);
+  const [deliverySaving, setDeliverySaving] = useState(false);
   const [error, setError] = useState('');
+  const [deliveryMessage, setDeliveryMessage] = useState('');
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -360,6 +363,7 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
 
   const handleLoad = async () => {
     setError('');
+    setDeliveryMessage('');
     setLoading(true);
 
     try {
@@ -404,6 +408,71 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
       );
     } finally {
       setLoading(false);
+    }
+  };
+
+
+  const handleMarkDelivered = async () => {
+    if (!request || !review) return;
+
+    setError('');
+    setDeliveryMessage('');
+
+    if (review.status === 'delivered') {
+      setDeliveryMessage('This underwriting memo is already marked delivered.');
+      return;
+    }
+
+    if (review.status !== 'reviewed') {
+      setError('The analyst review must be marked reviewed before delivery.');
+      return;
+    }
+
+    setDeliverySaving(true);
+
+    try {
+      const now = new Date().toISOString();
+
+      const nextReview: CarlonAnalyticsReview = {
+        ...review,
+        status: 'delivered',
+        deliveredAt: now,
+      };
+
+      await updateReportRequest({
+        id: request.id,
+        adminPin,
+        fulfilmentStatus: 'sent',
+        carlonAnalyticsReview: nextReview,
+      });
+
+      setReview(nextReview);
+
+      setRequest((current) =>
+        current
+          ? {
+              ...current,
+              fulfilmentStatus: 'sent',
+              updatedAt: now,
+              result: {
+                ...(asRecord(current.result) ?? {}),
+                carlonAnalyticsReview: nextReview,
+              },
+            }
+          : current
+      );
+
+      setDeliveryMessage(
+        'Memo marked delivered. Fulfilment is now Sent and the delivery timestamp has been recorded.'
+      );
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Failed to mark underwriting memo as delivered.'
+      );
+    } finally {
+      setDeliverySaving(false);
     }
   };
 
@@ -470,14 +539,33 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
         </div>
 
         {request && review ? (
-          <button
-            type="button"
-            onClick={() => window.print()}
-            disabled={!readyForClient}
-            className="rounded-xl bg-stone-950 px-5 py-2.5 text-sm font-semibold text-white hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            Print / save PDF
-          </button>
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              disabled={!readyForClient}
+              className="rounded-xl border border-stone-300 bg-white px-5 py-2.5 text-sm font-semibold text-stone-900 hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Print / save PDF
+            </button>
+
+            {review.status === 'reviewed' ? (
+              <button
+                type="button"
+                onClick={handleMarkDelivered}
+                disabled={deliverySaving}
+                className="rounded-xl bg-stone-950 px-5 py-2.5 text-sm font-semibold text-white hover:bg-stone-800 disabled:opacity-50"
+              >
+                {deliverySaving ? 'Saving...' : 'Mark delivered'}
+              </button>
+            ) : null}
+
+            {review.status === 'delivered' ? (
+              <span className="rounded-xl border border-green-200 bg-green-50 px-4 py-2.5 text-sm font-semibold text-green-800">
+                Delivered
+              </span>
+            ) : null}
+          </div>
         ) : null}
       </div>
 
@@ -527,6 +615,18 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
 
       {request && intake && review && metrics ? (
         <article className="memo-page mx-auto mb-14 max-w-5xl border border-stone-200 bg-white px-7 py-9 shadow-sm sm:px-12 sm:py-12">
+          {error ? (
+            <div className="memo-print-hide mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">
+              {error}
+            </div>
+          ) : null}
+
+          {deliveryMessage ? (
+            <div className="memo-print-hide mb-6 rounded-xl border border-green-200 bg-green-50 p-4 text-sm font-medium text-green-800">
+              {deliveryMessage}
+            </div>
+          ) : null}
+
           {!readyForClient ? (
             <div className="memo-print-hide mb-8 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
               <strong>Draft preview only.</strong> The analyst review is still
@@ -564,6 +664,14 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
                 <p>
                   <strong className="text-stone-800">Client:</strong>{' '}
                   {intake.contactName}
+                </p>
+                <p>
+                  <strong className="text-stone-800">Status:</strong>{' '}
+                  {review.status === 'delivered'
+                    ? review.deliveredAt
+                      ? `Delivered ${formatDate(review.deliveredAt)}`
+                      : 'Delivered'
+                    : 'Reviewed'}
                 </p>
               </div>
             </div>
