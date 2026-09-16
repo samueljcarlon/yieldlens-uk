@@ -7,6 +7,7 @@ import type {
   ReportRequestLeadQuality,
   ReportRequestStatus,
 } from '@/lib/reportRequests';
+import type { CarlonAnalyticsReview } from '@/types/carlonAnalytics';
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -71,6 +72,135 @@ const allowedLeadQuality: Array<ReportRequestLeadQuality> = [
   'high',
   'priority',
 ];
+
+const allowedCarlonReviewStatuses = new Set(['draft', 'reviewed', 'delivered']);
+const allowedCarlonReviewDecisions = new Set(['proceed', 'renegotiate', 'pause']);
+const allowedCarlonEvidenceStatuses = new Set(['confirmed', 'assumption', 'missing']);
+
+function cleanReviewText(value: unknown, maxLength: number): string {
+  if (typeof value !== 'string') return '';
+  return value.trim().slice(0, maxLength);
+}
+
+function cleanReviewDate(value: unknown): string | null {
+  if (value === undefined || value === null || value === '') return null;
+  if (typeof value !== 'string') return null;
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return null;
+
+  return parsed.toISOString();
+}
+
+function sanitizeCarlonAnalyticsReview(raw: unknown): CarlonAnalyticsReview {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+    throw new Error('Invalid Carlon Analytics review.');
+  }
+
+  const input = raw as Record<string, unknown>;
+
+  if (input.version !== 'v1') {
+    throw new Error('Invalid Carlon Analytics review version.');
+  }
+
+  if (
+    typeof input.status !== 'string' ||
+    !allowedCarlonReviewStatuses.has(input.status)
+  ) {
+    throw new Error('Invalid Carlon Analytics review status.');
+  }
+
+  const decision =
+    input.decision === null || input.decision === undefined || input.decision === ''
+      ? null
+      : typeof input.decision === 'string' &&
+          allowedCarlonReviewDecisions.has(input.decision)
+        ? (input.decision as CarlonAnalyticsReview['decision'])
+        : null;
+
+  const keyReasons: CarlonAnalyticsReview['keyReasons'] = [];
+
+  if (Array.isArray(input.keyReasons)) {
+    for (const rawItem of input.keyReasons.slice(0, 8)) {
+      if (!rawItem || typeof rawItem !== 'object' || Array.isArray(rawItem)) continue;
+
+      const item = rawItem as Record<string, unknown>;
+      const title = cleanReviewText(item.title, 160);
+      const detail = cleanReviewText(item.detail, 1500);
+
+      if (!title && !detail) continue;
+
+      keyReasons.push({ title, detail });
+    }
+  }
+
+  const negotiationPriorities: CarlonAnalyticsReview['negotiationPriorities'] = [];
+
+  if (Array.isArray(input.negotiationPriorities)) {
+    for (const rawItem of input.negotiationPriorities.slice(0, 8)) {
+      if (!rawItem || typeof rawItem !== 'object' || Array.isArray(rawItem)) continue;
+
+      const item = rawItem as Record<string, unknown>;
+      const priority = Number(item.priority);
+
+      if (!Number.isInteger(priority) || priority < 1 || priority > 20) continue;
+
+      const title = cleanReviewText(item.title, 160);
+      const rationale = cleanReviewText(item.rationale, 1500);
+      const target = cleanReviewText(item.target, 1000);
+
+      if (!title && !rationale && !target) continue;
+
+      negotiationPriorities.push({
+        priority,
+        title,
+        rationale,
+        target,
+      });
+    }
+  }
+
+  const evidenceAssessment: CarlonAnalyticsReview['evidenceAssessment'] = [];
+
+  if (Array.isArray(input.evidenceAssessment)) {
+    for (const rawItem of input.evidenceAssessment.slice(0, 30)) {
+      if (!rawItem || typeof rawItem !== 'object' || Array.isArray(rawItem)) continue;
+
+      const item = rawItem as Record<string, unknown>;
+      const evidenceStatus =
+        typeof item.status === 'string' &&
+        allowedCarlonEvidenceStatuses.has(item.status)
+          ? (item.status as CarlonAnalyticsReview['evidenceAssessment'][number]['status'])
+          : null;
+
+      if (!evidenceStatus) continue;
+
+      const evidenceItem = cleanReviewText(item.item, 200);
+      const note = cleanReviewText(item.note, 1500);
+
+      if (!evidenceItem) continue;
+
+      evidenceAssessment.push({
+        item: evidenceItem,
+        status: evidenceStatus,
+        note,
+      });
+    }
+  }
+
+  return {
+    version: 'v1',
+    status: input.status as CarlonAnalyticsReview['status'],
+    decision,
+    executiveSummary: cleanReviewText(input.executiveSummary, 6000),
+    keyReasons,
+    negotiationPriorities,
+    evidenceAssessment,
+    analystNotes: cleanReviewText(input.analystNotes, 10000),
+    reviewedAt: cleanReviewDate(input.reviewedAt),
+    deliveredAt: cleanReviewDate(input.deliveredAt),
+  };
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -262,8 +392,35 @@ export async function PATCH(request: NextRequest) {
           : undefined;
 
     const internalNotes = getOptionalTextField(body.internal_notes);
+    const rawCarlonAnalyticsReview = body.carlon_analytics_review;
 
-    if (!id || (status === undefined && fulfilmentStatus === undefined && leadQuality === undefined && internalNotes === undefined)) {
+    let carlonAnalyticsReview: CarlonAnalyticsReview | undefined;
+
+    if (rawCarlonAnalyticsReview !== undefined) {
+      try {
+        carlonAnalyticsReview = sanitizeCarlonAnalyticsReview(
+          rawCarlonAnalyticsReview
+        );
+      } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : 'Invalid Carlon Analytics review.';
+
+        return NextResponse.json({ error: message }, { status: 400 });
+      }
+    }
+
+    if (
+      !id ||
+      (
+        status === undefined &&
+        fulfilmentStatus === undefined &&
+        leadQuality === undefined &&
+        internalNotes === undefined &&
+        carlonAnalyticsReview === undefined
+      )
+    ) {
       return NextResponse.json(
         { error: 'Invalid report request update.' },
         { status: 400 }
@@ -281,20 +438,61 @@ export async function PATCH(request: NextRequest) {
     if (leadQuality !== undefined) updates.lead_quality = leadQuality;
     if (internalNotes !== undefined) updates.internal_notes = internalNotes;
 
-    if (status === 'contacted') {
-      const { data: existingRow, error: existingError } = await supabase
+    let existingRow:
+      | {
+          contacted_at: string | null;
+          result_json: unknown;
+          requested_report_type: string;
+        }
+      | null = null;
+
+    if (status === 'contacted' || carlonAnalyticsReview !== undefined) {
+      const { data, error: existingError } = await supabase
         .from('report_requests')
-        .select('contacted_at')
+        .select('contacted_at, result_json, requested_report_type')
         .eq('id', id)
         .maybeSingle();
 
       if (existingError) {
-        return NextResponse.json({ error: existingError.message }, { status: 500 });
+        return NextResponse.json(
+          { error: existingError.message },
+          { status: 500 }
+        );
       }
 
-      if (existingRow && !existingRow.contacted_at) {
-        updates.contacted_at = new Date().toISOString();
+      existingRow = data;
+    }
+
+    if (status === 'contacted' && existingRow && !existingRow.contacted_at) {
+      updates.contacted_at = new Date().toISOString();
+    }
+
+    if (carlonAnalyticsReview !== undefined) {
+      if (!existingRow) {
+        return NextResponse.json(
+          { error: 'Report request not found.' },
+          { status: 404 }
+        );
       }
+
+      if (existingRow.requested_report_type !== 'carlon_analytics_underwriting') {
+        return NextResponse.json(
+          { error: 'Carlon Analytics review can only be saved to an underwriting request.' },
+          { status: 400 }
+        );
+      }
+
+      const existingResult =
+        existingRow?.result_json &&
+        typeof existingRow.result_json === 'object' &&
+        !Array.isArray(existingRow.result_json)
+          ? (existingRow.result_json as Record<string, unknown>)
+          : {};
+
+      updates.result_json = {
+        ...existingResult,
+        carlonAnalyticsReview,
+      };
     }
 
     const { error } = await supabase

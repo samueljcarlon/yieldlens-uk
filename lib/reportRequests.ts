@@ -1,3 +1,5 @@
+import type { CarlonAnalyticsReview } from '@/types/carlonAnalytics';
+
 export type ReportRequestStatus =
   | 'requested'
   | 'reviewed'
@@ -66,6 +68,7 @@ export interface UpdateReportRequestInput {
   fulfilmentStatus?: ReportRequestFulfilmentStatus;
   leadQuality?: ReportRequestLeadQuality | null;
   internalNotes?: string | null;
+  carlonAnalyticsReview?: CarlonAnalyticsReview;
 }
 
 export async function getRemoteReportRequests(adminPin: string): Promise<ReportRequest[]> {
@@ -104,6 +107,7 @@ export async function updateReportRequest({
   fulfilmentStatus,
   leadQuality,
   internalNotes,
+  carlonAnalyticsReview,
   adminPin,
 }: UpdateReportRequestInput): Promise<void> {
   const body: Record<string, unknown> = { id };
@@ -112,6 +116,9 @@ export async function updateReportRequest({
   if (fulfilmentStatus !== undefined) body.fulfilment_status = fulfilmentStatus;
   if (leadQuality !== undefined) body.lead_quality = leadQuality;
   if (internalNotes !== undefined) body.internal_notes = internalNotes;
+  if (carlonAnalyticsReview !== undefined) {
+    body.carlon_analytics_review = carlonAnalyticsReview;
+  }
 
   const response = await fetch('/api/report-interest', {
     method: 'PATCH',

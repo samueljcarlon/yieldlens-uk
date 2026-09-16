@@ -55,3 +55,43 @@ export interface CarlonAnalyticsIntake {
   sourcePage?: string;
   prefilledFromYieldLens?: boolean;
 }
+
+export type CarlonAnalyticsReviewStatus =
+  | 'draft'
+  | 'reviewed'
+  | 'delivered';
+
+export type CarlonAnalyticsReviewDecision =
+  | 'proceed'
+  | 'renegotiate'
+  | 'pause';
+
+export type CarlonAnalyticsEvidenceStatus =
+  | 'confirmed'
+  | 'assumption'
+  | 'missing';
+
+export interface CarlonAnalyticsReview {
+  version: 'v1';
+  status: CarlonAnalyticsReviewStatus;
+  decision: CarlonAnalyticsReviewDecision | null;
+  executiveSummary: string;
+  keyReasons: Array<{
+    title: string;
+    detail: string;
+  }>;
+  negotiationPriorities: Array<{
+    priority: number;
+    title: string;
+    rationale: string;
+    target: string;
+  }>;
+  evidenceAssessment: Array<{
+    item: string;
+    status: CarlonAnalyticsEvidenceStatus;
+    note: string;
+  }>;
+  analystNotes: string;
+  reviewedAt: string | null;
+  deliveredAt: string | null;
+}
