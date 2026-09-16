@@ -1193,11 +1193,20 @@ export default function ReportRequestsAdminPage() {
 
           {selectedRequest.requestedReportType === 'carlon_analytics_underwriting' && (
             <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-4">
-              <div className="mb-3">
-                <p className="font-semibold text-green-950">Carlon Analytics underwriting intake</p>
-                <p className="mt-1 text-xs leading-5 text-green-800">
-                  Review the deeper operating, funding and lease assumptions below before quoting or beginning the analysis.
-                </p>
+              <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p className="font-semibold text-green-950">Carlon Analytics underwriting intake</p>
+                  <p className="mt-1 text-xs leading-5 text-green-800">
+                    Review the deeper operating, funding and lease assumptions below before confirming or beginning the analysis.
+                  </p>
+                </div>
+
+                <Link
+                  href={`/admin/reports/${selectedRequest.id}/underwriting`}
+                  className="inline-flex shrink-0 items-center justify-center rounded-lg border border-green-700 bg-green-700 px-4 py-2 text-xs font-semibold text-white hover:bg-green-800"
+                >
+                  Open analyst workspace
+                </Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {getCarlonAnalyticsInputRows(selectedRequest.input).map((row) => (
