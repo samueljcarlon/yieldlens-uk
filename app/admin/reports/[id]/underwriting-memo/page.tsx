@@ -345,6 +345,11 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
             display: none !important;
           }
 
+          .memo-document-header,
+          .memo-document-footer {
+            display: block !important;
+          }
+
           .memo-page {
             max-width: none !important;
             margin: 0 !important;
