@@ -10,6 +10,11 @@ import {
   type ReportRequest,
 } from '@/lib/reportRequests';
 
+import {
+  calculateCarlonUnderwriting,
+  getRunwayMonths,
+} from '@/lib/carlonAnalyticsUnderwriting';
+
 import type {
   CarlonAnalyticsIntake,
   CarlonAnalyticsReview,
@@ -91,176 +96,6 @@ function getReview(request: ReportRequest): CarlonAnalyticsReview | null {
   return raw as CarlonAnalyticsReview;
 }
 
-function getMonthlyDebtService(intake: CarlonAnalyticsIntake): number | null {
-  const principal = toNumber(intake.externalFundingAmount);
-
-  if (principal === null) return null;
-  if (principal <= 0) return 0;
-
-  const annualRate = toNumber(intake.fundingInterestRate);
-  const termMonths = toNumber(intake.fundingTermMonths);
-
-  if (
-    annualRate === null ||
-    termMonths === null ||
-    termMonths <= 0
-  ) {
-    return null;
-  }
-
-  if (annualRate === 0) {
-    return principal / termMonths;
-  }
-
-  const monthlyRate = annualRate / 100 / 12;
-
-  return (
-    (principal * monthlyRate * Math.pow(1 + monthlyRate, termMonths)) /
-    (Math.pow(1 + monthlyRate, termMonths) - 1)
-  );
-}
-
-function getMetrics(intake: CarlonAnalyticsIntake) {
-  const revenue = toNumber(intake.targetMonthlyRevenue);
-  const grossMargin = toNumber(intake.grossMarginPercentage);
-
-  const annualRent = toNumber(intake.annualRent);
-  const annualServiceCharge = toNumber(intake.annualServiceCharge);
-  const annualInsurance = toNumber(intake.annualInsuranceContribution);
-  const annualRates = toNumber(intake.annualBusinessRates);
-
-  const monthlyStaff = toNumber(intake.monthlyStaffCosts);
-  const monthlyUtilities = toNumber(intake.monthlyUtilities);
-  const monthlyMarketing = toNumber(intake.monthlyMarketing);
-  const monthlySoftware = toNumber(
-    intake.monthlySoftwareAndProfessionalFees
-  );
-  const monthlyOther = toNumber(intake.monthlyOtherOperatingCosts);
-
-  const fitOut = toNumber(intake.fitOutBudget);
-  const equipment = toNumber(intake.equipmentBudget);
-  const openingStock = toNumber(intake.openingStock);
-  const legalFees = toNumber(intake.legalAndProfessionalFees);
-  const preOpening = toNumber(intake.licencesAndPreOpeningCosts);
-  const contingency = toNumber(intake.contingencyBudget);
-  const deposit = toNumber(intake.rentDeposit);
-
-  const ownCash = toNumber(intake.startingCash);
-  const externalFunding = toNumber(intake.externalFundingAmount);
-
-  const completeSum = (values: Array<number | null>): number | null => {
-    if (values.some((value) => value === null)) return null;
-
-    return values.reduce<number>(
-      (total, value) => total + (value as number),
-      0
-    );
-  };
-
-  const monthlyRent =
-    annualRent === null ? null : annualRent / 12;
-
-  const annualOccupancy = completeSum([
-    annualRent,
-    annualServiceCharge,
-    annualInsurance,
-    annualRates,
-  ]);
-
-  const monthlyOccupancy =
-    annualOccupancy === null ? null : annualOccupancy / 12;
-
-  const grossProfit =
-    revenue === null || grossMargin === null
-      ? null
-      : revenue * (grossMargin / 100);
-
-  const monthlyOperatingCosts = completeSum([
-    monthlyStaff,
-    monthlyUtilities,
-    monthlyMarketing,
-    monthlySoftware,
-    monthlyOther,
-  ]);
-
-  const monthlyDebtService = getMonthlyDebtService(intake);
-
-  const positionFor = (
-    revenueMultiplier: number,
-    costMultiplier = 1
-  ): number | null => {
-    if (
-      revenue === null ||
-      grossMargin === null ||
-      monthlyOccupancy === null ||
-      monthlyOperatingCosts === null ||
-      monthlyDebtService === null
-    ) {
-      return null;
-    }
-
-    return (
-      revenue *
-        revenueMultiplier *
-        (grossMargin / 100) -
-      monthlyOccupancy -
-      monthlyOperatingCosts * costMultiplier -
-      monthlyDebtService
-    );
-  };
-
-  const baseMonthlyPosition = positionFor(1);
-  const revenueDown10Position = positionFor(0.9);
-  const revenueDown20Position = positionFor(0.8);
-  const costsUp10Position = positionFor(1, 1.1);
-  const combinedDownsidePosition = positionFor(0.8, 1.1);
-
-  const openingCapital = completeSum([
-    fitOut,
-    equipment,
-    openingStock,
-    legalFees,
-    preOpening,
-    contingency,
-    deposit,
-  ]);
-
-  const fundingAvailable = completeSum([
-    ownCash,
-    externalFunding,
-  ]);
-
-  const openingBuffer =
-    openingCapital === null || fundingAvailable === null
-      ? null
-      : fundingAvailable - openingCapital;
-
-  const rentBurden =
-    revenue === null ||
-    revenue <= 0 ||
-    monthlyRent === null
-      ? null
-      : (monthlyRent / revenue) * 100;
-
-  return {
-    revenue,
-    grossMargin,
-    grossProfit,
-    monthlyRent,
-    monthlyOccupancy,
-    monthlyOperatingCosts,
-    monthlyDebtService,
-    baseMonthlyPosition,
-    revenueDown10Position,
-    revenueDown20Position,
-    costsUp10Position,
-    combinedDownsidePosition,
-    openingCapital,
-    fundingAvailable,
-    openingBuffer,
-    rentBurden,
-  };
-}
 
 function getDecisionLabel(
   decision: CarlonAnalyticsReview['decision']
@@ -357,7 +192,7 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
   }, []);
 
   const metrics = useMemo(
-    () => (intake ? getMetrics(intake) : null),
+    () => (intake ? calculateCarlonUnderwriting(intake) : null),
     [intake]
   );
 
@@ -760,6 +595,28 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
               />
             </div>
 
+            {metrics.revenueConsistencyFlag ? (
+              <div className="mt-5 rounded-xl border border-amber-300 bg-amber-50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">
+                  Operating assumption cross-check
+                </p>
+
+                <p className="mt-2 text-sm leading-6 text-amber-950">
+                  The customer-volume assumptions imply monthly revenue of{' '}
+                  {formatCurrency(metrics.impliedMonthlyRevenue)}, compared
+                  with the stated target of {formatCurrency(metrics.revenue)}.
+                  This is a{' '}
+                  {metrics.revenueConsistencyDifferencePct !== null &&
+                  metrics.revenueConsistencyDifferencePct > 0
+                    ? '+'
+                    : ''}
+                  {metrics.revenueConsistencyDifferencePct?.toFixed(1)}%
+                  difference and should be reconciled before the revenue case
+                  is treated as fully supported.
+                </p>
+              </div>
+            ) : null}
+
             <p className="mt-4 text-xs leading-5 text-stone-500">
               Composite figures are shown only where the required supplied
               inputs are complete. Blank intake fields are treated as unknown,
@@ -813,29 +670,70 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
                     <th className="px-4 py-3 text-right">
                       Monthly position
                     </th>
+                    <th className="px-4 py-3 text-right">
+                      Opening-buffer runway
+                    </th>
                   </tr>
                 </thead>
 
                 <tbody className="divide-y divide-stone-200">
                   {[
-                    ['Base assumptions', metrics.baseMonthlyPosition],
-                    ['Revenue -10%', metrics.revenueDown10Position],
-                    ['Revenue -20%', metrics.revenueDown20Position],
-                    ['Operating costs +10%', metrics.costsUp10Position],
-                    [
-                      'Revenue -20% + operating costs +10%',
-                      metrics.combinedDownsidePosition,
-                    ],
-                  ].map(([label, value]) => (
-                    <tr key={String(label)}>
-                      <td className="px-4 py-3 font-medium text-stone-800">
-                        {String(label)}
-                      </td>
-                      <td className="px-4 py-3 text-right font-semibold text-stone-950">
-                        {formatCurrency(value as number | null)}
-                      </td>
-                    </tr>
-                  ))}
+                    {
+                      label: 'Base assumptions',
+                      position: metrics.baseMonthlyPosition,
+                    },
+                    {
+                      label: 'Revenue -10%',
+                      position: metrics.revenueDown10Position,
+                    },
+                    {
+                      label: 'Revenue -20%',
+                      position: metrics.revenueDown20Position,
+                    },
+                    {
+                      label: 'Gross margin -5 percentage points',
+                      position: metrics.marginDown5Position,
+                    },
+                    {
+                      label: 'Operating costs +10%',
+                      position: metrics.costsUp10Position,
+                    },
+                    {
+                      label:
+                        'Combined: revenue -20%, margin -5pp, costs +10%',
+                      position: metrics.combinedDownsidePosition,
+                    },
+                  ].map((scenario) => {
+                    const runway = getRunwayMonths(
+                      metrics.openingBuffer,
+                      scenario.position
+                    );
+
+                    const runwayLabel =
+                      scenario.position === null
+                        ? 'Not available'
+                        : scenario.position >= 0
+                          ? 'No monthly burn'
+                          : runway === null
+                            ? 'Not available'
+                            : `${runway.toFixed(1)} months`;
+
+                    return (
+                      <tr key={scenario.label}>
+                        <td className="px-4 py-3 font-medium text-stone-800">
+                          {scenario.label}
+                        </td>
+
+                        <td className="px-4 py-3 text-right font-semibold text-stone-950">
+                          {formatCurrency(scenario.position)}
+                        </td>
+
+                        <td className="px-4 py-3 text-right text-stone-700">
+                          {runwayLabel}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -1057,6 +955,14 @@ export default function CarlonAnalyticsUnderwritingMemoPage() {
                 <div className="rounded-xl border border-stone-200 p-4 text-sm leading-6 text-stone-700">
                   Obtain and review the evidence currently marked Missing before
                   relying on the related assumptions for a final commitment.
+                </div>
+              ) : null}
+
+              {metrics.revenueConsistencyFlag ? (
+                <div className="rounded-xl border border-stone-200 p-4 text-sm leading-6 text-stone-700">
+                  Reconcile the stated target revenue with the average-spend,
+                  customer-volume and opening-day assumptions before relying on
+                  the base operating case.
                 </div>
               ) : null}
 

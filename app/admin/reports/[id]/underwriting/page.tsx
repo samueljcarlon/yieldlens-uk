@@ -10,6 +10,10 @@ import {
   type ReportRequest,
 } from '@/lib/reportRequests';
 
+import {
+  calculateCarlonUnderwriting,
+} from '@/lib/carlonAnalyticsUnderwriting';
+
 import type {
   CarlonAnalyticsEvidenceStatus,
   CarlonAnalyticsIntake,
@@ -60,6 +64,17 @@ function formatCurrency(value: number | null): string {
 function formatPercent(value: number | null): string {
   if (value === null || !Number.isFinite(value)) return 'Not available';
   return `${value.toFixed(1)}%`;
+}
+
+function formatCurrencyPrecise(value: number | null): string {
+  if (value === null || !Number.isFinite(value)) return 'Not available';
+
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
 }
 
 function formatNumber(value: number | null, digits = 1): string {
@@ -152,196 +167,6 @@ function normaliseReview(
   };
 }
 
-function getMonthlyDebtService(intake: CarlonAnalyticsIntake): number | null {
-  const principal = toNumber(intake.externalFundingAmount);
-
-  if (principal === null) return null;
-  if (principal <= 0) return 0;
-
-  const annualRate = toNumber(intake.fundingInterestRate);
-  const termMonths = toNumber(intake.fundingTermMonths);
-
-  if (
-    annualRate === null ||
-    termMonths === null ||
-    termMonths <= 0
-  ) {
-    return null;
-  }
-
-  if (annualRate === 0) {
-    return principal / termMonths;
-  }
-
-  const monthlyRate = annualRate / 100 / 12;
-
-  return (
-    (principal * monthlyRate * Math.pow(1 + monthlyRate, termMonths)) /
-    (Math.pow(1 + monthlyRate, termMonths) - 1)
-  );
-}
-
-function getUnderwritingMetrics(intake: CarlonAnalyticsIntake) {
-  const revenue = toNumber(intake.targetMonthlyRevenue);
-  const grossMargin = toNumber(intake.grossMarginPercentage);
-
-  const annualRent = toNumber(intake.annualRent);
-  const annualServiceCharge = toNumber(intake.annualServiceCharge);
-  const annualInsurance = toNumber(intake.annualInsuranceContribution);
-  const annualRates = toNumber(intake.annualBusinessRates);
-
-  const monthlyStaff = toNumber(intake.monthlyStaffCosts);
-  const monthlyUtilities = toNumber(intake.monthlyUtilities);
-  const monthlyMarketing = toNumber(intake.monthlyMarketing);
-  const monthlySoftware = toNumber(
-    intake.monthlySoftwareAndProfessionalFees
-  );
-  const monthlyOther = toNumber(intake.monthlyOtherOperatingCosts);
-
-  const fitOut = toNumber(intake.fitOutBudget);
-  const equipment = toNumber(intake.equipmentBudget);
-  const openingStock = toNumber(intake.openingStock);
-  const legalFees = toNumber(intake.legalAndProfessionalFees);
-  const preOpening = toNumber(intake.licencesAndPreOpeningCosts);
-  const contingency = toNumber(intake.contingencyBudget);
-  const deposit = toNumber(intake.rentDeposit);
-
-  const ownCash = toNumber(intake.startingCash);
-  const externalFunding = toNumber(intake.externalFundingAmount);
-
-  const completeSum = (values: Array<number | null>): number | null => {
-    if (values.some((value) => value === null)) return null;
-
-    return values.reduce<number>(
-      (total, value) => total + (value as number),
-      0
-    );
-  };
-
-  const monthlyRent =
-    annualRent === null ? null : annualRent / 12;
-
-  const annualOccupancy = completeSum([
-    annualRent,
-    annualServiceCharge,
-    annualInsurance,
-    annualRates,
-  ]);
-
-  const monthlyOccupancy =
-    annualOccupancy === null ? null : annualOccupancy / 12;
-
-  const grossProfit =
-    revenue === null || grossMargin === null
-      ? null
-      : revenue * (grossMargin / 100);
-
-  const knownMonthlyOperatingCosts = completeSum([
-    monthlyStaff,
-    monthlyUtilities,
-    monthlyMarketing,
-    monthlySoftware,
-    monthlyOther,
-  ]);
-
-  const monthlyDebtService = getMonthlyDebtService(intake);
-
-  const knownCostMonthlyPosition =
-    grossProfit === null ||
-    monthlyOccupancy === null ||
-    knownMonthlyOperatingCosts === null ||
-    monthlyDebtService === null
-      ? null
-      : grossProfit -
-        monthlyOccupancy -
-        knownMonthlyOperatingCosts -
-        monthlyDebtService;
-
-  const revenueDown20Position =
-    revenue === null ||
-    grossMargin === null ||
-    monthlyOccupancy === null ||
-    knownMonthlyOperatingCosts === null ||
-    monthlyDebtService === null
-      ? null
-      : revenue * 0.8 * (grossMargin / 100) -
-        monthlyOccupancy -
-        knownMonthlyOperatingCosts -
-        monthlyDebtService;
-
-  const openingCapital = completeSum([
-    fitOut,
-    equipment,
-    openingStock,
-    legalFees,
-    preOpening,
-    contingency,
-    deposit,
-  ]);
-
-  const fundingAvailable = completeSum([
-    ownCash,
-    externalFunding,
-  ]);
-
-  const openingBuffer =
-    fundingAvailable === null || openingCapital === null
-      ? null
-      : fundingAvailable - openingCapital;
-
-  const rentBurden =
-    revenue === null ||
-    revenue <= 0 ||
-    monthlyRent === null
-      ? null
-      : (monthlyRent / revenue) * 100;
-
-  const missingCostInputs = [
-    ['Service charge', annualServiceCharge],
-    ['Insurance contribution', annualInsurance],
-    ['Business rates', annualRates],
-    ['Staff costs', monthlyStaff],
-    ['Utilities', monthlyUtilities],
-    ['Marketing', monthlyMarketing],
-    ['Software / professional fees', monthlySoftware],
-    ['Other operating costs', monthlyOther],
-    ['External funding amount', externalFunding],
-  ]
-    .filter(([, value]) => value === null)
-    .map(([label]) => label as string);
-
-  const missingCapitalInputs = [
-    ['Fit-out', fitOut],
-    ['Equipment', equipment],
-    ['Opening stock', openingStock],
-    ['Legal / professional fees', legalFees],
-    ['Licences / pre-opening', preOpening],
-    ['Contingency', contingency],
-    ['Rent deposit', deposit],
-    ['Own cash', ownCash],
-    ['External funding', externalFunding],
-  ]
-    .filter(([, value]) => value === null)
-    .map(([label]) => label as string);
-
-  return {
-    revenue,
-    grossMargin,
-    grossProfit,
-    monthlyRent,
-    monthlyOccupancy,
-    knownMonthlyOperatingCosts,
-    monthlyDebtService,
-    knownCostMonthlyPosition,
-    revenueDown20Position,
-    openingCapital,
-    fundingAvailable,
-    openingBuffer,
-    rentBurden,
-    missingCostInputs,
-    missingCapitalInputs,
-  };
-}
 
 function FieldCard({
   label,
@@ -418,7 +243,7 @@ export default function CarlonAnalyticsUnderwritingWorkspacePage() {
   }, []);
 
   const metrics = useMemo(
-    () => (intake ? getUnderwritingMetrics(intake) : null),
+    () => (intake ? calculateCarlonUnderwriting(intake) : null),
     [intake]
   );
 
@@ -937,7 +762,7 @@ export default function CarlonAnalyticsUnderwritingWorkspacePage() {
                     />
                     <FieldCard
                       label="Average spend"
-                      value={formatCurrency(
+                      value={formatCurrencyPrecise(
                         toNumber(intake.averageSpendPerCustomer)
                       )}
                     />
@@ -1079,7 +904,7 @@ export default function CarlonAnalyticsUnderwritingWorkspacePage() {
                     <FieldCard
                       label="Known operating costs / month"
                       value={formatCurrency(
-                        metrics.knownMonthlyOperatingCosts
+                        metrics.monthlyOperatingCosts
                       )}
                     />
                     <FieldCard
@@ -1089,7 +914,7 @@ export default function CarlonAnalyticsUnderwritingWorkspacePage() {
                     <FieldCard
                       label="Known-cost monthly position"
                       value={formatCurrency(
-                        metrics.knownCostMonthlyPosition
+                        metrics.baseMonthlyPosition
                       )}
                     />
                     <FieldCard
@@ -1097,6 +922,54 @@ export default function CarlonAnalyticsUnderwritingWorkspacePage() {
                       value={formatCurrency(
                         metrics.revenueDown20Position
                       )}
+                    />
+                    <FieldCard
+                      label="Revenue -10% position"
+                      value={formatCurrency(
+                        metrics.revenueDown10Position
+                      )}
+                    />
+                    <FieldCard
+                      label="Margin -5pp position"
+                      value={formatCurrency(
+                        metrics.marginDown5Position
+                      )}
+                    />
+                    <FieldCard
+                      label="Operating costs +10%"
+                      value={formatCurrency(
+                        metrics.costsUp10Position
+                      )}
+                    />
+                    <FieldCard
+                      label="Combined downside"
+                      value={formatCurrency(
+                        metrics.combinedDownsidePosition
+                      )}
+                    />
+                    <FieldCard
+                      label="Revenue -20% cash runway"
+                      value={
+                        metrics.revenueDown20Position === null
+                          ? 'Not available'
+                          : metrics.revenueDown20Position >= 0
+                            ? 'No monthly burn'
+                            : metrics.revenueDown20RunwayMonths === null
+                              ? 'Not available'
+                              : `${metrics.revenueDown20RunwayMonths.toFixed(1)} months`
+                      }
+                    />
+                    <FieldCard
+                      label="Combined downside runway"
+                      value={
+                        metrics.combinedDownsidePosition === null
+                          ? 'Not available'
+                          : metrics.combinedDownsidePosition >= 0
+                            ? 'No monthly burn'
+                            : metrics.combinedDownsideRunwayMonths === null
+                              ? 'Not available'
+                              : `${metrics.combinedDownsideRunwayMonths.toFixed(1)} months`
+                      }
                     />
                     <FieldCard
                       label="Opening capital requirement"
@@ -1109,6 +982,42 @@ export default function CarlonAnalyticsUnderwritingWorkspacePage() {
                     <FieldCard
                       label="Opening funding buffer"
                       value={formatCurrency(metrics.openingBuffer)}
+                    />
+                    <FieldCard
+                      label="Revenue implied by operating drivers"
+                      value={formatCurrency(
+                        metrics.impliedMonthlyRevenue
+                      )}
+                    />
+                    <FieldCard
+                      label="Revenue cross-check"
+                      value={
+                        metrics.revenueConsistencyDifferencePct === null
+                          ? 'Not available'
+                          : `${
+                              metrics.revenueConsistencyDifferencePct > 0
+                                ? '+'
+                                : ''
+                            }${metrics.revenueConsistencyDifferencePct.toFixed(1)}% vs target`
+                      }
+                    />
+                    <FieldCard
+                      label="Operating driver basis"
+                      value={
+                        toNumber(intake.averageSpendPerCustomer) === null ||
+                        toNumber(intake.expectedCustomersPerDay) === null ||
+                        toNumber(intake.openingDaysPerMonth) === null
+                          ? 'Not available'
+                          : `${formatCurrencyPrecise(
+                              toNumber(intake.averageSpendPerCustomer)
+                            )} × ${formatNumber(
+                              toNumber(intake.expectedCustomersPerDay),
+                              0
+                            )} customers × ${formatNumber(
+                              toNumber(intake.openingDaysPerMonth),
+                              0
+                            )} days`
+                      }
                     />
                     <FieldCard
                       label="Missing operating inputs"
@@ -1127,6 +1036,17 @@ export default function CarlonAnalyticsUnderwritingWorkspacePage() {
                       }
                     />
                   </div>
+
+                  {metrics.revenueConsistencyFlag ? (
+                    <div className="mt-4 rounded-xl border border-amber-300 bg-amber-100 p-4 text-sm leading-6 text-amber-950">
+                      <strong>Revenue assumption needs reconciliation.</strong>{' '}
+                      The customer-volume assumptions imply{' '}
+                      {formatCurrency(metrics.impliedMonthlyRevenue)} per month,
+                      compared with a stated target of{' '}
+                      {formatCurrency(metrics.revenue)}. Resolve the difference
+                      before relying on the base case.
+                    </div>
+                  ) : null}
 
                   <p className="mt-4 text-xs leading-5 text-amber-900">
                     A blank field is treated as unknown, not zero. Enter 0 in the
