@@ -20,9 +20,9 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'How Much Rent Can a Gym Afford?',
+  title: 'How Much Rent Can a Gym Afford? UK Gym Rent Guide',
   description:
-    'Check whether a gym can afford the rent before signing by testing memberships, class capacity, personal training income, equipment, fit-out, staffing, service charge, rates and opening cash.',
+    'Work out whether a gym can afford the rent by testing memberships, PT income, staffing, rates, service charge, fit-out and opening cash.',
   alternates: {
     canonical: '/how-much-rent-can-a-gym-afford',
   },
