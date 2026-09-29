@@ -20,9 +20,9 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'How Much Rent Can a Nail Salon Afford?',
+  title: 'How Much Rent Can a Nail Salon Afford? UK Rent Guide',
   description:
-    'Check whether a nail salon can afford the rent before signing by testing appointment volume, technician utilisation, average spend, fit-out, service charge, rates, and opening cash.',
+    'Work out whether a nail salon can afford the rent by testing appointments, technician utilisation, average spend, rates, service charge and opening cash.',
   alternates: {
     canonical: '/how-much-rent-can-a-nail-salon-afford',
   },
