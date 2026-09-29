@@ -19,16 +19,16 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Break-Even Customers Calculator | Commercial Rent and Daily Trade',
+  title: 'Break-Even Customers Calculator | Customers Needed Per Day',
   description:
-    'Estimate customers per day needed to cover rent, operating costs, and lease pressure before signing a commercial lease.',
+    'Calculate how many customers per day you need to cover rent, staffing, rates, service charge and other monthly costs. Free UK commercial calculator.',
   alternates: {
     canonical: '/break-even-customers-calculator',
   },
   openGraph: {
-    title: 'Break-Even Customers Calculator | Commercial Rent and Daily Trade',
+    title: 'Break-Even Customers Calculator | Customers Needed Per Day',
     description:
-      'Estimate customers per day needed to cover rent, operating costs, and lease pressure before signing a commercial lease.',
+      'Calculate how many customers per day you need to cover rent, staffing, rates, service charge and other monthly costs. Free UK commercial calculator.',
     url: 'https://yieldlens.co.uk/break-even-customers-calculator',
   },
 };
