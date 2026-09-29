@@ -292,6 +292,43 @@ export default function HomePage() {
                 </div>
               </div>
 
+              <div className="mt-4 rounded-2xl border border-[#DCCDA8]/25 bg-[#DCCDA8]/[0.06] p-4 sm:p-5">
+                <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-2">
+                  Carlon Analytics
+                </p>
+
+                <div className="sm:flex sm:items-end sm:justify-between gap-5">
+                  <div>
+                    <p className="text-sm font-semibold text-white">
+                      Need a deeper review of a specific site?
+                    </p>
+                    <p className="mt-1 max-w-xl text-sm leading-6 text-stone-300">
+                      Analyst-reviewed commercial underwriting covering operating
+                      economics, opening capital, cash runway, downside scenarios,
+                      lease exposure, and negotiation priorities. Standard one-site
+                      scope is £295.
+                    </p>
+                  </div>
+
+                  <TrackedCtaLink
+                    href="/carlon-analytics/commercial-underwriting?source=homepage"
+                    eventName="carlon_analytics_underwriting_clicked"
+                    pagePath="/"
+                    ctaLabel="Request full underwriting"
+                    ctaLocation="homepage_hero_underwriting"
+                    pageType="homepage"
+                    metadata={{ product_area: 'carlon_analytics' }}
+                    className={`${heroSecondaryCtaClass} mt-4 shrink-0 sm:mt-0`}
+                  >
+                    Request full underwriting
+                  </TrackedCtaLink>
+                </div>
+
+                <p className="mt-3 text-xs leading-5 text-stone-400">
+                  Requesting a review is not a purchase. Scope is confirmed before work begins.
+                </p>
+              </div>
+
               <div className="mt-4 hidden rounded-2xl border border-white/10 bg-white/5 p-4 sm:block sm:p-5">
                 <p className="text-xs uppercase tracking-widest text-[#DCCDA8] font-medium mb-2">
                   Illustrative use
