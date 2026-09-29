@@ -113,7 +113,7 @@ const trustPrinciples = [
 
 const founderNote = [
   'YieldLens UK was built by Sam Carlon to make commercial lease assumptions easier to challenge before operators commit to rent, fit-out, deposit, and legal costs.',
-  'Sam is an MSc Real Estate Economics & Finance candidate at the London School of Economics, studying on a RICS-accredited programme.',
+  'Sam is currently studying MSc Real Estate Economics & Finance at the London School of Economics on a RICS-accredited programme.',
   'YieldLens UK is independent of property sales, rent collection, and lending. The product is deliberately assumption-led and is designed to pressure-test the commercial case for a site rather than replace professional legal, accounting, surveying, or valuation advice.',
 ];
 
