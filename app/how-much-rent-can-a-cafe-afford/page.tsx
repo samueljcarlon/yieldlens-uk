@@ -7,9 +7,9 @@ import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
 import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 
 export const metadata: Metadata = {
-  title: 'How Much Rent Can a Cafe Afford?',
+  title: 'How Much Rent Can a Cafe Afford? UK Rent Guide',
   description:
-    'See how much rent a cafe can afford by comparing rent with turnover, customers, staffing, rates, service charge, opening cash and downside trading. Run a free check.',
+    'Work out whether a cafe can afford the rent by testing turnover, rates, service charge, staffing, opening cash and weaker trading. Run a free UK check.',
   alternates: {
     canonical: 'https://yieldlens.co.uk/how-much-rent-can-a-cafe-afford',
   },
