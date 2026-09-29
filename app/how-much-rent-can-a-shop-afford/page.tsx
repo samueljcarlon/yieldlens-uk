@@ -7,9 +7,9 @@ import BusinessTypeCtaBand from '@/components/BusinessTypeCtaBand';
 import { getCommercialCheckHref } from '@/lib/commercialBusinessType';
 
 export const metadata: Metadata = {
-  title: 'How Much Rent Can a Shop Afford?',
+  title: 'How Much Rent Can a Shop Afford? UK Retail Rent Guide',
   description:
-    'Check whether a shop or retail unit can carry the rent before signing. Test rent burden, opening cash, break-even pressure and downside risk.',
+    'Work out whether a shop can afford the rent by testing sales, margin, rates, service charge, staffing, stock and opening cash. Run a free UK check.',
   alternates: {
     canonical: 'https://yieldlens.co.uk/how-much-rent-can-a-shop-afford',
   },
