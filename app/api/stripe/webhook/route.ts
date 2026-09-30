@@ -70,10 +70,16 @@ function getSafeAttributionFromMetadata(
     'first_page_type',
     'first_mode',
     'first_seen_at',
+    'first_referrer_host',
+    'first_referrer_type',
     'last_page_path',
     'last_page_type',
     'last_mode',
     'last_seen_at',
+    'utm_campaign',
+    'utm_medium',
+    'utm_source',
+    'landing_page',
     'referrer_type',
     'referrer_host',
     'source_page',
@@ -88,7 +94,7 @@ function getSafeAttributionFromMetadata(
     const value = metadata[key];
     if (typeof value !== 'string' || !value.trim()) continue;
 
-    result[key] = key === 'referrer_host' ? value.trim().toLowerCase() : value.trim();
+    result[key] = key === 'referrer_host' || key === 'first_referrer_host' ? value.trim().toLowerCase() : value.trim();
   }
 
   return result;

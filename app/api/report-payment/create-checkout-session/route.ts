@@ -106,10 +106,16 @@ function getCheckoutAttribution(body: Record<string, unknown>): Record<string, s
     'first_page_type',
     'first_mode',
     'first_seen_at',
+    'first_referrer_host',
+    'first_referrer_type',
     'last_page_path',
     'last_page_type',
     'last_mode',
     'last_seen_at',
+    'utm_campaign',
+    'utm_medium',
+    'utm_source',
+    'landing_page',
     'referrer_type',
     'referrer_host',
   ] as const;
@@ -128,7 +134,7 @@ function getCheckoutAttribution(body: Record<string, unknown>): Record<string, s
       continue;
     }
 
-    if (key === 'referrer_host') {
+    if (key === 'referrer_host' || key === 'first_referrer_host') {
       result[key] = value.trim().toLowerCase();
       continue;
     }
