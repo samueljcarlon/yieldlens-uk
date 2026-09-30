@@ -331,7 +331,14 @@ export default function CoffeeShopRentAffordabilityPage() {
                 Coffee-led sites often rely on a short set of busy trading hours. If the rent only works when the day is busy, the lease is fragile rather than comfortably affordable.
               </p>
               <div className="mt-5 rounded-3xl border border-[var(--yieldlens-border)] bg-white p-4 text-sm text-[var(--yieldlens-muted)] leading-7">
-                YieldLens helps compare the rent with daily customer volume, average spend, opening cash, and the weaker parts of the week before the lease becomes expensive to unwind.
+                YieldLens helps compare the rent with daily customer volume, average spend, opening cash, and the weaker parts of the week before the lease becomes expensive to unwind. For the wider site decision, use the{' '}
+                <Link
+                  href="/commercial-lease-viability-check"
+                  className="text-[var(--yieldlens-caution)] font-medium hover:underline"
+                >
+                  commercial lease viability check
+                </Link>
+                {' '}to test rent, opening cash, downside trading and lease terms together.
               </div>
             </div>
           </div>

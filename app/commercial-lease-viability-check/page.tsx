@@ -392,6 +392,61 @@ export default function CommercialLeaseViabilityPage() {
           <p className="mb-6 text-sm text-[var(--yieldlens-muted)] leading-7 max-w-3xl">
             YieldLens helps organise the assumptions behind the rent, rather than treating the headline rent in isolation. That makes it easier to compare the site with the trading plan, the opening cash stack, and the lease questions that could change the downside.
           </p>
+
+          <div className={`${surfaceCardClass} mb-6 p-5 sm:p-6`}>
+            <h2 className="text-xl sm:text-2xl font-bold text-stone-900">
+              How can I assess whether a new site will be profitable before signing a lease?
+            </h2>
+
+            <p className="mt-3 text-sm text-[var(--yieldlens-muted)] leading-7 max-w-3xl">
+              Start with realistic monthly revenue, then test whether it can cover the full occupancy
+              cost, staffing, stock or cost of sales, utilities and other operating costs. Add the
+              fit-out, deposit, legal fees, opening stock and other setup costs so you can see how
+              much cash remains when trading begins.
+            </p>
+
+            <p className="mt-3 text-sm text-[var(--yieldlens-muted)] leading-7 max-w-3xl">
+              Then pressure-test the site against weaker revenue, lower margin or higher costs. A
+              site that only works on the expected case may be too fragile to justify the lease,
+              even if the headline rent looks affordable.
+            </p>
+
+            <p className="mt-3 text-sm text-stone-700 leading-7 max-w-3xl">
+              Use the{' '}
+              <Link
+                href="/commercial-rent-affordability-calculator"
+                className="text-[var(--yieldlens-caution)] font-medium hover:underline"
+              >
+                commercial rent affordability calculator
+              </Link>
+              {' '}for the rent question, or run the{' '}
+              <Link
+                href="/check?mode=commercial"
+                className="text-[var(--yieldlens-caution)] font-medium hover:underline"
+              >
+                free commercial viability check
+              </Link>
+              {' '}to test the wider site economics.
+            </p>
+
+            <p className="mt-3 text-sm text-stone-700 leading-7 max-w-3xl">
+              For business-specific checks, see the{' '}
+              <Link
+                href="/restaurant-lease-viability-check"
+                className="text-[var(--yieldlens-caution)] font-medium hover:underline"
+              >
+                restaurant lease viability check
+              </Link>
+              {' '}or the guide to{' '}
+              <Link
+                href="/how-much-rent-can-a-coffee-shop-afford"
+                className="text-[var(--yieldlens-caution)] font-medium hover:underline"
+              >
+                how much rent a coffee shop can afford
+              </Link>
+              .
+            </p>
+          </div>
           <div className="overflow-hidden rounded-3xl border border-[var(--yieldlens-border)] bg-[var(--yieldlens-panel)]">
             <table className="min-w-full border-collapse text-sm">
               <thead>

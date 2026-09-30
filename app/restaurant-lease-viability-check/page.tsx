@@ -384,8 +384,16 @@ export default function RestaurantLeaseViabilityPage() {
               <p className="text-sm font-semibold text-stone-900 mb-3">Interpretation</p>
               <p className="text-sm text-stone-700 leading-7">
                 This rent burden is healthier on paper than a high-burden site,
-                but the rest of the cost base, fit-out, and downside trading
-                still need checking.
+                but rent burden alone does not establish whether the site works.
+                Use the{' '}
+                <Link
+                  href="/commercial-lease-viability-check"
+                  className="text-[var(--yieldlens-caution)] font-medium hover:text-[var(--yieldlens-primary)]"
+                >
+                  commercial lease viability check
+                </Link>
+                {' '}to test the wider operating costs, opening cash and downside
+                trading before committing.
               </p>
             </div>
           </div>
