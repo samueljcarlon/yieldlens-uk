@@ -20,16 +20,16 @@ import {
 } from '@/components/yieldLensUi';
 
 export const metadata: Metadata = {
-  title: 'Commercial Lease Viability Check | Can the Site Carry the Rent?',
+  title: 'Commercial Lease Viability Check | Before Signing a Lease',
   description:
-    'Pressure-test whether a commercial site can carry the rent before you sign. YieldLens checks rent burden, break-even customers, opening cash, downside trading, lease questions, and survival runway.',
+    'Assess whether a commercial site can support the rent and operating costs before signing a lease. Test revenue, occupancy cost, opening cash and downside.',
   alternates: {
     canonical: '/commercial-lease-viability-check',
   },
   openGraph: {
-    title: 'Commercial Lease Viability Check | Can the Site Carry the Rent?',
+    title: 'Commercial Lease Viability Check | Before Signing a Lease',
     description:
-      'Pressure-test whether a commercial site can carry the rent before you sign. YieldLens checks rent burden, break-even customers, opening cash, downside trading, lease questions, and survival runway.',
+      'Assess whether a commercial site can support the rent and operating costs before signing a lease. Test revenue, occupancy cost, opening cash and downside.',
     url: 'https://yieldlens.co.uk/commercial-lease-viability-check',
   },
 };
